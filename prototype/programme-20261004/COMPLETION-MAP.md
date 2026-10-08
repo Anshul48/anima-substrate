@@ -155,6 +155,10 @@ every SATISFIED: single-host, toy scale, TEST-only SST, process-crash
   Repo https://github.com/Anshul48/anima-substrate (commit
   9d07c11, tag v0.1.0, main 56d6693 CI green); release assets
   (wheel/sdist/SHA256SUMS) verified + fresh-clone repro OK.
+  Patch 0.1.1 (tag v0.1.1, commit 9a1c795; v0.1.0 preserved):
+  requires-python >=3.11 (datetime.UTC), CI matrix 3.11+3.12
+  green, ROADMAP M1–M4 recorded accepted/published; release
+  assets verified + clean install OK.
   Remaining obligations: STC execution integration (Ask 2B),
   policy learning/inheritance, cross-host/multi-writer/disk-loss,
   Q5 host, adaptation runs (designs only) — all explicit in
