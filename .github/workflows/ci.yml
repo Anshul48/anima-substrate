@@ -20,4 +20,5 @@ jobs:
       - run: python -m ruff format --check src tests examples
       - run: python -m pytest tests/ -q
       - run: python examples/quickstart.py
+      - run: python examples/external_participant.py
       - run: python -m build

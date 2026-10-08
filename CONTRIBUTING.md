@@ -1,58 +1,55 @@
-# Contributing to substrate
+# Contributing to anima-substrate
 
-Status: draft for the 0.1.0 release round. This file is owned by the
-publication-docs builder; contract and evidence rules below are
+The maintained package lives in `src/anima_substrate/` (see
+`pyproject.toml`); `prototype/` holds frozen research generations
+plus programme records. Contract and evidence rules below are
 summaries — the in-tree contracts and acceptance records govern.
 
 ## Dev setup
 
-- Target: Linux/WSL2, system `python3` 3.12.3, `$0`, offline.
-- The repo root carries a project virtualenv at `.venv/` (do not create
-  one in `/tmp`, do not install into the system interpreter):
+- Target: Linux/Ubuntu, Python 3.11–3.12, `$0`, offline base.
+- The repo root carries a project virtualenv at `.venv/`. If it is
+  absent, create it (Ubuntu ships `python3` without pip):
 
 ```sh
-python3 -m venv .venv          # only if .venv is absent
-.venv/bin/pip install pytest ruff   # test/lint only; runtime is stdlib-only
+python3 -m venv --without-pip .venv
+curl -sL -o /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py
+./.venv/bin/python /tmp/get-pip.py
+./.venv/bin/python -m pip install -e . pytest ruff build
 export PYTHONDONTWRITEBYTECODE=1
 ```
 
-- Runtime code is **stdlib-only**, except the SST legs, which need a
-  venv interpreter with pinned `pydantic` (prototype trees document
-  their own venv; e.g. `prototype/w1/.venv`, pydantic 2.13.5).
-  Never vendor third-party packages in-tree.
+- Do not create the project env in `/tmp`, and do not install into
+  the system interpreter.
+- Runtime code is **stdlib-only** (`dependencies = []`). The SST
+  participant stages a caller-provided SST checkout at the pinned
+  commit and shells to the caller's interpreter for `pydantic`
+  legs (see `docs/SST-STAGING.md`). Never vendor third-party
+  packages in-tree.
 
 ## Test commands
 
-There is no `pyproject.toml` / `pytest.ini` yet (coordinator placeholder);
-suites run as scripts or via unittest from the repo root:
-
 ```sh
-# Example: successor-006 owed-repairs + J1 journey (~2 min, stdlib-only)
-export PYTHONDONTWRITEBYTECODE=1
-python3 prototype/successor-006/j1_demo.py
-# expect: J1 journey: OK (10/10 PASS)
-for t in test_coupling test_quarantine_repair test_j1 test_conformance \
-         test_fission test_procedure_smoke; do
-  python3 prototype/successor-006/$t.py
-done
-# expect: 48/48 OK
+./.venv/bin/python -m pytest tests/ -q          # full suite (~16 min)
+./.venv/bin/python -m pytest tests/test_families.py -q   # fast subset
+./.venv/bin/python examples/quickstart.py       # consumer journey
 ```
 
-- `.venv/bin/pytest` and `.venv/bin/ruff` exist for the release round;
-  per-tree suites predate them and stay runnable as plain scripts.
+- SST-conditional tests skip with an explicit reason when no SST
+  root is staged; skips are reported separately, never silent.
 - Full reproduction index (all generations): `REPRODUCE-ALL.md`.
-- Step-by-step CLI journeys live next to the code
-  (e.g. `prototype/successor-006/RUNBOOK.md`); the two-minute review
-  route is `prototype/programme-20261004/S6-REVIEW-ROUTE.md`.
+- Consumer/reviewer entry point: `docs/REVIEW.md`.
 
 ## Lint
 
 ```sh
-.venv/bin/ruff check prototype/    # no ruff config file exists yet —
-.venv/bin/ruff format --check prototype/  # coordinator: add config before 0.1.0
+./.venv/bin/python -m ruff check src tests examples
+./.venv/bin/python -m ruff format --check src tests examples
 ```
 
-Keep the tree warning-clean under the configured gate once it exists.
+Same gate runs in CI (`.github/workflows/ci.yml`, Python 3.11 +
+3.12). Keep the tree warning-clean; no blanket suppressions, no
+dropped tests to manufacture green.
 
 ## Contract-change policy
 

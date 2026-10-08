@@ -25,7 +25,8 @@ From a checkout (developers):
 
 ```
 python3 -m venv --without-pip .venv
-./.venv/bin/python get-pip.py   # https://bootstrap.pypa.io/get-pip.py
+curl -sL -o /tmp/get-pip.py https://bootstrap.pypa.io/get-pip.py
+./.venv/bin/python /tmp/get-pip.py
 ./.venv/bin/python -m pip install -e .
 ./.venv/bin/python -m pip install pytest ruff build  # dev tooling
 ```
@@ -100,8 +101,8 @@ Details: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md),
 
 ```
 ./.venv/bin/python -m pytest tests/     # full suite
-./.venv/bin/python -m ruff check src tests
-./.venv/bin/python -m ruff format --check src tests
+./.venv/bin/python -m ruff check src tests examples
+./.venv/bin/python -m ruff format --check src tests examples
 ./.venv/bin/python -m build             # wheel + sdist in dist/
 ```
 
@@ -110,8 +111,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and
 
 ## License and citation
 
-Apache License 2.0 — see [LICENSE](LICENSE). Per-file
-`SPDX-License-Identifier: Apache-2.0` headers apply to maintained
-original code. Copyright owner attribution is pending confirmation
-(see [CITATION.cff](CITATION.cff) placeholders); if you are the
-rights holder, contact the maintainer before reuse questions arise.
+Apache License 2.0 — see [LICENSE](LICENSE). Copyright 2026
+Anshul48; per-file `SPDX-License-Identifier: Apache-2.0` headers
+apply to maintained original code. Citation metadata:
+[CITATION.cff](CITATION.cff).

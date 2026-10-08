@@ -17,7 +17,8 @@ interpreter with pinned `pydantic==2.13.5` (see
 Base (everything except the SST leg) — system Python only:
 
 ```
-pip install anima-substrate
+# PyPI publication pending; install the wheel from the GitHub release:
+pip install anima_substrate-0.1.1-py3-none-any.whl
 export PYTHONDONTWRITEBYTECODE=1
 anima-substrate ops kill-resume --state-dir /tmp/demo-state
 ```
