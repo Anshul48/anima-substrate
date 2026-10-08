@@ -1871,11 +1871,12 @@ class TestProcInterruption(Base):
         self.assertGreaterEqual(landings.get("L3", 0), 1)
 
     def test_repeated_kills_during_recover(self):
-        # KNOWN FLAKE (2026-10-08, CI run 37768629306, 3.11 leg): this is a
-        # timing racer — on a fast runner `recover` can finish in <50ms on
-        # all 12 rounds, yielding killed_live=0. Re-run went green on both
-        # versions. Follow-up: replace fixed sleeps with a deterministic
-        # child-side synchronization point. Do NOT weaken the >=1 assert.
+        # History: timing racer until 2026-10-08 (CI run 37768629306,
+        # 3.11 leg: killed_live=0 when `recover` finished in <50ms on
+        # all 12 rounds; re-run green). Fixed by child-side sync at
+        # proc:recover-pre-adopt — the kill now lands on a blocked
+        # child every round, deterministically. Do NOT weaken the
+        # >=1 assert and do NOT reintroduce fixed sleeps.
         if os.name != "posix":
             self.skipTest("POSIX group-kill leg")
         bdir = self.bundle("thing", [c_step("one")])
@@ -1897,13 +1898,41 @@ class TestProcInterruption(Base):
         killed_live = 0
         restored = 0
 
-        def one_round(key, delay):
-            child = spawn_cli("ops", "recover", "--state-dir", str(root))
-            time.sleep(delay)
-            killed = child.poll() is None
-            if killed:
-                kill_group(child)
-            child.communicate()
+        def wait_ready(path: Path, timeout: float = 30.0) -> bool:
+            deadline = time.monotonic() + timeout
+            while time.monotonic() < deadline:
+                try:
+                    if path.read_text(encoding="utf-8").strip() == "ready":
+                        return True
+                except OSError:
+                    pass
+                time.sleep(0.005)
+            return False
+
+        def one_round(key):
+            syncfile = self.root / f"sync-{key}"
+            syncfile.unlink(missing_ok=True)
+            child = spawn_cli(
+                "ops",
+                "recover",
+                "--state-dir",
+                str(root),
+                env=child_env(
+                    SUBSTRATE_SYNC_AT="proc:recover-pre-adopt",
+                    SUBSTRATE_SYNC_FILE=str(syncfile),
+                ),
+            )
+            try:
+                if not wait_ready(syncfile):
+                    kill_group(child)
+                    child.communicate()
+                    self.fail(f"recover child never reached sync point: {key}")
+                killed = child.poll() is None
+                if killed:
+                    kill_group(child)
+                child.communicate()
+            finally:
+                syncfile.unlink(missing_ok=True)
             api.recover_op(root)
             oks = proc_invokes(root, key, errors=False)
             self.assertEqual(len(oks), 1, key)
@@ -1935,9 +1964,7 @@ class TestProcInterruption(Base):
                 env=child_env(SUBSTRATE_CRASH_AT="proc:post-done-pre-invoke"),
             )
             self.assertEqual(proc.returncode, CRASH_RC, proc.stderr)
-            killed, note = self.guarded_round(
-                root, key, lambda: one_round(key, 0.05 + 0.05 * i)
-            )
+            killed, note = self.guarded_round(root, key, lambda: one_round(key))
             killed_live += 1 if killed else 0
             restored += 1 if note else 0
         print(

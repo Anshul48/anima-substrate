@@ -96,10 +96,10 @@ for p in sorted(Path('src/anima_substrate').rglob('*')):
 - aac32f8c5e85a0ca2f07ebcdb83ce9576f07acd89dea251eec7bc1b87e8d20b6 src/anima_substrate/demos/j1_demo.py
 - b3ba5b31aa3a8213c06b701ca05ac67c424bacfbc35c046f50d5a6463c147b23 src/anima_substrate/demos/successor_demo.py
 - af4b9ee4de4fe66cd547f8acfaa9be8a18e9c4622af714e6ba93314a9c141477 src/anima_substrate/host/__init__.py
-- 1e9139650ce9bf3625d0e079fa8c4074f66e7a48546a9e999c3329f90ef58e92 src/anima_substrate/host/api.py
+- ec12a2770fed6b630ee7daddb9b44afde12c1790608355d3708482619909cd70 src/anima_substrate/host/api.py
 - b87535fe5faff926f62811a008285ae5b0d2cea3a89c538d24bb8888b547a12a src/anima_substrate/host/calibrate.py
 - 2366275838353ae340816a9322a1778f395c30c74d3938c243334fd87203e2ff src/anima_substrate/host/fusion.py
-- 219419b8bf953dbb1e168d901120d51bc30aa2d27a648f4872c567989c113b95 src/anima_substrate/host/minihost.py
+- 7ff1f130562fbc8714b05b9ac52aae735deac9f0dbef1cb225ed48db461852ae src/anima_substrate/host/minihost.py
 - 5e065a6b846d0aba98f2404269be5bbf68a8afbe6ad3e2ad3a5cb3c9b3852720 src/anima_substrate/host/pipeline.py
 - 0bdcc94a0703274bb1b5d608aab5e47e0eb33755e98ba56e868ca756c0aff6b4 src/anima_substrate/host/procedure.py
 - f231beb4481918fa291b359bf7af79fcf3c3ca5e5af0e86724831aff13a697b4 src/anima_substrate/host/recipes.py

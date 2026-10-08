@@ -60,6 +60,8 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import sys
+import time
 
 CONTRACT_VERSION = "0"
 
@@ -93,6 +95,15 @@ WITHHELD_AUTHORITY = "recovery.withheld"
 #   SUBSTRATE_CRASH_AT=p1,p2 ... os._exit(42) when maybe_crash_at(point)
 #       fires for a listed point (api/recover phase boundaries that sit
 #       between ledger-complete and side-file writes).
+#   SUBSTRATE_SYNC_AT=p1,p2 + SUBSTRATE_SYNC_FILE=path ... when
+#       maybe_sync_at(point) fires for a listed point, write "ready"
+#       to the file and block until the file is REMOVED (test parent
+#       deletes it to release, or kills this process for a
+#       guaranteed live kill). Bounded by SUBSTRATE_SYNC_TIMEOUT_S
+#       (default 120); on timeout prints to stderr and proceeds, so
+#       a forgotten env can never hang production forever. Unset by
+#       default = zero behavior change. No other release path exists:
+#       the wait ignores file CONTENT changes; only removal releases.
 # R3 write-interior hooks (TEST-ONLY, same convention). A kill can
 # land INSIDE a write, not just between writes: a short/partial
 # write MAY leave a torn tail (close() does not make a multi-byte
@@ -135,6 +146,39 @@ def maybe_crash_at(point: str) -> None:
     armed = {p.strip() for p in wanted.split(",") if p.strip()}
     if point in armed:
         os._exit(CRASH_EXIT_CODE)
+
+
+def maybe_sync_at(point: str) -> None:
+    """Block at a named test-only sync point (no-op unless armed).
+
+    When SUBSTRATE_SYNC_AT lists `point` and SUBSTRATE_SYNC_FILE names
+    a path: write "ready" to the file, then block until the file is
+    removed (parent release/kill) or SUBSTRATE_SYNC_TIMEOUT_S elapses
+    (default 120; stderr note, then proceed). Lets a test kill a child
+    at an exact phase boundary instead of sleeping and hoping.
+    """
+    wanted = os.environ.get("SUBSTRATE_SYNC_AT", "")
+    sync_file = os.environ.get("SUBSTRATE_SYNC_FILE", "")
+    if not wanted.strip() or not sync_file.strip():
+        return
+    armed = {p.strip() for p in wanted.split(",") if p.strip()}
+    if point not in armed:
+        return
+    try:
+        timeout = float(os.environ.get("SUBSTRATE_SYNC_TIMEOUT_S", "120"))
+    except ValueError:
+        timeout = 120.0
+    target = Path(sync_file)
+    target.write_text("ready\n", encoding="utf-8")
+    deadline = time.monotonic() + max(timeout, 1.0)
+    while target.exists():
+        if time.monotonic() >= deadline:
+            print(
+                f"sync point {point}: release timeout; proceeding",
+                file=sys.stderr,
+            )
+            return
+        time.sleep(0.005)
 
 
 def crash_mid_append_target() -> int | None:

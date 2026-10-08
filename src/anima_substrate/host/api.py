@@ -52,7 +52,13 @@ from . import procedure as PROC
 from . import recipes as RECIPES
 from . import recover as RC
 from .fusion import fission_worlds, fuse_worlds, quarantine_world, reuse_composite
-from .minihost import ContractViolation, MiniHost, atomic_write_text, maybe_crash_at
+from .minihost import (
+    ContractViolation,
+    MiniHost,
+    atomic_write_text,
+    maybe_crash_at,
+    maybe_sync_at,
+)
 from .pipeline import (
     FUSED_CAPS,
     L_CAPS,
@@ -836,6 +842,7 @@ def recover_op(
     # half-executed sched plan — settling abandons it cleanly, and
     # re-invoke after settle refuses loudly by the not-active rule).
     # Recovery never spawns (adopt + report only).
+    maybe_sync_at("proc:recover-pre-adopt")  # test-only rendezvous
     proc_rec = PROC.proc_recover(host, root)
     idx = RC.ledger_index(host)
     partials_q = RC.detect_partial_quarantines(host, idx)
