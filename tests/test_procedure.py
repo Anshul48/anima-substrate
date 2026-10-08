@@ -1871,6 +1871,11 @@ class TestProcInterruption(Base):
         self.assertGreaterEqual(landings.get("L3", 0), 1)
 
     def test_repeated_kills_during_recover(self):
+        # KNOWN FLAKE (2026-10-08, CI run 37768629306, 3.11 leg): this is a
+        # timing racer — on a fast runner `recover` can finish in <50ms on
+        # all 12 rounds, yielding killed_live=0. Re-run went green on both
+        # versions. Follow-up: replace fixed sleeps with a deterministic
+        # child-side synchronization point. Do NOT weaken the >=1 assert.
         if os.name != "posix":
             self.skipTest("POSIX group-kill leg")
         bdir = self.bundle("thing", [c_step("one")])
