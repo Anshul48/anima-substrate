@@ -159,6 +159,12 @@ every SATISFIED: single-host, toy scale, TEST-only SST, process-crash
   requires-python >=3.11 (datetime.UTC), CI matrix 3.11+3.12
   green, ROADMAP M1–M4 recorded accepted/published; release
   assets verified + clean install OK.
+  Handoff (6323df7, CI green 3.11+3.12): CONTRIBUTING/README/
+  CONSUMER reconciled with shipped package; examples/
+  external_participant.py (zero-host-edit family template, CI-run);
+  docs/REVIEW.md consumer/reviewer entry; install + contributor
+  commands validated from clean envs. Workstream HALTED per user;
+  host/producer/research extensions need separate scope.
   Remaining obligations: STC execution integration (Ask 2B),
   policy learning/inheritance, cross-host/multi-writer/disk-loss,
   Q5 host, adaptation runs (designs only) — all explicit in
