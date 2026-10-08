@@ -147,6 +147,18 @@ every SATISFIED: single-host, toy scale, TEST-only SST, process-crash
   process-crash-only, no SST leg (loud refusal). BANKED 2026-10-07
   (IDENTITY.sha256, 35/35 OK, manifest 48462368…; routine, no
   freeze hold existed); frozen predecessors untouched.
+- REL-0.1.0 public release — COMPLETE 2026-10-08. Maintained
+  package `anima-substrate` 0.1.0 (M1–M4, src/ 31 py + 8 JSON):
+  207 passed, 11 skipped (SST-conditional), 147 subtests; ruff
+  clean; PKG-ACCEPTANCE.md ACCEPT-WITH-NOTES (notes closed).
+  Apache-2.0 (Copyright 2026 Anshul48; agent bytes assigned).
+  Repo https://github.com/Anshul48/anima-substrate (commit
+  9d07c11, tag v0.1.0, main 56d6693 CI green); release assets
+  (wheel/sdist/SHA256SUMS) verified + fresh-clone repro OK.
+  Remaining obligations: STC execution integration (Ask 2B),
+  policy learning/inheritance, cross-host/multi-writer/disk-loss,
+  Q5 host, adaptation runs (designs only) — all explicit in
+  docs/ROADMAP.md.
 - Q4/E3/E4 learning — ARC CLOSED negative (L1/L2/M1/M1-redux);
   no learning in s005. Bounded probe only on live uncertainty.
   Nuance: M1-redux itself PASSED as an instrument (MAE 0.00);

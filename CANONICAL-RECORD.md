@@ -215,6 +215,8 @@ complete/rollback repair (R11 owed item closed), J1 journey
 real-SIGKILL resume + fuse + unmodified composite reuse ×2 +
 settle-0). BANKED 2026-10-07 (35/35, manifest 48462368…;
 routine — banking is not an architectural decision); frozen
-predecessors untouched. Companion research: MECHANISM-REUSE-ASSESSMENT.md,
+predecessors untouched. PUBLISHED 2026-10-08 as anima-substrate 0.1.0
+(Anshul48/anima-substrate, tag v0.1.0, CI green, release assets
+verified, fresh-clone repro OK). Companion research: MECHANISM-REUSE-ASSESSMENT.md,
 ADAPT-EXPERIMENT-DESIGN.md (design only, no runs), STC-CONSUMER-
 BOUNDARY.md. Review route: S6-REVIEW-ROUTE.md.

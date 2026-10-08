@@ -1,30 +1,37 @@
 # Changelog
 
 All notable changes to the substrate publication package.
-Format follows Keep-a-Changelog headings; versions are not yet tagged.
+Format follows Keep-a-Changelog headings.
 
-## [0.1.0] — Unreleased
+## [0.1.0] — 2026-10-08
 
-Package skeleton for first publication. No runtime API is frozen;
-`README.md`, `docs/api/`, and `ARCHITECTURE.md` land after the build.
+First public release: `anima-substrate` maintained package (M1–M4)
+plus curated research archive. Tag `v0.1.0`, commit `9d07c11`;
+repo `https://github.com/Anshul48/anima-substrate`;
+release `https://github.com/Anshul48/anima-substrate/releases/tag/v0.1.0`.
 
-### Added (this round)
+### Added
 
-- `CONTRIBUTING.md` — dev setup, test/lint, contract-change policy,
-  evidence standards.
-- `CITATION.cff` — verified metadata only; owner/year are
-  `PLACEHOLDER-OWNER` until the coordinator resolves them.
-- `docs/ROADMAP.md` — indexed gap map (18 vectors, A→C→B→D,
-  R1–R12/Q1–Q5 status, owners, next actions).
-- `docs/TECHNICAL-REPORT.md` — citable artifact guide skeleton.
-- `docs/RESEARCH-ARCHIVE.md` — publication curation + scrub plan.
+- `src/anima_substrate/` — persistent worlds, nested delegation,
+  pinned families (`sched`, `relcheck` v1/v2, caller-staged `sst`),
+  crash-atomic host, quarantine repair, portable composites,
+  propose → assess → retain → reuse loop; CLI + programmatic API.
+- `tests/` — 207 passed, 11 skipped (SST-conditional, explicit),
+  147 subtests; ported procedure 57/57, atomicity 39/39.
+- `examples/quickstart.py`, `docs/` (ARCHITECTURE, CONTRACTS,
+  RECOVERY, ROADMAP, TECHNICAL-REPORT, RESEARCH-ARCHIVE, SST-STAGING).
+- `LICENSE` (Apache-2.0, Copyright 2026 Anshul48), `CONTRIBUTING.md`,
+  `CITATION.cff`, Linux CI (ruff + pytest + quickstart + build).
 
-### Open before release (coordinator-owned)
+### Resolved before release
 
-- `LICENSE` / `NOTICE`: M1 copyright owner + year(s), M2 assignment
-  of agent-authored bytes, T2 SST-snapshot option (exclude vs ship-once)
-  — see `prototype/programme-20261004/LICENSE-AUDIT.md`.
-- Version tag, repository URL, ruff/pytest config.
+- LICENSE-AUDIT M1/M2: owner Anshul48 <anshulraj48@gmail.com>;
+  agent-authored bytes assigned to owner. T2: SST bytes EXCLUDED
+  (caller-staged at pinned `df78f42`, no vendored bytes, no NOTICE
+  needed).
+- PKG-ACCEPTANCE.md ACCEPT-WITH-NOTES: all notes closed (dist
+  rebuilt byte-coherent; install + quickstart re-verified).
+- CI green on `main` (`56d6693`; CI-only delta after the tag).
 
 ## History pointers (prototype programme, banked — not repackaged here)
 
