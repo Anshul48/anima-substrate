@@ -8,15 +8,15 @@ unmodified elsewhere on the same host.
 
 Who can use it: researchers and engineers experimenting with accountable
 local computation — worlds with explicit custody, resources, lifecycle,
-and evidence. This is an **alpha research artifact** (0.1.0), not a
+and evidence. This is an **alpha research artifact** (0.1.1), not a
 production runtime.
 
 ## Install
 
-Linux/Ubuntu + Python 3.10–3.12 (verified on 3.12):
+Linux/Ubuntu + Python 3.11–3.12 (verified: 3.12 locally; 3.11 + 3.12 in CI):
 
 ```
-pip install dist/anima_substrate-0.1.0-py3-none-any.whl   # local artifact
+pip install dist/anima_substrate-0.1.1-py3-none-any.whl   # local artifact
 ```
 
 (PyPI publication pending; install from the release asset for now.)

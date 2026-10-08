@@ -82,7 +82,7 @@ for p in sorted(Path('src/anima_substrate').rglob('*')):
 "
 ```
 
-- 495bcf720f433780cf1c1ad3e4e34b64a87d1f5cc3786ba2c203e2964b137914 src/anima_substrate/__init__.py
+- 34fa62d334f41c307728c052aac18208bfb8fb828c37dcad4c77817ed8a152ad src/anima_substrate/__init__.py
 - fcb7eb68d0d2ef1e5383297b6bd11d46b80dc1ea9a7cb23657a39562934ee544 src/anima_substrate/__main__.py
 - 53a4bf67653760783370c8d95822cd20d4e2a752496e3b811c825f2dee1d6093 src/anima_substrate/accept/EXPECTED.json
 - bdf1e38407fc501527e11e907fc3a95a2b5af81a7c66b2904524b4676829a883 src/anima_substrate/accept/S1.json

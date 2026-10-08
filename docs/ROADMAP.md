@@ -75,11 +75,14 @@ D last but enabling HW work may start earlier. Not a rigid stage gate.
 | V16/V18/V17 | Evolution machinery; HW co-design; attention policy | Long-term / roadmap / proposal; each needs own mandate + discriminating protocol |
 | Cross-cutting | Cross-host, multi-writer, disk-loss, all learning forms, D-008 training + primitive mutation, multi-party collective, second environment (O-04), V10/E3-E4 loop, personal-model, memory-tiers, A2 equations | Deferred ambitions with owning statements; B1/B2 review PAUSED by user — do not begin |
 
-## Mandate proposals (decision-gated, not started)
+## Mandate proposals (M1–M4 ACCEPTED and published in 0.1.0)
 
 - `SUBSTRATE-SOFTWARE-MANDATE-PROPOSAL.md`: M1 usable journey → M2
   pinned participants → M3 persistent organization → M4 experience
-  loop (no invention/discovery claims). Needs user approve/amend/reject.
+  loop (no invention/discovery claims). APPROVED by user addendum,
+  IMPLEMENTED in `anima-substrate`, independently accepted
+  (`PKG-ACCEPTANCE.md` ACCEPT-WITH-NOTES, notes closed), published
+  as 0.1.0 (`v0.1.0`). Below-the-line proposals stay decision-gated.
 - `ADAPT-EXPERIMENT-DESIGN.md` rev-2: discriminating adaptation
   protocol — tie-valid with per-arm sensitivity, VOID only on
   sensitivity failure, no-discovery scope bar (§8). Design only.

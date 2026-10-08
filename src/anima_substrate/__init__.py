@@ -23,7 +23,7 @@ from anima_substrate.participants.relcheck import v2 as _relcheck_v2  # noqa: F4
 from anima_substrate.participants.sched import family as _sched_family  # noqa: F401
 from anima_substrate.participants.sst import SstFamily as _SstFamily  # noqa: F401
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "ContractViolation",

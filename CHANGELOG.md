@@ -3,6 +3,19 @@
 All notable changes to the substrate publication package.
 Format follows Keep-a-Changelog headings.
 
+## [0.1.1] — 2026-10-08
+
+Patch release (`v0.1.1`; `v0.1.0` preserved unchanged).
+
+### Fixed
+
+- Python compatibility: `requires-python` corrected to `>=3.11`
+  (core modules import `datetime.UTC`, 3.11+; 3.10 installs would
+  fail at import). README, classifiers, ruff target, and CI matrix
+  (3.11 + 3.12) aligned; both versions verified in CI.
+- `docs/ROADMAP.md`: M1–M4 now recorded as approved, implemented,
+  independently accepted, and published in 0.1.0.
+
 ## [0.1.0] — 2026-10-08
 
 First public release: `anima-substrate` maintained package (M1–M4)
