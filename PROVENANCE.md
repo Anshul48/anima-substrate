@@ -99,7 +99,7 @@ for p in sorted(Path('src/anima_substrate').rglob('*')):
 - ec12a2770fed6b630ee7daddb9b44afde12c1790608355d3708482619909cd70 src/anima_substrate/host/api.py
 - b87535fe5faff926f62811a008285ae5b0d2cea3a89c538d24bb8888b547a12a src/anima_substrate/host/calibrate.py
 - 2366275838353ae340816a9322a1778f395c30c74d3938c243334fd87203e2ff src/anima_substrate/host/fusion.py
-- 7ff1f130562fbc8714b05b9ac52aae735deac9f0dbef1cb225ed48db461852ae src/anima_substrate/host/minihost.py
+- f2b97464af9d03f19773696bbb816369a1ef6e52af569c9bdff679eb2105ed35 src/anima_substrate/host/minihost.py
 - 5e065a6b846d0aba98f2404269be5bbf68a8afbe6ad3e2ad3a5cb3c9b3852720 src/anima_substrate/host/pipeline.py
 - 0bdcc94a0703274bb1b5d608aab5e47e0eb33755e98ba56e868ca756c0aff6b4 src/anima_substrate/host/procedure.py
 - f231beb4481918fa291b359bf7af79fcf3c3ca5e5af0e86724831aff13a697b4 src/anima_substrate/host/recipes.py

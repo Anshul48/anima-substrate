@@ -169,7 +169,7 @@ def maybe_sync_at(point: str) -> None:
     except ValueError:
         timeout = 120.0
     target = Path(sync_file)
-    target.write_text("ready\n", encoding="utf-8")
+    atomic_write_text(target, "ready\n")
     deadline = time.monotonic() + max(timeout, 1.0)
     while target.exists():
         if time.monotonic() >= deadline:
