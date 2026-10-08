@@ -1,0 +1,752 @@
+[
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-01-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 683,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-01",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.61
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-01-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 359,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-01",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.53
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-02-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 661,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-02",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.55
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-02-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 337,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-02",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.52
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-03-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.72
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-03-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.72
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-04-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 683,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-04",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.61
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-04-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 359,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-04",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.64
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-05-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 776,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-05",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.75
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-05-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 452,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-05",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.72
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-06-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-06",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.75
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-06-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "M1R-TE-06",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.77
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-07-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 741,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-07",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.63
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-07-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 395,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-07",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.61
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-08-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 719,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-08",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.64
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-08-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 373,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-08",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 3.88
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-09-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 910,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-09",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.83
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-09-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 564,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-09",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.76
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-10-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 741,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-10",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.65
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-10-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 395,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-10",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.63
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-11-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 834,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-11",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.63
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-11-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 488,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-11",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.58
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-12-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 910,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-12",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.67
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-12-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 564,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "task_id": "M1R-TE-12",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.72
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-13-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 811,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-13",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.55
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-13-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 443,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-13",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.58
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-14-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 777,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-14",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.51
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-14-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 409,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-14",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.71
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-15-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 980,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-15",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.76
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-15-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 612,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-15",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.73
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-16-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 811,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-16",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.69
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "te-M1R-TE-16-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 443,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-16",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.7
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-17-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 904,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-17",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.85
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "te-M1R-TE-17-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 536,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-17",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.87
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-18-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 980,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-18",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 4.24
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "te-M1R-TE-18-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 612,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "task_id": "M1R-TE-18",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.95
+  },
+  {
+    "invokes": 12,
+    "ledger_entries": 38,
+    "name": "guard-test-S1S2",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 655,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "S1",
+        "valid_artifact": true,
+        "valid_cli": true
+      },
+      {
+        "central_bytes": 310,
+        "direct_bytes": 500,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "task_id": "S2",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.52
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "adapter": "list2slot/v1",
+  "holdings": {
+    "SC-L": {
+      "prefs": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "req_tasks": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    "SC-S": {
+      "prefs": [],
+      "req_tasks": [
+        "D",
+        "E"
+      ]
+    }
+  },
+  "precedence": [
+    [
+      "E",
+      "D"
+    ],
+    [
+      "C",
+      "A"
+    ]
+  ],
+  "prefs": {
+    "A": "M1",
+    "B": "M0",
+    "C": "M0",
+    "D": "M0",
+    "E": "M1"
+  },
+  "slots": {
+    "S0": {
+      "machine": "M1",
+      "time": "t0"
+    },
+    "S1": {
+      "machine": "M0",
+      "time": "t0"
+    },
+    "S2": {
+      "machine": "M1",
+      "time": "t1"
+    },
+    "S3": {
+      "machine": "M0",
+      "time": "t1"
+    },
+    "S4": {
+      "machine": "M0",
+      "time": "t2"
+    }
+  },
+  "task_id": "M1R-TE-11",
+  "tasks": {
+    "A": {
+      "window": [
+        "S2",
+        "S3"
+      ]
+    },
+    "B": {
+      "window": [
+        "S4"
+      ]
+    },
+    "C": {
+      "window": [
+        "S0",
+        "S1"
+      ]
+    },
+    "D": {
+      "window": [
+        "S1",
+        "S3"
+      ]
+    },
+    "E": {
+      "window": [
+        "S0",
+        "S2"
+      ]
+    }
+  }
+}

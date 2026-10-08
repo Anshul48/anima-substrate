@@ -1,0 +1,6 @@
+=== A1 ledger kinds ===
+{'host_init': 1, 'create': 5, 'grant': 5, 'lifecycle': 10, 'host_reopen': 19, 'routing': 2, 'consume': 17, 'invoke': 17, 'commitment': 4, 'transfer': 6, 'grant_return': 5, 'grant_settle': 5, 'fusion': 1, 'fission': 1}
+=== A5 ledger kinds ===
+{'host_init': 1, 'create': 2, 'grant': 2, 'lifecycle': 2, 'host_reopen': 6, 'revision': 1, 'revoke': 1, 'routing': 3, 'consume': 3, 'invoke': 3, 'deny': 3}
+=== A6 ledger kinds ===
+{'host_init': 1, 'create': 2, 'grant': 2, 'lifecycle': 2, 'host_reopen': 3, 'consume': 9, 'invoke': 9, 'revision': 1, 'revoke': 1, 'deny': 1, 'escalation': 1, 'resolution': 1, 'void': 1, 'commitment': 2}

@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1028,
+      "relpath": "IDENTITY-RESULT.json",
+      "sha256": "8820faf0dfffecaf90be3d92d57d70100c7ba7bb229222d96f6abc0083a076d9"
+    }
+  ],
+  "elapsed_s": 13.302,
+  "rc": 0
+}

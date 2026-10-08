@@ -1,0 +1,337 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1028,
+      "relpath": "IDENTITY-RESULT.json",
+      "sha256": "8820faf0dfffecaf90be3d92d57d70100c7ba7bb229222d96f6abc0083a076d9",
+      "step": "identity"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "SUITE-R1.json",
+      "sha256": "c4d2832a1e4fd42832a9a54e927ac2dc9438091442790f04d29d85e9792344a7",
+      "step": "suite-r1"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R1-conformance.log",
+      "sha256": "ba056272fdef7426019acf1f89e50fde8a58c58e8b25c40edf322d859441c072",
+      "step": "suite-r1"
+    },
+    {
+      "bytes": 1090,
+      "relpath": "SUITE-R1-demo.log",
+      "sha256": "7b19aed6a99d7e0e51837c19875300de8bff6ba3403aa0707f34b06d2099dfa0",
+      "step": "suite-r1"
+    },
+    {
+      "bytes": 823,
+      "relpath": "SUITE-R2.json",
+      "sha256": "182b080766f25eea46aee1e775dd7881daa08964ebfcf36c46cb91350ef64c66",
+      "step": "suite-r2"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R2-conformance.log",
+      "sha256": "ba056272fdef7426019acf1f89e50fde8a58c58e8b25c40edf322d859441c072",
+      "step": "suite-r2"
+    },
+    {
+      "bytes": 5104,
+      "relpath": "SUITE-R2-atomicity.log",
+      "sha256": "ae2cf576820fc02dfeba19c3acccfc5acbeb2d25cc4cca4156d883be9201c2df",
+      "step": "suite-r2"
+    },
+    {
+      "bytes": 822,
+      "relpath": "SUITE-R3.json",
+      "sha256": "8140bc9cc7ed89e1f1e76a9bfd7f92373d8a74cafa66244959ad3ea81214f794",
+      "step": "suite-r3"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R3-conformance.log",
+      "sha256": "ab3bdf68d6f2fa18eae5695b43468f2b09a5147a304b0b9c533c1adc30d3c3e2",
+      "step": "suite-r3"
+    },
+    {
+      "bytes": 6891,
+      "relpath": "SUITE-R3-atomicity.log",
+      "sha256": "d5665d8d6f45f384712e3e44f7b07475f8ab1adc068ef4ee20493ae5a35ba321",
+      "step": "suite-r3"
+    },
+    {
+      "bytes": 5065,
+      "relpath": "COMPAT-REPORT.json",
+      "sha256": "099f4e3388a6b8dc7ed1df1bf4e9411c921dd7696932d9be983d2fbb6bf31167",
+      "step": "compat"
+    }
+  ],
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "compat": {
+    "identities": {
+      "r1": {
+        "files": 76,
+        "match": true
+      },
+      "r2": {
+        "files": 27,
+        "match": true
+      },
+      "r3": {
+        "files": 24,
+        "match": true
+      },
+      "s002": {
+        "files": 96,
+        "match": true
+      },
+      "s003": {
+        "files": 100,
+        "match": true
+      },
+      "s004": {
+        "files": 100,
+        "match": true
+      }
+    },
+    "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+    "suites": {
+      "r1": {
+        "ok": true,
+        "results": [
+          {
+            "file": "test_conformance.py",
+            "ok": true,
+            "ran": 9,
+            "rc": 0,
+            "skipped": 0
+          },
+          {
+            "file": "successor_demo.py",
+            "ok": true,
+            "ran": null,
+            "rc": 0,
+            "skipped": null
+          }
+        ]
+      },
+      "r2": {
+        "ok": true,
+        "results": [
+          {
+            "file": "test_conformance.py",
+            "ok": true,
+            "ran": 9,
+            "rc": 0,
+            "skipped": 0
+          },
+          {
+            "file": "test_atomicity.py",
+            "ok": true,
+            "ran": 27,
+            "rc": 0,
+            "skipped": 0
+          }
+        ]
+      },
+      "r3": {
+        "ok": true,
+        "results": [
+          {
+            "file": "test_conformance.py",
+            "ok": true,
+            "ran": 9,
+            "rc": 0,
+            "skipped": 0
+          },
+          {
+            "file": "test_atomicity.py",
+            "ok": true,
+            "ran": 39,
+            "rc": 0,
+            "skipped": 0
+          }
+        ]
+      }
+    },
+    "surface": {
+      "r1": {
+        "api_functions": [
+          "_read_specs",
+          "_record_for",
+          "_remember_creation",
+          "_spec",
+          "_write_specs",
+          "explain_route_op",
+          "fission_op",
+          "fuse_op",
+          "init_run",
+          "inspect_state_op",
+          "kill_resume_op",
+          "open_run",
+          "quarantine_op",
+          "reuse_op",
+          "revise_op",
+          "revoke_op",
+          "run_tasks",
+          "settle_op",
+          "split_pair_op"
+        ],
+        "api_present": true,
+        "cli_verbs": [
+          "explain-route",
+          "fission",
+          "fuse",
+          "init",
+          "inspect",
+          "kill-resume",
+          "ops",
+          "quarantine",
+          "reuse",
+          "revise",
+          "revoke",
+          "run",
+          "settle",
+          "split-pair"
+        ],
+        "funcs_ok": true,
+        "ledger_kinds": [
+          "checkpoint",
+          "commitment",
+          "consume",
+          "create",
+          "deny",
+          "escalation",
+          "fission",
+          "fusion",
+          "grant",
+          "grant_return",
+          "grant_settle",
+          "host_init",
+          "host_reopen",
+          "invoke",
+          "lifecycle",
+          "quarantine",
+          "reattach",
+          "resolution",
+          "revision",
+          "revoke",
+          "routing",
+          "transfer",
+          "void"
+        ],
+        "minimum_ok": true,
+        "release_present": true,
+        "tree": "s002",
+        "verbs_ok": true
+      },
+      "r2": {
+        "api_functions": [
+          "_read_specs",
+          "_record_for",
+          "_recovery_note",
+          "_remember_creation",
+          "_spec",
+          "_write_specs",
+          "explain_route_op",
+          "fission_op",
+          "fuse_op",
+          "init_run",
+          "inspect_state_op",
+          "kill_resume_op",
+          "open_run",
+          "quarantine_op",
+          "recover_op",
+          "reuse_op",
+          "revise_op",
+          "revoke_op",
+          "run_tasks",
+          "settle_op",
+          "split_pair_op"
+        ],
+        "api_present": true,
+        "cli_verbs": [
+          "explain-route",
+          "fission",
+          "fuse",
+          "init",
+          "inspect",
+          "kill-resume",
+          "ops",
+          "quarantine",
+          "recover",
+          "reuse",
+          "revise",
+          "revoke",
+          "run",
+          "settle",
+          "split-pair"
+        ],
+        "funcs_ok": true,
+        "ledger_kinds": [],
+        "minimum_ok": true,
+        "release_present": true,
+        "tree": "s003",
+        "verbs_ok": true
+      },
+      "r3": {
+        "api_functions": [
+          "_read_specs",
+          "_record_for",
+          "_recovery_note",
+          "_remember_creation",
+          "_spec",
+          "_write_specs",
+          "explain_route_op",
+          "fission_op",
+          "fuse_op",
+          "init_run",
+          "inspect_state_op",
+          "kill_resume_op",
+          "open_run",
+          "quarantine_op",
+          "recover_op",
+          "reuse_op",
+          "revise_op",
+          "revoke_op",
+          "run_tasks",
+          "settle_op",
+          "split_pair_op"
+        ],
+        "api_present": true,
+        "cli_verbs": [
+          "explain-route",
+          "fission",
+          "fuse",
+          "init",
+          "inspect",
+          "kill-resume",
+          "ops",
+          "quarantine",
+          "recover",
+          "reuse",
+          "revise",
+          "revoke",
+          "run",
+          "settle",
+          "split-pair"
+        ],
+        "funcs_ok": true,
+        "ledger_kinds": [],
+        "minimum_ok": true,
+        "release_present": true,
+        "tree": "s004",
+        "verbs_ok": true
+      }
+    },
+    "verdict": "ACCEPT"
+  },
+  "mode": "direct",
+  "nonce": "direct-readiness-20261006T113224Z",
+  "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+  "run_id": "direct-host-20261006T113224Z",
+  "vehicle": "relcheck",
+  "vehicle_version": 1,
+  "verdict": "ACCEPT"
+}

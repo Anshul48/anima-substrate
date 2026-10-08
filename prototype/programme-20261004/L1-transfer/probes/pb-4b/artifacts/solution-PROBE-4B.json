@@ -1,0 +1,13 @@
+{
+  "assignment": {
+    "A": "S1",
+    "B": "S2",
+    "C": "S0",
+    "D": "S3"
+  },
+  "prefs_total": 4,
+  "quality": 4,
+  "task_id": "PROBE-4B",
+  "valid": true,
+  "via": "SC-FUSED"
+}

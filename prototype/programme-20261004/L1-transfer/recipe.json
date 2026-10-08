@@ -1,0 +1,26 @@
+{
+  "default": "reuse",
+  "fit_votes": {
+    "extension-5": [
+      1,
+      1
+    ],
+    "extension-6": [
+      1,
+      1
+    ],
+    "fresh-4": [
+      1,
+      1
+    ]
+  },
+  "group_costs": {
+    "reuse": 360,
+    "split": 486
+  },
+  "groups": {
+    "extension-5": "reuse",
+    "extension-6": "reuse",
+    "fresh-4": "reuse"
+  }
+}

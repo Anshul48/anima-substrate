@@ -1,0 +1,259 @@
+{
+  "identities": {
+    "r1": {
+      "files": 76,
+      "match": true
+    },
+    "r2": {
+      "files": 27,
+      "match": true
+    },
+    "r3": {
+      "files": 24,
+      "match": true
+    },
+    "s002": {
+      "files": 96,
+      "match": true
+    },
+    "s003": {
+      "files": 100,
+      "match": true
+    },
+    "s004": {
+      "files": 100,
+      "match": true
+    }
+  },
+  "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+  "suites": {
+    "r1": {
+      "ok": true,
+      "results": [
+        {
+          "file": "test_conformance.py",
+          "ok": true,
+          "ran": 9,
+          "rc": 0,
+          "skipped": 0
+        },
+        {
+          "file": "successor_demo.py",
+          "ok": true,
+          "ran": null,
+          "rc": 0,
+          "skipped": null
+        }
+      ]
+    },
+    "r2": {
+      "ok": true,
+      "results": [
+        {
+          "file": "test_conformance.py",
+          "ok": true,
+          "ran": 9,
+          "rc": 0,
+          "skipped": 0
+        },
+        {
+          "file": "test_atomicity.py",
+          "ok": true,
+          "ran": 27,
+          "rc": 0,
+          "skipped": 0
+        }
+      ]
+    },
+    "r3": {
+      "ok": true,
+      "results": [
+        {
+          "file": "test_conformance.py",
+          "ok": true,
+          "ran": 9,
+          "rc": 0,
+          "skipped": 0
+        },
+        {
+          "file": "test_atomicity.py",
+          "ok": true,
+          "ran": 39,
+          "rc": 0,
+          "skipped": 0
+        }
+      ]
+    }
+  },
+  "surface": {
+    "r1": {
+      "api_functions": [
+        "_read_specs",
+        "_record_for",
+        "_remember_creation",
+        "_spec",
+        "_write_specs",
+        "explain_route_op",
+        "fission_op",
+        "fuse_op",
+        "init_run",
+        "inspect_state_op",
+        "kill_resume_op",
+        "open_run",
+        "quarantine_op",
+        "reuse_op",
+        "revise_op",
+        "revoke_op",
+        "run_tasks",
+        "settle_op",
+        "split_pair_op"
+      ],
+      "api_present": true,
+      "cli_verbs": [
+        "explain-route",
+        "fission",
+        "fuse",
+        "init",
+        "inspect",
+        "kill-resume",
+        "ops",
+        "quarantine",
+        "reuse",
+        "revise",
+        "revoke",
+        "run",
+        "settle",
+        "split-pair"
+      ],
+      "funcs_ok": true,
+      "ledger_kinds": [
+        "checkpoint",
+        "commitment",
+        "consume",
+        "create",
+        "deny",
+        "escalation",
+        "fission",
+        "fusion",
+        "grant",
+        "grant_return",
+        "grant_settle",
+        "host_init",
+        "host_reopen",
+        "invoke",
+        "lifecycle",
+        "quarantine",
+        "reattach",
+        "resolution",
+        "revision",
+        "revoke",
+        "routing",
+        "transfer",
+        "void"
+      ],
+      "minimum_ok": true,
+      "release_present": true,
+      "tree": "s002",
+      "verbs_ok": true
+    },
+    "r2": {
+      "api_functions": [
+        "_read_specs",
+        "_record_for",
+        "_recovery_note",
+        "_remember_creation",
+        "_spec",
+        "_write_specs",
+        "explain_route_op",
+        "fission_op",
+        "fuse_op",
+        "init_run",
+        "inspect_state_op",
+        "kill_resume_op",
+        "open_run",
+        "quarantine_op",
+        "recover_op",
+        "reuse_op",
+        "revise_op",
+        "revoke_op",
+        "run_tasks",
+        "settle_op",
+        "split_pair_op"
+      ],
+      "api_present": true,
+      "cli_verbs": [
+        "explain-route",
+        "fission",
+        "fuse",
+        "init",
+        "inspect",
+        "kill-resume",
+        "ops",
+        "quarantine",
+        "recover",
+        "reuse",
+        "revise",
+        "revoke",
+        "run",
+        "settle",
+        "split-pair"
+      ],
+      "funcs_ok": true,
+      "ledger_kinds": [],
+      "minimum_ok": true,
+      "release_present": true,
+      "tree": "s003",
+      "verbs_ok": true
+    },
+    "r3": {
+      "api_functions": [
+        "_read_specs",
+        "_record_for",
+        "_recovery_note",
+        "_remember_creation",
+        "_spec",
+        "_write_specs",
+        "explain_route_op",
+        "fission_op",
+        "fuse_op",
+        "init_run",
+        "inspect_state_op",
+        "kill_resume_op",
+        "open_run",
+        "quarantine_op",
+        "recover_op",
+        "reuse_op",
+        "revise_op",
+        "revoke_op",
+        "run_tasks",
+        "settle_op",
+        "split_pair_op"
+      ],
+      "api_present": true,
+      "cli_verbs": [
+        "explain-route",
+        "fission",
+        "fuse",
+        "init",
+        "inspect",
+        "kill-resume",
+        "ops",
+        "quarantine",
+        "recover",
+        "reuse",
+        "revise",
+        "revoke",
+        "run",
+        "settle",
+        "split-pair"
+      ],
+      "funcs_ok": true,
+      "ledger_kinds": [],
+      "minimum_ok": true,
+      "release_present": true,
+      "tree": "s004",
+      "verbs_ok": true
+    }
+  },
+  "verdict": "ACCEPT"
+}

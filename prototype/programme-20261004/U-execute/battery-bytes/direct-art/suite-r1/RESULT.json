@@ -1,0 +1,21 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1175,
+      "relpath": "SUITE-R1.json",
+      "sha256": "c4d2832a1e4fd42832a9a54e927ac2dc9438091442790f04d29d85e9792344a7"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R1-conformance.log",
+      "sha256": "ba056272fdef7426019acf1f89e50fde8a58c58e8b25c40edf322d859441c072"
+    },
+    {
+      "bytes": 1090,
+      "relpath": "SUITE-R1-demo.log",
+      "sha256": "7b19aed6a99d7e0e51837c19875300de8bff6ba3403aa0707f34b06d2099dfa0"
+    }
+  ],
+  "elapsed_s": 6.369,
+  "rc": 0
+}

@@ -1,0 +1,187 @@
+[
+  {
+    "caps": [
+      [
+        "list.provide",
+        "1.0"
+      ],
+      [
+        "sched.formulate",
+        "1.0"
+      ],
+      [
+        "sched.clarify",
+        "1.0"
+      ],
+      [
+        "sched.propose",
+        "1.0"
+      ],
+      [
+        "sched.verify",
+        "1.0"
+      ]
+    ],
+    "custodians": {
+      "sched.composite": "SC-L",
+      "sched.requirements": "SC-L"
+    },
+    "reps": [
+      [
+        "sched-list",
+        "v1"
+      ],
+      [
+        "sched-list",
+        "v2"
+      ]
+    ],
+    "world_id": "SC-L"
+  },
+  {
+    "caps": [
+      [
+        "slot.provide",
+        "1.0"
+      ],
+      [
+        "sched.clarify",
+        "1.0"
+      ],
+      [
+        "sched.propose",
+        "1.0"
+      ],
+      [
+        "sched.verify",
+        "1.0"
+      ]
+    ],
+    "custodians": {
+      "sched.slots": "SC-S"
+    },
+    "reps": [
+      [
+        "sched-slot",
+        "v1"
+      ],
+      [
+        "sched-slot",
+        "v2"
+      ]
+    ],
+    "world_id": "SC-S"
+  },
+  {
+    "caps": [
+      [
+        "list.provide",
+        "1.0"
+      ],
+      [
+        "slot.provide",
+        "1.0"
+      ],
+      [
+        "sched.formulate",
+        "1.0"
+      ],
+      [
+        "sched.clarify",
+        "1.0"
+      ],
+      [
+        "sched.propose",
+        "1.0"
+      ],
+      [
+        "sched.verify",
+        "1.0"
+      ],
+      [
+        "sched.reuse",
+        "1.0"
+      ]
+    ],
+    "custodians": {},
+    "reps": [
+      [
+        "sched-list",
+        "v2"
+      ],
+      [
+        "sched-slot",
+        "v2"
+      ]
+    ],
+    "world_id": "SC-FUSED"
+  },
+  {
+    "caps": [
+      [
+        "list.provide",
+        "1.0"
+      ],
+      [
+        "sched.formulate",
+        "1.0"
+      ],
+      [
+        "sched.clarify",
+        "1.0"
+      ],
+      [
+        "sched.propose",
+        "1.0"
+      ],
+      [
+        "sched.verify",
+        "1.0"
+      ]
+    ],
+    "custodians": {},
+    "reps": [
+      [
+        "sched-list",
+        "v1"
+      ],
+      [
+        "sched-list",
+        "v2"
+      ]
+    ],
+    "world_id": "SC-L2"
+  },
+  {
+    "caps": [
+      [
+        "slot.provide",
+        "1.0"
+      ],
+      [
+        "sched.clarify",
+        "1.0"
+      ],
+      [
+        "sched.propose",
+        "1.0"
+      ],
+      [
+        "sched.verify",
+        "1.0"
+      ]
+    ],
+    "custodians": {},
+    "reps": [
+      [
+        "sched-slot",
+        "v1"
+      ],
+      [
+        "sched-slot",
+        "v2"
+      ]
+    ],
+    "world_id": "SC-S2"
+  }
+]

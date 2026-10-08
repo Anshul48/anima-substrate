@@ -1,0 +1,56 @@
+{
+  "ledger_kinds": [
+    "checkpoint",
+    "commitment",
+    "consume",
+    "create",
+    "deny",
+    "escalation",
+    "fission",
+    "fusion",
+    "grant",
+    "grant_return",
+    "grant_settle",
+    "host_init",
+    "host_reopen",
+    "invoke",
+    "lifecycle",
+    "quarantine",
+    "reattach",
+    "resolution",
+    "revision",
+    "revoke",
+    "routing",
+    "transfer",
+    "void"
+  ],
+  "ok": true,
+  "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+  "results": [
+    {
+      "elapsed_s": 0.429,
+      "file": "test_conformance.py",
+      "kind": "unittest",
+      "log": "SUITE-R1-conformance.log",
+      "log_bytes": 903,
+      "log_sha256": "8cd5b54ca18cd37deabb4148cb2790aa619d9912700044080f729184f8315d70",
+      "ok": true,
+      "ran": 9,
+      "rc": 0,
+      "skipped": 0
+    },
+    {
+      "elapsed_s": 7.043,
+      "file": "successor_demo.py",
+      "kind": "demo",
+      "log": "SUITE-R1-demo.log",
+      "log_bytes": 1118,
+      "log_sha256": "911ee93c84021af78ea095f8595b898344911bcade6d1d009d6d3e443d48c824",
+      "marker_found": true,
+      "ok": true,
+      "rc": 0
+    }
+  ],
+  "suite": "r1",
+  "tree": "s002"
+}

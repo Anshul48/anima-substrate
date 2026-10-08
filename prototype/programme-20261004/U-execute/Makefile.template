@@ -1,0 +1,44 @@
+# Makefile.template — ALTERNATIVE frozen form of the direct baseline.
+#
+# DRAFT STATUS: NOT FROZEN. Exactly one of {this Makefile, direct_run.py}
+# is the frozen section 5.1 baseline, pinned at freeze (S5 section 10.1
+# Q4; R-D: the U-execute agent authors the frozen baseline at prereg).
+# This template exists so the freeze choice is real. If make is absent on
+# the pinned machine, direct_run.py is the baseline and this file is
+# drafts-only.
+#
+# Stamp contract (IDENTICAL in both forms; the checker audits it):
+#   .stamps/<step>.ok is JSON {schema, step, rc, argv_sha256, artifacts,
+#   run_id, at}; present+valid stamp => step skipped by resume.
+# Step programs, argv, timeouts, declared outputs: read from the SAME
+# bundle MANIFEST.json bytes the host arm advertises from (inputs held
+# equal, section 5.2(a)). Bundle path + pins are freeze inputs, not edits.
+#
+# Instantiate at freeze: replace <<BUNDLE>>, <<WORK>>, <<RUN_ID>>.
+
+BUNDLE ?= <<BUNDLE>>
+WORK ?= <<WORK>>
+RUN_ID ?= <<RUN_ID>>
+STEPS = identity suite-r1 suite-r2 suite-r3 compat package
+STAMPS = $(STEPS:%=$(WORK)/.stamps/%.ok)
+
+all: $(STAMPS)
+
+# resume == all: completed stamps skip, current step re-runs (section 5.1).
+resume: all
+
+# Per-step rule (pattern): run the manifest argv for $* under timeout,
+# collect declared outputs, atomically commit the stamp. The per-step
+# argv/timeout/outputs are extracted from MANIFEST.json by the step shim
+# (step_from_manifest.py, frozen with the baseline), so this Makefile
+# hardcodes no step content.
+$(WORK)/.stamps/%.ok:
+	mkdir -p $(WORK)/scratch/$* $(WORK)/artifacts/$* $(WORK)/.stamps
+	python3 step_from_manifest.py --bundle $(BUNDLE) --work $(WORK) \
+	    --run-id $(RUN_ID) --step $*
+	touch $@
+
+clean-stamps:
+	rm -f $(STAMPS)
+
+.PHONY: all resume clean-stamps

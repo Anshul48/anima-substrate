@@ -1,0 +1,41 @@
+{
+  "at": "2026-10-06T13:32:10.533579+00:00",
+  "roots": {
+    "r1": {
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    },
+    "r2": {
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    },
+    "r3": {
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    },
+    "s002": {
+      "file_ok": true,
+      "file_tail": "ccessor_demo.py: OK\ntest_conformance.py: OK\ntest_fission.py: OK\ntest_successor.py: OK\nvendor/HASH-CONSTRUCTION.md: OK\nvendor/PROVENANCE.md: OK\nvendor/SNAPSHOT-MANIFEST.json: OK\nverify_snapshot.py: OK\n",
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    },
+    "s003": {
+      "file_ok": true,
+      "file_tail": "st_atomicity.py: OK\ntest_conformance.py: OK\ntest_fission.py: OK\ntest_successor.py: OK\nvendor/HASH-CONSTRUCTION.md: OK\nvendor/PROVENANCE.md: OK\nvendor/SNAPSHOT-MANIFEST.json: OK\nverify_snapshot.py: OK\n",
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    },
+    "s004": {
+      "file_ok": true,
+      "file_tail": "st_atomicity.py: OK\ntest_conformance.py: OK\ntest_fission.py: OK\ntest_successor.py: OK\nvendor/HASH-CONSTRUCTION.md: OK\nvendor/PROVENANCE.md: OK\nvendor/SNAPSHOT-MANIFEST.json: OK\nverify_snapshot.py: OK\n",
+      "maps_detail": "MATCH",
+      "maps_ok": true,
+      "ok": true
+    }
+  }
+}

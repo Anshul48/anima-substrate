@@ -1,0 +1,17 @@
+{
+  "assignment": {
+    "A": "S0",
+    "B": "S3",
+    "C": "S1",
+    "D": "S2",
+    "E": "S4"
+  },
+  "prefs_total": 5,
+  "quality": 5,
+  "task_id": "M1-T0-F1",
+  "valid": true,
+  "via": [
+    "SC-L2",
+    "SC-S2"
+  ]
+}

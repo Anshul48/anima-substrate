@@ -1,0 +1,33 @@
+{
+  "ledger_kinds": [],
+  "ok": true,
+  "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+  "results": [
+    {
+      "elapsed_s": 0.422,
+      "file": "test_conformance.py",
+      "kind": "unittest",
+      "log": "SUITE-R2-conformance.log",
+      "log_bytes": 903,
+      "log_sha256": "7573e029cf25159e03d8e04c046ba669d6dcd9378e0055bd812ccaa2f86b4b38",
+      "ok": true,
+      "ran": 9,
+      "rc": 0,
+      "skipped": 0
+    },
+    {
+      "elapsed_s": 46.894,
+      "file": "test_atomicity.py",
+      "kind": "unittest",
+      "log": "SUITE-R2-atomicity.log",
+      "log_bytes": 5104,
+      "log_sha256": "ff59931c68b136a20224cd02042537b3c8b8935c815b4b771edea79e5ac93df9",
+      "ok": true,
+      "ran": 27,
+      "rc": 0,
+      "skipped": 0
+    }
+  ],
+  "suite": "r2",
+  "tree": "s003"
+}

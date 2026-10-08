@@ -1,0 +1,91 @@
+--- w1-harden/recovery_exercise.py
++++ candidate/recovery_exercise.py
+@@ -4,12 +4,12 @@
+ 1. --child --state-dir X --ledger Y
+    Run setup + formulate + propose, suspend with pending effects, print
+    "READY form=<ref>" (flushed), then sleep. The parent kills this process
+-   mid-run (SIGKILL) and resumes from the checkpoint + ledger. Stub engine
++   mid-run (SIGKILL on POSIX, TerminateProcess on Windows) and resumes from the checkpoint + ledger. Stub engine
+    pinned for determinism.
+ 2. (default) --evidence-dir D
+    Drive all four recovery scenarios with persistent state and copy each
+    run's ledger + a summary report into D:
+-     R1 kill-resume : spawn --child, SIGKILL it, reopen, reattach, resume.
++     R1 kill-resume : spawn --child, force-terminate it, reopen, reattach, resume.
+      R2 missing checkpoint : suspend, delete checkpoint, reopen, reattach
+         must refuse (raise + deny).
+      R3 identity mismatch : suspend, tamper checkpoint world_id, reopen,
+@@ -23,9 +23,7 @@
+ 
+ import argparse
+ import json
+-import os
+ import shutil
+-import signal
+ import subprocess
+ import sys
+ import tempfile
+@@ -90,13 +88,13 @@
+         _, stderr = proc.communicate(timeout=60)
+         raise RuntimeError(f"child failed before READY: {line} {stderr}")
+     form_ref = line.split("form=", 1)[1].split()[0]
+-    os.kill(proc.pid, signal.SIGKILL)
++    proc.kill()
+     rc = proc.wait(timeout=60)
+     proc.communicate(timeout=60)
+     assert rc not in (None, 0), "child must die by kill, not exit 0"
+ 
+     host = Host.reopen(state_dir, ledger, records=[worker_record(state_dir)],
+-                       reason="R1 exercise resume after SIGKILL")
++                       reason="R1 exercise resume after forced termination")
+     host.reattach(WORKER_ID, "host", reason="R1 exercise resume")
+     world = ExploreWorld(state_dir / WORKER_ID, engine=StubSearchEngine())
+     report = resume_to_verdict(host, world)
+--- w1-harden/test_recovery.py
++++ candidate/test_recovery.py
+@@ -1,7 +1,7 @@
+ """Checkpoint/recovery exercises (stdlib unittest, $0, stub engine pinned).
+ 
+ R1  kill-mid-run -> resume-to-verdict without restart (simulated kill by
+-    dropping the Host, AND a real SIGKILL of a child process): asserts 0
++    dropping the Host, AND a real forced termination of a child process): asserts 0
+     re-executed invokes, formulation ref + prior artifacts reused byte-for-byte.
+ R2  missing-checkpoint reattach refusal (raise + deny).
+ R3  checkpoint identity-mismatch refusal, world_id and code_ref (raise + deny).
+@@ -15,9 +15,7 @@
+ """
+ import hashlib
+ import json
+-import os
+ import queue
+-import signal
+ import subprocess
+ import sys
+ import tempfile
+@@ -139,7 +137,7 @@
+                 - host2.holdings[WORKER_ID]["max_invocations"], 1)
+             self.assertTrue(host2.verify_conservation()["ok"])
+ 
+-    def test_R1_real_sigkill_child_resume_to_verdict(self):
++    def test_R1_real_process_kill_child_resume_to_verdict(self):
+         with tempfile.TemporaryDirectory() as tmp:
+             state_dir = str(Path(tmp) / "state")
+             ledger = str(Path(tmp) / "ledger.jsonl")
+@@ -155,7 +153,7 @@
+                 raise
+             self.assertTrue(line.startswith("READY "), line)
+             form_ref = line.split("form=", 1)[1].split()[0]
+-            os.kill(proc.pid, signal.SIGKILL)  # the scripted kill-mid-run
++            proc.kill()  # the scripted kill-mid-run
+             rc = proc.wait(timeout=30)
+             _, stderr = proc.communicate(timeout=30)
+             self.assertNotIn(rc, (None, 0), f"child exited 0, not killed: {stderr}")
+@@ -163,7 +161,7 @@
+ 
+             host2 = Host.reopen(state_dir, ledger,
+                                 records=[worker_record(Path(state_dir))],
+-                                reason="R1-real resume after SIGKILL")
++                                reason="R1-real resume after forced termination")
+             host2.reattach(WORKER_ID, "host", reason="R1-real resume")
+             world2 = ExploreWorld(Path(state_dir) / WORKER_ID,
+                                   engine=StubSearchEngine())

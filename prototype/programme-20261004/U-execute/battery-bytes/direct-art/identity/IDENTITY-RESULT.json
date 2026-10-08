@@ -1,0 +1,54 @@
+{
+  "ok": true,
+  "pins_sha256": "2dbb04399fab6c07abad4ceeb74b0128c61afe044141416013622d9891e455ee",
+  "tags": {
+    "r1": {
+      "copied_files": 76,
+      "copy_bad": [],
+      "extras": [],
+      "files": 76,
+      "frozen_bad": [],
+      "match": true
+    },
+    "r2": {
+      "copied_files": 27,
+      "copy_bad": [],
+      "extras": [],
+      "files": 27,
+      "frozen_bad": [],
+      "match": true
+    },
+    "r3": {
+      "copied_files": 24,
+      "copy_bad": [],
+      "extras": [],
+      "files": 24,
+      "frozen_bad": [],
+      "match": true
+    },
+    "s002": {
+      "copied_files": 96,
+      "copy_bad": [],
+      "extras": [],
+      "files": 96,
+      "frozen_bad": [],
+      "match": true
+    },
+    "s003": {
+      "copied_files": 100,
+      "copy_bad": [],
+      "extras": [],
+      "files": 100,
+      "frozen_bad": [],
+      "match": true
+    },
+    "s004": {
+      "copied_files": 100,
+      "copy_bad": [],
+      "extras": [],
+      "files": 100,
+      "frozen_bad": [],
+      "match": true
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7981,
+      "relpath": "RELCHECK-REPORT.json",
+      "sha256": "3b7888a91cdd04e69d93975f8f31742948c4752660e15111f0ba5575e9994bdc"
+    }
+  ],
+  "elapsed_s": 0.099,
+  "rc": 0
+}

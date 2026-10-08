@@ -1,0 +1,11 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5065,
+      "relpath": "COMPAT-REPORT.json",
+      "sha256": "099f4e3388a6b8dc7ed1df1bf4e9411c921dd7696932d9be983d2fbb6bf31167"
+    }
+  ],
+  "elapsed_s": 0.201,
+  "rc": 0
+}

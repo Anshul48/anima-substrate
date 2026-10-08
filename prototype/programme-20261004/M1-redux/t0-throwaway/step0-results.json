@@ -1,0 +1,1188 @@
+[
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-01-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 683,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-01"
+        },
+        "task_id": "M1R-T0-01",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.2
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-01-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 359,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-01"
+        },
+        "task_id": "M1R-T0-01",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.29
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-02-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 661,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-02"
+        },
+        "task_id": "M1R-T0-02",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.31
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-02-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 337,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-02"
+        },
+        "task_id": "M1R-T0-02",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.19
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-03-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-03"
+        },
+        "task_id": "M1R-T0-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.44
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-03-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-03"
+        },
+        "task_id": "M1R-T0-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.59
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-04-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 683,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=2>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-04"
+        },
+        "task_id": "M1R-T0-04",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.03
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-04-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 359,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=2>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-04"
+        },
+        "task_id": "M1R-T0-04",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.04
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "t0-M1R-T0-05-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 776,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 3,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-05"
+        },
+        "task_id": "M1R-T0-05",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.15
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "t0-M1R-T0-05-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 452,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 3,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-05"
+        },
+        "task_id": "M1R-T0-05",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 4.02
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-06-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-06"
+        },
+        "task_id": "M1R-T0-06",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.18
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-06-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-06"
+        },
+        "task_id": "M1R-T0-06",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.37
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-07-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-07"
+        },
+        "task_id": "M1R-T0-07",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.55
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-07-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-07"
+        },
+        "task_id": "M1R-T0-07",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.34
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-09-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 741,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-09"
+        },
+        "task_id": "M1R-T0-09",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.15
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-09-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 395,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-09"
+        },
+        "task_id": "M1R-T0-09",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.98
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-10-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 910,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-10"
+        },
+        "task_id": "M1R-T0-10",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.01
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-10-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 564,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-10"
+        },
+        "task_id": "M1R-T0-10",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.03
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-11-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 741,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=2>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-11"
+        },
+        "task_id": "M1R-T0-11",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.99
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-11-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 395,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=2>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-11"
+        },
+        "task_id": "M1R-T0-11",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 1.91
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "t0-M1R-T0-12-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 834,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 3,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-12"
+        },
+        "task_id": "M1R-T0-12",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.0
+  },
+  {
+    "invokes": 6,
+    "ledger_entries": 23,
+    "name": "t0-M1R-T0-12-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 346,
+        "direct_bytes": 488,
+        "lane": "local",
+        "prefs_total": 5,
+        "quality": 5,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 3,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-12"
+        },
+        "task_id": "M1R-T0-12",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.18
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-13-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 811,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-13"
+        },
+        "task_id": "M1R-T0-13",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.1
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-13-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 443,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-13"
+        },
+        "task_id": "M1R-T0-13",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.1
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-14-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 980,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-14"
+        },
+        "task_id": "M1R-T0-14",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 4.14
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-14-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 612,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-14"
+        },
+        "task_id": "M1R-T0-14",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.23
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-15-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 980,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-15"
+        },
+        "task_id": "M1R-T0-15",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.6
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-15-local",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 368,
+        "direct_bytes": 612,
+        "lane": "local",
+        "prefs_total": 6,
+        "quality": 6,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=local -> final_lane=local]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-15"
+        },
+        "task_id": "M1R-T0-15",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.24
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-08-central",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-08"
+        },
+        "task_id": "M1R-T0-08",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.28
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-03-central-rerun",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 852,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": true,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings) [caller lane_override=central -> final_lane=central]",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-03"
+        },
+        "task_id": "M1R-T0-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.26
+  },
+  {
+    "invokes": 5,
+    "ledger_entries": 21,
+    "name": "t0-M1R-T0-01-rule",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 683,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": false,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings)",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "M1R-T0-01"
+        },
+        "task_id": "M1R-T0-01",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.1
+  },
+  {
+    "invokes": 7,
+    "ledger_entries": 25,
+    "name": "t0-M1R-T0-03-rule",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 324,
+        "direct_bytes": 528,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {},
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": false,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "M1R-T0-03"
+        },
+        "task_id": "M1R-T0-03",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 2.32
+  },
+  {
+    "invokes": 12,
+    "ledger_entries": 38,
+    "name": "t0-guard-S1S2",
+    "rc": 0,
+    "stderr": "",
+    "tasks": [
+      {
+        "central_bytes": 655,
+        "direct_bytes": 0,
+        "lane": "central",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {
+            "expected_rounds": 2,
+            "split_state": false
+          },
+          "final_lane": "central",
+          "inputs": {
+            "derived_rounds": 2,
+            "derived_split": false
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "central",
+          "override": false,
+          "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings)",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "central",
+          "task_id": "S1"
+        },
+        "task_id": "S1",
+        "valid_artifact": true,
+        "valid_cli": true
+      },
+      {
+        "central_bytes": 310,
+        "direct_bytes": 500,
+        "lane": "local",
+        "prefs_total": 4,
+        "quality": 4,
+        "routing": {
+          "declared_ignored": {
+            "expected_rounds": 4,
+            "split_state": true
+          },
+          "final_lane": "local",
+          "inputs": {
+            "derived_rounds": 4,
+            "derived_split": true
+          },
+          "inputs_derived_from": "holdings",
+          "lane": "local",
+          "override": false,
+          "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+          "rule": "local iff rounds>=2 AND split else central",
+          "rule_lane": "local",
+          "task_id": "S2"
+        },
+        "task_id": "S2",
+        "valid_artifact": true,
+        "valid_cli": true
+      }
+    ],
+    "wall_s": 3.12
+  }
+]

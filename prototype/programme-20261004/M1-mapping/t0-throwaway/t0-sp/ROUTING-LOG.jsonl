@@ -1,0 +1,2 @@
+{"inputs": {"expected_rounds": 2, "split_state": false}, "lane": "central", "reason": "default central (rounds=2, split=False; local requires >=2 rounds AND split state)", "rule": "local iff expected_rounds>=2 AND split_state else central", "task_id": "S1"}
+{"inputs": {"expected_rounds": 4, "split_state": true}, "lane": "local", "reason": "multi-round dialogue (4>=2 rounds) over split state -> local-negotiation lane (X3 H3a cut)", "rule": "local iff expected_rounds>=2 AND split_state else central", "task_id": "S2"}

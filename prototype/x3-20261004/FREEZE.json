@@ -1,0 +1,17 @@
+{
+  "frozen": {
+    "WRITTEN-OBLIGATIONS.md": "9411f905831dcd7e545f2b4904bf9a7419c904585b3015384561fee1f0e86571",
+    "X3-PREREG.md": "4abbf73ebdc4d9e2c6e05112c7440bbd910cda764b0a2d8d73465a75d291e7af",
+    "arm_c.py": "fe82c8410a5700cba844488994e7b80cbe518598b47d16913a58e2b2dfd17f49",
+    "arm_h.py": "3f2747f731e13fd652cac98f901ee40390ae7c339d865dab305d0acb2cbdd3ce",
+    "checker.py": "fa6d82413d6e5e8e700c19de7328e5202e3abe2d7bdf000e30589333c1478db1",
+    "domain.py": "b6b151b245047f498af60f8e945b4b27654345fe3bfd8f1aeb0eff8ab93ea29f",
+    "frozen_inputs.py": "47634d68e05dfb49fc5776e401f78f8fd9dabafecff7521eb877a7ecec60fc45",
+    "minihost.py": "d01049a93b0e068e9e0384379cb26f509726f6a7ee659ff71dd0f0ec7bd4b206",
+    "x3_run.py": "e42a18e1362cb2adf4d3e40ac597e4662f6d90076599f64320ad9bd4cea9706e",
+    "xcommon.py": "b344c4268fb7a2532895f8dfc595c0bedce5c8dd52894cbd643f468830beb9e9"
+  },
+  "minihost_source": "prototype/reuse-demo-001/minihost.py",
+  "minihost_source_sha256": "d01049a93b0e068e9e0384379cb26f509726f6a7ee659ff71dd0f0ec7bd4b206",
+  "note": "frozen before run 1; never edit after"
+}

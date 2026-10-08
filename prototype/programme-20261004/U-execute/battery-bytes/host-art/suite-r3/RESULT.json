@@ -1,0 +1,445 @@
+{
+  "artifacts": [
+    {
+      "bytes": 824,
+      "relpath": "SUITE-R3.json",
+      "sha256": "65a28eaab3423d44ef1bf098941209d4713c2a2cb878901dd51332ffe1ec0125"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R3-conformance.log",
+      "sha256": "efd62d5ed0dc55ba6aee78fd063de433db66298047c8a2f0c222c3adc4298ab5"
+    },
+    {
+      "bytes": 6859,
+      "relpath": "SUITE-R3-atomicity.log",
+      "sha256": "3383c2a72e30b66a11cdee1e78bc550bb609599a6fc246dcfe69b389ad2e1b29"
+    }
+  ],
+  "attempt": 1,
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "caps": {
+    "stderr": 1048576,
+    "stdout": 1048576
+  },
+  "elapsed_s": 110.7,
+  "exit_code": 0,
+  "idem_key": "s5a10readiness",
+  "invoke_id": "proc-s5a10readiness-suite-r3-a1",
+  "outside_writes": [],
+  "procedure": "relcheck",
+  "recovered": false,
+  "result": "success",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_total_bytes": 0,
+  "stdout_bytes": 104,
+  "stdout_sha256": "9293f2671e021dc70b73604fa68782847bfda219f3c40d86efd9a124a00875a1",
+  "stdout_total_bytes": 104,
+  "step": "suite-r3",
+  "timed_out": false,
+  "truncated_stderr": false,
+  "truncated_stdout": false,
+  "undeclared_present": [
+    {
+      "bytes": 7101,
+      "relpath": "suite-r3/CONSUMER.md"
+    },
+    {
+      "bytes": 6776,
+      "relpath": "suite-r3/CONTRACT-GAPS.md"
+    },
+    {
+      "bytes": 15869,
+      "relpath": "suite-r3/EVIDENCE.md"
+    },
+    {
+      "bytes": 548562,
+      "relpath": "suite-r3/FROZEN-BASELINE.sha256"
+    },
+    {
+      "bytes": 3704,
+      "relpath": "suite-r3/IDENTITY.sha256"
+    },
+    {
+      "bytes": 12073,
+      "relpath": "suite-r3/INTERRUPTION-BOUNDARIES.md"
+    },
+    {
+      "bytes": 4788,
+      "relpath": "suite-r3/LIMITS.md"
+    },
+    {
+      "bytes": 3054,
+      "relpath": "suite-r3/OBLIGATIONS.md"
+    },
+    {
+      "bytes": 11724,
+      "relpath": "suite-r3/ORG-OPS.md"
+    },
+    {
+      "bytes": 8235,
+      "relpath": "suite-r3/PROVENANCE.md"
+    },
+    {
+      "bytes": 10332,
+      "relpath": "suite-r3/REPORT.md"
+    },
+    {
+      "bytes": 5071,
+      "relpath": "suite-r3/REPRODUCE.md"
+    },
+    {
+      "bytes": 3658,
+      "relpath": "suite-r3/SEPARATION-PATHS.md"
+    },
+    {
+      "bytes": 10982,
+      "relpath": "suite-r3/SUCCESSOR-REPORT.md"
+    },
+    {
+      "bytes": 2429,
+      "relpath": "suite-r3/VENDORING.md"
+    },
+    {
+      "bytes": 1813,
+      "relpath": "suite-r3/accept/EXPECTED.json"
+    },
+    {
+      "bytes": 1876,
+      "relpath": "suite-r3/accept/README.md"
+    },
+    {
+      "bytes": 1088,
+      "relpath": "suite-r3/accept/S1.json"
+    },
+    {
+      "bytes": 1099,
+      "relpath": "suite-r3/accept/S2.json"
+    },
+    {
+      "bytes": 2520,
+      "relpath": "suite-r3/accept/S3.json"
+    },
+    {
+      "bytes": 922,
+      "relpath": "suite-r3/accept/S4-followup.json"
+    },
+    {
+      "bytes": 780,
+      "relpath": "suite-r3/accept/S5.json"
+    },
+    {
+      "bytes": 789,
+      "relpath": "suite-r3/accept/S6-followup.json"
+    },
+    {
+      "bytes": 25565,
+      "relpath": "suite-r3/api.py"
+    },
+    {
+      "bytes": 3419,
+      "relpath": "suite-r3/calibrate.py"
+    },
+    {
+      "bytes": 15923,
+      "relpath": "suite-r3/fusion.py"
+    },
+    {
+      "bytes": 3425,
+      "relpath": "suite-r3/make_snapshot_manifest.py"
+    },
+    {
+      "bytes": 50221,
+      "relpath": "suite-r3/minihost.py"
+    },
+    {
+      "bytes": 24045,
+      "relpath": "suite-r3/pipeline.py"
+    },
+    {
+      "bytes": 28867,
+      "relpath": "suite-r3/recover.py"
+    },
+    {
+      "bytes": 13114,
+      "relpath": "suite-r3/release.py"
+    },
+    {
+      "bytes": 10965,
+      "relpath": "suite-r3/resume.py"
+    },
+    {
+      "bytes": 8894,
+      "relpath": "suite-r3/routing.py"
+    },
+    {
+      "bytes": 3038,
+      "relpath": "suite-r3/sched_checker.py"
+    },
+    {
+      "bytes": 5164,
+      "relpath": "suite-r3/sched_domain.py"
+    },
+    {
+      "bytes": 4361,
+      "relpath": "suite-r3/sched_inputs.py"
+    },
+    {
+      "bytes": 10142,
+      "relpath": "suite-r3/sst_leg.py"
+    },
+    {
+      "bytes": 16762,
+      "relpath": "suite-r3/successor_demo.py"
+    },
+    {
+      "bytes": 67033,
+      "relpath": "suite-r3/test_atomicity.py"
+    },
+    {
+      "bytes": 20882,
+      "relpath": "suite-r3/test_conformance.py"
+    },
+    {
+      "bytes": 9445,
+      "relpath": "suite-r3/test_fission.py"
+    },
+    {
+      "bytes": 28292,
+      "relpath": "suite-r3/test_successor.py"
+    },
+    {
+      "bytes": 2760,
+      "relpath": "suite-r3/vendor/HASH-CONSTRUCTION.md"
+    },
+    {
+      "bytes": 8637,
+      "relpath": "suite-r3/vendor/PROVENANCE.md"
+    },
+    {
+      "bytes": 7765,
+      "relpath": "suite-r3/vendor/SNAPSHOT-MANIFEST.json"
+    },
+    {
+      "bytes": 4349,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/__init__.py"
+    },
+    {
+      "bytes": 123,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/__main__.py"
+    },
+    {
+      "bytes": 326,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/cli/__init__.py"
+    },
+    {
+      "bytes": 25867,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/cli/main.py"
+    },
+    {
+      "bytes": 1864,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/cli/memory.py"
+    },
+    {
+      "bytes": 3991,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/cli/runner.py"
+    },
+    {
+      "bytes": 621,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/context/__init__.py"
+    },
+    {
+      "bytes": 9538,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/context/capsule.py"
+    },
+    {
+      "bytes": 10990,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/context/memory_adapter.py"
+    },
+    {
+      "bytes": 3003,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/context/provider.py"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/core/__init__.py"
+    },
+    {
+      "bytes": 7440,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/core/contracts.py"
+    },
+    {
+      "bytes": 1555,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/core/errors.py"
+    },
+    {
+      "bytes": 2130,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/core/events.py"
+    },
+    {
+      "bytes": 5963,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/core/models.py"
+    },
+    {
+      "bytes": 1028,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/gateway/__init__.py"
+    },
+    {
+      "bytes": 7665,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/gateway/backends.py"
+    },
+    {
+      "bytes": 7917,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/gateway/contracts.py"
+    },
+    {
+      "bytes": 10699,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/gateway/gateway.py"
+    },
+    {
+      "bytes": 617,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/prompts/__init__.py"
+    },
+    {
+      "bytes": 10251,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/prompts/dialectic.py"
+    },
+    {
+      "bytes": 775,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/__init__.py"
+    },
+    {
+      "bytes": 661,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/evaluator.py"
+    },
+    {
+      "bytes": 2282,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/executor.py"
+    },
+    {
+      "bytes": 989,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/gateway.py"
+    },
+    {
+      "bytes": 2509,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/memory.py"
+    },
+    {
+      "bytes": 1449,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/protocols/storage.py"
+    },
+    {
+      "bytes": 27,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/py.typed"
+    },
+    {
+      "bytes": 801,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/sandbox/__init__.py"
+    },
+    {
+      "bytes": 26475,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/sandbox/custody.py"
+    },
+    {
+      "bytes": 15750,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/sandbox/evaluator.py"
+    },
+    {
+      "bytes": 2515,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/sandbox/executor.py"
+    },
+    {
+      "bytes": 3683,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/sandbox/outcomes.py"
+    },
+    {
+      "bytes": 356,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/search/__init__.py"
+    },
+    {
+      "bytes": 48836,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/search/controller.py"
+    },
+    {
+      "bytes": 18906,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/search/engine.py"
+    },
+    {
+      "bytes": 2709,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/search/policy.py"
+    },
+    {
+      "bytes": 8543,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/search/recovery.py"
+    },
+    {
+      "bytes": 317,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/storage/__init__.py"
+    },
+    {
+      "bytes": 13300,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/storage/projection.py"
+    },
+    {
+      "bytes": 4033,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/storage/serializer.py"
+    },
+    {
+      "bytes": 16430,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/storage/store.py"
+    },
+    {
+      "bytes": 382,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/__init__.py"
+    },
+    {
+      "bytes": 22082,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/app.py"
+    },
+    {
+      "bytes": 1714,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/decisions.py"
+    },
+    {
+      "bytes": 3120,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/models.py"
+    },
+    {
+      "bytes": 34548,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/pages.py"
+    },
+    {
+      "bytes": 14232,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/runner.py"
+    },
+    {
+      "bytes": 2041,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/ui/tasks.py"
+    },
+    {
+      "bytes": 467,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/visualizer/__init__.py"
+    },
+    {
+      "bytes": 423,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/visualizer/assets/README.md"
+    },
+    {
+      "bytes": 2842,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/visualizer/assets/visualizer.css"
+    },
+    {
+      "bytes": 1535,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/visualizer/assets/visualizer.js"
+    },
+    {
+      "bytes": 46779,
+      "relpath": "suite-r3/vendor/sst-snapshot/sst/visualizer/server.py"
+    },
+    {
+      "bytes": 4523,
+      "relpath": "suite-r3/verify_snapshot.py"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "adapter": "list2slot/v1",
+  "holdings": {
+    "SC-L": {
+      "prefs": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "req_tasks": [
+        "A",
+        "C"
+      ]
+    },
+    "SC-S": {
+      "prefs": [],
+      "req_tasks": [
+        "B",
+        "D"
+      ]
+    }
+  },
+  "l2p_seed": 903,
+  "precedence": [
+    [
+      "A",
+      "C"
+    ],
+    [
+      "D",
+      "B"
+    ]
+  ],
+  "prefs": {
+    "A": "M1",
+    "B": "M1",
+    "C": "M0",
+    "D": "M0"
+  },
+  "slots": {
+    "S0": {
+      "machine": "M1",
+      "time": "t0"
+    },
+    "S1": {
+      "machine": "M0",
+      "time": "t0"
+    },
+    "S2": {
+      "machine": "M1",
+      "time": "t1"
+    },
+    "S3": {
+      "machine": "M0",
+      "time": "t1"
+    }
+  },
+  "task_id": "L2P-03",
+  "tasks": {
+    "A": {
+      "window": [
+        "S0",
+        "S2"
+      ]
+    },
+    "B": {
+      "window": [
+        "S2",
+        "S3"
+      ]
+    },
+    "C": {
+      "window": [
+        "S1",
+        "S3"
+      ]
+    },
+    "D": {
+      "window": [
+        "S0",
+        "S1"
+      ]
+    }
+  }
+}

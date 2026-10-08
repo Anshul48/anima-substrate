@@ -1,0 +1,38 @@
+{
+  "author": "held-out-revision-agent",
+  "base_bundle_sha16": "1fee2241d1fd2d48",
+  "base_bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "change_shape": "one step's bytes + one declared output + one suite target (B11 per S5-DESIGN §3)",
+  "changed_step": "assay-surface (new pre-flight step, position 1 of 7; bytes: bin/assay_surface.py, authored held-out)",
+  "declared_output_added": "ASSAY-SURFACE.json (on step assay-surface only; all base steps' declared outputs unchanged)",
+  "diff_summary": [
+    "MANIFEST.json: steps 6 -> 7 (assay-surface prepended; all base step entries byte-identical); files 2 -> 3 (bin/assay_surface.py added; pins.json sha updated); python/system, timeouts (600), env_extra unchanged.",
+    "pins.json: suites.r1.programs 2 -> 3 (one appended repeat-conformance stability target: identical expectations to the proven sibling entry, same log file, so suite-r1 emits no new files); steps roster + assay-surface (first, mirroring manifest order); artifacts roster + assay-surface entry. All other pins keys byte-identical (reserialized with verified indent=2/sort_keys/trailing-newline, byte-identical round-trip on base).",
+    "bin/assay_surface.py: NEW (6017 bytes). Pre-flight pins/roster integrity assay: validates suite-roster schema, surface minima, and cross-coverage from staged pins.json; always emits ASSAY-SURFACE.json; stdlib only; exit 0 always.",
+    "bin/relcheck.py: UNCHANGED (sha256 identical to base manifest pin)."
+  ],
+  "files": {
+    "MANIFEST.json": "f8e59f99450f0449b0666f1a533fc67d82fbfdb69435541d6ea9677e0775ba75",
+    "bin/assay_surface.py": "fc7405cd9fa22672447079bb34c48278be604a0c87f16c8e6ce83027b67657f6",
+    "bin/relcheck.py": "24e9425f5a80bfa4e6cc129feef04ac16c2433078dddfae66104b950a3b849fd",
+    "pins.json": "527c65c12ac3b948434e7b9f10623ea0b1cf0fc7c45c8f4e30f21c2a2dfc6727"
+  },
+  "rationale": "A pre-flight pins/roster integrity assay plus a repeat-conformance stability target exercises the S5 §3 change shape end to end while staying minimal and behavior-preserving: the new executable content is gated by advertise-time validation (creation-fixed table, §1.1), the revised pins must be tolerated by every downstream consumer (identity record, suite execution, compat aggregation) exactly as the change leg intends to measure, and the added suite target passes by construction (identical file and expectations to an already-passing sibling, sharing its log file so no base step gains outputs). The assay is self-validating (it schema-checks the revised roster, including the added target) and infallible (all failure modes captured inside its report, exit 0), so the revision adds acceptance signal without adding new failure modes to the base suite semantics.",
+  "reveal": "post-countersign identical bytes to both arms",
+  "revised_bundle_sha256": "5c3d1bbdd9a74dc00436983a72f743072af79ea5bd647e1184d4a1cd9790ce60",
+  "revised_tree_sha256": "4010524b689a9abd2b43c7d94e2fb3d2b3b951358e0fbb6cf2c4e22e1f065167",
+  "staging_note": "Public CLI observation (not revision content): procedure name derives from the bundle directory basename ('revision-bundle' here). Arms should stage these identical bytes under whatever directory name their harness invokes; the bundle sha256 covers pinned file bytes, not the directory name.",
+  "suite_target_added": "suites.r1.programs[2] (repeat-conformance stability target; no new step outputs)",
+  "tree_sha_method": "cd revision-bundle && find . -type f | LC_ALL=C sort | xargs sha256sum | sha256sum",
+  "validation": {
+    "log": "VALIDATION.log",
+    "log_sha256": "dbe5442334355735ecb26819543f487b025ae106e9232371578c05c5f0089fcd",
+    "outcome": "advertise ACCEPTS (live gate proven by unpinned-bytes refusal); 6/7 steps adopted incl. new step (pass=true), revised-pins identity, added-target suite-r1 (3/3 ok), compat; package not reached (operator params key 'run_id' held out; zero revision-defect evidence). Coordinator reveal-validation should confirm RELCHECK-REPORT.json emission.",
+    "runs": [
+      {"key": "sealed-val-1", "result": "assay-surface adopted; identity KeyError 'frozen' (staging)", "wall_s": 1},
+      {"key": "sealed-val-2", "result": "5 steps adopted; compat KeyError 'artifacts_dir' (staging)", "wall_s": 190},
+      {"key": "sealed-val-3", "result": "6 steps adopted; package KeyError 'run_id' (staging)", "wall_s": 191}
+    ],
+    "state_dir": "/tmp/uexec-sealed-val (own throwaway, disclosed)"
+  }
+}

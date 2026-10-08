@@ -1,0 +1,217 @@
+{
+  "after": {
+    "channels": {
+      "SC-L2<->SC-S2": {
+        "direct_bytes": 0,
+        "messages": 0
+      }
+    },
+    "mechanisms": [
+      "checkpoint+suspend/reattach",
+      "coordinator:central",
+      "coordinator:local-exports-only",
+      "direct-channel:SC-L2<->SC-S2",
+      "grants+settle",
+      "invoke+deny",
+      "ledger",
+      "reopen-by-replay"
+    ],
+    "worlds": {
+      "SC-FUSED": {
+        "capabilities": [
+          "list.provide@1.0",
+          "sched.clarify@1.0",
+          "sched.formulate@1.0",
+          "sched.propose@1.0",
+          "sched.reuse@1.0",
+          "sched.verify@1.0",
+          "slot.provide@1.0"
+        ],
+        "custodians": {},
+        "lifecycle": "dissolved"
+      },
+      "SC-L": {
+        "capabilities": [
+          "list.provide@1.0",
+          "sched.clarify@1.0",
+          "sched.formulate@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0"
+        ],
+        "custodians": {},
+        "lifecycle": "dissolved"
+      },
+      "SC-L2": {
+        "capabilities": [
+          "list.provide@1.0",
+          "sched.clarify@1.0",
+          "sched.formulate@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0"
+        ],
+        "custodians": {
+          "sched.composite": "SC-L2",
+          "sched.requirements": "SC-L2"
+        },
+        "lifecycle": "active"
+      },
+      "SC-S": {
+        "capabilities": [
+          "sched.clarify@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0",
+          "slot.provide@1.0"
+        ],
+        "custodians": {},
+        "lifecycle": "dissolved"
+      },
+      "SC-S2": {
+        "capabilities": [
+          "sched.clarify@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0",
+          "slot.provide@1.0"
+        ],
+        "custodians": {
+          "sched.slots": "SC-S2"
+        },
+        "lifecycle": "active"
+      }
+    }
+  },
+  "before": {
+    "channels": {},
+    "mechanisms": [
+      "checkpoint+suspend/reattach",
+      "coordinator:central",
+      "coordinator:local-exports-only",
+      "grants+settle",
+      "invoke+deny",
+      "ledger",
+      "reopen-by-replay"
+    ],
+    "worlds": {
+      "SC-FUSED": {
+        "capabilities": [
+          "list.provide@1.0",
+          "sched.clarify@1.0",
+          "sched.formulate@1.0",
+          "sched.propose@1.0",
+          "sched.reuse@1.0",
+          "sched.verify@1.0",
+          "slot.provide@1.0"
+        ],
+        "custodians": {
+          "sched.composite": "SC-FUSED",
+          "sched.requirements": "SC-FUSED",
+          "sched.slots": "SC-FUSED"
+        },
+        "lifecycle": "active"
+      },
+      "SC-L": {
+        "capabilities": [
+          "list.provide@1.0",
+          "sched.clarify@1.0",
+          "sched.formulate@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0"
+        ],
+        "custodians": {},
+        "lifecycle": "dissolved"
+      },
+      "SC-S": {
+        "capabilities": [
+          "sched.clarify@1.0",
+          "sched.propose@1.0",
+          "sched.verify@1.0",
+          "slot.provide@1.0"
+        ],
+        "custodians": {},
+        "lifecycle": "dissolved"
+      }
+    }
+  },
+  "children": [
+    "SC-L2",
+    "SC-S2"
+  ],
+  "composite": "SC-FUSED",
+  "fusion": {
+    "fused_id": "SC-FUSED",
+    "parents": [
+      "SC-L",
+      "SC-S"
+    ]
+  },
+  "lineage_left": [
+    {
+      "rel": "derived_from",
+      "world": "SC-FUSED"
+    },
+    {
+      "fusion": "SC-FUSED",
+      "fusion_parents": [
+        "SC-L",
+        "SC-S"
+      ],
+      "partition": [
+        "sched.composite",
+        "sched.requirements"
+      ],
+      "rel": "fission-of",
+      "side": "left"
+    },
+    {
+      "actor": "host",
+      "reason": "M1 T0 throwaway",
+      "rel": "fission"
+    }
+  ],
+  "lineage_right": [
+    {
+      "rel": "derived_from",
+      "world": "SC-FUSED"
+    },
+    {
+      "fusion": "SC-FUSED",
+      "fusion_parents": [
+        "SC-L",
+        "SC-S"
+      ],
+      "partition": [
+        "sched.slots"
+      ],
+      "rel": "fission-of",
+      "side": "right"
+    },
+    {
+      "actor": "host",
+      "reason": "M1 T0 throwaway",
+      "rel": "fission"
+    }
+  ],
+  "partition": {
+    "sched.composite": "SC-L2",
+    "sched.requirements": "SC-L2",
+    "sched.slots": "SC-S2"
+  },
+  "restored_channel_bytes": 0,
+  "restored_mechanism": "direct-channel:SC-L2<->SC-S2",
+  "transfers": [
+    {
+      "from": "SC-FUSED",
+      "state_class": "sched.composite",
+      "to": "SC-L2"
+    },
+    {
+      "from": "SC-FUSED",
+      "state_class": "sched.requirements",
+      "to": "SC-L2"
+    },
+    {
+      "from": "SC-FUSED",
+      "state_class": "sched.slots",
+      "to": "SC-S2"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "bytes": 5065,
+      "relpath": "COMPAT-REPORT.json",
+      "sha256": "099f4e3388a6b8dc7ed1df1bf4e9411c921dd7696932d9be983d2fbb6bf31167"
+    }
+  ],
+  "attempt": 1,
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "caps": {
+    "stderr": 1048576,
+    "stdout": 1048576
+  },
+  "elapsed_s": 0.2,
+  "exit_code": 0,
+  "idem_key": "s5a10readiness",
+  "invoke_id": "proc-s5a10readiness-compat-a1",
+  "outside_writes": [],
+  "procedure": "relcheck",
+  "recovered": false,
+  "result": "success",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_total_bytes": 0,
+  "stdout_bytes": 23,
+  "stdout_sha256": "e2d361c77e3ad5a5837409cd5bb81c2cd44f7a0495219955154e66effedc0f2f",
+  "stdout_total_bytes": 23,
+  "step": "compat",
+  "timed_out": false,
+  "truncated_stderr": false,
+  "truncated_stdout": false,
+  "undeclared_present": []
+}

@@ -1,0 +1,34 @@
+{
+  "artifacts": [
+    {
+      "bytes": 7965,
+      "relpath": "RELCHECK-REPORT.json",
+      "sha256": "994aa46ad57f92a5965aabc3903745b83fcb88f2e3cbacb804903bd55f007a50"
+    }
+  ],
+  "attempt": 1,
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "caps": {
+    "stderr": 1048576,
+    "stdout": 1048576
+  },
+  "elapsed_s": 0.1,
+  "exit_code": 0,
+  "idem_key": "s5a10readiness",
+  "invoke_id": "proc-s5a10readiness-package-a1",
+  "outside_writes": [],
+  "procedure": "relcheck",
+  "recovered": false,
+  "result": "success",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_total_bytes": 0,
+  "stdout_bytes": 47,
+  "stdout_sha256": "c6e1d72abae7320dc5305bf4d5504f7f598a92f4890bd638b52d65bb9690d959",
+  "stdout_total_bytes": 47,
+  "step": "package",
+  "timed_out": false,
+  "truncated_stderr": false,
+  "truncated_stdout": false,
+  "undeclared_present": []
+}

@@ -1,0 +1,1727 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1028,
+      "relpath": "IDENTITY-RESULT.json",
+      "sha256": "8820faf0dfffecaf90be3d92d57d70100c7ba7bb229222d96f6abc0083a076d9"
+    }
+  ],
+  "attempt": 1,
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "caps": {
+    "stderr": 1048576,
+    "stdout": 1048576
+  },
+  "elapsed_s": 13.0,
+  "exit_code": 0,
+  "idem_key": "s5a10readiness",
+  "invoke_id": "proc-s5a10readiness-identity-a1",
+  "outside_writes": [],
+  "procedure": "relcheck",
+  "recovered": false,
+  "result": "success",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_total_bytes": 0,
+  "stdout_bytes": 206,
+  "stdout_sha256": "8d417d6dcd810e8cfde984e23fdea13947fab569ddaf52195b3cff75b17c878a",
+  "stdout_total_bytes": 206,
+  "step": "identity",
+  "timed_out": false,
+  "truncated_stderr": false,
+  "truncated_stdout": false,
+  "undeclared_present": [
+    {
+      "bytes": 4338,
+      "relpath": "frozen-r1/ACCEPTANCE-PLAN.md"
+    },
+    {
+      "bytes": 3575,
+      "relpath": "frozen-r1/FINISH-LINE.md"
+    },
+    {
+      "bytes": 6157,
+      "relpath": "frozen-r1/RELEASE-RECORD.md"
+    },
+    {
+      "bytes": 7692,
+      "relpath": "frozen-r1/acceptance/VERDICT.md"
+    },
+    {
+      "bytes": 650,
+      "relpath": "frozen-r1/acceptance/ledger-excerpts.txt"
+    },
+    {
+      "bytes": 49,
+      "relpath": "frozen-r1/acceptance/logs/A1-init.log"
+    },
+    {
+      "bytes": 343,
+      "relpath": "frozen-r1/acceptance/logs/A1-owncheck.log"
+    },
+    {
+      "bytes": 122,
+      "relpath": "frozen-r1/acceptance/logs/A1-run.log"
+    },
+    {
+      "bytes": 648,
+      "relpath": "frozen-r1/acceptance/logs/A10-c7.log"
+    },
+    {
+      "bytes": 660,
+      "relpath": "frozen-r1/acceptance/logs/A10-core.log"
+    },
+    {
+      "bytes": 252,
+      "relpath": "frozen-r1/acceptance/logs/A10-oppos.log"
+    },
+    {
+      "bytes": 350,
+      "relpath": "frozen-r1/acceptance/logs/A10-opsneg.log"
+    },
+    {
+      "bytes": 163,
+      "relpath": "frozen-r1/acceptance/logs/A2-calibrate.log"
+    },
+    {
+      "bytes": 476,
+      "relpath": "frozen-r1/acceptance/logs/A2-recompute.log"
+    },
+    {
+      "bytes": 71,
+      "relpath": "frozen-r1/acceptance/logs/A3-fuse.log"
+    },
+    {
+      "bytes": 43,
+      "relpath": "frozen-r1/acceptance/logs/A3-reuse.log"
+    },
+    {
+      "bytes": 1165,
+      "relpath": "frozen-r1/acceptance/logs/A3-verify.log"
+    },
+    {
+      "bytes": 1026,
+      "relpath": "frozen-r1/acceptance/logs/A4-edge.log"
+    },
+    {
+      "bytes": 80,
+      "relpath": "frozen-r1/acceptance/logs/A4-fission.log"
+    },
+    {
+      "bytes": 77,
+      "relpath": "frozen-r1/acceptance/logs/A4-settle.log"
+    },
+    {
+      "bytes": 58,
+      "relpath": "frozen-r1/acceptance/logs/A4-splitpair.log"
+    },
+    {
+      "bytes": 2068,
+      "relpath": "frozen-r1/acceptance/logs/A4-verify.log"
+    },
+    {
+      "bytes": 71,
+      "relpath": "frozen-r1/acceptance/logs/A5-deny1.log"
+    },
+    {
+      "bytes": 71,
+      "relpath": "frozen-r1/acceptance/logs/A5-deny2.log"
+    },
+    {
+      "bytes": 1144,
+      "relpath": "frozen-r1/acceptance/logs/A5-flow.log"
+    },
+    {
+      "bytes": 54,
+      "relpath": "frozen-r1/acceptance/logs/A5-revise.log"
+    },
+    {
+      "bytes": 47,
+      "relpath": "frozen-r1/acceptance/logs/A5-revoke.log"
+    },
+    {
+      "bytes": 721,
+      "relpath": "frozen-r1/acceptance/logs/A5-verify.log"
+    },
+    {
+      "bytes": 197,
+      "relpath": "frozen-r1/acceptance/logs/A6-killresume.log"
+    },
+    {
+      "bytes": 80,
+      "relpath": "frozen-r1/acceptance/logs/A6-quarantine.log"
+    },
+    {
+      "bytes": 572,
+      "relpath": "frozen-r1/acceptance/logs/A6-resume.log"
+    },
+    {
+      "bytes": 2031,
+      "relpath": "frozen-r1/acceptance/logs/A6q-drill.log"
+    },
+    {
+      "bytes": 267,
+      "relpath": "frozen-r1/acceptance/logs/A6q2-drill.log"
+    },
+    {
+      "bytes": 1569,
+      "relpath": "frozen-r1/acceptance/logs/A7-replay.log"
+    },
+    {
+      "bytes": 460,
+      "relpath": "frozen-r1/acceptance/logs/A7-unsettled.log"
+    },
+    {
+      "bytes": 132,
+      "relpath": "frozen-r1/acceptance/logs/A8-grep.log"
+    },
+    {
+      "bytes": 532,
+      "relpath": "frozen-r1/acceptance/logs/A8-manifest.log"
+    },
+    {
+      "bytes": 1380,
+      "relpath": "frozen-r1/acceptance/logs/A8-sourcecheck.log"
+    },
+    {
+      "bytes": 155,
+      "relpath": "frozen-r1/acceptance/logs/A8-sstleg.log"
+    },
+    {
+      "bytes": 748,
+      "relpath": "frozen-r1/acceptance/logs/A8-tamper.log"
+    },
+    {
+      "bytes": 97,
+      "relpath": "frozen-r1/acceptance/logs/A9-conformance.log"
+    },
+    {
+      "bytes": 525,
+      "relpath": "frozen-r1/acceptance/logs/A9-run.log"
+    },
+    {
+      "bytes": 234,
+      "relpath": "frozen-r1/acceptance/logs/A9-sst-cal.log"
+    },
+    {
+      "bytes": 3047,
+      "relpath": "frozen-r1/acceptance/logs/check_A10.py"
+    },
+    {
+      "bytes": 2166,
+      "relpath": "frozen-r1/acceptance/logs/check_A3.py"
+    },
+    {
+      "bytes": 1619,
+      "relpath": "frozen-r1/acceptance/logs/check_A4.py"
+    },
+    {
+      "bytes": 1645,
+      "relpath": "frozen-r1/acceptance/logs/check_A4edge.py"
+    },
+    {
+      "bytes": 2517,
+      "relpath": "frozen-r1/acceptance/logs/check_A56.py"
+    },
+    {
+      "bytes": 2058,
+      "relpath": "frozen-r1/acceptance/logs/check_A6q.py"
+    },
+    {
+      "bytes": 1155,
+      "relpath": "frozen-r1/acceptance/logs/check_A6q2.py"
+    },
+    {
+      "bytes": 1321,
+      "relpath": "frozen-r1/acceptance/logs/own_bytes.py"
+    },
+    {
+      "bytes": 879,
+      "relpath": "frozen-r1/acceptance/logs/own_check.py"
+    },
+    {
+      "bytes": 2426,
+      "relpath": "frozen-r1/acceptance/logs/own_replay.py"
+    },
+    {
+      "bytes": 9267,
+      "relpath": "frozen-r1/acceptance/round2/VERDICT2.md"
+    },
+    {
+      "bytes": 439,
+      "relpath": "frozen-r1/acceptance/round2/logs/A1-owncheck.log"
+    },
+    {
+      "bytes": 209,
+      "relpath": "frozen-r1/acceptance/round2/logs/A1-run.log"
+    },
+    {
+      "bytes": 2099,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-c7.log"
+    },
+    {
+      "bytes": 724,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-core.log"
+    },
+    {
+      "bytes": 144,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-init.log"
+    },
+    {
+      "bytes": 1043,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-op4.log"
+    },
+    {
+      "bytes": 794,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-op6.log"
+    },
+    {
+      "bytes": 1772,
+      "relpath": "frozen-r1/acceptance/round2/logs/A10-oppos.log"
+    },
+    {
+      "bytes": 300,
+      "relpath": "frozen-r1/acceptance/round2/logs/A6-killresume.log"
+    },
+    {
+      "bytes": 1195,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-grep.log"
+    },
+    {
+      "bytes": 968,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-manifest.log"
+    },
+    {
+      "bytes": 811,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-sourcecheck.log"
+    },
+    {
+      "bytes": 1084,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-sstleg.log"
+    },
+    {
+      "bytes": 1304,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-tamper.log"
+    },
+    {
+      "bytes": 714,
+      "relpath": "frozen-r1/acceptance/round2/logs/A8-workedcheck.log"
+    },
+    {
+      "bytes": 1678,
+      "relpath": "frozen-r1/acceptance/round2/logs/A9-run.log"
+    },
+    {
+      "bytes": 1966,
+      "relpath": "frozen-r1/acceptance/round2/logs/A9-sst-cal.log"
+    },
+    {
+      "bytes": 45,
+      "relpath": "frozen-r1/acceptance/round2/logs/FROZEN-spot.log"
+    },
+    {
+      "bytes": 830,
+      "relpath": "frozen-r1/acceptance/round2/logs/IDENTITY-check.log"
+    },
+    {
+      "bytes": 398,
+      "relpath": "frozen-r1/acceptance/round2/logs/IDENTITY-post.log"
+    },
+    {
+      "bytes": 2960,
+      "relpath": "frozen-r1/acceptance/round2/logs/check_A10r2.py"
+    },
+    {
+      "bytes": 1391,
+      "relpath": "frozen-r1/acceptance/round2/logs/own_check_r2.py"
+    },
+    {
+      "bytes": 4290,
+      "relpath": "frozen-r2/CONSUMER-DELTA.md"
+    },
+    {
+      "bytes": 7755,
+      "relpath": "frozen-r2/RELEASE-PLAN.md"
+    },
+    {
+      "bytes": 11239,
+      "relpath": "frozen-r2/RELEASE-RECORD.md"
+    },
+    {
+      "bytes": 5029,
+      "relpath": "frozen-r2/acceptance/VERDICT.md"
+    },
+    {
+      "bytes": 6212,
+      "relpath": "frozen-r2/acceptance/VERDICT2.md"
+    },
+    {
+      "bytes": 457,
+      "relpath": "frozen-r2/acceptance/logs/A1-identity.log"
+    },
+    {
+      "bytes": 2956,
+      "relpath": "frozen-r2/acceptance/logs/A10-F1-sharp-edge.md"
+    },
+    {
+      "bytes": 2758,
+      "relpath": "frozen-r2/acceptance/logs/A10-edge-attempt1-overstrict.log"
+    },
+    {
+      "bytes": 2901,
+      "relpath": "frozen-r2/acceptance/logs/A10-edge.log"
+    },
+    {
+      "bytes": 1006,
+      "relpath": "frozen-r2/acceptance/logs/A2-demo.log"
+    },
+    {
+      "bytes": 1778,
+      "relpath": "frozen-r2/acceptance/logs/A2-expected.log"
+    },
+    {
+      "bytes": 878,
+      "relpath": "frozen-r2/acceptance/logs/A3-conformance.log"
+    },
+    {
+      "bytes": 791,
+      "relpath": "frozen-r2/acceptance/logs/A3-fission.log"
+    },
+    {
+      "bytes": 1842,
+      "relpath": "frozen-r2/acceptance/logs/A3-successor.log"
+    },
+    {
+      "bytes": 5079,
+      "relpath": "frozen-r2/acceptance/logs/A4-atomicity.log"
+    },
+    {
+      "bytes": 3751,
+      "relpath": "frozen-r2/acceptance/logs/A5-killmatrix.log"
+    },
+    {
+      "bytes": 645,
+      "relpath": "frozen-r2/acceptance/logs/A6-calibrate.log"
+    },
+    {
+      "bytes": 1301,
+      "relpath": "frozen-r2/acceptance/logs/A6-wording.log"
+    },
+    {
+      "bytes": 1078,
+      "relpath": "frozen-r2/acceptance/logs/A7-sst.log"
+    },
+    {
+      "bytes": 2081,
+      "relpath": "frozen-r2/acceptance/logs/A8-consumer-attempt1-probebig.log"
+    },
+    {
+      "bytes": 2285,
+      "relpath": "frozen-r2/acceptance/logs/A8-consumer-attempt2-slice.log"
+    },
+    {
+      "bytes": 2248,
+      "relpath": "frozen-r2/acceptance/logs/A8-consumer.log"
+    },
+    {
+      "bytes": 1045,
+      "relpath": "frozen-r2/acceptance/logs/A9-frozen.log"
+    },
+    {
+      "bytes": 3511,
+      "relpath": "frozen-r2/acceptance/logs/check_expected.py"
+    },
+    {
+      "bytes": 9879,
+      "relpath": "frozen-r2/acceptance/logs/probe_a10.py"
+    },
+    {
+      "bytes": 11728,
+      "relpath": "frozen-r2/acceptance/logs/probe_a5.py"
+    },
+    {
+      "bytes": 8364,
+      "relpath": "frozen-r2/acceptance/logs/probe_a8.py"
+    },
+    {
+      "bytes": 5448,
+      "relpath": "frozen-r3/CONSUMER-DELTA.md"
+    },
+    {
+      "bytes": 9928,
+      "relpath": "frozen-r3/RELEASE-PLAN.md"
+    },
+    {
+      "bytes": 12542,
+      "relpath": "frozen-r3/RELEASE-RECORD.md"
+    },
+    {
+      "bytes": 6449,
+      "relpath": "frozen-r3/acceptance/VERDICT.md"
+    },
+    {
+      "bytes": 4418,
+      "relpath": "frozen-r3/acceptance/VERDICT2.md"
+    },
+    {
+      "bytes": 715,
+      "relpath": "frozen-r3/acceptance/logs/A1-identity.log"
+    },
+    {
+      "bytes": 3904,
+      "relpath": "frozen-r3/acceptance/logs/A10-edge.log"
+    },
+    {
+      "bytes": 1006,
+      "relpath": "frozen-r3/acceptance/logs/A2-demo.log"
+    },
+    {
+      "bytes": 1771,
+      "relpath": "frozen-r3/acceptance/logs/A2-expected.log"
+    },
+    {
+      "bytes": 871,
+      "relpath": "frozen-r3/acceptance/logs/A3-conformance.log"
+    },
+    {
+      "bytes": 784,
+      "relpath": "frozen-r3/acceptance/logs/A3-fission.log"
+    },
+    {
+      "bytes": 1835,
+      "relpath": "frozen-r3/acceptance/logs/A3-successor.log"
+    },
+    {
+      "bytes": 6784,
+      "relpath": "frozen-r3/acceptance/logs/A4-atomicity.log"
+    },
+    {
+      "bytes": 4728,
+      "relpath": "frozen-r3/acceptance/logs/A5-killmatrix.log"
+    },
+    {
+      "bytes": 139,
+      "relpath": "frozen-r3/acceptance/logs/A6-calibrate.log"
+    },
+    {
+      "bytes": 3173,
+      "relpath": "frozen-r3/acceptance/logs/A6-wording.log"
+    },
+    {
+      "bytes": 445,
+      "relpath": "frozen-r3/acceptance/logs/A7-attempt1-note.md"
+    },
+    {
+      "bytes": 1156,
+      "relpath": "frozen-r3/acceptance/logs/A7-sst.log"
+    },
+    {
+      "bytes": 2241,
+      "relpath": "frozen-r3/acceptance/logs/A8-consumer.log"
+    },
+    {
+      "bytes": 2050,
+      "relpath": "frozen-r3/acceptance/logs/A9-frozen.log"
+    },
+    {
+      "bytes": 3511,
+      "relpath": "frozen-r3/acceptance/logs/check_expected.py"
+    },
+    {
+      "bytes": 13657,
+      "relpath": "frozen-r3/acceptance/logs/probe_a10.py"
+    },
+    {
+      "bytes": 15610,
+      "relpath": "frozen-r3/acceptance/logs/probe_a5.py"
+    },
+    {
+      "bytes": 8364,
+      "relpath": "frozen-r3/acceptance/logs/probe_a8.py"
+    },
+    {
+      "bytes": 5507,
+      "relpath": "frozen-s002/CONSUMER.md"
+    },
+    {
+      "bytes": 6328,
+      "relpath": "frozen-s002/CONTRACT-GAPS.md"
+    },
+    {
+      "bytes": 247409,
+      "relpath": "frozen-s002/FROZEN-BASELINE.sha256"
+    },
+    {
+      "bytes": 3372,
+      "relpath": "frozen-s002/IDENTITY.sha256"
+    },
+    {
+      "bytes": 3505,
+      "relpath": "frozen-s002/LIMITS.md"
+    },
+    {
+      "bytes": 2522,
+      "relpath": "frozen-s002/OBLIGATIONS.md"
+    },
+    {
+      "bytes": 10286,
+      "relpath": "frozen-s002/ORG-OPS.md"
+    },
+    {
+      "bytes": 3223,
+      "relpath": "frozen-s002/PROVENANCE.md"
+    },
+    {
+      "bytes": 10332,
+      "relpath": "frozen-s002/REPORT.md"
+    },
+    {
+      "bytes": 3443,
+      "relpath": "frozen-s002/REPRODUCE.md"
+    },
+    {
+      "bytes": 3170,
+      "relpath": "frozen-s002/SEPARATION-PATHS.md"
+    },
+    {
+      "bytes": 10982,
+      "relpath": "frozen-s002/SUCCESSOR-REPORT.md"
+    },
+    {
+      "bytes": 1557,
+      "relpath": "frozen-s002/VENDORING.md"
+    },
+    {
+      "bytes": 1813,
+      "relpath": "frozen-s002/accept/EXPECTED.json"
+    },
+    {
+      "bytes": 1876,
+      "relpath": "frozen-s002/accept/README.md"
+    },
+    {
+      "bytes": 1088,
+      "relpath": "frozen-s002/accept/S1.json"
+    },
+    {
+      "bytes": 1099,
+      "relpath": "frozen-s002/accept/S2.json"
+    },
+    {
+      "bytes": 2520,
+      "relpath": "frozen-s002/accept/S3.json"
+    },
+    {
+      "bytes": 922,
+      "relpath": "frozen-s002/accept/S4-followup.json"
+    },
+    {
+      "bytes": 780,
+      "relpath": "frozen-s002/accept/S5.json"
+    },
+    {
+      "bytes": 789,
+      "relpath": "frozen-s002/accept/S6-followup.json"
+    },
+    {
+      "bytes": 16278,
+      "relpath": "frozen-s002/api.py"
+    },
+    {
+      "bytes": 3441,
+      "relpath": "frozen-s002/calibrate.py"
+    },
+    {
+      "bytes": 15144,
+      "relpath": "frozen-s002/fusion.py"
+    },
+    {
+      "bytes": 3452,
+      "relpath": "frozen-s002/make_snapshot_manifest.py"
+    },
+    {
+      "bytes": 41545,
+      "relpath": "frozen-s002/minihost.py"
+    },
+    {
+      "bytes": 24046,
+      "relpath": "frozen-s002/pipeline.py"
+    },
+    {
+      "bytes": 10890,
+      "relpath": "frozen-s002/release.py"
+    },
+    {
+      "bytes": 11040,
+      "relpath": "frozen-s002/resume.py"
+    },
+    {
+      "bytes": 7495,
+      "relpath": "frozen-s002/routing.py"
+    },
+    {
+      "bytes": 3038,
+      "relpath": "frozen-s002/sched_checker.py"
+    },
+    {
+      "bytes": 5164,
+      "relpath": "frozen-s002/sched_domain.py"
+    },
+    {
+      "bytes": 4361,
+      "relpath": "frozen-s002/sched_inputs.py"
+    },
+    {
+      "bytes": 10098,
+      "relpath": "frozen-s002/sst_leg.py"
+    },
+    {
+      "bytes": 16696,
+      "relpath": "frozen-s002/successor_demo.py"
+    },
+    {
+      "bytes": 20882,
+      "relpath": "frozen-s002/test_conformance.py"
+    },
+    {
+      "bytes": 9445,
+      "relpath": "frozen-s002/test_fission.py"
+    },
+    {
+      "bytes": 27619,
+      "relpath": "frozen-s002/test_successor.py"
+    },
+    {
+      "bytes": 2760,
+      "relpath": "frozen-s002/vendor/HASH-CONSTRUCTION.md"
+    },
+    {
+      "bytes": 8637,
+      "relpath": "frozen-s002/vendor/PROVENANCE.md"
+    },
+    {
+      "bytes": 7765,
+      "relpath": "frozen-s002/vendor/SNAPSHOT-MANIFEST.json"
+    },
+    {
+      "bytes": 4349,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/__init__.py"
+    },
+    {
+      "bytes": 123,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/__main__.py"
+    },
+    {
+      "bytes": 326,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/cli/__init__.py"
+    },
+    {
+      "bytes": 25867,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/cli/main.py"
+    },
+    {
+      "bytes": 1864,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/cli/memory.py"
+    },
+    {
+      "bytes": 3991,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/cli/runner.py"
+    },
+    {
+      "bytes": 621,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/context/__init__.py"
+    },
+    {
+      "bytes": 9538,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/context/capsule.py"
+    },
+    {
+      "bytes": 10990,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/context/memory_adapter.py"
+    },
+    {
+      "bytes": 3003,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/context/provider.py"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/core/__init__.py"
+    },
+    {
+      "bytes": 7440,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/core/contracts.py"
+    },
+    {
+      "bytes": 1555,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/core/errors.py"
+    },
+    {
+      "bytes": 2130,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/core/events.py"
+    },
+    {
+      "bytes": 5963,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/core/models.py"
+    },
+    {
+      "bytes": 1028,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/gateway/__init__.py"
+    },
+    {
+      "bytes": 7665,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/gateway/backends.py"
+    },
+    {
+      "bytes": 7917,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/gateway/contracts.py"
+    },
+    {
+      "bytes": 10699,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/gateway/gateway.py"
+    },
+    {
+      "bytes": 617,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/prompts/__init__.py"
+    },
+    {
+      "bytes": 10251,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/prompts/dialectic.py"
+    },
+    {
+      "bytes": 775,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/__init__.py"
+    },
+    {
+      "bytes": 661,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/evaluator.py"
+    },
+    {
+      "bytes": 2282,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/executor.py"
+    },
+    {
+      "bytes": 989,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/gateway.py"
+    },
+    {
+      "bytes": 2509,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/memory.py"
+    },
+    {
+      "bytes": 1449,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/protocols/storage.py"
+    },
+    {
+      "bytes": 27,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/py.typed"
+    },
+    {
+      "bytes": 801,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/sandbox/__init__.py"
+    },
+    {
+      "bytes": 26475,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/sandbox/custody.py"
+    },
+    {
+      "bytes": 15750,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/sandbox/evaluator.py"
+    },
+    {
+      "bytes": 2515,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/sandbox/executor.py"
+    },
+    {
+      "bytes": 3683,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/sandbox/outcomes.py"
+    },
+    {
+      "bytes": 356,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/search/__init__.py"
+    },
+    {
+      "bytes": 48836,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/search/controller.py"
+    },
+    {
+      "bytes": 18906,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/search/engine.py"
+    },
+    {
+      "bytes": 2709,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/search/policy.py"
+    },
+    {
+      "bytes": 8543,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/search/recovery.py"
+    },
+    {
+      "bytes": 317,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/storage/__init__.py"
+    },
+    {
+      "bytes": 13300,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/storage/projection.py"
+    },
+    {
+      "bytes": 4033,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/storage/serializer.py"
+    },
+    {
+      "bytes": 16430,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/storage/store.py"
+    },
+    {
+      "bytes": 382,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/__init__.py"
+    },
+    {
+      "bytes": 22082,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/app.py"
+    },
+    {
+      "bytes": 1714,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/decisions.py"
+    },
+    {
+      "bytes": 3120,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/models.py"
+    },
+    {
+      "bytes": 34548,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/pages.py"
+    },
+    {
+      "bytes": 14232,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/runner.py"
+    },
+    {
+      "bytes": 2041,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/ui/tasks.py"
+    },
+    {
+      "bytes": 467,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/visualizer/__init__.py"
+    },
+    {
+      "bytes": 423,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/visualizer/assets/README.md"
+    },
+    {
+      "bytes": 2842,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/visualizer/assets/visualizer.css"
+    },
+    {
+      "bytes": 1535,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/visualizer/assets/visualizer.js"
+    },
+    {
+      "bytes": 46779,
+      "relpath": "frozen-s002/vendor/sst-snapshot/sst/visualizer/server.py"
+    },
+    {
+      "bytes": 4523,
+      "relpath": "frozen-s002/verify_snapshot.py"
+    },
+    {
+      "bytes": 6716,
+      "relpath": "frozen-s003/CONSUMER.md"
+    },
+    {
+      "bytes": 6568,
+      "relpath": "frozen-s003/CONTRACT-GAPS.md"
+    },
+    {
+      "bytes": 11005,
+      "relpath": "frozen-s003/EVIDENCE.md"
+    },
+    {
+      "bytes": 481702,
+      "relpath": "frozen-s003/FROZEN-BASELINE.sha256"
+    },
+    {
+      "bytes": 3704,
+      "relpath": "frozen-s003/IDENTITY.sha256"
+    },
+    {
+      "bytes": 8779,
+      "relpath": "frozen-s003/INTERRUPTION-BOUNDARIES.md"
+    },
+    {
+      "bytes": 4203,
+      "relpath": "frozen-s003/LIMITS.md"
+    },
+    {
+      "bytes": 2825,
+      "relpath": "frozen-s003/OBLIGATIONS.md"
+    },
+    {
+      "bytes": 11255,
+      "relpath": "frozen-s003/ORG-OPS.md"
+    },
+    {
+      "bytes": 7104,
+      "relpath": "frozen-s003/PROVENANCE.md"
+    },
+    {
+      "bytes": 10332,
+      "relpath": "frozen-s003/REPORT.md"
+    },
+    {
+      "bytes": 4972,
+      "relpath": "frozen-s003/REPRODUCE.md"
+    },
+    {
+      "bytes": 3463,
+      "relpath": "frozen-s003/SEPARATION-PATHS.md"
+    },
+    {
+      "bytes": 10982,
+      "relpath": "frozen-s003/SUCCESSOR-REPORT.md"
+    },
+    {
+      "bytes": 2010,
+      "relpath": "frozen-s003/VENDORING.md"
+    },
+    {
+      "bytes": 1813,
+      "relpath": "frozen-s003/accept/EXPECTED.json"
+    },
+    {
+      "bytes": 1876,
+      "relpath": "frozen-s003/accept/README.md"
+    },
+    {
+      "bytes": 1088,
+      "relpath": "frozen-s003/accept/S1.json"
+    },
+    {
+      "bytes": 1099,
+      "relpath": "frozen-s003/accept/S2.json"
+    },
+    {
+      "bytes": 2520,
+      "relpath": "frozen-s003/accept/S3.json"
+    },
+    {
+      "bytes": 922,
+      "relpath": "frozen-s003/accept/S4-followup.json"
+    },
+    {
+      "bytes": 780,
+      "relpath": "frozen-s003/accept/S5.json"
+    },
+    {
+      "bytes": 789,
+      "relpath": "frozen-s003/accept/S6-followup.json"
+    },
+    {
+      "bytes": 25441,
+      "relpath": "frozen-s003/api.py"
+    },
+    {
+      "bytes": 3441,
+      "relpath": "frozen-s003/calibrate.py"
+    },
+    {
+      "bytes": 15916,
+      "relpath": "frozen-s003/fusion.py"
+    },
+    {
+      "bytes": 3452,
+      "relpath": "frozen-s003/make_snapshot_manifest.py"
+    },
+    {
+      "bytes": 46537,
+      "relpath": "frozen-s003/minihost.py"
+    },
+    {
+      "bytes": 24046,
+      "relpath": "frozen-s003/pipeline.py"
+    },
+    {
+      "bytes": 28831,
+      "relpath": "frozen-s003/recover.py"
+    },
+    {
+      "bytes": 13114,
+      "relpath": "frozen-s003/release.py"
+    },
+    {
+      "bytes": 11040,
+      "relpath": "frozen-s003/resume.py"
+    },
+    {
+      "bytes": 8876,
+      "relpath": "frozen-s003/routing.py"
+    },
+    {
+      "bytes": 3038,
+      "relpath": "frozen-s003/sched_checker.py"
+    },
+    {
+      "bytes": 5164,
+      "relpath": "frozen-s003/sched_domain.py"
+    },
+    {
+      "bytes": 4361,
+      "relpath": "frozen-s003/sched_inputs.py"
+    },
+    {
+      "bytes": 10098,
+      "relpath": "frozen-s003/sst_leg.py"
+    },
+    {
+      "bytes": 16696,
+      "relpath": "frozen-s003/successor_demo.py"
+    },
+    {
+      "bytes": 42786,
+      "relpath": "frozen-s003/test_atomicity.py"
+    },
+    {
+      "bytes": 20882,
+      "relpath": "frozen-s003/test_conformance.py"
+    },
+    {
+      "bytes": 9445,
+      "relpath": "frozen-s003/test_fission.py"
+    },
+    {
+      "bytes": 27875,
+      "relpath": "frozen-s003/test_successor.py"
+    },
+    {
+      "bytes": 2760,
+      "relpath": "frozen-s003/vendor/HASH-CONSTRUCTION.md"
+    },
+    {
+      "bytes": 8637,
+      "relpath": "frozen-s003/vendor/PROVENANCE.md"
+    },
+    {
+      "bytes": 7765,
+      "relpath": "frozen-s003/vendor/SNAPSHOT-MANIFEST.json"
+    },
+    {
+      "bytes": 4349,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/__init__.py"
+    },
+    {
+      "bytes": 123,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/__main__.py"
+    },
+    {
+      "bytes": 326,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/cli/__init__.py"
+    },
+    {
+      "bytes": 25867,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/cli/main.py"
+    },
+    {
+      "bytes": 1864,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/cli/memory.py"
+    },
+    {
+      "bytes": 3991,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/cli/runner.py"
+    },
+    {
+      "bytes": 621,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/context/__init__.py"
+    },
+    {
+      "bytes": 9538,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/context/capsule.py"
+    },
+    {
+      "bytes": 10990,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/context/memory_adapter.py"
+    },
+    {
+      "bytes": 3003,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/context/provider.py"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/core/__init__.py"
+    },
+    {
+      "bytes": 7440,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/core/contracts.py"
+    },
+    {
+      "bytes": 1555,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/core/errors.py"
+    },
+    {
+      "bytes": 2130,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/core/events.py"
+    },
+    {
+      "bytes": 5963,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/core/models.py"
+    },
+    {
+      "bytes": 1028,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/gateway/__init__.py"
+    },
+    {
+      "bytes": 7665,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/gateway/backends.py"
+    },
+    {
+      "bytes": 7917,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/gateway/contracts.py"
+    },
+    {
+      "bytes": 10699,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/gateway/gateway.py"
+    },
+    {
+      "bytes": 617,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/prompts/__init__.py"
+    },
+    {
+      "bytes": 10251,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/prompts/dialectic.py"
+    },
+    {
+      "bytes": 775,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/__init__.py"
+    },
+    {
+      "bytes": 661,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/evaluator.py"
+    },
+    {
+      "bytes": 2282,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/executor.py"
+    },
+    {
+      "bytes": 989,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/gateway.py"
+    },
+    {
+      "bytes": 2509,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/memory.py"
+    },
+    {
+      "bytes": 1449,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/protocols/storage.py"
+    },
+    {
+      "bytes": 27,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/py.typed"
+    },
+    {
+      "bytes": 801,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/sandbox/__init__.py"
+    },
+    {
+      "bytes": 26475,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/sandbox/custody.py"
+    },
+    {
+      "bytes": 15750,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/sandbox/evaluator.py"
+    },
+    {
+      "bytes": 2515,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/sandbox/executor.py"
+    },
+    {
+      "bytes": 3683,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/sandbox/outcomes.py"
+    },
+    {
+      "bytes": 356,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/search/__init__.py"
+    },
+    {
+      "bytes": 48836,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/search/controller.py"
+    },
+    {
+      "bytes": 18906,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/search/engine.py"
+    },
+    {
+      "bytes": 2709,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/search/policy.py"
+    },
+    {
+      "bytes": 8543,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/search/recovery.py"
+    },
+    {
+      "bytes": 317,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/storage/__init__.py"
+    },
+    {
+      "bytes": 13300,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/storage/projection.py"
+    },
+    {
+      "bytes": 4033,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/storage/serializer.py"
+    },
+    {
+      "bytes": 16430,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/storage/store.py"
+    },
+    {
+      "bytes": 382,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/__init__.py"
+    },
+    {
+      "bytes": 22082,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/app.py"
+    },
+    {
+      "bytes": 1714,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/decisions.py"
+    },
+    {
+      "bytes": 3120,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/models.py"
+    },
+    {
+      "bytes": 34548,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/pages.py"
+    },
+    {
+      "bytes": 14232,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/runner.py"
+    },
+    {
+      "bytes": 2041,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/ui/tasks.py"
+    },
+    {
+      "bytes": 467,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/visualizer/__init__.py"
+    },
+    {
+      "bytes": 423,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/visualizer/assets/README.md"
+    },
+    {
+      "bytes": 2842,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/visualizer/assets/visualizer.css"
+    },
+    {
+      "bytes": 1535,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/visualizer/assets/visualizer.js"
+    },
+    {
+      "bytes": 46779,
+      "relpath": "frozen-s003/vendor/sst-snapshot/sst/visualizer/server.py"
+    },
+    {
+      "bytes": 4523,
+      "relpath": "frozen-s003/verify_snapshot.py"
+    },
+    {
+      "bytes": 7101,
+      "relpath": "frozen-s004/CONSUMER.md"
+    },
+    {
+      "bytes": 6776,
+      "relpath": "frozen-s004/CONTRACT-GAPS.md"
+    },
+    {
+      "bytes": 15869,
+      "relpath": "frozen-s004/EVIDENCE.md"
+    },
+    {
+      "bytes": 548562,
+      "relpath": "frozen-s004/FROZEN-BASELINE.sha256"
+    },
+    {
+      "bytes": 3704,
+      "relpath": "frozen-s004/IDENTITY.sha256"
+    },
+    {
+      "bytes": 12073,
+      "relpath": "frozen-s004/INTERRUPTION-BOUNDARIES.md"
+    },
+    {
+      "bytes": 4788,
+      "relpath": "frozen-s004/LIMITS.md"
+    },
+    {
+      "bytes": 3054,
+      "relpath": "frozen-s004/OBLIGATIONS.md"
+    },
+    {
+      "bytes": 11724,
+      "relpath": "frozen-s004/ORG-OPS.md"
+    },
+    {
+      "bytes": 8235,
+      "relpath": "frozen-s004/PROVENANCE.md"
+    },
+    {
+      "bytes": 10332,
+      "relpath": "frozen-s004/REPORT.md"
+    },
+    {
+      "bytes": 5071,
+      "relpath": "frozen-s004/REPRODUCE.md"
+    },
+    {
+      "bytes": 3658,
+      "relpath": "frozen-s004/SEPARATION-PATHS.md"
+    },
+    {
+      "bytes": 10982,
+      "relpath": "frozen-s004/SUCCESSOR-REPORT.md"
+    },
+    {
+      "bytes": 2429,
+      "relpath": "frozen-s004/VENDORING.md"
+    },
+    {
+      "bytes": 1813,
+      "relpath": "frozen-s004/accept/EXPECTED.json"
+    },
+    {
+      "bytes": 1876,
+      "relpath": "frozen-s004/accept/README.md"
+    },
+    {
+      "bytes": 1088,
+      "relpath": "frozen-s004/accept/S1.json"
+    },
+    {
+      "bytes": 1099,
+      "relpath": "frozen-s004/accept/S2.json"
+    },
+    {
+      "bytes": 2520,
+      "relpath": "frozen-s004/accept/S3.json"
+    },
+    {
+      "bytes": 922,
+      "relpath": "frozen-s004/accept/S4-followup.json"
+    },
+    {
+      "bytes": 780,
+      "relpath": "frozen-s004/accept/S5.json"
+    },
+    {
+      "bytes": 789,
+      "relpath": "frozen-s004/accept/S6-followup.json"
+    },
+    {
+      "bytes": 25565,
+      "relpath": "frozen-s004/api.py"
+    },
+    {
+      "bytes": 3419,
+      "relpath": "frozen-s004/calibrate.py"
+    },
+    {
+      "bytes": 15923,
+      "relpath": "frozen-s004/fusion.py"
+    },
+    {
+      "bytes": 3425,
+      "relpath": "frozen-s004/make_snapshot_manifest.py"
+    },
+    {
+      "bytes": 50221,
+      "relpath": "frozen-s004/minihost.py"
+    },
+    {
+      "bytes": 24045,
+      "relpath": "frozen-s004/pipeline.py"
+    },
+    {
+      "bytes": 28867,
+      "relpath": "frozen-s004/recover.py"
+    },
+    {
+      "bytes": 13114,
+      "relpath": "frozen-s004/release.py"
+    },
+    {
+      "bytes": 10965,
+      "relpath": "frozen-s004/resume.py"
+    },
+    {
+      "bytes": 8894,
+      "relpath": "frozen-s004/routing.py"
+    },
+    {
+      "bytes": 3038,
+      "relpath": "frozen-s004/sched_checker.py"
+    },
+    {
+      "bytes": 5164,
+      "relpath": "frozen-s004/sched_domain.py"
+    },
+    {
+      "bytes": 4361,
+      "relpath": "frozen-s004/sched_inputs.py"
+    },
+    {
+      "bytes": 10142,
+      "relpath": "frozen-s004/sst_leg.py"
+    },
+    {
+      "bytes": 16762,
+      "relpath": "frozen-s004/successor_demo.py"
+    },
+    {
+      "bytes": 67033,
+      "relpath": "frozen-s004/test_atomicity.py"
+    },
+    {
+      "bytes": 20882,
+      "relpath": "frozen-s004/test_conformance.py"
+    },
+    {
+      "bytes": 9445,
+      "relpath": "frozen-s004/test_fission.py"
+    },
+    {
+      "bytes": 28292,
+      "relpath": "frozen-s004/test_successor.py"
+    },
+    {
+      "bytes": 2760,
+      "relpath": "frozen-s004/vendor/HASH-CONSTRUCTION.md"
+    },
+    {
+      "bytes": 8637,
+      "relpath": "frozen-s004/vendor/PROVENANCE.md"
+    },
+    {
+      "bytes": 7765,
+      "relpath": "frozen-s004/vendor/SNAPSHOT-MANIFEST.json"
+    },
+    {
+      "bytes": 4349,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/__init__.py"
+    },
+    {
+      "bytes": 123,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/__main__.py"
+    },
+    {
+      "bytes": 326,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/cli/__init__.py"
+    },
+    {
+      "bytes": 25867,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/cli/main.py"
+    },
+    {
+      "bytes": 1864,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/cli/memory.py"
+    },
+    {
+      "bytes": 3991,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/cli/runner.py"
+    },
+    {
+      "bytes": 621,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/context/__init__.py"
+    },
+    {
+      "bytes": 9538,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/context/capsule.py"
+    },
+    {
+      "bytes": 10990,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/context/memory_adapter.py"
+    },
+    {
+      "bytes": 3003,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/context/provider.py"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/core/__init__.py"
+    },
+    {
+      "bytes": 7440,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/core/contracts.py"
+    },
+    {
+      "bytes": 1555,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/core/errors.py"
+    },
+    {
+      "bytes": 2130,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/core/events.py"
+    },
+    {
+      "bytes": 5963,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/core/models.py"
+    },
+    {
+      "bytes": 1028,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/gateway/__init__.py"
+    },
+    {
+      "bytes": 7665,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/gateway/backends.py"
+    },
+    {
+      "bytes": 7917,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/gateway/contracts.py"
+    },
+    {
+      "bytes": 10699,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/gateway/gateway.py"
+    },
+    {
+      "bytes": 617,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/prompts/__init__.py"
+    },
+    {
+      "bytes": 10251,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/prompts/dialectic.py"
+    },
+    {
+      "bytes": 775,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/__init__.py"
+    },
+    {
+      "bytes": 661,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/evaluator.py"
+    },
+    {
+      "bytes": 2282,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/executor.py"
+    },
+    {
+      "bytes": 989,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/gateway.py"
+    },
+    {
+      "bytes": 2509,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/memory.py"
+    },
+    {
+      "bytes": 1449,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/protocols/storage.py"
+    },
+    {
+      "bytes": 27,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/py.typed"
+    },
+    {
+      "bytes": 801,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/sandbox/__init__.py"
+    },
+    {
+      "bytes": 26475,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/sandbox/custody.py"
+    },
+    {
+      "bytes": 15750,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/sandbox/evaluator.py"
+    },
+    {
+      "bytes": 2515,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/sandbox/executor.py"
+    },
+    {
+      "bytes": 3683,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/sandbox/outcomes.py"
+    },
+    {
+      "bytes": 356,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/search/__init__.py"
+    },
+    {
+      "bytes": 48836,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/search/controller.py"
+    },
+    {
+      "bytes": 18906,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/search/engine.py"
+    },
+    {
+      "bytes": 2709,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/search/policy.py"
+    },
+    {
+      "bytes": 8543,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/search/recovery.py"
+    },
+    {
+      "bytes": 317,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/storage/__init__.py"
+    },
+    {
+      "bytes": 13300,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/storage/projection.py"
+    },
+    {
+      "bytes": 4033,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/storage/serializer.py"
+    },
+    {
+      "bytes": 16430,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/storage/store.py"
+    },
+    {
+      "bytes": 382,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/__init__.py"
+    },
+    {
+      "bytes": 22082,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/app.py"
+    },
+    {
+      "bytes": 1714,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/decisions.py"
+    },
+    {
+      "bytes": 3120,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/models.py"
+    },
+    {
+      "bytes": 34548,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/pages.py"
+    },
+    {
+      "bytes": 14232,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/runner.py"
+    },
+    {
+      "bytes": 2041,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/ui/tasks.py"
+    },
+    {
+      "bytes": 467,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/visualizer/__init__.py"
+    },
+    {
+      "bytes": 423,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/visualizer/assets/README.md"
+    },
+    {
+      "bytes": 2842,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/visualizer/assets/visualizer.css"
+    },
+    {
+      "bytes": 1535,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/visualizer/assets/visualizer.js"
+    },
+    {
+      "bytes": 46779,
+      "relpath": "frozen-s004/vendor/sst-snapshot/sst/visualizer/server.py"
+    },
+    {
+      "bytes": 4523,
+      "relpath": "frozen-s004/verify_snapshot.py"
+    }
+  ]
+}

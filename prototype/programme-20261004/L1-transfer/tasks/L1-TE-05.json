@@ -1,0 +1,75 @@
+{
+  "adapter": "list2slot/v1",
+  "l1_seed": 205,
+  "precedence": [
+    [
+      "D",
+      "E"
+    ],
+    [
+      "C",
+      "A"
+    ]
+  ],
+  "prefs": {
+    "A": "M1",
+    "B": "M0",
+    "C": "M0",
+    "D": "M1",
+    "E": "M0"
+  },
+  "slots": {
+    "S0": {
+      "machine": "M1",
+      "time": "t0"
+    },
+    "S1": {
+      "machine": "M0",
+      "time": "t0"
+    },
+    "S2": {
+      "machine": "M1",
+      "time": "t1"
+    },
+    "S3": {
+      "machine": "M0",
+      "time": "t1"
+    },
+    "S4": {
+      "machine": "M0",
+      "time": "t2"
+    }
+  },
+  "task_id": "L1-TE-05",
+  "tasks": {
+    "A": {
+      "window": [
+        "S2",
+        "S3"
+      ]
+    },
+    "B": {
+      "window": [
+        "S4"
+      ]
+    },
+    "C": {
+      "window": [
+        "S0",
+        "S1"
+      ]
+    },
+    "D": {
+      "window": [
+        "S0",
+        "S2"
+      ]
+    },
+    "E": {
+      "window": [
+        "S1",
+        "S3"
+      ]
+    }
+  }
+}

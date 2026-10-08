@@ -1,0 +1,380 @@
+{
+  "fallback_uses": 0,
+  "guards_ok": true,
+  "ids_disjoint": true,
+  "mae_const": 233.25,
+  "mae_model": 0.0,
+  "mae_rule": 38.06944444444444,
+  "n_groups_fit": 36,
+  "n_test_items": 36,
+  "n_train_items": 36,
+  "n_valid_test": 36,
+  "predicates": {
+    "OVERALL": "PASS",
+    "P1": true,
+    "P2": true,
+    "valid": true
+  },
+  "rows": [
+    {
+      "actual": 683,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 683.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-01"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-01"
+    },
+    {
+      "actual": 661,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 661.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-02"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-02"
+    },
+    {
+      "actual": 852,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 852.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-03"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-03"
+    },
+    {
+      "actual": 683,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 683.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-04"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-04"
+    },
+    {
+      "actual": 776,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 776.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-05"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-05"
+    },
+    {
+      "actual": 852,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 852.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-06"
+    },
+    {
+      "actual": 324,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 4,
+      "pred_const": 579.25,
+      "pred_model": 324.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-06"
+    },
+    {
+      "actual": 741,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 741.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-07"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-07"
+    },
+    {
+      "actual": 719,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 719.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-08"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-08"
+    },
+    {
+      "actual": 910,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 910.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-09"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-09"
+    },
+    {
+      "actual": 741,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 741.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-10"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-10"
+    },
+    {
+      "actual": 834,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 834.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-11"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-11"
+    },
+    {
+      "actual": 910,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 910.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-12"
+    },
+    {
+      "actual": 346,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 5,
+      "pred_const": 579.25,
+      "pred_model": 346.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-12"
+    },
+    {
+      "actual": 811,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 811.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-13"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-13"
+    },
+    {
+      "actual": 777,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 777.0,
+      "pred_rule": 732.0,
+      "task_id": "M1R-TE-14"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-14"
+    },
+    {
+      "actual": 980,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 980.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-15"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-15"
+    },
+    {
+      "actual": 811,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 811.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-16"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-16"
+    },
+    {
+      "actual": 904,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 904.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-17"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-17"
+    },
+    {
+      "actual": 980,
+      "fallback": false,
+      "lane": "central",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 980.0,
+      "pred_rule": 852.75,
+      "task_id": "M1R-TE-18"
+    },
+    {
+      "actual": 368,
+      "fallback": false,
+      "lane": "local",
+      "n_tasks": 6,
+      "pred_const": 579.25,
+      "pred_model": 368.0,
+      "pred_rule": 346.0,
+      "task_id": "M1R-TE-18"
+    }
+  ]
+}

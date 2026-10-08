@@ -1,0 +1,306 @@
+{
+  "explain": {
+    "L2P-01": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 4,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-01"
+    },
+    "L2P-02": {
+      "declared_ignored": {},
+      "final_lane": "central",
+      "inputs": {
+        "derived_rounds": 2,
+        "derived_split": false
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "central",
+      "override": false,
+      "reason": "default central (derived_rounds=2, derived_split=False; local requires >=2 rounds AND split holdings; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "central",
+      "task_id": "L2P-02"
+    },
+    "L2P-03": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 3,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-03"
+    },
+    "L2P-04": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 4,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-04"
+    },
+    "L2P-05": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 3,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-05"
+    },
+    "L2P-06": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 3,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=3>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-06"
+    },
+    "L2P-07": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 4,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=4>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-07"
+    },
+    "L2P-08": {
+      "declared_ignored": {},
+      "final_lane": "local",
+      "inputs": {
+        "derived_rounds": 2,
+        "derived_split": true
+      },
+      "inputs_derived_from": "holdings",
+      "lane": "local",
+      "override": false,
+      "reason": "multi-round dialogue (derived_rounds=2>=2) over split holdings -> local-negotiation lane (X3 H3a cut; inputs derived from holdings)",
+      "rule": "local iff rounds>=2 AND split else central",
+      "rule_lane": "local",
+      "task_id": "L2P-08"
+    }
+  },
+  "guard": {
+    "S1": {
+      "central_bytes": 655,
+      "direct_bytes": 0,
+      "invokes": 12,
+      "lane": "central",
+      "ledger_entries": 38,
+      "quality": "4/4",
+      "valid": true
+    },
+    "S2": {
+      "central_bytes": 310,
+      "direct_bytes": 500,
+      "invokes": 12,
+      "lane": "local",
+      "ledger_entries": 38,
+      "quality": "4/4",
+      "valid": true
+    }
+  },
+  "probes": {
+    "L2P-01": {
+      "central": {
+        "central_bytes": 834,
+        "direct_bytes": 0,
+        "invokes": 7,
+        "lane": "central",
+        "ledger_entries": 25,
+        "quality": "4/4",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 318,
+        "direct_bytes": 516,
+        "invokes": 7,
+        "lane": "local",
+        "ledger_entries": 25,
+        "quality": "4/4",
+        "valid": true
+      }
+    },
+    "L2P-02": {
+      "central": {
+        "central_bytes": 671,
+        "direct_bytes": 0,
+        "invokes": 5,
+        "lane": "central",
+        "ledger_entries": 21,
+        "quality": "4/4",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 318,
+        "direct_bytes": 353,
+        "invokes": 5,
+        "lane": "local",
+        "ledger_entries": 21,
+        "quality": "4/4",
+        "valid": true
+      }
+    },
+    "L2P-03": {
+      "central": {
+        "central_bytes": 761,
+        "direct_bytes": 0,
+        "invokes": 6,
+        "lane": "central",
+        "ledger_entries": 23,
+        "quality": "4/4",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 318,
+        "direct_bytes": 443,
+        "invokes": 6,
+        "lane": "local",
+        "ledger_entries": 23,
+        "quality": "4/4",
+        "valid": true
+      }
+    },
+    "L2P-04": {
+      "central": {
+        "central_bytes": 892,
+        "direct_bytes": 0,
+        "invokes": 7,
+        "lane": "central",
+        "ledger_entries": 25,
+        "quality": "5/5",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 340,
+        "direct_bytes": 552,
+        "invokes": 7,
+        "lane": "local",
+        "ledger_entries": 25,
+        "quality": "5/5",
+        "valid": true
+      }
+    },
+    "L2P-05": {
+      "central": {
+        "central_bytes": 819,
+        "direct_bytes": 0,
+        "invokes": 6,
+        "lane": "central",
+        "ledger_entries": 23,
+        "quality": "5/5",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 340,
+        "direct_bytes": 479,
+        "invokes": 6,
+        "lane": "local",
+        "ledger_entries": 23,
+        "quality": "5/5",
+        "valid": true
+      }
+    },
+    "L2P-06": {
+      "central": {
+        "central_bytes": 802,
+        "direct_bytes": 0,
+        "invokes": 6,
+        "lane": "central",
+        "ledger_entries": 23,
+        "quality": "5/5",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 340,
+        "direct_bytes": 462,
+        "invokes": 6,
+        "lane": "local",
+        "ledger_entries": 23,
+        "quality": "5/5",
+        "valid": true
+      }
+    },
+    "L2P-07": {
+      "central": {
+        "central_bytes": 962,
+        "direct_bytes": 0,
+        "invokes": 7,
+        "lane": "central",
+        "ledger_entries": 25,
+        "quality": "6/6",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 362,
+        "direct_bytes": 600,
+        "invokes": 7,
+        "lane": "local",
+        "ledger_entries": 25,
+        "quality": "6/6",
+        "valid": true
+      }
+    },
+    "L2P-08": {
+      "central": {
+        "central_bytes": 799,
+        "direct_bytes": 0,
+        "invokes": 5,
+        "lane": "central",
+        "ledger_entries": 21,
+        "quality": "6/6",
+        "valid": true
+      },
+      "local": {
+        "central_bytes": 362,
+        "direct_bytes": 437,
+        "invokes": 5,
+        "lane": "local",
+        "ledger_entries": 21,
+        "quality": "6/6",
+        "valid": true
+      }
+    }
+  }
+}

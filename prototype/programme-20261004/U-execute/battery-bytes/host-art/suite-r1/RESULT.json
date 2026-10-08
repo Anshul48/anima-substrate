@@ -1,0 +1,793 @@
+{
+  "artifacts": [
+    {
+      "bytes": 1175,
+      "relpath": "SUITE-R1.json",
+      "sha256": "cc1cc8c38a9f92d0603d49df03d65d1625324243b2710e890e0cbe276469cb04"
+    },
+    {
+      "bytes": 903,
+      "relpath": "SUITE-R1-conformance.log",
+      "sha256": "8cd5b54ca18cd37deabb4148cb2790aa619d9912700044080f729184f8315d70"
+    },
+    {
+      "bytes": 1118,
+      "relpath": "SUITE-R1-demo.log",
+      "sha256": "911ee93c84021af78ea095f8595b898344911bcade6d1d009d6d3e443d48c824"
+    }
+  ],
+  "attempt": 1,
+  "bundle_sha256": "1fee2241d1fd2d482ab90ac2a3aa63b8d3f4e56dd44427a89c3aa6ce5161c91d",
+  "caps": {
+    "stderr": 1048576,
+    "stdout": 1048576
+  },
+  "elapsed_s": 9.5,
+  "exit_code": 0,
+  "idem_key": "s5a10readiness",
+  "invoke_id": "proc-s5a10readiness-suite-r1-a1",
+  "outside_writes": [],
+  "procedure": "relcheck",
+  "recovered": false,
+  "result": "success",
+  "stderr_bytes": 0,
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_total_bytes": 0,
+  "stdout_bytes": 102,
+  "stdout_sha256": "5febaccb0c6cf10b89cca78e5a15dcbbeae9161a557c4a0a201a63eedc5a9d81",
+  "stdout_total_bytes": 102,
+  "step": "suite-r1",
+  "timed_out": false,
+  "truncated_stderr": false,
+  "truncated_stdout": false,
+  "undeclared_present": [
+    {
+      "bytes": 5507,
+      "relpath": "suite-r1/CONSUMER.md"
+    },
+    {
+      "bytes": 6328,
+      "relpath": "suite-r1/CONTRACT-GAPS.md"
+    },
+    {
+      "bytes": 247409,
+      "relpath": "suite-r1/FROZEN-BASELINE.sha256"
+    },
+    {
+      "bytes": 3372,
+      "relpath": "suite-r1/IDENTITY.sha256"
+    },
+    {
+      "bytes": 3505,
+      "relpath": "suite-r1/LIMITS.md"
+    },
+    {
+      "bytes": 2522,
+      "relpath": "suite-r1/OBLIGATIONS.md"
+    },
+    {
+      "bytes": 10286,
+      "relpath": "suite-r1/ORG-OPS.md"
+    },
+    {
+      "bytes": 3223,
+      "relpath": "suite-r1/PROVENANCE.md"
+    },
+    {
+      "bytes": 10332,
+      "relpath": "suite-r1/REPORT.md"
+    },
+    {
+      "bytes": 3443,
+      "relpath": "suite-r1/REPRODUCE.md"
+    },
+    {
+      "bytes": 3170,
+      "relpath": "suite-r1/SEPARATION-PATHS.md"
+    },
+    {
+      "bytes": 10982,
+      "relpath": "suite-r1/SUCCESSOR-REPORT.md"
+    },
+    {
+      "bytes": 1557,
+      "relpath": "suite-r1/VENDORING.md"
+    },
+    {
+      "bytes": 1813,
+      "relpath": "suite-r1/accept/EXPECTED.json"
+    },
+    {
+      "bytes": 1876,
+      "relpath": "suite-r1/accept/README.md"
+    },
+    {
+      "bytes": 1088,
+      "relpath": "suite-r1/accept/S1.json"
+    },
+    {
+      "bytes": 1099,
+      "relpath": "suite-r1/accept/S2.json"
+    },
+    {
+      "bytes": 2520,
+      "relpath": "suite-r1/accept/S3.json"
+    },
+    {
+      "bytes": 922,
+      "relpath": "suite-r1/accept/S4-followup.json"
+    },
+    {
+      "bytes": 780,
+      "relpath": "suite-r1/accept/S5.json"
+    },
+    {
+      "bytes": 789,
+      "relpath": "suite-r1/accept/S6-followup.json"
+    },
+    {
+      "bytes": 16278,
+      "relpath": "suite-r1/api.py"
+    },
+    {
+      "bytes": 3441,
+      "relpath": "suite-r1/calibrate.py"
+    },
+    {
+      "bytes": 15144,
+      "relpath": "suite-r1/fusion.py"
+    },
+    {
+      "bytes": 3452,
+      "relpath": "suite-r1/make_snapshot_manifest.py"
+    },
+    {
+      "bytes": 41545,
+      "relpath": "suite-r1/minihost.py"
+    },
+    {
+      "bytes": 24046,
+      "relpath": "suite-r1/pipeline.py"
+    },
+    {
+      "bytes": 10890,
+      "relpath": "suite-r1/release.py"
+    },
+    {
+      "bytes": 11040,
+      "relpath": "suite-r1/resume.py"
+    },
+    {
+      "bytes": 7495,
+      "relpath": "suite-r1/routing.py"
+    },
+    {
+      "bytes": 10512,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/EVIDENCE.json"
+    },
+    {
+      "bytes": 1409,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/ROUTING-LOG.jsonl"
+    },
+    {
+      "bytes": 4766,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/fission-record.json"
+    },
+    {
+      "bytes": 3088,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/fusion-record.json"
+    },
+    {
+      "bytes": 157,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/solution-S1.json"
+    },
+    {
+      "bytes": 157,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/solution-S2.json"
+    },
+    {
+      "bytes": 183,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/solution-S3.json"
+    },
+    {
+      "bytes": 202,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/solution-S4-followup.json"
+    },
+    {
+      "bytes": 207,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/artifacts/solution-S6-followup.json"
+    },
+    {
+      "bytes": 167,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/child.READY"
+    },
+    {
+      "bytes": 42202,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/ledger.jsonl"
+    },
+    {
+      "bytes": 9111,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/ledger.jsonl"
+    },
+    {
+      "bytes": 181,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/args/S5-propose.json"
+    },
+    {
+      "bytes": 140,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/args/S5-verify.json"
+    },
+    {
+      "bytes": 210,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/candidates/S5-propose-cand.json"
+    },
+    {
+      "bytes": 311,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/results/S5-propose.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/verdicts/verdict-S5.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-B/verdicts/verdict.json"
+    },
+    {
+      "bytes": 143,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-Q/args/S5-formulate@v1.json"
+    },
+    {
+      "bytes": 89,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-Q/args/S5-probe.json"
+    },
+    {
+      "bytes": 455,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-Q/checkpoint.json"
+    },
+    {
+      "bytes": 1344,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/s5/state/SC-Q/formulations/S5-formulation-v1.json"
+    },
+    {
+      "bytes": 414,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/SNAPSHOT-CHECK.json"
+    },
+    {
+      "bytes": 8197,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/sst-result.json"
+    },
+    {
+      "bytes": 73728,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/sst-work/events.db"
+    },
+    {
+      "bytes": 28,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/sst-work/repo/math_mod.py"
+    },
+    {
+      "bytes": 48,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/sst-work/repo/test_math.py"
+    },
+    {
+      "bytes": 4324,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/sst-leg/sst_child_test.py"
+    },
+    {
+      "bytes": 281,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/args/S4-followup-reuse.json"
+    },
+    {
+      "bytes": 258,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/candidates/S4-followup-reuse-cand.json"
+    },
+    {
+      "bytes": 1531,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/formulations/S4-followup-formulation-v1.json"
+    },
+    {
+      "bytes": 352,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/results/S4-followup-reuse.json"
+    },
+    {
+      "bytes": 209,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/verdicts/verdict-S4-followup.json"
+    },
+    {
+      "bytes": 209,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-FUSED/verdicts/verdict.json"
+    },
+    {
+      "bytes": 333,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S1-clarify@r1.json"
+    },
+    {
+      "bytes": 334,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S1-clarify@r2.json"
+    },
+    {
+      "bytes": 143,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S1-formulate@v1.json"
+    },
+    {
+      "bytes": 161,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S1-propose.json"
+    },
+    {
+      "bytes": 331,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S2-clarify@r1.json"
+    },
+    {
+      "bytes": 332,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S2-clarify@r3.json"
+    },
+    {
+      "bytes": 141,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S2-formulate@v1.json"
+    },
+    {
+      "bytes": 310,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S2-propose.json"
+    },
+    {
+      "bytes": 331,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-clarify@r1.json"
+    },
+    {
+      "bytes": 332,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-clarify@r3.json"
+    },
+    {
+      "bytes": 141,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-formulate@v1.json"
+    },
+    {
+      "bytes": 141,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-formulate@v2.json"
+    },
+    {
+      "bytes": 329,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-propose@v1-retry.json"
+    },
+    {
+      "bytes": 345,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-propose@v1-stale.json"
+    },
+    {
+      "bytes": 295,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/args/S3-verify@v2.json"
+    },
+    {
+      "bytes": 190,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/candidates/S1-propose-cand.json"
+    },
+    {
+      "bytes": 190,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/candidates/S2-propose-cand.json"
+    },
+    {
+      "bytes": 225,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/candidates/S3-propose@v1-stale-cand.json"
+    },
+    {
+      "bytes": 650,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S1-clarify@r1.json"
+    },
+    {
+      "bytes": 277,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S1-clarify@r2.json"
+    },
+    {
+      "bytes": 482,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S2-clarify@r1.json"
+    },
+    {
+      "bytes": 241,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S2-clarify@r3.json"
+    },
+    {
+      "bytes": 482,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S3-clarify@r1.json"
+    },
+    {
+      "bytes": 241,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/clarify/S3-clarify@r3.json"
+    },
+    {
+      "bytes": 1344,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/formulations/S1-formulation-v1.json"
+    },
+    {
+      "bytes": 1344,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/formulations/S2-formulation-v1.json"
+    },
+    {
+      "bytes": 1344,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/formulations/S3-formulation-v1.json"
+    },
+    {
+      "bytes": 1313,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/formulations/S3-formulation-v2.json"
+    },
+    {
+      "bytes": 288,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/results/S1-propose.json"
+    },
+    {
+      "bytes": 288,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/results/S2-propose.json"
+    },
+    {
+      "bytes": 332,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/results/S3-propose@v1-stale.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/verdicts/verdict-S3.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L/verdicts/verdict.json"
+    },
+    {
+      "bytes": 132,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L2/args/S6-followup-formulate.json"
+    },
+    {
+      "bytes": 372,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L2/args/S6-followup-propose.json"
+    },
+    {
+      "bytes": 243,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L2/candidates/S6-followup-propose-cand.json"
+    },
+    {
+      "bytes": 1371,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L2/formulations/S6-followup-formulation-v1.json"
+    },
+    {
+      "bytes": 351,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-L2/results/S6-followup-propose.json"
+    },
+    {
+      "bytes": 140,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S1-verify.json"
+    },
+    {
+      "bytes": 331,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S2-clarify@r2.json"
+    },
+    {
+      "bytes": 332,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S2-clarify@r4.json"
+    },
+    {
+      "bytes": 138,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S2-verify.json"
+    },
+    {
+      "bytes": 331,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S3-clarify@r2.json"
+    },
+    {
+      "bytes": 332,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S3-clarify@r4.json"
+    },
+    {
+      "bytes": 178,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/args/S3-propose@v2.json"
+    },
+    {
+      "bytes": 209,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/candidates/S3-propose@v2-cand.json"
+    },
+    {
+      "bytes": 394,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/clarify/S2-clarify@r2.json"
+    },
+    {
+      "bytes": 241,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/clarify/S2-clarify@r4.json"
+    },
+    {
+      "bytes": 394,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/clarify/S3-clarify@r2.json"
+    },
+    {
+      "bytes": 241,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/clarify/S3-clarify@r4.json"
+    },
+    {
+      "bytes": 310,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/results/S3-propose@v2.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/verdicts/verdict-S1.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/verdicts/verdict-S2.json"
+    },
+    {
+      "bytes": 185,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S/verdicts/verdict.json"
+    },
+    {
+      "bytes": 316,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S2/args/S6-followup-verify.json"
+    },
+    {
+      "bytes": 194,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S2/verdicts/verdict-S6-followup.json"
+    },
+    {
+      "bytes": 194,
+      "relpath": "suite-r1/runs/demo-20261006T113307Z/state/SC-S2/verdicts/verdict.json"
+    },
+    {
+      "bytes": 3038,
+      "relpath": "suite-r1/sched_checker.py"
+    },
+    {
+      "bytes": 5164,
+      "relpath": "suite-r1/sched_domain.py"
+    },
+    {
+      "bytes": 4361,
+      "relpath": "suite-r1/sched_inputs.py"
+    },
+    {
+      "bytes": 10098,
+      "relpath": "suite-r1/sst_leg.py"
+    },
+    {
+      "bytes": 16696,
+      "relpath": "suite-r1/successor_demo.py"
+    },
+    {
+      "bytes": 20882,
+      "relpath": "suite-r1/test_conformance.py"
+    },
+    {
+      "bytes": 9445,
+      "relpath": "suite-r1/test_fission.py"
+    },
+    {
+      "bytes": 27619,
+      "relpath": "suite-r1/test_successor.py"
+    },
+    {
+      "bytes": 2760,
+      "relpath": "suite-r1/vendor/HASH-CONSTRUCTION.md"
+    },
+    {
+      "bytes": 8637,
+      "relpath": "suite-r1/vendor/PROVENANCE.md"
+    },
+    {
+      "bytes": 7765,
+      "relpath": "suite-r1/vendor/SNAPSHOT-MANIFEST.json"
+    },
+    {
+      "bytes": 4349,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/__init__.py"
+    },
+    {
+      "bytes": 123,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/__main__.py"
+    },
+    {
+      "bytes": 326,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/cli/__init__.py"
+    },
+    {
+      "bytes": 25867,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/cli/main.py"
+    },
+    {
+      "bytes": 1864,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/cli/memory.py"
+    },
+    {
+      "bytes": 3991,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/cli/runner.py"
+    },
+    {
+      "bytes": 621,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/context/__init__.py"
+    },
+    {
+      "bytes": 9538,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/context/capsule.py"
+    },
+    {
+      "bytes": 10990,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/context/memory_adapter.py"
+    },
+    {
+      "bytes": 3003,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/context/provider.py"
+    },
+    {
+      "bytes": 1175,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/core/__init__.py"
+    },
+    {
+      "bytes": 7440,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/core/contracts.py"
+    },
+    {
+      "bytes": 1555,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/core/errors.py"
+    },
+    {
+      "bytes": 2130,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/core/events.py"
+    },
+    {
+      "bytes": 5963,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/core/models.py"
+    },
+    {
+      "bytes": 1028,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/gateway/__init__.py"
+    },
+    {
+      "bytes": 7665,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/gateway/backends.py"
+    },
+    {
+      "bytes": 7917,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/gateway/contracts.py"
+    },
+    {
+      "bytes": 10699,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/gateway/gateway.py"
+    },
+    {
+      "bytes": 617,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/prompts/__init__.py"
+    },
+    {
+      "bytes": 10251,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/prompts/dialectic.py"
+    },
+    {
+      "bytes": 775,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/__init__.py"
+    },
+    {
+      "bytes": 661,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/evaluator.py"
+    },
+    {
+      "bytes": 2282,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/executor.py"
+    },
+    {
+      "bytes": 989,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/gateway.py"
+    },
+    {
+      "bytes": 2509,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/memory.py"
+    },
+    {
+      "bytes": 1449,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/protocols/storage.py"
+    },
+    {
+      "bytes": 27,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/py.typed"
+    },
+    {
+      "bytes": 801,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/sandbox/__init__.py"
+    },
+    {
+      "bytes": 26475,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/sandbox/custody.py"
+    },
+    {
+      "bytes": 15750,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/sandbox/evaluator.py"
+    },
+    {
+      "bytes": 2515,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/sandbox/executor.py"
+    },
+    {
+      "bytes": 3683,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/sandbox/outcomes.py"
+    },
+    {
+      "bytes": 356,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/search/__init__.py"
+    },
+    {
+      "bytes": 48836,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/search/controller.py"
+    },
+    {
+      "bytes": 18906,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/search/engine.py"
+    },
+    {
+      "bytes": 2709,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/search/policy.py"
+    },
+    {
+      "bytes": 8543,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/search/recovery.py"
+    },
+    {
+      "bytes": 317,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/storage/__init__.py"
+    },
+    {
+      "bytes": 13300,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/storage/projection.py"
+    },
+    {
+      "bytes": 4033,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/storage/serializer.py"
+    },
+    {
+      "bytes": 16430,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/storage/store.py"
+    },
+    {
+      "bytes": 382,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/__init__.py"
+    },
+    {
+      "bytes": 22082,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/app.py"
+    },
+    {
+      "bytes": 1714,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/decisions.py"
+    },
+    {
+      "bytes": 3120,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/models.py"
+    },
+    {
+      "bytes": 34548,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/pages.py"
+    },
+    {
+      "bytes": 14232,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/runner.py"
+    },
+    {
+      "bytes": 2041,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/ui/tasks.py"
+    },
+    {
+      "bytes": 467,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/visualizer/__init__.py"
+    },
+    {
+      "bytes": 423,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/visualizer/assets/README.md"
+    },
+    {
+      "bytes": 2842,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/visualizer/assets/visualizer.css"
+    },
+    {
+      "bytes": 1535,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/visualizer/assets/visualizer.js"
+    },
+    {
+      "bytes": 46779,
+      "relpath": "suite-r1/vendor/sst-snapshot/sst/visualizer/server.py"
+    },
+    {
+      "bytes": 4523,
+      "relpath": "suite-r1/verify_snapshot.py"
+    }
+  ]
+}
