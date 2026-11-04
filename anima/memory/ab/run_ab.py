@@ -155,6 +155,18 @@ def cmd_report(args):
         w(f"A1 and A2 (same setup, no memory) disagree on {len(flips)} task(s): {', '.join(flips) or 'none'}.")
         diff = [t for t in both if rows[t]["B"]["verdict"] != rows[t]["A1"]["verdict"] or rows[t]["B"]["verdict"] != rows[t]["A2"]["verdict"]]
         w(f"B differs from A1 or A2 on {len(diff)} task(s): {', '.join(diff) or 'none'}.")
+    if args.store and (Path(args.store) / "passages.jsonl").is_file():
+        mem_tasks = {json.loads(ln)["task"] for ln in (Path(args.store) / "passages.jsonl").read_text().splitlines() if ln.strip()}
+        lib = lambda t: t.split("-")[0]  # noqa: E731
+        rows_b = [(t, rows[t]["B"]) for t in tasks if "B" in rows[t]]
+        have = [(t, r) for t, r in rows_b if any(lib(m) == lib(t) and m != t for m in mem_tasks)]
+        got = [t for t, r in have if any(lib(h[0]) == lib(t) for h in (r.get("memory_hits") or []))]
+        top1 = [t for t, r in have if r.get("memory_hits") and lib(r["memory_hits"][0][0]) == lib(t)]
+        none_ = [t for t, r in rows_b if not (r.get("memory_hits") or [])]
+        w("")
+        w(f"Retrieval check (arm B, memory holds {len(mem_tasks)} tasks): {len(have)} of {len(rows_b)} tasks have a past job from the same library "
+          f"in memory; recall returned a same-library job for {len(got)} of them and ranked one first for {len(top1)}. "
+          f"Recall returned nothing for {len(none_)} task(s){': ' + ', '.join(none_) if none_ else ''}.")
     text = "\n".join(lines)
     print(text)
     if args.md:
@@ -180,6 +192,7 @@ def main(argv=None):
     p = sub.add_parser("report")
     p.add_argument("--out", required=True)
     p.add_argument("--md")
+    p.add_argument("--store", help="the memory arm B used (for the retrieval check)")
     p.set_defaults(fn=cmd_report)
     a = ap.parse_args(argv)
     return a.fn(a)
