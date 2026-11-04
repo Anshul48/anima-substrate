@@ -86,6 +86,7 @@ and the Harness code itself is not in this repository yet (see [Next step](#next
 - **SST (prototype): tries several fixes side by side** and keeps one only if its checks pass. Not used in the nine jobs above.
 - **STC (prototype): turns a written spec into code** in separate working copies, with a separate reviewer before a person merges.
   Not used in the nine jobs above.
+- **State space tree screen and voice commands (prototype):** one screen replays the nine-job record as a tree of agents (`python3 -m anima.ui --demo`); a spoken command runs only after you confirm it. [How it works and what is not built](docs/UI.md).
 
 SST and STC live in their own projects, not in this repository.
 
