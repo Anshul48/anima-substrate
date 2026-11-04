@@ -3,6 +3,23 @@
 All notable changes to the substrate publication package.
 Format follows Keep-a-Changelog headings.
 
+## [Unreleased]
+
+### Changed
+
+- New front page and project site (`docs/*.html`, served by GitHub Pages): ANIMA as memory (TRACE) plus a plug-in for the coding tool you already use (Muse Code first, then Claude Code and Codex), one State Space Tree screen, voice control and enforced rules. Every part carries a badge from `docs/status.json` (Working today, Prototype, Next, not built yet).
+- The site is generated: `site/` holds templates, `tools/site.py` builds, syncs the README tables and checks (stale pages, banned phrases, broken links, missing alt text, size, contrast). CI runs the check.
+- The in-browser record check (`docs/demo/`) moved onto the shared look. Its checking logic (`app.js`, `chain.js`) is unchanged apart from two labels.
+
+### Added
+
+- `docs/INDEX.md`, `docs/ROLES-AND-RULES.md`, `SECURITY.md`, issue and pull request templates, and `.github/workflows/pages.yml` (deploys `docs/` to GitHub Pages).
+- Contributing guide: a newcomer section and how to change the site.
+
+### Removed
+
+- Old README images (`docs/img/hero.*`, `docs/img/status.*`, `docs/img/three-steps.png`) and `docs/demo/style.css` (replaced by `docs/demo/demo.css`).
+
 ## [0.1.1] — 2026-10-08
 
 Patch release (`v0.1.1`; `v0.1.0` preserved unchanged).

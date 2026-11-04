@@ -1,0 +1,34 @@
+name: Something does not work
+description: A command, a page or the record check did not do what the docs say
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Please check [the status page](https://anshul48.github.io/anima-substrate/status.html) first: a part marked "Next, not built yet" is not expected to work.
+  - type: textarea
+    id: ran
+    attributes:
+      label: What you ran
+      description: The exact command, or the page address.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: saw
+    attributes:
+      label: What you saw instead
+      description: Paste the output. Remove anything private such as keys, tokens or personal paths.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Your setup
+      description: Operating system, Python version, browser if it is a page.

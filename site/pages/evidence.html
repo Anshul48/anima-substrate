@@ -10,7 +10,7 @@ out: evidence.html
 <p class="lead">One validated prototype for one kind of job: fix a bug, judged by hidden tests. Everything below is a recorded run you can open and a record you can check.</p>
 
 <h2>The nine jobs</h2>
-<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small local model tries first. A hidden checker, tests the agent does not see and cannot edit, judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job plus the one failing line.</p>
+<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A Muse Code worker tries first (the first rung, in the recorded runs). A hidden checker, tests the agent does not see and cannot edit, judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job plus the one failing line.</p>
 <div class="tiles">
 <div class="tile"><span class="num">9</span><p>real bug-fix jobs.</p></div>
 <div class="tile"><span class="num">7</span><p>right the first time, confirmed by the hidden tests.</p></div>
@@ -32,7 +32,7 @@ out: evidence.html
 REAL cachetools-unbound-keyword rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span>
 REAL click-short-help-abbrev rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL rule=target-tests</span>
 REAL click-short-help-abbrev rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span></pre>
-<p><code>rung=0</code> is the small local model, <code>rung=1</code> is Claude Sonnet. <code>said-done=yes</code> means the agent claimed it was finished. <code>gate=FAIL</code> means the hidden checker disagreed, and <code>rule=target-tests</code> means the tests written for that bug failed.</p>
+<p><code>rung=0</code> is the Muse Code worker (<code>laptop-muse</code> is the name of its pool in the log), <code>rung=1</code> is Claude Sonnet. <code>said-done=yes</code> means the agent claimed it was finished. <code>gate=FAIL</code> means the hidden checker disagreed, and <code>rule=target-tests</code> means the tests written for that bug failed.</p>
 <p>What the checker saw in the second case: the agent&rsquo;s fix cut a help text in the wrong place.</p>
 <pre class="out"><span class="bad">E   AssertionError: assert 'Pick a fruit. 3...' == 'Pick a fruit.'</span></pre>
 <p>The agent had not noticed. The checker did, and the next helper was handed the task plus that one line. (<a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/rejected-attempt-click-short-help-abbrev.gate.json">Full checker output</a>)</p>

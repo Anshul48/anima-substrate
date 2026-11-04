@@ -19,7 +19,7 @@ out: how-it-works.html
 <li><h3>You give it a task {{badge:voice}}</h3><p>By typing, or by speaking, with speech turned into text on your own computer.</p></li>
 <li><h3>It looks in the memory {{badge:memory}}</h3><p>Has something like this been fixed or decided before? TRACE returns notes, and each note carries a record id that points to where it came from.</p></li>
 <li><h3>Your harness does the work {{badge:harness}} {{badge:rules}}</h3><p>ANIMA hands the task and the notes to Muse Code, Claude Code or Codex. The rules apply while the agent works: no secrets read, nothing pushed.</p></li>
-<li><h3>A hidden checker judges the answer {{badge:checker}} {{badge:ladder}}</h3><p>Tests the agent cannot see or edit decide. If the answer is wrong, the next helper gets the task plus the one failing line: a small local model, then Claude Sonnet, then Codex.</p></li>
+<li><h3>A hidden checker judges the answer {{badge:checker}} {{badge:ladder}}</h3><p>Tests the agent cannot see or edit decide. If the answer is wrong, the next helper gets the task plus the one failing line: a Muse Code worker first (in the recorded runs), then Claude Sonnet, then Codex.</p></li>
 <li><h3>Every decision is recorded and drawn {{badge:record}} {{badge:sst}}</h3><p>Each decision is one line in a log, and each line carries a fingerprint of the line before it, so an edit shows. The state tree screen draws that log: mission, tasks, attempts.</p></li>
 </ol>
 <h2>What ANIMA is not</h2>

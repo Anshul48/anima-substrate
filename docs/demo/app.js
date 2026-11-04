@@ -77,7 +77,7 @@
       li.appendChild(c1);
 
       var c2 = el("div", "cell");
-      c2.appendChild(el("span", "cap", "Small local model said"));
+      c2.appendChild(el("span", "cap", "Muse Code worker said"));
       var v2 = el("div", "val", j.first.said === "yes" ? "done" : "not done");
       c2.appendChild(v2);
       li.appendChild(c2);
@@ -124,7 +124,7 @@
         tiles.appendChild(t);
       };
       add("t-teal", s.N, "real bug-fixing jobs");
-      add("t-green", s.rung0_verified, "right the first time: the small local model said done and the hidden tests agreed");
+      add("t-green", s.rung0_verified, "right the first time: the Muse Code worker said done and the hidden tests agreed");
       add("t-orange", s.rung0_said_done - s.rung0_verified, "said done but were wrong: the checker caught both and the next helper fixed them");
       if (s.ladder_verified === s.N && s.exhausted === 0) {
         $("tiles-note").textContent = "All " + s.N + " ended verified by the checker.";

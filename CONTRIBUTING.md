@@ -5,6 +5,36 @@ The maintained package lives in `src/anima_substrate/` (see
 plus programme records. Contract and evidence rules below are
 summaries — the in-tree contracts and acceptance records govern.
 
+## New here? Start with these
+
+1. Read the [README](README.md) and [`docs/status.json`](docs/status.json). The status file is the one place that says what is built (Working today), partly built (Prototype) or not built (Next, not built yet).
+2. Run the one check that works on a plain clone (Python 3 and git, about one second):
+
+```sh
+python3 docs/evidence/flagship-run3/check_chain.py --tamper
+```
+
+3. Pick something small. Good first changes: a clearer sentence in a page under `site/pages/`, a broken link, a missing alt text, a typo in `docs/`, or a question you could not answer from the docs (open an issue and say what you were looking for).
+4. Open a pull request using the template. Say what you ran and what you saw; a change that moves a part from Next to Working today must come with the command that shows it.
+
+Ground rules that apply to every change: no invented numbers, no claim for something that has not been run, and every figure keeps its caveat. `python3 tools/site.py check` lists the banned phrases.
+
+## Changing the site
+
+The pages in `docs/*.html` are generated. Do not edit them by hand.
+
+```sh
+# edit site/pages/*.html, site/partials/*.html, site/layout.html, docs/status.json or docs/videos.json, then:
+python3 tools/site.py build         # renders docs/*.html
+python3 tools/site.py sync-readme   # updates the tables in README.md that come from status.json
+python3 tools/site.py check         # must print ALL CHECKS PASS
+python3 -m http.server 8000 --directory docs   # look at it at http://localhost:8000
+```
+
+To flip a part from Next to Working today, edit its entry in `docs/status.json` (fill in `verify`, the command anyone can run, and `proof`, a file in this repository), then run the three commands above. Every page, badge and README table follows.
+
+To swap a film, replace the file under `docs/media/` (or change `file` in `docs/videos.json`) and run `build`.
+
 ## Dev setup
 
 - Target: Linux/Ubuntu, Python 3.11–3.12, `$0`, offline base.

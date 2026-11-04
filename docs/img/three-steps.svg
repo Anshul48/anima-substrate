@@ -45,5 +45,5 @@
 <path d="M432 272 l14 14 l-14 14" fill="none" stroke="#1F6F68" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M828 286 h34" stroke="#1F6F68" stroke-width="6" stroke-linecap="round"/>
 <path d="M852 272 l14 14 l-14 14" fill="none" stroke="#1F6F68" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="640" y="512" font-size="23" font-weight="400" fill="#4A5860" text-anchor="middle">The ladder: a small local model, then Claude Sonnet, then Codex.</text>
+<text x="640" y="512" font-size="23" font-weight="400" fill="#4A5860" text-anchor="middle">The ladder: a Muse Code worker, then Claude Sonnet, then Codex.</text>
 </svg>

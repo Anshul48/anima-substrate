@@ -354,34 +354,87 @@ def build(write: bool = True) -> dict[str, str]:
 
 # --------------------------------------------------------------------------- README sync
 
-README_START, README_END = "<!-- status:start (generated from docs/status.json by tools/site.py sync-readme) -->", "<!-- status:end -->"
+def _block_markers(name: str) -> tuple[str, str]:
+    return (f"<!-- block:{name}:start (generated from docs/status.json by tools/site.py sync-readme) -->", f"<!-- block:{name}:end -->")
 
 
-def readme_block(status: dict) -> str:
+def _planned_cmds(f: dict) -> list[str]:
+    return [m for m in re.findall(r"`([^`]+)`", f["will"]) if m.startswith(("anima ", "curl "))]
+
+
+def blk_status(status: dict) -> str:
     st = status["states"]
     rows = ["| Part | State | What exists today |", "|---|---|---|"]
     for fid in PARTS:
         f = status["by_id"][fid]
-        rows.append(f"| [{f['short']}](docs/{f['page']}) | **{st[f['status']]}** | {f['exists']} |")
-    kids = ", ".join(f"{n}. {status['by_id'][k]['name']}: {st[status['by_id'][k]['status']]}"
-                     for n, k in enumerate(status["by_id"]["harness"]["children"], start=1))
+        rows.append(f"| [{f['short']}]({PAGES_URL}{f['page']}) | **{st[f['status']]}** | {f['exists']} |")
     parts_kids = ", ".join(f"{status['by_id'][k]['short']}: {st[status['by_id'][k]['status']]}"
                            for k in status["by_id"]["discipline"]["children"])
-    return "\n".join([README_START, "", *rows, "", f"Harnesses, in order: {kids}.", "",
-                      f"Roles and rules, part by part: {parts_kids}.", "", README_END])
+    return "\n".join([*rows, "", f"Roles and rules, part by part: {parts_kids}.",
+                      "", f"Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it."])
+
+
+def blk_harness(status: dict) -> str:
+    st = status["states"]
+    rows = ["| # | Harness | State | Command |", "|---|---|---|---|"]
+    for n, k in enumerate(status["by_id"]["harness"]["children"], start=1):
+        f = status["by_id"][k]
+        cmds = _planned_cmds(f)
+        cmd = ("`" + cmds[0] + "`") if cmds else ""
+        if cmd and f["status"] != "built":
+            cmd = "planned, not available yet: " + cmd
+        rows.append(f"| {n} | {f['name']} | **{st[f['status']]}** | {cmd} |")
+    return "\n".join(rows)
+
+
+def blk_install(status: dict) -> str:
+    f = status["by_id"]["install"]
+    line = f"curl -fsSL {REPO_URL.replace('github.com', 'raw.githubusercontent.com')}/main/install.sh | sh"
+    if f["status"] == "built":
+        return "```bash\n" + line + "\nanima doctor\n```\n\nOne line, a private folder, no admin rights. `anima doctor` lists which of Muse Code, Claude Code and Codex it found."
+    return ("**One-line install: " + status["states"][f["status"]] + ".** Planned line (not available yet; the address only works after the project's first push to GitHub):\n\n"
+            "```text\n" + line + "\n```")
+
+
+def blk_sst(status: dict) -> str:
+    f = status["by_id"]["sst"]
+    if f["status"] == "built":
+        return (f"![The ANIMA state tree screen replaying the recorded nine-job run: owner, run, nine tasks, attempts coloured verified or rejected.](docs/img/sst-screen.png)\n\n"
+                f"*Real screenshot: a replay of the recorded nine-job run, not a live run.* [More]({PAGES_URL}state-tree.html)")
+    return f"**{status['states'][f['status']]}.** {f['plain']} [What it will look like and what exists]({PAGES_URL}state-tree.html)."
+
+
+def blk_feat(fid: str):
+    def fn(status: dict) -> str:
+        f = status["by_id"][fid]
+        out = [f"**{status['states'][f['status']]}.** {f['exists']}"]
+        if f["status"] != "built" and f.get("will"):
+            out.append(f"Planned: {f['will']}")
+        if f.get("limit"):
+            out.append(f"Limit: {f['limit']}")
+        return "\n\n".join(out)
+    return fn
+
+
+README_BLOCKS = {"status": blk_status, "harness": blk_harness, "install": blk_install, "sst": blk_sst,
+                 "memory-state": blk_feat("memory"), "voice-state": blk_feat("voice"), "rules-state": blk_feat("discipline")}
 
 
 def sync_readme(write: bool = True) -> str:
     path = ROOT / "README.md"
     text = path.read_text(encoding="utf-8")
-    pat = re.compile(re.escape(README_START) + r".*?" + re.escape(README_END), re.S)
-    if not pat.search(text):
-        raise SystemExit("README.md has no status markers")
-    new = pat.sub(lambda m: readme_block(load_status()), text)
-    if write and new != text:
-        path.write_text(new, encoding="utf-8")
-        print("README.md status table updated")
-    return new
+    status = load_status()
+    for name, fn in README_BLOCKS.items():
+        a, b = _block_markers(name)
+        pat = re.compile(re.escape(a) + r".*?" + re.escape(b), re.S)
+        if not pat.search(text):
+            raise SystemExit(f"README.md has no block markers for '{name}'")
+        body = fn(status)
+        text = pat.sub(lambda m: a + "\n\n" + body + "\n\n" + b, text)
+    if write and text != path.read_text(encoding="utf-8"):
+        path.write_text(text, encoding="utf-8")
+        print("README.md generated blocks updated")
+    return text
 
 
 # --------------------------------------------------------------------------- check

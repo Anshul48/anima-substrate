@@ -1,0 +1,18 @@
+name: A page or document is wrong or unclear
+description: A claim without a caveat, a broken link, a missing alt text, a confusing sentence
+labels: ["documentation"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Which page or file
+      description: A link, or a path in the repository.
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong or unclear
+      description: If it is a claim, say which one and what you could not check.
+    validations:
+      required: true

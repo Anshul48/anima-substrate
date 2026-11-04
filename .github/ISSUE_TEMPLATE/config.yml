@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Project site and status of every part
+    url: https://anshul48.github.io/anima-substrate/status.html
+    about: Check here first whether a part is built, a prototype, or not built yet.
+  - name: Report a security problem privately
+    url: https://github.com/Anshul48/anima-substrate/security/advisories/new
+    about: Use this instead of a public issue. See SECURITY.md.

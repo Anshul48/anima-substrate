@@ -1,0 +1,22 @@
+name: site-check
+# Runs on every push and pull request: the generated pages must match their sources,
+# the README tables must match docs/status.json, and the banned-phrase, link, alt-text,
+# size and contrast checks must pass. Needs only the Python standard library.
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python3 tools/site.py check
+      - name: The record check still works on the recorded run
+        run: python3 docs/evidence/flagship-run3/check_chain.py --tamper

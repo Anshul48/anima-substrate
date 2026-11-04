@@ -20,10 +20,10 @@ js: data.js chain.js app.js
 <section id="jobs" class="sec alt" aria-labelledby="jobs-h">
 <div class="wrap">
 <h2 id="jobs-h"><span class="num">1</span>The nine jobs</h2>
-<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small model on the laptop tries first. A hidden checker (tests the agent does not see and cannot edit) judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job.</p>
+<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A Muse Code worker tries first (the first rung of the ladder, in the recorded run). A hidden checker (tests the agent does not see and cannot edit) judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job.</p>
 <div class="tiles" id="tiles" aria-label="Summary of the run"></div>
 <p class="muted small" id="tiles-note"></p>
-<div class="jobs-head" aria-hidden="true"><span>Job</span><span>Small local model said</span><span>Hidden checker said</span><span>Next helper (Claude Sonnet)</span></div>
+<div class="jobs-head" aria-hidden="true"><span>Job</span><span>Muse Code worker said</span><span>Hidden checker said</span><span>Next helper (Claude Sonnet)</span></div>
 <ol class="jobs" id="job-list"></ol>
 <p class="muted small" style="margin-top:12px">Read straight from the real log: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/real3.log"><code>real3.log</code></a>. The line the checker saw for the two caught jobs comes from the decision record below.</p>
 </div>
