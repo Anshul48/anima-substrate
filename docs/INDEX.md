@@ -11,6 +11,7 @@ Everything in `docs/`, by what you are probably looking for. The project site is
 | Check the record in a browser | [`demo/`](demo/index.html) (open the file, or use the Pages site) |
 | Understand roles and enforced rules | [ROLES-AND-RULES.md](ROLES-AND-RULES.md) |
 | Read about the memory (TRACE) | [TRACE repository](https://github.com/Anshul48/trace) and the [memory page](https://anshul48.github.io/anima-substrate/memory.html) |
+| See the one end-to-end run (placeholder until ~22:30Z) | [INTEGRATED-DEMO.md](INTEGRATED-DEMO.md): what is tested today, with the record for each line |
 | Rebuild or change the site | [CONTRIBUTING.md](../CONTRIBUTING.md), section "Changing the site" |
 
 ## Evidence

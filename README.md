@@ -26,9 +26,9 @@ Every claim in this README comes from one file, [`docs/status.json`](docs/status
 | [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Not built yet** | Nothing to install yet. Today you clone the repository and run the record check (see Try it). |
 | [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Not built yet** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is not built yet. |
 | [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Not built yet** | Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU. |
-| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Prototype** | Three of five parts exist in some form: the hidden checker and the ladder (one job type, recorded run) and the tamper-evident record (anyone can check it). Roles and the rules pack are designed, not built. |
+| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Not built yet** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. Nothing reads the file or enforces the rules yet. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
 
-Roles and rules, part by part: Roles: Not built yet, Enforced rules: Not built yet, Hidden checker: Prototype, Escalation ladder: Prototype, Tamper-evident record: Working today.
+Roles and rules, part by part: Roles: Not built yet, Enforced rules: Not built yet.
 
 Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it.
 
@@ -123,11 +123,11 @@ Architect, manager and worker; secrets, no-push and budgets; a hidden checker; a
 
 <!-- block:rules-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Prototype.** Three of five parts exist in some form: the hidden checker and the ladder (one job type, recorded run) and the tamper-evident record (anyone can check it). Roles and the rules pack are designed, not built.
+**Not built yet.** A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. Nothing reads the file or enforces the rules yet. The checker, the ladder and the record, which do exist in some form, are on the checker page.
 
 Planned: One file, `anima.yaml`, holds roles, permissions, budgets, watches and the ladder, so it works on any harness.
 
-Limit: Designed from how we actually run our own work. ANIMA has two of ten of those controls today.
+Limit: Designed from how we actually run our own work. Of the ten controls in the design, ANIMA has two today (the work ladder and the verification gate), and both are on the checker page.
 
 <!-- block:rules-state:end -->
 
@@ -185,6 +185,7 @@ Whatever the table marks "Not built yet" is not built. When a part lands, one ed
 ## For researchers and contributors
 
 - [Docs index](docs/INDEX.md): every document in `docs/`, by topic
+- [Integrated demo](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run; a placeholder until the integrator's final text lands at about 22:30Z
 - [Recorded run: nine jobs](docs/evidence/flagship-run3/README.md), with its [caveats](docs/evidence/flagship-run3/README.md#caveats-state-them-wherever-the-number-is-used) and the [earlier run](docs/evidence/flagship-run2/README.md)
 - [Previous front page](docs/README-technical.md): the repository's earlier technical page (a small offline engine in `src/`; run it: `PYTHONPATH=src python3 examples/quickstart.py`)
 - [Technical report](docs/TECHNICAL-REPORT.md) / [Architecture](docs/ARCHITECTURE.md) / [Reproduce all](REPRODUCE-ALL.md)

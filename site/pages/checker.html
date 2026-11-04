@@ -1,0 +1,21 @@
+title: ANIMA hidden checker: tests the agent cannot see
+description: A hidden checker judges every ANIMA answer: tests the agent cannot see or edit decide. Two wrong "done" answers were caught in the recorded run.
+nav: features
+out: checker.html
+---
+{{fhead:checker}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>When an agent says it is finished, ANIMA does not take its word for it. Hidden tests, which the agent cannot see or edit, judge the answer. If the answer is wrong, the next helper gets the task plus the one failing line: a Muse Code worker first (in the recorded runs), then Claude Sonnet, then Codex.</p>
+<h2>See it</h2>
+<p>Two lines from the recorded nine-job run. Each line is one attempt, with the checker's verdict as recorded:</p>
+<pre class="out">cachetools-unbound-keyword rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL</span> rule=target-tests
+cachetools-unbound-keyword rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS</span> rule=-</pre>
+<p class="muted">The agent said done and was wrong. The checker said no, the next helper fixed it, and all nine jobs ended verified. The full log is on the <a href="evidence.html">evidence page</a>.</p>
+{{cmds:checker}}
+{{facts:checker}}
+{{howtocheck:checker}}
+<nav class="pager" aria-label="Previous and next feature"><a href="rules.html">&larr; Roles and rules</a><a href="features.html">All features &rarr;</a></nav>
+</div>
+</section>

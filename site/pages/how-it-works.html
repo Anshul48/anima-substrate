@@ -7,7 +7,7 @@ out: how-it-works.html
 <div class="wrap">
 <p class="crumbs"><a href="index.html">Home</a> / How it works</p>
 <h1>How it works, in plain words.</h1>
-<p class="lead">ANIMA sits between you and the coding tool you already use. It does not replace that tool. It adds a memory, rules, a checker and a screen around it.</p>
+<p class="lead">ANIMA sits between you and the coding tool you already use. It does not replace that tool. It adds a memory, rules, a checker and a screen around it. What follows is the design. The badge on each step says what exists today.</p>
 <ul class="flow" aria-label="The parts, left to right">
 <li><span class="chip">You<small>typing or voice</small></span><span class="arrow" aria-hidden="true">&rarr;</span></li>
 <li><span class="chip">Your harness<small>Muse Code, Claude Code, Codex</small></span><span class="arrow" aria-hidden="true">&harr;</span></li>
@@ -17,7 +17,7 @@ out: how-it-works.html
 <h2>What happens to one task</h2>
 <ol class="steps">
 <li><h3>You give it a task {{badge:voice}}</h3><p>By typing, or by speaking, with speech turned into text on your own computer.</p></li>
-<li><h3>It looks in the memory {{badge:memory}}</h3><p>Has something like this been fixed or decided before? TRACE returns notes, and each note carries a record id that points to where it came from.</p></li>
+<li><h3>It looks in the memory {{badge:memory}}</h3><p>The design: ANIMA asks whether something like this was fixed or decided before, and the notes come back with a pointer to where each came from. The recall command is not built yet.</p></li>
 <li><h3>Your harness does the work {{badge:harness}} {{badge:rules}}</h3><p>ANIMA hands the task and the notes to Muse Code, Claude Code or Codex. The rules apply while the agent works: no secrets read, nothing pushed.</p></li>
 <li><h3>A hidden checker judges the answer {{badge:checker}} {{badge:ladder}}</h3><p>Tests the agent cannot see or edit decide. If the answer is wrong, the next helper gets the task plus the one failing line: a Muse Code worker first (in the recorded runs), then Claude Sonnet, then Codex.</p></li>
 <li><h3>Every decision is recorded and drawn {{badge:record}} {{badge:sst}}</h3><p>Each decision is one line in a log, and each line carries a fingerprint of the line before it, so an edit shows. The state tree screen draws that log: mission, tasks, attempts.</p></li>
