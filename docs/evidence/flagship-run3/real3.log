@@ -1,0 +1,12 @@
+REAL packaging-licenseref-case rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL moreiter-peekable-slice rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL cachetools-unbound-keyword rung=0 pool=laptop-muse said-done=yes gate=FAIL rule=target-tests
+REAL semver-bump-prerelease rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL cachetools-unbound-keyword rung=1 pool=claude-sonnet said-done=yes gate=PASS rule=-
+REAL cachetools-stacked-decorators rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL dateutil-tzstr-doy-rules rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL cachetools-cachedmethod-pickle rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL click-pager-params rung=0 pool=laptop-muse said-done=yes gate=PASS rule=-
+REAL click-short-help-abbrev rung=0 pool=laptop-muse said-done=yes gate=FAIL rule=target-tests
+REAL click-short-help-abbrev rung=1 pool=claude-sonnet said-done=yes gate=PASS rule=-
+REAL {"N": 9, "exhausted": 0, "ladder_verified": 9, "rung0_said_done": 9, "rung0_verified": 7}
