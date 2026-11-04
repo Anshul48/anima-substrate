@@ -78,6 +78,8 @@ Your own copy of the file is left as it was.
 This checks the record. It does not re-run the nine jobs. A full re-run needs access to each agent on the ladder,
 and the Harness code itself is not in this repository yet (see [Next step](#next-step)).
 
+To try ANIMA's checker with the coding agent you already use (Muse Code, Claude Code or Codex), see [Use ANIMA with your coding agent](docs/HARNESSES.md).
+
 ## The parts around it
 
 - **TRACE (prototype link): the memory.** Search that shows its work: every answer comes with a checkable record of where it came from.
