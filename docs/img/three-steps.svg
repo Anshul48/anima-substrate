@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="548" viewBox="0 0 1280 548" role="img" aria-labelledby="t d" font-family="'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif">
+<title id="t">How one job goes</title>
+<desc id="d">Step 1 the agent works. Step 2 a hidden checker judges the result. Step 3 a wrong answer climbs one rung and the next helper tries again.</desc>
+<rect x="1" y="1" width="1278" height="546" rx="24" fill="#F6F4EE" stroke="#D8D3C5" stroke-width="2"/>
+<text x="40" y="66" font-size="34" font-weight="700" fill="#1F2A30" text-anchor="start">How one job goes</text>
+<rect x="40" y="100" width="360" height="372" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<circle cx="84" cy="150" r="24" fill="#1F6F68"/>
+<text x="84" y="159" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+<rect x="290" y="124" width="86" height="52" rx="14" fill="#FBEBC8" stroke="#D99A1E" stroke-width="3"/>
+<path d="M310 174 l-6 16 l22 -16 z" fill="#FBEBC8" stroke="#D99A1E" stroke-width="3" stroke-linejoin="round"/>
+<rect x="307" y="171" width="22" height="6" fill="#FBEBC8"/>
+<text x="333" y="158" font-size="22" font-weight="700" fill="#8A5A00" text-anchor="middle">Done!</text>
+<text x="68" y="250" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">The agent</text>
+<text x="68" y="284" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">does the work</text>
+<text x="68" y="338" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">It gets a bug to fix and</text>
+<text x="68" y="372" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">says “done” when it</text>
+<text x="68" y="406" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">believes it is finished.</text>
+<rect x="68" y="434" width="304" height="3" rx="1.5" fill="#CFE8E4"/>
+<rect x="460" y="100" width="360" height="372" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<circle cx="504" cy="150" r="24" fill="#1F6F68"/>
+<text x="504" y="159" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<path d="M732 154 v-12 a21 21 0 0 1 42 0 v12" fill="none" stroke="#1F6F68" stroke-width="8" stroke-linecap="round"/>
+<rect x="720" y="154" width="66" height="46" rx="10" fill="#1F6F68"/>
+<circle cx="753" cy="173" r="7" fill="#CFE8E4"/>
+<rect x="750" y="176" width="6" height="13" rx="3" fill="#CFE8E4"/>
+<text x="488" y="250" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">A hidden checker</text>
+<text x="488" y="284" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">judges the result</text>
+<text x="488" y="338" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">The judging tests stay</text>
+<text x="488" y="372" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">out of reach: the agent</text>
+<text x="488" y="406" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">does not see or edit them</text>
+<rect x="488" y="434" width="304" height="3" rx="1.5" fill="#CFE8E4"/>
+<rect x="880" y="100" width="360" height="372" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<circle cx="924" cy="150" r="24" fill="#1F6F68"/>
+<text x="924" y="159" font-size="26" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<rect x="1134" y="176" width="24" height="24" rx="5" fill="#CFE8E4"/>
+<rect x="1162" y="154" width="24" height="46" rx="5" fill="#5FA8A0"/>
+<rect x="1190" y="132" width="24" height="68" rx="5" fill="#1F6F68"/>
+<text x="908" y="250" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">A wrong answer</text>
+<text x="908" y="284" font-size="29" font-weight="700" fill="#1F2A30" text-anchor="start">climbs one rung</text>
+<text x="908" y="338" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">The next helper gets the</text>
+<text x="908" y="372" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">task plus the one failing</text>
+<text x="908" y="406" font-size="22" font-weight="400" fill="#4A5860" text-anchor="start">line. Steps are recorded.</text>
+<rect x="908" y="434" width="304" height="3" rx="1.5" fill="#CFE8E4"/>
+<path d="M408 286 h34" stroke="#1F6F68" stroke-width="6" stroke-linecap="round"/>
+<path d="M432 272 l14 14 l-14 14" fill="none" stroke="#1F6F68" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M828 286 h34" stroke="#1F6F68" stroke-width="6" stroke-linecap="round"/>
+<path d="M852 272 l14 14 l-14 14" fill="none" stroke="#1F6F68" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="640" y="512" font-size="23" font-weight="400" fill="#4A5860" text-anchor="middle">The ladder: a small local model, then Claude Sonnet, then Codex.</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="566" viewBox="0 0 1280 566" role="img" aria-labelledby="t d" font-family="'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif">
+<title id="t">What works today, what is a prototype, what is not built yet</title>
+<desc id="d">Three columns. Working today: the hidden checker and escalation ladder for one job type and a recorded decision chain. Prototype: TRACE as shared memory, SST and STC. Not built yet: other job types, a general scheduler, long unattended runs.</desc>
+<rect x="1" y="1" width="1278" height="564" rx="24" fill="#F6F4EE" stroke="#D8D3C5" stroke-width="2"/>
+<text x="40" y="66" font-size="34" font-weight="700" fill="#1F2A30" text-anchor="start">Where things stand</text>
+<rect x="40" y="100" width="380" height="416" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<path d="M40 118 a18 18 0 0 1 18 -18 h344 a18 18 0 0 1 18 18 v54 h-380 z" fill="#DCEFE3"/>
+<circle cx="76" cy="136" r="10" fill="#23704A"/>
+<text x="100" y="146" font-size="30" font-weight="700" fill="#23704A" text-anchor="start">Working today</text>
+<circle cx="74" cy="205" r="5" fill="#23704A"/>
+<text x="92" y="212" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">Hidden checker and</text>
+<text x="92" y="242" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">escalation ladder for</text>
+<text x="92" y="272" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">one job type: fix a bug</text>
+<circle cx="74" cy="323" r="5" fill="#23704A"/>
+<text x="92" y="330" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">A recorded decision</text>
+<text x="92" y="360" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">chain that shows if</text>
+<text x="92" y="390" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">it was edited</text>
+<circle cx="74" cy="441" r="5" fill="#23704A"/>
+<text x="92" y="448" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">Run on real jobs,</text>
+<text x="92" y="478" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">records are in this repo</text>
+<rect x="450" y="100" width="380" height="416" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<path d="M450 118 a18 18 0 0 1 18 -18 h344 a18 18 0 0 1 18 18 v54 h-380 z" fill="#FBEBC8"/>
+<circle cx="486" cy="136" r="10" fill="#8A5A00"/>
+<text x="510" y="146" font-size="30" font-weight="700" fill="#8A5A00" text-anchor="start">Prototype</text>
+<circle cx="484" cy="205" r="5" fill="#8A5A00"/>
+<text x="502" y="212" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">TRACE as ANIMA’s</text>
+<text x="502" y="242" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">memory: tried once,</text>
+<text x="502" y="272" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">on a small test</text>
+<circle cx="484" cy="323" r="5" fill="#8A5A00"/>
+<text x="502" y="330" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">SST: tries several</text>
+<text x="502" y="360" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">fixes side by side</text>
+<circle cx="484" cy="411" r="5" fill="#8A5A00"/>
+<text x="502" y="418" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">STC: turns a written</text>
+<text x="502" y="448" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">spec into code, with a</text>
+<text x="502" y="478" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">separate reviewer</text>
+<rect x="860" y="100" width="380" height="416" rx="18" fill="#FFFFFF" stroke="#D8D3C5" stroke-width="2"/>
+<path d="M860 118 a18 18 0 0 1 18 -18 h344 a18 18 0 0 1 18 18 v54 h-380 z" fill="#E1E6F1"/>
+<circle cx="896" cy="136" r="10" fill="#43557A"/>
+<text x="920" y="146" font-size="30" font-weight="700" fill="#43557A" text-anchor="start">Not built yet</text>
+<circle cx="894" cy="205" r="5" fill="#43557A"/>
+<text x="912" y="212" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">Jobs other than</text>
+<text x="912" y="242" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">fixing a bug</text>
+<circle cx="894" cy="293" r="5" fill="#43557A"/>
+<text x="912" y="300" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">A general scheduler</text>
+<text x="912" y="330" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">for any kind of task</text>
+<circle cx="894" cy="381" r="5" fill="#43557A"/>
+<text x="912" y="388" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">Long runs with no</text>
+<text x="912" y="418" font-size="22" font-weight="400" fill="#1F2A30" text-anchor="start">one watching (untested)</text>
+</svg>
