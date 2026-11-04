@@ -62,8 +62,8 @@ Good to know:
 
 - By default the worker runs with `--approval-mode never`. Muse can edit files but cannot run shell commands
   here: on the machine this was built on, Muse's shell sandbox could not start (`bwrap: No permissions to create
-  a new namespace`). The tiny task still passes without a shell, but slower (169 s against 20 to 50 s for the
-  others in our run). For a worker that must run tests, set `yolo: true` for muse in `anima.yaml`; then ANIMA's
+  a new namespace`). The tiny task still passes without a shell, but slower (169 s, against 25 s for Claude and 49 s for
+  Codex in our run). For a worker that must run tests, set `yolo: true` for muse in `anima.yaml`; then ANIMA's
   own rule checks matter more.
 - `muse --permission-profile` needs a profile defined by your organisation's policy. On the test machine none
   existed, so Muse printed `Permission profile 'default' is unavailable: profile does not exist.` and ANIMA
@@ -167,7 +167,7 @@ with this change. Anything not in the left column was not run.
 
 | Tested (real output in RUN-LOG.md) | Not tested |
 |---|---|
-| `install.sh` from a fresh clone, run twice (second run kept the profile and changed nothing); link step in a throwaway home | The `curl ... raw.githubusercontent.com` line itself: the address exists only after the owner publishes. It was run against a local `file://` copy |
+| `install.sh` from a fresh clone, run twice (the second run kept the profile as it was); link step in a throwaway home | The `curl ... raw.githubusercontent.com` line itself: the address exists only after the owner publishes. It was run against a local `file://` copy |
 | `anima init` found Muse, Claude and Codex and wrote `anima.yaml` | macOS, Windows, other Linux distributions, Python versions other than 3.12 |
 | `anima harness list`, `anima doctor`, `anima doctor --live` | The login-expiry message of Muse Code and Claude Code (only Codex's was seen) |
 | `anima harness test` for Muse, Claude, Codex (second login): both roles, one tiny real call each | Primary Codex login: **NOT RUN**, "refresh token was already used"; the owner must run `codex login` |
@@ -179,7 +179,7 @@ with this change. Anything not in the left column was not run.
 | Claude per-action hook blocked a secret read, twice | `enforce.mode: shadow` (same code path as `warn`); the quiet-run (stall) watch and timeouts in a real agent run (unit tests only) |
 | Muse process watch with `yolo: true`: `git push` killed in `enforce` mode, logged but not killed in `warn` mode | Muse process watch catching a secret read: Muse declined to `cat`, and its one-shot `ls` was too short to see (a polling limit) |
 | Decision chain checked by `anima verify-log` and by the repository's own `check_chain.py` | Muse `--permission-profile` (profile does not exist here, so it cannot be used) |
-| 40 unit tests pass (adapters, profile, chain, rules, watch, installer helpers) | Cost and token counts: not measured |
+| 40 unit tests pass (adapters, profile, chain, rules, watch, command line) | Cost and token counts: not measured |
 
 Honest notes: the `claude` command on the build machine is a wrapper that adds `--dangerously-skip-permissions`, so
 the Claude runs there say less about Claude's own permission prompts than they would on a plain install. The watch
