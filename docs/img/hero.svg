@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-labelledby="t d" font-family="'Segoe UI', Helvetica, Arial, 'DejaVu Sans', sans-serif">
+<title id="t">ANIMA: AI agents say done. ANIMA checks.</title>
+<desc id="d">A banner: a hidden checker judges every answer; a wrong answer climbs one rung to a stronger helper.</desc>
+<rect x="1" y="1" width="1278" height="378" rx="24" fill="#F6F4EE" stroke="#D8D3C5" stroke-width="2"/>
+<text x="72" y="92" font-size="26" font-weight="700" fill="#1F6F68" text-anchor="start" letter-spacing="6">ANIMA</text>
+<text x="72" y="168" font-size="54" font-weight="700" fill="#1F2A30" text-anchor="start">AI agents say “done.”</text>
+<text x="72" y="234" font-size="54" font-weight="700" fill="#1F6F68" text-anchor="start">ANIMA checks.</text>
+<text x="72" y="292" font-size="24" font-weight="400" fill="#4A5860" text-anchor="start">A hidden checker judges every answer. If it is wrong,</text>
+<text x="72" y="326" font-size="24" font-weight="400" fill="#4A5860" text-anchor="start">a stronger helper tries again. Every step is written down.</text>
+<rect x="886" y="244" width="74" height="74" rx="10" fill="#CFE8E4"/>
+<text x="923" y="298" font-size="30" font-weight="700" fill="#1F2A30" text-anchor="middle">1</text>
+<rect x="986" y="170" width="74" height="148" rx="10" fill="#5FA8A0"/>
+<text x="1023" y="298" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<rect x="1086" y="96" width="74" height="222" rx="10" fill="#1F6F68"/>
+<text x="1123" y="298" font-size="30" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<circle cx="1123" cy="56" r="30" fill="#23704A"/>
+<path d="M1109 56 l10 11 l20 -23" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="923" y="354" font-size="17" font-weight="400" fill="#4A5860" text-anchor="middle">small</text>
+<text x="1023" y="354" font-size="17" font-weight="400" fill="#4A5860" text-anchor="middle">stronger</text>
+<text x="1123" y="354" font-size="17" font-weight="400" fill="#4A5860" text-anchor="middle">strongest</text>
+</svg>
