@@ -234,9 +234,9 @@ def cmd_harness(a) -> int:
         if kind == "custom":
             if not a.argv:
                 raise HarnessError("custom needs --argv '[\"mytool\", \"--prompt-file\", \"{prompt_file}\"]' (placeholders: {prompt_file} {workspace} {job_id} {model} {out_file} {role})")
-            cfg["argv"] = json.loads(a.argv)
+            cfg["argv"] = _json_argv("--argv", a.argv)
             if a.architect_argv:
-                cfg["architect_argv"] = json.loads(a.architect_argv)
+                cfg["architect_argv"] = _json_argv("--architect-argv", a.architect_argv)
             if a.stdin:
                 cfg["stdin"] = a.stdin
             if a.result:
@@ -426,6 +426,17 @@ def build_parser():
     s = sub.add_parser("verify-log", help="check a decision chain (default: the newest run)")
     s.add_argument("path", nargs="?")
     return ap
+
+
+def _json_argv(flag: str, text: str) -> list:
+    """--argv must be a JSON list of strings; say so plainly instead of a traceback."""
+    try:
+        val = json.loads(text)
+    except ValueError:
+        val = None
+    if not (isinstance(val, list) and val and all(isinstance(x, str) for x in val)):
+        raise HarnessError(f"{flag} must be a JSON list of strings, e.g. {flag} '[\"mytool\", \"--prompt-file\", \"{{prompt_file}}\"]' (got {text!r})")
+    return val
 
 
 def main(argv=None) -> int:

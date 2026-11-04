@@ -411,6 +411,12 @@ class Cli(unittest.TestCase):
             code = cli.main(list(argv))
         return code, buf.getvalue()
 
+    def test_add_custom_rejects_a_non_list_argv_cleanly(self):
+        code, text = self.main("harness", "add", "custom", "--name", "bad", "--argv", "true")
+        self.assertNotEqual(code, 0)
+        self.assertIn("must be a JSON list of strings", text)
+        self.assertNotIn("Traceback", text)
+
     def test_check_exit_codes(self):
         self.assertEqual(self.main("check", "--cmd", "git push origin main")[0], 3)
         self.assertEqual(self.main("check", "--cmd", "ls src")[0], 0)
