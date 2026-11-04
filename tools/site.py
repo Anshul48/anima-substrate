@@ -61,7 +61,7 @@ BANNED = [  # (regex, why). Matched case-insensitively against site pages and th
     (r"entropy", "only with an order-measure result"),
     (r"cannot be tampered", "say 'tampering is detected'"),
     (r"cannot cheat|can't cheat|unhackable|tamper-proof", "no absolute claims"),
-    (r"coming soon|in progress|under construction|work in progress", "use the NEXT badge instead"),
+    (r"coming soon|in progress|under construction|work in progress|not built yet", "use the Planned badge instead"),
 ]
 PLANNED_PREFIXES = ("anima ", "curl ", "python3 -m anima")  # commands in a feature's "will" text that are shown as planned boxes
 ALLOWED_A_HOSTS = ("github.com", "raw.githubusercontent.com", "anshul48.github.io")
@@ -140,7 +140,7 @@ def r_installbox(c: Ctx) -> str:
     line = f"curl -fsSL {REPO_URL.replace('github.com', 'raw.githubusercontent.com')}/main/install.sh | sh"
     built = f["status"] == "built"
     label = ('<p class="cmd-label">One line to install ' + c.badge("install") + "</p>") if built else \
-            ('<p class="cmd-label">One line to install ' + c.badge("install") + " <span>Planned line, not available yet.</span></p>")
+            ('<p class="cmd-label">One line to install ' + c.badge("install") + " <span>Planned line.</span></p>")
     return label + cmd_box(line, planned=not built)
 
 
@@ -188,7 +188,7 @@ def r_verifyrows(c: Ctx) -> str:
 def r_fhead(c: Ctx, fid: str) -> str:
     f = c.feat(fid)
     banners = {
-        "next": '<div class="banner" role="note"><p><strong>Not built yet.</strong> This page says what it will do and what exists today.</p></div>',
+        "next": '<div class="banner" role="note"><p><strong>Planned.</strong> This page says what it will do and what exists today.</p></div>',
         "prototype": '<div class="banner proto" role="note"><p><strong>Prototype.</strong> Something runs, in a limited form. The limits are listed on this page.</p></div>',
         "built": '<div class="banner built" role="note"><p><strong>Working today.</strong> You can check it yourself: the command is under &ldquo;How to check it&rdquo;.</p></div>',
     }
@@ -384,7 +384,7 @@ def blk_harness(status: dict) -> str:
         cmds = _planned_cmds(f)
         cmd = ("`" + cmds[0] + "`") if cmds else ""
         if cmd and f["status"] != "built":
-            cmd = "planned, not available yet: " + cmd
+            cmd = "planned: " + cmd
         rows.append(f"| {n} | {f['name']} | **{st[f['status']]}** | {cmd} |")
     return "\n".join(rows)
 
@@ -394,7 +394,7 @@ def blk_install(status: dict) -> str:
     line = f"curl -fsSL {REPO_URL.replace('github.com', 'raw.githubusercontent.com')}/main/install.sh | sh"
     if f["status"] == "built":
         return "```bash\n" + line + "\nanima doctor\n```\n\nOne line, a private folder, no admin rights. `anima doctor` lists which of Muse Code, Claude Code and Codex it found."
-    return ("**One-line install: " + status["states"][f["status"]] + ".** Planned line (not available yet; the address only works after the project's first push to GitHub):\n\n"
+    return ("**One-line install: " + status["states"][f["status"]] + ".** Planned line (the address only works after the project's first push to GitHub):\n\n"
             "```text\n" + line + "\n```")
 
 

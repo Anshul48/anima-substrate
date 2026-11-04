@@ -34,7 +34,7 @@
 <p class="lead">If a claim cannot be run, it is not in this table and its badge is not &ldquo;working today&rdquo;.</p>
 <div class="tablewrap"><table><thead><tr><th scope="col">Claim</th><th scope="col">Command</th><th scope="col">Expected</th><th scope="col">Needs</th></tr></thead><tbody><tr><td><a href="checker.html">A record nobody can quietly edit</a> <span class="badge" data-state="built">Working today</span></td><td><code>python3 docs/evidence/flagship-run3/check_chain.py --tamper</code></td><td>recorded run: CHAIN OK - 69 records, every link matches, then: edited copy: CHAIN BROKEN - 69 records, line 7 does not match the line before it</td><td>Python 3 and git; about 11 MB; about one second</td></tr><tr><td>The site follows its own rules: every badge backed by a command, no banned phrases, links resolve, no outside files</td><td><code>python3 tools/site.py check</code></td><td>ALL CHECKS PASS</td><td>Python 3.11 or newer, a clone</td></tr></tbody></table></div>
 <h2>What lands next</h2>
-<p>The one checkable end-to-end run is still being merged. <a href="INTEGRATED-DEMO.md">What it will contain, what is tested today, and what is not built yet</a>.</p>
+<p>The one checkable end-to-end run is still being merged. <a href="INTEGRATED-DEMO.md">What it will contain, what is tested today, and what is planned</a>.</p>
 <h2>No terminal?</h2>
 <p>The same record check runs in your browser, with a button that changes one character so you can watch the break appear.</p>
 <div class="actions"><a class="btn primary" href="demo/">Check the record in your browser</a></div>

@@ -11,7 +11,7 @@ out: status.html
 <ul class="strip" style="grid-template-columns:1fr" aria-label="The three states">
 <li><span><b>Working today</b>: it has a command anyone can run, and an evidence file in this repository.</span><span class="badge" data-state="built">Working today</span></li>
 <li><span><b>Prototype</b>: something runs in a limited form, or a recorded test exists. The limits are stated.</span><span class="badge" data-state="prototype">Prototype</span></li>
-<li><span><b>Not built yet</b>: the page says plainly what it will do and what exists.</span><span class="badge" data-state="next">Not built yet</span></li>
+<li><span><b>Planned</b>: the page says plainly what it will do and what exists.</span><span class="badge" data-state="next">Planned</span></li>
 </ul>
 {{statustable}}
 <p class="muted small">A page cannot show a badge that this file does not give it: <code>python3 tools/site.py check</code> fails if a feature is marked working today without a command and an existing evidence file, or if a page or the README disagrees with this file.</p>

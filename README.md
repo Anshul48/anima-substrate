@@ -47,20 +47,20 @@ Every claim in this README comes from one file, [`docs/status.json`](docs/status
 
 | Part | State | What exists today |
 |---|---|---|
-| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Prototype** | TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one does not exist yet. |
-| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Not built yet** | Nothing is wired yet. The three tools have command-line modes, and ANIMA's adapters are meant to call them. |
-| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Not built yet** | Nothing to install yet. Today you clone the repository and run the record check (see Try it). |
-| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Not built yet** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is not built yet. |
-| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Not built yet** | Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU. |
-| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Not built yet** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. Nothing reads the file or enforces the rules yet. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
+| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Prototype** | TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one is planned. |
+| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Planned** | The adapters are planned. The three tools have command-line modes, and ANIMA's adapters will call them. |
+| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Planned** | The one-line install is planned. Today you clone the repository and run the record check (see Try it). |
+| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Planned** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is planned. |
+| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Planned** | Planned. It uses faster-whisper, a local speech-to-text library, running on the CPU. |
+| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Planned** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. No program reads the file or enforces the rules today. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
 
-Roles and rules, part by part: Roles: Not built yet, Enforced rules: Not built yet.
+Roles and rules, part by part: Roles: Planned, Enforced rules: Planned.
 
 Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it.
 
 <!-- block:status:end -->
 
-Marks on the site are never colour alone: filled dot = working today, half dot = prototype, dashed dot = next, not built yet.
+Marks on the site are never colour alone: filled dot = working today, half dot = prototype, dashed dot = planned.
 
 ## 1. Works inside your harness: Muse Code first
 
@@ -70,9 +70,9 @@ A harness is the coding tool an agent runs in. ANIMA does not replace it; it plu
 
 | # | Harness | State | Command |
 |---|---|---|---|
-| 1 | Muse Code | **Not built yet** | planned, not available yet: `anima run --harness muse --task tiny-bug` |
-| 2 | Claude Code | **Not built yet** | planned, not available yet: `anima run --harness claude --task tiny-bug` |
-| 3 | Codex | **Not built yet** | planned, not available yet: `anima run --harness codex --task tiny-bug` |
+| 1 | Muse Code | **Planned** | planned: `anima run --harness muse --task tiny-bug` |
+| 2 | Claude Code | **Planned** | planned: `anima run --harness claude --task tiny-bug` |
+| 3 | Codex | **Planned** | planned: `anima run --harness codex --task tiny-bug` |
 
 <!-- block:harness:end -->
 
@@ -82,7 +82,7 @@ In a coding workflow the same bug gets fixed twice and the same decision gets ex
 
 <!-- block:memory-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Prototype.** TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one does not exist yet.
+**Prototype.** TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one is planned.
 
 Planned: `python3 -m anima.memory ingest <run folder>` stores what a finished run decided and fixed. In a new session `python3 -m anima.memory recall "<task text>"` brings back the most similar past jobs, each with a pointer to the file it came from, and `anima run --memory trace` puts them in the agent's prompt.
 
@@ -107,7 +107,7 @@ Limit: A small local store, not the 100-million-token library. It aims at contin
 
 <!-- block:install:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**One-line install: Not built yet.** Planned line (not available yet; the address only works after the project's first push to GitHub):
+**One-line install: Planned.** Planned line (the address only works after the project's first push to GitHub):
 
 ```text
 curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh
@@ -127,7 +127,7 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:sst:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Not built yet.** Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree. [What it will look like and what exists](https://anshul48.github.io/anima-substrate/state-tree.html).
+**Planned.** Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree. [What it will look like and what exists](https://anshul48.github.io/anima-substrate/state-tree.html).
 
 <!-- block:sst:end -->
 
@@ -135,7 +135,7 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:voice-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Not built yet.** Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.
+**Planned.** Planned. It uses faster-whisper, a local speech-to-text library, running on the CPU.
 
 Planned: `anima voice voice/clips/show-status.wav --demo` prints what it heard ("Show status.") and then the tree. Starting or stopping a task needs a typed confirmation.
 
@@ -149,7 +149,7 @@ Architect, manager and worker; secrets, no-push and budgets; a hidden checker; a
 
 <!-- block:rules-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Not built yet.** A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. Nothing reads the file or enforces the rules yet. The checker, the ladder and the record, which do exist in some form, are on the checker page.
+**Planned.** A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. No program reads the file or enforces the rules today. The checker, the ladder and the record, which do exist in some form, are on the checker page.
 
 Planned: One file, `anima.yaml`, holds roles, permissions, budgets, watches and the ladder, so it works on any harness.
 
@@ -206,7 +206,7 @@ Each decision is one line in a file, and each line carries a fingerprint of the 
 
 ## Next
 
-Whatever the table marks "Not built yet" is not built. When a part lands, one edit to `docs/status.json` flips it everywhere. See the [roadmap](docs/ROADMAP.md).
+Whatever the table marks "Planned" is still to come. When a part lands, one edit to `docs/status.json` flips it everywhere. See the [roadmap](docs/ROADMAP.md).
 
 ## For researchers and contributors
 

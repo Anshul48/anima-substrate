@@ -1,8 +1,9 @@
-# INTEGRATED-DEMO (placeholder, 2026-11-04 ~21:30Z)
+# INTEGRATED-DEMO
 
-The one checkable end-to-end run of ANIMA. The integrator's final text lands
-in this file at about 22:30Z. Until then, this file says what is tested, where
-the records are, and what is not built yet.
+The one checkable end-to-end run of ANIMA. This file says what is tested,
+where the records are, and what is planned. The integrator's final text
+(the exact commands a stranger runs, what each prints, and what each needs)
+lands in "What the integrator delivers" below.
 
 ## What the integrator delivers
 
@@ -33,9 +34,9 @@ the records are, and what is not built yet.
   Record: `READY/anima-build/harness/RUN-LOG.md`, section J2.
 - The real one-line address (`curl ... | sh` from GitHub): NOT RUN. The
   address exists only after the project's first push.
-- Memory plug-in, state-tree screen, voice control: not built yet. The memory
+- Memory plug-in, state-tree screen, voice control: planned. The memory
   worker's store/recall commands and the integrator's merged run have no
-  PASS record yet. Their pages stay marked **Not built yet** until they do.
+  PASS record yet. Their pages stay marked **Planned** until they do.
 
 ## What flips at integrate
 

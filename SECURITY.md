@@ -22,4 +22,4 @@ Say what you found, how to reproduce it and what you expected. We aim to reply w
 
 ## Secrets
 
-Never put keys, tokens or passwords in an issue, pull request or commit. If you find one in this repository, report it privately using the link above. ANIMA's planned rule pack blocks reading and copying key files; that part is not built yet (see the [status table](README.md)).
+Never put keys, tokens or passwords in an issue, pull request or commit. If you find one in this repository, report it privately using the link above. ANIMA's planned rule pack blocks reading and copying key files; that part is planned (see the [status table](README.md)).
