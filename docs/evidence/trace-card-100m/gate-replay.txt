@@ -1,0 +1,25 @@
+PASS R0 harness file is the pinned one
+PASS R1 summary matches per-question records
+PASS R3a retrieval scope == receipt + two-level leaf-null observed
+PASS R3b retrieval created after --not-before (not reused)
+PASS R2replay retrieval == recorded responses (offline)
+PASS R4a all required keys present
+PASS R4b question is the real showcase text
+PASS R4c trace-source = true doc id + title + rank
+PASS R4d trace-found numbers (positional)
+PASS R4e trace-recall numbers (positional)
+PASS R4f baseline-flat numbers (positional)
+PASS R4f2 model-token cost stated honestly
+PASS R4g decision is accept|reject with a reason
+PASS R4h evidence names retrieval.json
+PASS R4i run line equals retrieval run (no stale retrieval)
+PASS R5a scope names 99,891,846 / 812,545 / 4 shards exactly
+PASS R5b FEDERATED-4 labelled, never global-exact
+PASS R5c limits state observed service limits
+PASS R5d no unqualified claim beyond retrieval.json
+PASS R5e models line names roles and no Muse architect
+PASS R5f0 no hidden format/control characters
+PASS R5f1 claims lint wording (C1-C4,C7)
+PASS R5f2 claims lint ANIMA-scale + receipt (C5,C6)
+PASS R5f3 claims lint secrets (C8)
+GATE PASS (0 failed)
