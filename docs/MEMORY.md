@@ -108,7 +108,24 @@ It runs the memory commands in a child process, so `anima run` works from any Py
 
 ## The test: the same jobs with and without memory
 
-AB_SECTION_PLACEHOLDER
+We ran the same 15 bug-fix jobs three ways: twice with no memory (arms A1, A2) and once with
+memory (arm B, `--memory trace --memory-exclude-self`, so a job never recalls itself).
+One attempt per job; a PASS means the hidden checker passed it first time. The memory held
+41 past attempts (11 flagship + 30 from arms A1/A2) and every pointer verified OK.
+
+Result: A1 15/15, A2 15/15, B 15/15. No arm failed anything, so the test cannot show that
+memory helps — these jobs are too easy for this worker. It does show two things: memory did
+not harm (B passed everything too, with similar token use), and recall works (for 13 of the
+14 B jobs that had a same-library past job in memory, recall returned one and ranked it first;
+similarities 0.30-0.69). One hard job (cachetools-cachedmethod-pickle) failed its first
+no-memory attempt and passed the rerun — single runs are noisy, which is why A1 ran twice.
+
+One honest limit found on the way. TRACE refuses recalls that arrive at the same
+moment from separate jobs ("fence held by a live committer"); the jobs then ran without
+memory and still passed, and the two affected jobs were re-run one at a time with memory
+injected. Parallel jobs sharing one store should stagger recalls or retry; the code does not
+retry yet, and it never serves memory it cannot verify. Full numbers: the A/B report in the
+branch (`anima/memory/ab/run_ab.py report`) and the memory worker's RUN-LOG.
 
 ## Limits
 
