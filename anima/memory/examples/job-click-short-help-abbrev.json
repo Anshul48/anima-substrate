@@ -1,0 +1,26 @@
+{
+  "schema": "anima-job-v1",
+  "job_id": "click-short-help-abbrev-flagship-run3",
+  "task": "click-short-help-abbrev",
+  "library": "click",
+  "issue_text": "make_default_short_help cuts help text at dots that do not end a sentence. \"Weigh apples vs. pears.\" is split after \"vs.\", and \"123 567 9. aaaa bbb\" is cut after \"9.\" even though lowercase follows the dot, giving \"123 567 9.\" for width 10 instead of \"123 567...\". Expected: abbreviations mid-sentence never split, and a dot only ends the text when a new sentence really starts (\"Pick a fruit.\" wins over the digit-led \"3 remain.\" at width 20).",
+  "attempts": [
+    {
+      "n": 1,
+      "pool": "laptop-muse",
+      "summary": "Fixed `_make_default_short_help` to split only when a dot is followed by an uppercase word.",
+      "diff_summary": "click/utils.py (_make_default_short_help)",
+      "verdict": "FAIL",
+      "failed_rule": "target-tests",
+      "first_failure": "AssertionError: assert 'Pick a fruit. 3...' == 'Pick a fruit.'"
+    },
+    {
+      "n": 2,
+      "pool": "claude-sonnet",
+      "summary": "The sentence-end rule now treats a dot as the end only when a new sentence really starts; tests left alone as asked; a note was added to CHANGES.md.",
+      "diff_summary": "click/utils.py (_make_default_short_help), CHANGES.md",
+      "verdict": "PASS"
+    }
+  ],
+  "provenance": "Task text: docs/evidence/flagship-run3/rung1-prompt-example-click.txt. Attempt 1 summary and attempt 2 outcome: flagship run 3 attempts/click-short-help-abbrev/hand.json and decisions.jsonl lines 61-69; attempt 2's summary is shortened from its hand.json."
+}
