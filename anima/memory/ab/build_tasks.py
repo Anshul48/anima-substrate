@@ -61,6 +61,16 @@ def archive(repo, rev, dest, paths=()):
         raise RuntimeError(f"git archive {rev} {paths} failed")
 
 
+def drop_dangling_links(root: Path) -> int:
+    """`git archive` keeps symlinks; a link whose target is outside the archive would make the checker's copy fail."""
+    n = 0
+    for p in sorted(root.rglob("*")):
+        if p.is_symlink() and not p.exists():
+            p.unlink()
+            n += 1
+    return n
+
+
 def split_changes(repo, base, fix):
     names = git(repo, "diff", "--name-only", f"{base}", f"{fix}").split()
     tests = [n for n in names if n.endswith(".py") and TESTISH.search(n)]
@@ -104,6 +114,7 @@ def build_one(task, out, source, cache):
         "provenance": {"repo": task["repo"], "base": base, "fix": fix, "flagship": bool(task.get("flagship")),
                        "tests_changed_by_fix": tests, "code_changed_by_fix": code},
     }
+    card["provenance"]["dangling_symlinks_removed"] = drop_dangling_links(d / "repo") + drop_dangling_links(d / "hidden")
     (d / "task.json").write_text(json.dumps(card, indent=1) + "\n")
     # the fix's code changes, kept OUTSIDE the task folder (used only by --check, never shown to an agent)
     gold = git(repo, "diff", base, fix, "--", *code)
@@ -140,6 +151,10 @@ def main(argv=None):
     report = {}
     for t in spec["tasks"]:
         if a.only and t["id"] not in a.only:
+            continue
+        if t.get("excluded") and not a.only:
+            print(f"SKIPPED {t['id']}: {t['excluded']}")
+            report[t["id"]] = {"built": False, "why": t["excluded"]}
             continue
         try:
             d, card = build_one(t, a.out, a.source, cache)
