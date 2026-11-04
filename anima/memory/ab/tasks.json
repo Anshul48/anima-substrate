@@ -44,7 +44,10 @@
    "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
    "fix": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
    "_local": "more-itertools",
-   "issue_text": "more_itertools.peekable slicing with a negative step and an omitted stop reads and caches the whole underlying iterable, even though only the items down to the start index are needed.\nExpected: for p = peekable(iter(range(100))), p[5::-1] returns [5, 4, 3, 2, 1, 0], and afterwards only 6 items have been pulled from the source (len(p._cache) == 6) and next(p) still returns 0. A peekable over an infinite iterator such as itertools.count() must also support this: p[4::-2] returns [4, 2, 0] without hanging, with 5 items cached, and next(p) still returns 0.\nOther slicing behaviour must not change."
+   "issue_text": "more_itertools.peekable slicing with a negative step and an omitted stop reads and caches the whole underlying iterable, even though only the items down to the start index are needed.\nExpected: for p = peekable(iter(range(100))), p[5::-1] returns [5, 4, 3, 2, 1, 0], and afterwards only 6 items have been pulled from the source (len(p._cache) == 6) and next(p) still returns 0. A peekable over an infinite iterator such as itertools.count() must also support this: p[4::-2] returns [4, 2, 0] without hanging, with 5 items cached, and next(p) still returns 0.\nOther slicing behaviour must not change.",
+   "select": [
+    "hidden/test_more.py::PeekableTests"
+   ]
   },
   {
    "id": "moreiter-chunked-even",
@@ -53,7 +56,10 @@
    "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
    "fix": "fbd55137fe47b44f55190c3714c75f1b21bf834d",
    "_local": "more-itertools",
-   "issue_text": "chunked_even(iterable, n) mishandles edge chunk sizes.\nWith n=0 it raises an internal islice error instead of yielding nothing, and it consumes items from the source iterator first.\nWith negative n it leaks a low-level islice index error instead of a clear ValueError, and also touches the source.\nIt should reject n<0 with a ValueError without reading the source, and treat n=0 as empty output."
+   "issue_text": "chunked_even(iterable, n) mishandles edge chunk sizes.\nWith n=0 it raises an internal islice error instead of yielding nothing, and it consumes items from the source iterator first.\nWith negative n it leaks a low-level islice index error instead of a clear ValueError, and also touches the source.\nIt should reject n<0 with a ValueError without reading the source, and treat n=0 as empty output.",
+   "select": [
+    "hidden/test_more.py::ChunkedEvenTests"
+   ]
   },
   {
    "id": "packaging-licenseref-case",

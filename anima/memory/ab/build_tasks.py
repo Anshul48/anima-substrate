@@ -8,7 +8,8 @@ For every entry in tasks.json it creates   <out>/<id>/{task.json, repo/, hidden/
            (so the agent cannot read the fix out of `git log`).
   hidden/  the tests folder as it is at the FIX commit. The checker copies it into
            the workspace only AFTER the agent has finished. The agent never sees it.
-  gate     pytest over the test files that the fix commit changed.
+  gate     pytest over the test files that the fix commit changed (or, where a whole file is
+           slow, only the test classes named in "select" in tasks.json).
 
 Then `--check` proves the gate is sound: it must FAIL on the base code and PASS once
 the fix commit's non-test changes are applied. A task that does not satisfy both is
@@ -99,7 +100,7 @@ def build_one(task, out, source, cache):
         "id": task["id"], "title": task["id"].replace("-", " "),
         "issue_text": task["issue_text"].rstrip() + "\nFix the bug in the repository. Do not edit anything under tests/. Finish with a one-line summary.",
         "workspace_seed": "repo", "hidden_dir": "hidden", "protected_roots": [troot or "tests"],
-        "gate_argv": gate_argv(targets), "timeout_s": 1500, "gate_timeout_s": 240,
+        "gate_argv": gate_argv(task.get("select") or targets), "timeout_s": 1500, "gate_timeout_s": 240,
         "provenance": {"repo": task["repo"], "base": base, "fix": fix, "flagship": bool(task.get("flagship")),
                        "tests_changed_by_fix": tests, "code_changed_by_fix": code},
     }

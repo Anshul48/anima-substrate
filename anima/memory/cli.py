@@ -135,7 +135,7 @@ def cmd_record(args):
 
 def cmd_recall(args):
     from .recall import recall
-    res = recall(args.task, store_dir=args.store, k=args.k, min_score=args.min_score,
+    res = recall(args.task, store_dir=args.store, k=args.k, min_score=args.min_score, exclude_tasks=args.exclude_task,
                  encoder=args.encoder, backend=args.backend, verify=not args.no_verify)
     if args.json:
         print(json.dumps(res, indent=1))
@@ -160,7 +160,7 @@ def cmd_prompt(args):
     prompt = Path(args.prompt_file).read_text() if args.prompt_file else sys.stdin.read()
     task = Path(args.task_file).read_text() if args.task_file else None
     new, rep = augment_prompt(prompt, task_text=task, store_dir=args.store, k=args.k, min_score=args.min_score,
-                              encoder=args.encoder, backend=args.backend)
+                              exclude_tasks=args.exclude_task, encoder=args.encoder, backend=args.backend)
     print(json.dumps(rep), file=sys.stderr)
     sys.stdout.write(new)
     return 0
@@ -226,12 +226,14 @@ def build_parser():
     p.add_argument("--min-score", type=float, default=0.30)
     p.add_argument("--json", action="store_true")
     p.add_argument("--no-verify", action="store_true", help="skip re-reading the source files")
+    p.add_argument("--exclude-task", action="append", default=[], help="never return this task's own records (repeatable)")
     common(p)
     p.set_defaults(fn=cmd_recall)
 
     p = sub.add_parser("prompt", help="print a worker prompt with the recalled fixes prepended (what `anima run --memory trace` does)")
     p.add_argument("--prompt-file", help="the worker prompt (default: stdin)")
     p.add_argument("--task-file", help="text to search with (default: the prompt itself)")
+    p.add_argument("--exclude-task", action="append", default=[], help="never return this task's own records (repeatable)")
     p.add_argument("-k", type=int, default=3)
     p.add_argument("--min-score", type=float, default=0.30)
     common(p)
