@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ANIMA: coding agents that remember what they fixed</title>
-<meta name="description" content="ANIMA plugs into the coding tool you already use, Muse Code first, then Claude Code and Codex, and gives it a memory you can check, one screen that shows what every agent is doing, and rules that are enforced.">
+<title>ANIMA — memory for coding work</title>
+<meta name="description" content="ANIMA is a prototype layer you install in one line on top of the coding agent you already use, Muse Code first, then Claude Code and Codex, giving it memory, a checker it cannot see, and a screen to watch it work.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ANIMA: coding agents that remember what they fixed">
-<meta property="og:description" content="ANIMA plugs into the coding tool you already use, Muse Code first, then Claude Code and Codex, and gives it a memory you can check, one screen that shows what every agent is doing, and rules that are enforced.">
+<meta property="og:title" content="ANIMA — memory for coding work">
+<meta property="og:description" content="ANIMA is a prototype layer you install in one line on top of the coding agent you already use, Muse Code first, then Claude Code and Codex, giving it memory, a checker it cannot see, and a screen to watch it work.">
 <meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
 <meta property="og:url" content="https://anshul48.github.io/anima-substrate/">
 <meta name="twitter:card" content="summary_large_image">
@@ -30,18 +30,49 @@
 <section class="hero">
 <div class="wrap">
 <div>
-<p class="eyebrow">For the coding tools you already use</p>
-<h1>Coding agents that remember what they fixed.</h1>
-<p class="lead">ANIMA plugs into the coding tool you already use and gives it three things: a memory you can check, one screen that shows what every agent is doing, and rules that are enforced, not just requested.</p>
-<div class="actions"><a class="btn primary" href="try.html">Try it</a><a class="btn" href="evidence.html">See the evidence</a></div>
+<p class="eyebrow">A prototype for the coding tools you already use</p>
+<h1>Memory for coding work.</h1>
+<p class="lead">ANIMA is a layer you install in one line on top of the coding agent you already use, giving it memory, a checker it cannot see, and a screen to watch it work.</p>
+<div class="actions"><a class="btn primary" href="demo/">Replay the nine-job run</a></div>
+<p><a href="https://anshul48.github.io/trace/demos/">Watch the working films.</a></p>
+<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
 <p class="cmd-label">One line to install <span class="badge" data-state="built">Working today</span></p><div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh">Copy</button></div>
 <p class="eyebrow" style="margin-top:var(--space-5)">Works inside your harness (the coding tool an agent runs in)</p>
 <ul class="strip" aria-label="Harnesses, in order"><li><span><span class="n" aria-hidden="true">1</span><b>Muse Code</b></span><span class="badge" data-state="built">Working today</span></li><li><span><span class="n" aria-hidden="true">2</span><b>Claude Code</b></span><span class="badge" data-state="prototype">Prototype</span></li><li><span><span class="n" aria-hidden="true">3</span><b>Codex</b></span><span class="badge" data-state="prototype">Prototype</span></li></ul>
 </div>
 <figure class="stage">
-<img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right.">
-<figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone.</figcaption>
+<svg viewBox="0 0 420 560" role="img" aria-labelledby="hi-t hi-d">
+<title id="hi-t">Illustration: ANIMA between your coding tool and its memory</title>
+<desc id="hi-d">Your coding tool at the top lists Muse Code first, then Claude Code, then Codex. One line plugs it into ANIMA below. Inside ANIMA a mission branches into three tasks. Task 1 is right, task 2 was wrong and a fix climbed one rung, task 3 is waiting. A memory hit, fixed this before with a source id, feeds the fix.</desc>
+<g text-anchor="middle">
+<rect class="s-box" x="10" y="8" width="400" height="98" rx="16"/>
+<text class="s-cap" x="26" y="32" text-anchor="start">YOUR CODING TOOL</text>
+<rect class="s-first" x="22" y="46" width="120" height="46" rx="10"/><text class="s-t" x="82" y="74">1 Muse Code</text>
+<rect class="s-node" x="150" y="46" width="120" height="46" rx="10"/><text class="s-t" x="210" y="74">2 Claude Code</text>
+<rect class="s-node" x="278" y="46" width="120" height="46" rx="10"/><text class="s-t" x="338" y="74">3 Codex</text>
+<path class="s-line" d="M210 106v18"/><rect class="s-node" x="196" y="124" width="28" height="18" rx="4"/><path class="s-line" d="M203 142v10M217 142v10"/>
+<text class="s-sm" x="236" y="138" text-anchor="start">one line</text>
+<rect class="s-anima" x="10" y="152" width="400" height="398" rx="18"/>
+<text class="s-big" x="30" y="186" text-anchor="start">ANIMA</text>
+<rect class="s-node" x="162" y="198" width="96" height="32" rx="16"/><text class="s-t" x="210" y="219">mission</text>
+<path class="s-line" d="M210 230v16M82 246h256M82 246v16M210 246v16M338 246v16"/>
+<rect class="s-node" x="32" y="262" width="100" height="32" rx="10"/><text class="s-t" x="82" y="283">task 1</text>
+<rect class="s-node" x="160" y="262" width="100" height="32" rx="10"/><text class="s-t" x="210" y="283">task 2</text>
+<rect class="s-node" x="288" y="262" width="100" height="32" rx="10"/><text class="s-t" x="338" y="283">task 3</text>
+<path class="s-line" d="M82 294v32M210 294v32M210 358v32M338 294v32"/>
+<rect class="s-ok" x="32" y="326" width="100" height="32" rx="10"/><text class="s-g" x="82" y="347">right</text>
+<rect class="s-bad" x="160" y="326" width="100" height="32" rx="10"/><text class="s-a" x="210" y="347">wrong</text>
+<rect class="s-ok" x="160" y="390" width="100" height="32" rx="10"/><text class="s-g" x="210" y="411">fixed</text>
+<rect class="s-wait" x="288" y="326" width="100" height="32" rx="10"/><text class="s-sm" x="338" y="347">waiting</text>
+<text class="s-sm" x="272" y="411" text-anchor="start">next rung</text>
+<path class="s-recall" d="M210 456v-34"/>
+<rect class="s-mem" x="30" y="456" width="360" height="78" rx="14"/>
+<text class="s-v" x="48" y="486" text-anchor="start">memory hit</text>
+<text class="s-t" x="48" y="515" text-anchor="start">fixed this before, source #37</text>
+</g>
+</svg>
 
+<figcaption>UI preview (illustration of the design, not a screenshot): your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs a rung, memory feeds the fix.</figcaption>
 </figure>
 </div>
 </section>
@@ -69,38 +100,17 @@
 </div>
 </section>
 
-<section class="sec" aria-labelledby="parts-h">
-<div class="wrap">
-<h2 id="parts-h">Six parts, one badge each</h2>
-<p class="intro lead">Each badge says what exists today. It comes from one status file, so a page cannot claim more than the project can show.</p>
-<div class="grid c3"><a class="card" href="memory.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg><h3>Memory (TRACE)</h3><p>What an agent fixed or decided comes back in a later session, with a record of where it came from.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="harnesses.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5M15 3v5"/><path d="M6 8h12v3a6 6 0 0 1-12 0V8z"/><path d="M12 17v4"/></svg><h3>Your harness</h3><p>ANIMA works inside the coding tool you already use (the harness): Muse Code first, then Claude Code, then Codex.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="install.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><h3>One-line install</h3><p>One command sets ANIMA up in a private folder, with no admin rights, then checks which of your coding tools it can find.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="state-tree.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M6 17v-6h12v6M12 11v6"/></svg><h3>One screen (SST)</h3><p>Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="voice.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><h3>Voice</h3><p>Say what you want. Speech is turned into text on your own computer, with local Whisper.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="rules.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Roles and rules</h3><p>Architect, manager and worker: who may do what, and rules a program enforces (secrets, no-push, budgets), written down once.</p><div class="cfoot"><span class="badge" data-state="next">Planned</span><span class="more">Read more &rarr;</span></div></a></div>
-<p style="margin-top:var(--space-5)"><a href="status.html">See the full status table</a></p>
-</div>
-</section>
-
-<section class="sec alt" aria-labelledby="trace-h">
-<div class="wrap">
-<h2 id="trace-h" class="sr">The memory</h2>
-<div class="band">
-<p class="eyebrow">The memory is TRACE</p>
-<h2>Search that shows its work, and wakes only a small part of the library.</h2>
-<p>In the sealed library we tested on (812,545 passages, 99,891,846 tokens), TRACE kept 0.9985 of exact meaning-based search&rsquo;s results on 50 test searches while scoring 0.79% of the rows, measured on one of the library&rsquo;s four equal parts. That is about 127 times less scoring work, and every answer comes with a checkable record of where it came from.</p>
-<p class="small muted">The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%). On the same searches, ordinary keyword search found the source passage more often (82% against 52%). These are our own measurements; no outside party has verified them. <a href="memory.html#trace">All the TRACE numbers, the earlier larger tests and the limits</a>.</p>
-</div>
-
-</div>
-</section>
-
 <section class="sec" aria-labelledby="real-h">
 <div class="wrap">
 <h2 id="real-h">What is real today, for one kind of job</h2>
-<p class="intro lead">We gave ANIMA's hidden checker and ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down.</p>
+<p class="intro lead">We gave ANIMA's hidden checker and ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down. Across two recorded runs: 18 jobs, 16 verified first try, 2 caught.</p>
 <div class="tiles">
 <div class="tile"><span class="num">9</span><p>real bug-fix jobs, each with a plain-English description. The agent has to fix it.</p></div>
 <div class="tile"><span class="num">7</span><p>right the first time. A Muse Code worker did the work and the hidden tests agreed.</p></div>
 <div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers. The hidden checker caught both and the next helper fixed them.</p></div>
 </div>
-<div class="actions"><a class="btn primary" href="demo/">Check the record in your browser</a><a class="btn" href="evidence.html">Read the run</a></div>
+<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone.</figcaption></figure>
+<p><a href="demo/">Replay the nine-job run</a> &middot; <a href="evidence.html">Read the run</a></p>
 <div class="callout">
 <h2>Honest limits</h2>
 <ul>
@@ -110,6 +120,63 @@
 <li><strong>The record check shows the log was not changed afterwards.</strong> It cannot show that the run itself was honest, and it does not re-run the nine jobs.</li>
 </ul>
 <p class="small muted" style="margin-top:var(--space-3)"><a href="evidence.html#limits">All limits</a></p>
+</div>
+
+</div>
+</section>
+
+<section class="sec alt" aria-labelledby="walk-h">
+<div class="wrap">
+<h2 id="walk-h">Walkthroughs &amp; Visual Proofs</h2>
+<div class="tablewrap"><table>
+<thead><tr><th scope="col">Walkthrough</th><th scope="col">What it is</th><th scope="col">Open it</th></tr></thead>
+<tbody>
+<tr><td>Flagship film (3 min)</td><td>One story for TRACE, ANIMA and Reflex</td><td><a href="https://anshul48.github.io/trace/demos/">Watch the working films</a></td></tr>
+<tr><td>State-tree replay</td><td>The recorded runs as a tree, in your browser (UI preview)</td><td><a href="ui-preview/index.html">UI preview: state tree</a></td></tr>
+<tr><td>Dashboard preview</td><td>Install, status and memory at a glance (UI preview)</td><td><a href="ui-preview/dashboard.html">UI preview: dashboard</a></td></tr>
+<tr><td>Nine-job record check</td><td>What the hidden checker decided, plus the sealed record</td><td><a href="demo/">Replay the nine-job run</a></td></tr>
+</tbody>
+</table></div>
+<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA state-tree replay - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA dashboard preview - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA nine-job record check - Replace href when rendered -->
+</div>
+</section>
+
+<section class="sec" aria-labelledby="eco-h">
+<div class="wrap">
+<h2 id="eco-h">The ecosystem</h2>
+<p class="intro lead">One builder, three projects. TRACE is at the front: the memory the other two are built to use.</p>
+<div class="tablewrap"><table>
+<thead><tr><th scope="col">Project</th><th scope="col">Repository</th><th scope="col">Demo</th></tr></thead>
+<tbody>
+<tr><td>TRACE</td><td><a href="https://github.com/Anshul48/trace">Repository</a></td><td><a href="https://anshul48.github.io/trace/explorer/">Explorer</a></td></tr>
+<tr><td>ANIMA</td><td><a href="https://github.com/Anshul48/anima-substrate">Repository</a></td><td><a href="demo/">Recorded demo</a></td></tr>
+<tr><td>Reflex</td><td><a href="https://github.com/Anshul48/demo-trace-anima-reflex">Demo repository</a></td><td><a href="https://anshul48.github.io/demo-trace-anima-reflex/">Replay</a></td></tr>
+</tbody>
+</table></div>
+<p class="muted small">Reflex is a line of work where an AI looks at a screen and finds the right button to press. It is part of the ecosystem; it does not use TRACE.</p>
+</div>
+</section>
+
+<section class="sec alt" aria-labelledby="parts-h">
+<div class="wrap">
+<h2 id="parts-h">Six parts, one badge each</h2>
+<p class="intro lead">Each badge says what exists today. It comes from one status file, so a page cannot claim more than the project can show.</p>
+<div class="grid c3"><a class="card" href="memory.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg><h3>Memory (TRACE)</h3><p>What an agent fixed or decided comes back in a later session, with a record of where it came from.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="harnesses.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5M15 3v5"/><path d="M6 8h12v3a6 6 0 0 1-12 0V8z"/><path d="M12 17v4"/></svg><h3>Your harness</h3><p>ANIMA works inside the coding tool you already use (the harness): Muse Code first, then Claude Code, then Codex.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="install.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><h3>One-line install</h3><p>One command sets ANIMA up in a private folder, with no admin rights, then checks which of your coding tools it can find.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="state-tree.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M6 17v-6h12v6M12 11v6"/></svg><h3>One screen (SST)</h3><p>Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="voice.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><h3>Voice</h3><p>Say what you want. Speech is turned into text on your own computer, with local Whisper.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="rules.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Roles and rules</h3><p>Architect, manager and worker: who may do what, and rules a program enforces (secrets, no-push, budgets), written down once.</p><div class="cfoot"><span class="badge" data-state="next">Planned</span><span class="more">Read more &rarr;</span></div></a></div>
+<p style="margin-top:var(--space-5)"><a href="status.html">See the full status table</a></p>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="trace-h">
+<div class="wrap">
+<h2 id="trace-h" class="sr">The memory</h2>
+<div class="band">
+<p class="eyebrow">The memory is TRACE</p>
+<h2>Search that shows its work, and wakes only a small part of the library.</h2>
+<p>In the sealed library we tested on (812,545 passages, 99,891,846 tokens), TRACE kept 0.9985 of exact meaning-based search&rsquo;s results on 50 test searches while scoring 0.79% of the rows, measured on one of the library&rsquo;s four equal parts. That is about 127 times less scoring work, and every answer comes with a checkable record of where it came from.</p>
+<p class="small muted">The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%). On the same searches, ordinary keyword search found the source passage more often (82% against 52%). These are our own measurements; no outside party has verified them. <a href="memory.html#trace">All the TRACE numbers, the earlier larger tests and the limits</a>.</p>
 </div>
 
 </div>
