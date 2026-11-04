@@ -22,7 +22,7 @@ or the README journey.
   reasons), 147 subtests passed, 0 failed.
 - `ruff check` + `ruff format --check`: clean (48 files).
 - Independent acceptance: ACCEPT-WITH-NOTES
-  (`prototype/programme-20261004/PKG-ACCEPTANCE.md`), all notes
+  (`docs/research/prototype/programme-20261004/PKG-ACCEPTANCE.md`), all notes
   closed before this tag (dist rebuilt byte-coherent, install +
   quickstart re-verified from the final artifacts).
 - Wheel/sdist contents verified: 31 py + 8 JSON fixtures + LICENSE,

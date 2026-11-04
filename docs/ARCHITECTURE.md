@@ -184,7 +184,7 @@ these limits.
 Content-derived routing + lane tasks (`task_json` /
 `lane_override` / `derive_routing_inputs`, `test_lane_tasks`
 18/18) exist only in the frozen experimental
-`prototype/programme-20261004/H2-lane/` tree (ACCEPT-WITH-NOTES as
+`docs/research/prototype/programme-20261004/H2-lane/` tree (ACCEPT-WITH-NOTES as
 verified). H2 was never merged into the successor line and is NOT
 merged here either: `run_tasks` has no lane-override params, and
 no half-carry is attempted. H2 stays frozen as-verified; any

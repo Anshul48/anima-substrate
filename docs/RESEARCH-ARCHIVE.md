@@ -1,7 +1,7 @@
 # Research archive — curation plan
 
 What publishes with substrate 0.1.0 vs what stays local, and the
-scrub rules for anything that ships. Authority: `prototype/
+scrub rules for anything that ships. Authority: `docs/research/prototype/
 programme-20261004/LICENSE-AUDIT.md` (§§2–3, items T1–T7).
 The coordinator owns LICENSE/NOTICE filing and the T2 option choice;
 this file plans the curation only.
@@ -34,7 +34,7 @@ this file plans the curation only.
 - `runs/` evidence dirs (ledgers, EVIDENCE.json) — T6: project-
   generated but embed absolute username paths; EXCLUDE (or scrub —
   exclusion preferred, evidence is not package code).
-- `.venv/` trees (root + `prototype/w1/.venv`), `__pycache__/`,
+- `.venv/` trees (root + `docs/research/prototype/w1/.venv`), `__pycache__/`,
   `*.db` run artifacts, `*.log` — T5: mixed third-party /
   regenerable; already git-ignored.
 - SST-leg staging outside the snapshot (`../sst/.delivery/cand-02`

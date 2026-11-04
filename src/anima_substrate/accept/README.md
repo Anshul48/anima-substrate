@@ -23,15 +23,15 @@ demo run `runs/demo-20261004T100134Z`).
 
 From the repo root, with `PYTHONDONTWRITEBYTECODE=1`:
 
-1. `python3 prototype/successor-002/successor_demo.py` → exit 0,
+1. `python3 docs/research/prototype/successor-002/successor_demo.py` → exit 0,
    `successor-002 integrated demo: OK`.
 2. Compare the new `runs/demo-*/EVIDENCE.json` against `EXPECTED.json`
    field by field (exact fields must match; byte refs eyeballed).
-3. `python3 prototype/successor-002/test_successor.py` → 17/17 OK;
+3. `python3 docs/research/prototype/successor-002/test_successor.py` → 17/17 OK;
    `test_fission.py` → 7/7 OK; `test_conformance.py` → 8/8 OK.
-4. `python3 prototype/successor-002/calibrate.py` → ratio ≈ 2.61x
+4. `python3 docs/research/prototype/successor-002/calibrate.py` → ratio ≈ 2.61x
    (S2 both lanes; bytes-only claim).
-5. `cd prototype/successor-002 && sha256sum -c IDENTITY.sha256` →
+5. `cd docs/research/prototype/successor-002 && sha256sum -c IDENTITY.sha256` →
    all OK.
 6. `cd prototype && sha256sum -c successor-002/FROZEN-BASELINE.sha256`
    → all OK (frozen dirs + successor-001 intact).

@@ -7,7 +7,7 @@ change needs a contract delta filed here.
 
 ## Part 1. Resume-coupling contract (CC1–CC9)
 
-Carried from `prototype/successor-006/COUPLING-CONTRACT.md` (the 8
+Carried from `docs/research/prototype/successor-006/COUPLING-CONTRACT.md` (the 8
 resume-coupling items behind the Q3
 DEMONSTRATED-WITH-COUPLING-LIST verdict, formalized as a testable
 contract). Source of the 8 items: `reuse-demo-001/REUSE-REPORT.md`

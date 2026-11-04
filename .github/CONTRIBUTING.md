@@ -1,7 +1,7 @@
 # Contributing to anima-substrate
 
 The maintained package lives in `src/anima_substrate/` (see
-`pyproject.toml`); `prototype/` holds frozen research generations
+`pyproject.toml`); `docs/research/prototype/` holds frozen research generations
 plus programme records. Contract and evidence rules below are
 summaries — the in-tree contracts and acceptance records govern.
 
@@ -87,7 +87,7 @@ dropped tests to manufacture green.
    (`successor-002` … `successor-006`, `release-*`, `H2-lane`,
    `U-execute` finals) are never edited; new work copies forward into
    a new tree with a `PROVENANCE.md` copy-forward record and per-file
-   adaptation list (see `prototype/successor-006/PROVENANCE.md`).
+   adaptation list (see `docs/research/prototype/successor-006/PROVENANCE.md`).
 2. **Contract edits need a delta.** Changes to
    `WORLD-CONTRACT-v1.md`, `ORG-OPS`, the CC1–CC9 coupling contract,
    or any frozen predicate/checker file require a filed contract delta

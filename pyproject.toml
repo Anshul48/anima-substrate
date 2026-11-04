@@ -39,7 +39,7 @@ anima-substrate = "anima_substrate.cli:main"
 artifacts = []
 
 [tool.hatch.build.targets.sdist]
-# Curated: package + tests + examples + docs + legal. prototype/
+# Curated: package + tests + examples + docs + legal. docs/research/prototype/
 # (frozen research trees), .venv, dist, and run state never ship.
 include = [
   "src",
@@ -55,7 +55,7 @@ include = [
   "pyproject.toml",
 ]
 exclude = [
-  "prototype/**",
+  "docs/research/prototype/**",
   ".venv/**",
   "dist/**",
   ".git/**",

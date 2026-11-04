@@ -29,9 +29,9 @@ Both use fresh temp state and print each step with expectations.
 
 ## 4. Check the evidence (3 min)
 
-- `prototype/programme-20261004/PKG-ACCEPTANCE.md` — independent
+- `docs/research/prototype/programme-20261004/PKG-ACCEPTANCE.md` — independent
   acceptance (207 passed, 11 SST-conditional skips, 147 subtests).
-- `prototype/programme-20261004/U-execute/runs/U-OVERALL-FINAL.md`
+- `docs/research/prototype/programme-20261004/U-execute/runs/U-OVERALL-FINAL.md`
   + `INDEPENDENT-ACCEPTANCE.md` — preserved negative: no host
   advantage demonstrated; change legs VOID (adaptation untested).
 - `docs/ROADMAP.md` — what is done vs explicitly future work.

@@ -3,7 +3,7 @@
 > [!NOTE]
 > **Active Migration Priority (2026-10-09)**: Project migration to native Linux takes precedence under governing direction [SCOPE-UPDATE-20261009.md](../../migration_runs/windows-to-linux-20261008/SCOPE-UPDATE-20261009.md). Routine roadmap progression is deferred during migration preparation and transfer. Exact exclusion applies strictly to `Utilities/trace-architecture`; other projects across Code and WSL are eligible under preserved rollback copies and a verified WSL deletion gate.
 
-Source of truth: `prototype/programme-20261004/COMPLETION-MAP.md`
+Source of truth: `docs/research/prototype/programme-20261004/COMPLETION-MAP.md`
 (§§1–5). This file indexes it; on conflict the map wins.
 Standing envelopes bound every SATISFIED below: single-host, toy
 scale, TEST-only SST, process-crash (not power-loss), no fsync.

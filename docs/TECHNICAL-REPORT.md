@@ -49,11 +49,11 @@ attention, cost, or intelligence conversions anywhere in this file.
 
 | Item | Pin |
 |---|---|
-| r1 candidate | `prototype/successor-002/`, IDENTITY 41 files |
-| r2 candidate | `prototype/successor-003/`, IDENTITY 45 files |
-| r3 candidate | `prototype/successor-004/`, IDENTITY 45 files |
-| s005 candidate | `prototype/successor-005/`, IDENTITY 56 files |
-| s006 candidate | `prototype/successor-006/`, IDENTITY 35 files, manifest `48462368…` |
+| r1 candidate | `docs/research/prototype/successor-002/`, IDENTITY 41 files |
+| r2 candidate | `docs/research/prototype/successor-003/`, IDENTITY 45 files |
+| r3 candidate | `docs/research/prototype/successor-004/`, IDENTITY 45 files |
+| s005 candidate | `docs/research/prototype/successor-005/`, IDENTITY 56 files |
+| s006 candidate | `docs/research/prototype/successor-006/`, IDENTITY 35 files, manifest `48462368…` |
 | SST snapshot | Commit `df78f42…`, 54 files, `snapshot_hash 5f1f3789…` (recomputed exact) |
 | STC freeze | Code `1d1c535…`, record `548615a…`; EXTERNAL_PINS sst = df78f42 |
 | TRACE / TL | `a24a937` presence-only / absent |
@@ -109,7 +109,7 @@ experimental use is unqualified-only with full-replay semantics
 ## 5. Reproduction pointers
 
 - Index: `docs/REPRODUCE-ALL.md` (identities → suites → demos, $0/offline).
-- Two-minute review: `prototype/programme-20261004/S6-REVIEW-ROUTE.md`.
+- Two-minute review: `docs/research/prototype/programme-20261004/S6-REVIEW-ROUTE.md`.
 - Per-tree: `REPRODUCE.md` / `RUNBOOK.md` / `CONSUMER.md` next to the
   code; U-execute `RUNBOOK.md` + `PREREG.md` (§§1–8 + C1–C11).
 - Rule: prove bytes first (`sha256sum -c IDENTITY.sha256`), run
@@ -118,21 +118,21 @@ experimental use is unqualified-only with full-replay semantics
 
 ## 6. Primary sources (read these, not summaries of them)
 
-- Canonical map: `prototype/programme-20261004/COMPLETION-MAP.md`;
+- Canonical map: `docs/research/prototype/programme-20261004/COMPLETION-MAP.md`;
   project record: `docs/records/CANONICAL-RECORD.md`.
-- r1/r2/r3: `prototype/release-20261004/RELEASE-RECORD.md`,
-  `prototype/release-r2/RELEASE-RECORD.md`,
-  `prototype/release-r3/RELEASE-RECORD.md`.
-- s005 lane verdict: `prototype/programme-20261004/S5-lane/VERDICT.md`.
-- s006: `prototype/successor-006/` (RUNBOOK, LIMITS,
+- r1/r2/r3: `docs/research/prototype/release-20261004/RELEASE-RECORD.md`,
+  `docs/research/prototype/release-r2/RELEASE-RECORD.md`,
+  `docs/research/prototype/release-r3/RELEASE-RECORD.md`.
+- s005 lane verdict: `docs/research/prototype/programme-20261004/S5-lane/VERDICT.md`.
+- s006: `docs/research/prototype/successor-006/` (RUNBOOK, LIMITS,
   COUPLING-CONTRACT, CONSUMER, PROVENANCE) +
-  `prototype/programme-20261004/S6-ACCEPTANCE.md`.
-- U-execute: `prototype/programme-20261004/U-execute/runs/
+  `docs/research/prototype/programme-20261004/S6-ACCEPTANCE.md`.
+- U-execute: `docs/research/prototype/programme-20261004/U-execute/runs/
   U-OVERALL-FINAL.md` +
   `U-execute/runs/INDEPENDENT-ACCEPTANCE.md` (interim
   `U-OVERALL-NOTE.md` kept as history).
 - Learning arc: `L1-transfer/`, `L2-transfer/`, `M1-mapping/`,
-  `M1-redux/` under `prototype/programme-20261004/`.
+  `M1-redux/` under `docs/research/prototype/programme-20261004/`.
 - Boundaries: `STC-CONSUMER-BOUNDARY.md`,
   `STC-548615a-ASSESSMENT.md`, `ADAPT-EXPERIMENT-DESIGN.md`,
   `MECHANISM-REUSE-ASSESSMENT.md`, `LICENSE-AUDIT.md`.

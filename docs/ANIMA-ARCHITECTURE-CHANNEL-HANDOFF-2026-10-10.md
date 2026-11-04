@@ -9,13 +9,13 @@ ANIMA currently proposes a software-construction-first personal assistant: susta
 ## Existing owner records
 
 - [Package entry](../README.md): `substrate/README.md`.
-- [Canonical frontier](../CANONICAL-RECORD.md): `substrate/CANONICAL-RECORD.md`.
+- [Canonical frontier](records/CANONICAL-RECORD.md): `substrate/CANONICAL-RECORD.md`.
 - [Maintained architecture](ARCHITECTURE.md): `substrate/docs/ARCHITECTURE.md`.
 - [Consumer guide](CONSUMER.md): `substrate/docs/CONSUMER.md`.
 - [Published contracts](CONTRACTS.md): `substrate/docs/CONTRACTS.md`.
 - [Roadmap/migration priority](ROADMAP.md): `substrate/docs/ROADMAP.md`.
-- [Continuing programme](../prototype/programme-20261004/CONTINUING-PROGRAMME.md): `substrate/prototype/programme-20261004/CONTINUING-PROGRAMME.md`.
-- [Existing STC producer assessment/asks](../prototype/programme-20261004/STC-548615a-ASSESSMENT.md): `substrate/prototype/programme-20261004/STC-548615a-ASSESSMENT.md`.
+- [Continuing programme](research/prototype/programme-20261004/CONTINUING-PROGRAMME.md): `substrate/prototype/programme-20261004/CONTINUING-PROGRAMME.md`.
+- [Existing STC producer assessment/asks](research/prototype/programme-20261004/STC-548615a-ASSESSMENT.md): `substrate/prototype/programme-20261004/STC-548615a-ASSESSMENT.md`.
 
 Reuse these homes for architecture, discussion, accepted/proposed decisions, future ideas, contracts and release/evidence. Do not relocate originals or create a parallel canonical architecture. The [owner directive](../../ANIMA/architecture/templates/MODULE-ARCHITECTURE-DIRECTIVE.md) and [independent-delivery policy](../../ANIMA/architecture/MODULE-DELIVERY.md) provide proposed mapping guidance; current local authority still governs.
 
