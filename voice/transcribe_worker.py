@@ -15,8 +15,10 @@ import json
 import sys
 import time
 
-PROMPT = ("ANIMA voice commands: show status. pause task three. resume task two. "
-          "run the next job with Muse, Claude or Codex. recall similar fixes.")
+# No initial_prompt on purpose.  Measured on the six test clips with the base model: a long
+# command-list prompt made one clip take about 17 s (temperature fallback loop), and a short
+# vocabulary prompt turned "Pause" into "Paws".  With no prompt every clip took 1 to 2 s and
+# came out right.  The fixed grammar in anima_voice.py absorbs small slips anyway.
 
 
 def main():
@@ -33,7 +35,7 @@ def main():
     t = time.time()
     segments, info = model.transcribe(
         a.audio, language="en", beam_size=5, vad_filter=True,
-        vad_parameters={"min_silence_duration_ms": 400}, initial_prompt=PROMPT,
+        vad_parameters={"min_silence_duration_ms": 400},
         condition_on_previous_text=False,
     )
     text = " ".join(s.text.strip() for s in segments).strip()

@@ -109,7 +109,7 @@ mapped by a fixed grammar to exactly these commands; nothing else can ever run:
 | "show status" | `anima status --tree` |
 | "pause task 3" / "resume task 3" | `anima cmd pause|resume <name of task 3>` (writes a command file) |
 | "run the next job with muse / claude / codex" | `anima cmd run-next --harness ...` (writes a command file) |
-| "recall similar fixes" | `anima recall --similar` (needs the memory link; see below) |
+| "recall similar fixes" | `anima memory recall "<newest task that is not verified yet>"` (needs the memory link; see below) |
 
 Before running, it prints what it heard, the command it matched and the exact command line, then asks `Run it?
 [y/N]`. Anything but `y` runs nothing (exit 3). `--yes` skips the question for scripts. A phrase that matches
@@ -120,8 +120,17 @@ Limits, stated plainly: the test clips are synthetic speech from the local Kokor
 accent and noise robustness are untested. The microphone path (`--mic`) records through ffmpeg from WSLg's
 `RDPSource`; on the author's machine it records but captured silence (the Windows microphone was not feeding it),
 so `--mic` with real speech has **not** been run, and the command refuses a silent recording rather than guessing.
-File input always works. `recall similar fixes` calls `anima.memory.recall_main` if that module exists in the
-checkout and says "not wired" otherwise.
+File input always works.
+
+`recall similar fixes` has no subject of its own, so it recalls against the newest task in the tree that is not
+verified yet (else the newest task); the exact query is printed in the command line before you confirm. It calls
+`anima.memory.cli.main(["recall", query])` from the memory-link worker if that module is in the checkout, and
+says "not wired" (exit 4) if it is not. Recall quality, its dependencies and its store belong to the memory
+link (`docs/MEMORY.md`); on the author's machine the call path ran but returned 0 hits, see `RUN-LOG.md`.
+
+Speed on this CPU (base model, six clips of 1 to 2 s): 1.2 to 1.5 s to transcribe once the model is loaded;
+the whole `anima voice` call takes about 4 s. No initial prompt is passed to Whisper on purpose: a command-list
+prompt made one clip take 17 s, and a short vocabulary prompt turned "pause" into "paws".
 
 ## Tests
 
