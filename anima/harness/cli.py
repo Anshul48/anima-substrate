@@ -179,11 +179,8 @@ def cmd_doctor(a) -> int:
                 live[role] = {"status": st, "detail": detail, "seconds": round(secs, 1)}
             write_state(name, {"when": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "live": live})
             recorded = read_state(name)
-        label = "NOT RUN" if bad else "READY (not live-tested)"
-        if recorded.get("live"):
-            ok = all(v["status"] == "PASS" for v in recorded["live"].values())
-            label = f"PASS (live, {recorded['when']})" if ok and not bad else (f"FAIL (live, {recorded['when']})" if not ok else label)
-        if bad and bad[0][1] == "FAIL":
+        label = doctor_label(bool(bad), recorded)
+        if (bad and bad[0][1] == "FAIL") or label.startswith("FAIL"):
             worst = 1
         out(f"  {name:<8} {label}" + ("" if in_prof else "   [not in profile: `anima harness add " + name + "`]"))
         for chk, st, detail in rows:
@@ -426,6 +423,23 @@ def build_parser():
     s = sub.add_parser("verify-log", help="check a decision chain (default: the newest run)")
     s.add_argument("path", nargs="?")
     return ap
+
+
+def doctor_label(static_bad: bool, recorded: dict) -> str:
+    """One word for a harness in `anima doctor`. NOT RUN (could not try: login, network, missing binary) is
+    never shown as FAIL; FAIL means a live check ran and gave a wrong result."""
+    live = recorded.get("live") or {}
+    if static_bad:
+        return "NOT RUN"
+    if not live:
+        return "READY (not live-tested)"
+    states = {v["status"] for v in live.values()}
+    when = recorded.get("when")
+    if "FAIL" in states:
+        return f"FAIL (live, {when})"
+    if states == {"PASS"}:
+        return f"PASS (live, {when})"
+    return f"NOT RUN (live, {when})"
 
 
 def _json_argv(flag: str, text: str) -> list:

@@ -411,6 +411,16 @@ class Cli(unittest.TestCase):
             code = cli.main(list(argv))
         return code, buf.getvalue()
 
+    def test_doctor_label_never_calls_a_login_problem_a_failure(self):
+        from anima.harness.cli import doctor_label
+        rec = lambda *st: {"when": "T", "live": {f"r{i}": {"status": x} for i, x in enumerate(st)}}
+        self.assertEqual(doctor_label(False, {}), "READY (not live-tested)")
+        self.assertEqual(doctor_label(True, {}), "NOT RUN")
+        self.assertEqual(doctor_label(False, rec("PASS", "PASS")), "PASS (live, T)")
+        self.assertEqual(doctor_label(False, rec("NOT RUN", "NOT RUN")), "NOT RUN (live, T)")
+        self.assertEqual(doctor_label(False, rec("PASS", "NOT RUN")), "NOT RUN (live, T)")
+        self.assertEqual(doctor_label(False, rec("PASS", "FAIL")), "FAIL (live, T)")
+
     def test_add_custom_rejects_a_non_list_argv_cleanly(self):
         code, text = self.main("harness", "add", "custom", "--name", "bad", "--argv", "true")
         self.assertNotEqual(code, 0)
