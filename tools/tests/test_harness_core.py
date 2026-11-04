@@ -11,13 +11,13 @@ import hashlib
 import importlib.util
 import json
 import os
+from pathlib import Path
 import shutil
 import sys
 import tempfile
 import textwrap
 import time
 import unittest
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -403,8 +403,9 @@ class Cli(unittest.TestCase):
         f.chmod(0o755)
 
     def main(self, *argv):
+        from contextlib import redirect_stderr, redirect_stdout
         from io import StringIO
-        from contextlib import redirect_stdout, redirect_stderr
+
         from anima.harness import cli
         buf = StringIO()
         with redirect_stdout(buf), redirect_stderr(buf):
@@ -413,7 +414,9 @@ class Cli(unittest.TestCase):
 
     def test_doctor_label_never_calls_a_login_problem_a_failure(self):
         from anima.harness.cli import doctor_label
-        rec = lambda *st: {"when": "T", "live": {f"r{i}": {"status": x} for i, x in enumerate(st)}}
+        def rec(*st):
+            return {"when": "T", "live": {f"r{i}": {"status": x} for i, x in enumerate(st)}}
+
         self.assertEqual(doctor_label(False, {}), "READY (not live-tested)")
         self.assertEqual(doctor_label(True, {}), "NOT RUN")
         self.assertEqual(doctor_label(False, rec("PASS", "PASS")), "PASS (live, T)")

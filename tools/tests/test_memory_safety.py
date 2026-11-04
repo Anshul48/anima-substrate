@@ -7,15 +7,16 @@ Run with the memory venv's python (needs numpy for the store tests; they skip wi
 """
 import json
 import os
+from pathlib import Path
 import sys
 import tempfile
 import unittest
-from pathlib import Path
 from unittest import mock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from anima.memory import cli, hook, recall as recall_mod  # noqa: E402
+from anima.memory import cli, hook  # noqa: E402
+from anima.memory import recall as recall_mod
 from anima.memory.passages import Passage, load_path, verify_passage  # noqa: E402
 from anima.memory.safety import locked, record_failure, safe_dest, safe_id  # noqa: E402
 

@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """Needs numpy/blake3 (and, for the TRACE test, the frozen TRACE source + the MiniLM files:
 run `python3 -m anima.memory setup` once). Skipped when they are absent."""
-import sys
+from pathlib import Path
 import shutil
+import sys
 import tempfile
 import unittest
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -30,7 +30,10 @@ def _trace_ready():
     if not HAVE_NP:
         return False
     try:
-        import blake3, onnxruntime, tokenizers  # noqa: F401,E401
+        import blake3  # noqa: F401,E401
+        import onnxruntime  # noqa: F401
+        import tokenizers  # noqa: F401
+
         from anima.memory.stores import find_trace_src
     except ImportError:
         return False

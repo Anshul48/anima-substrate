@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """Stdlib-only tests for anima.memory: passages, source pointers, prompt block, fail-open hook."""
 import json
+from pathlib import Path
 import shutil
 import sys
 import tempfile
 import unittest
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
