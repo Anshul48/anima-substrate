@@ -7,7 +7,7 @@ Format follows Keep-a-Changelog headings.
 
 ### Changed
 
-- New front page and project site (`docs/*.html`, served by GitHub Pages): ANIMA as memory (TRACE) plus a plug-in for the coding tool you already use (Muse Code first, then Claude Code and Codex), one State Space Tree screen, voice control and enforced rules. Every part carries a badge from `docs/status.json` (Working today, Prototype, Next, not built yet).
+- New front page and project site (`docs/*.html`, served by GitHub Pages): ANIMA as memory (TRACE) plus a plug-in for the coding tool you already use (Muse Code first, then Claude Code and Codex), one State Space Tree screen, voice control and enforced rules. Every part carries a badge from `docs/status.json` (Working today, Prototype, Not built yet).
 - The site is generated: `site/` holds templates, `tools/site.py` builds, syncs the README tables and checks (stale pages, banned phrases, broken links, missing alt text, size, contrast). CI runs the check.
 - The in-browser record check (`docs/demo/`) moved onto the shared look. Its checking logic (`app.js`, `chain.js`) is unchanged apart from two labels.
 

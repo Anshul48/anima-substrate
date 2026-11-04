@@ -52,7 +52,7 @@
 <h3>What that means, in plain words</h3>
 <ul>
 <li><strong>Sparse activation.</strong> A question wakes only the few groups likely to hold the answer; the rest of the library stays untouched. The term is borrowed from brain science: TRACE is inspired by it and does not work like a brain.</li>
-<li><strong>Groups that hold answers together.</strong> The library is sorted into small groups of about nine passages. In our tests a search&rsquo;s ten best matches fell into about 7 groups on average, out of at most 10. With random groups it would be 10. The groups come from one ordinary sorting run, so we do not claim the library organises itself as it grows.</li>
+<li><strong>Self-organizing, as an idea.</strong> TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. What we measured: at every library size we tested (10,000 to 200,000 passages, one recipe), a passage&rsquo;s ten closest matches fell in about 5 groups on average, where random groups would give 10. For the 50 test searches on our 100-million-token library it was about 7 groups out of 10. This measures how ordered the finished grouping is. It does not show order arising over time, and we do not claim it improves as the library grows. <a href="https://anshul48.github.io/trace/">TRACE&rsquo;s own site</a> tells this story.</li>
 <li><strong>A checkable record on every answer.</strong> Each result carries a record of where it came from, with a fingerprint you can recompute yourself.</li>
 </ul>
 <h3>Earlier, larger tests (ours, kept apart from the numbers above)</h3>

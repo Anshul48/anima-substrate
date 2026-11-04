@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks. Please check [the status page](https://anshul48.github.io/anima-substrate/status.html) first: a part marked "Next, not built yet" is not expected to work.
+        Thanks. Please check [the status page](https://anshul48.github.io/anima-substrate/status.html) first: a part marked "Not built yet" is not expected to work.
   - type: textarea
     id: ran
     attributes:

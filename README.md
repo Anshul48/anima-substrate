@@ -22,13 +22,13 @@ Every claim in this README comes from one file, [`docs/status.json`](docs/status
 | Part | State | What exists today |
 |---|---|---|
 | [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Prototype** | TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one does not exist yet. |
-| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Next, not built yet** | Nothing is wired yet. The three tools have command-line modes, and ANIMA's adapters are meant to call them. |
-| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Next, not built yet** | Nothing to install yet. Today you clone the repository and run the record check (see Try it). |
-| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Next, not built yet** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is not built yet. |
-| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Next, not built yet** | Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU. |
+| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Not built yet** | Nothing is wired yet. The three tools have command-line modes, and ANIMA's adapters are meant to call them. |
+| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Not built yet** | Nothing to install yet. Today you clone the repository and run the record check (see Try it). |
+| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Not built yet** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is not built yet. |
+| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Not built yet** | Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU. |
 | [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Prototype** | Three of five parts exist in some form: the hidden checker and the ladder (one job type, recorded run) and the tamper-evident record (anyone can check it). Roles and the rules pack are designed, not built. |
 
-Roles and rules, part by part: Roles: Next, not built yet, Enforced rules: Next, not built yet, Hidden checker: Prototype, Escalation ladder: Prototype, Tamper-evident record: Working today.
+Roles and rules, part by part: Roles: Not built yet, Enforced rules: Not built yet, Hidden checker: Prototype, Escalation ladder: Prototype, Tamper-evident record: Working today.
 
 Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it.
 
@@ -44,9 +44,9 @@ A harness is the coding tool an agent runs in. ANIMA does not replace it; it plu
 
 | # | Harness | State | Command |
 |---|---|---|---|
-| 1 | Muse Code | **Next, not built yet** | planned, not available yet: `anima run --harness muse --task examples/tiny-bug` |
-| 2 | Claude Code | **Next, not built yet** | planned, not available yet: `anima run --harness claude --task examples/tiny-bug` |
-| 3 | Codex | **Next, not built yet** | planned, not available yet: `anima run --harness codex --task examples/tiny-bug` |
+| 1 | Muse Code | **Not built yet** | planned, not available yet: `anima run --harness muse --task examples/tiny-bug` |
+| 2 | Claude Code | **Not built yet** | planned, not available yet: `anima run --harness claude --task examples/tiny-bug` |
+| 3 | Codex | **Not built yet** | planned, not available yet: `anima run --harness codex --task examples/tiny-bug` |
 
 <!-- block:harness:end -->
 
@@ -67,7 +67,7 @@ Limit: A small local store, not the 100-million-token library. It aims at contin
 **The sealed library we tested on: 812,545 passages, 99,891,846 tokens.** The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%).
 
 - **Sparse activation.** A question wakes only the few groups likely to hold the answer. On 50 test searches (40 written questions and 10 taken from passage openings) TRACE scored **0.79% of the rows**, measured on one of the library's four equal parts. That is about **127 times less scoring work** than looking at everything, and it kept **0.9985 of exact meaning-based search's results**.
-- **Groups that hold answers together.** The library is sorted into small groups of about nine passages. A search's ten best matches fell into about 7 groups on average, out of at most 10; random groups would give 10. The groups come from one ordinary sorting run, so we do not claim the library organises itself as it grows.
+- **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. What we measured: at every library size we tested (10,000 to 200,000 passages, one recipe), a passage's ten closest matches fell in about 5 groups on average, where random groups would give 10; for the 50 test searches on our 100-million-token library it was about 7 groups out of 10. This measures how ordered the finished grouping is. It does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
 - **A checkable record on every answer.** Each result carries a record of where it came from, with a fingerprint you can recompute yourself.
 
 **Earlier, larger tests (ours, kept apart from the numbers above):**
@@ -81,7 +81,7 @@ Limit: A small local store, not the 100-million-token library. It aims at contin
 
 <!-- block:install:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**One-line install: Next, not built yet.** Planned line (not available yet; the address only works after the project's first push to GitHub):
+**One-line install: Not built yet.** Planned line (not available yet; the address only works after the project's first push to GitHub):
 
 ```text
 curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh
@@ -101,7 +101,7 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:sst:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Next, not built yet.** Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree. [What it will look like and what exists](https://anshul48.github.io/anima-substrate/state-tree.html).
+**Not built yet.** Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree. [What it will look like and what exists](https://anshul48.github.io/anima-substrate/state-tree.html).
 
 <!-- block:sst:end -->
 
@@ -109,7 +109,7 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:voice-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Next, not built yet.** Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.
+**Not built yet.** Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.
 
 Planned: `anima voice --file voice/samples/status.wav` prints what it heard and the command it understood, for example {"cmd":"status"}. Starting or stopping a task needs a typed confirmation.
 
@@ -180,7 +180,7 @@ Each decision is one line in a file, and each line carries a fingerprint of the 
 
 ## Next
 
-Whatever the table marks "Next, not built yet" is not built. When a part lands, one edit to `docs/status.json` flips it everywhere. See the [roadmap](docs/ROADMAP.md).
+Whatever the table marks "Not built yet" is not built. When a part lands, one edit to `docs/status.json` flips it everywhere. See the [roadmap](docs/ROADMAP.md).
 
 ## For researchers and contributors
 

@@ -7,7 +7,7 @@ summaries — the in-tree contracts and acceptance records govern.
 
 ## New here? Start with these
 
-1. Read the [README](README.md) and [`docs/status.json`](docs/status.json). The status file is the one place that says what is built (Working today), partly built (Prototype) or not built (Next, not built yet).
+1. Read the [README](README.md) and [`docs/status.json`](docs/status.json). The status file is the one place that says what is built (Working today), partly built (Prototype) or not built (Not built yet).
 2. Run the one check that works on a plain clone (Python 3 and git, about one second):
 
 ```sh
