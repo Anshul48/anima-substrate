@@ -14,10 +14,10 @@ Everything here runs on a plain laptop: no GPU, no API key, no network after the
 | `anima memory ingest` | working today | decision logs, `anima-job-v1` records, flagship attempt folders and the run folders `anima run` writes become passages in the TRACE index |
 | `anima memory recall "<task text>"` | working today | top similar past jobs, each with a source pointer that is re-checked on the spot |
 | `anima memory verify` | working today | re-reads every source and says OK, CHANGED or MISSING for each pointer |
-| `anima run --memory trace` | prototype | written and run end to end; it is a separate patch (`harness-memory-flag.patch`) because the Harness files belong to another worker. See "The hook" below. |
+| `anima run --memory trace` | working today | puts similar past fixes in front of the worker prompt and records the run afterwards. See "The hook" below. |
 | With/without-memory test on the worker | prototype, tiny sample | see "The test" below. It does not show a benefit and does not show a harm. |
-| Memory across many projects or machines | not built yet | one folder, one machine |
-| Anything beyond bug-fix jobs | not built yet | passages are written for the bug-fix job type only |
+| Memory across many projects or machines | planned | one folder, one machine |
+| Anything beyond bug-fix jobs | planned | passages are written for the bug-fix job type only |
 
 ## Try it
 

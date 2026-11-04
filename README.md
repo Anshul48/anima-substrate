@@ -47,11 +47,11 @@ Every claim in this README comes from one file, [`docs/status.json`](docs/status
 
 | Part | State | What exists today |
 |---|---|---|
-| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Prototype** | TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one is planned. |
-| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Planned** | The adapters are planned. The three tools have command-line modes, and ANIMA's adapters will call them. |
-| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Planned** | The one-line install is planned. Today you clone the repository and run the record check (see Try it). |
-| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Planned** | The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is planned. |
-| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Planned** | Planned. It uses faster-whisper, a local speech-to-text library, running on the CPU. |
+| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Working today** | Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK). |
+| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Working today** | The Muse Code adapter runs one small bug task end to end: the worker fixes, the hidden checker judges, the record seals. Fresh-clone runs ended VERDICT PASS. |
+| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Working today** | One line installs ANIMA into a private folder: the code, a small Python environment, a launcher, and a starter `anima.yaml` listing the coding tools it found. No admin rights, no passwords or keys asked. |
+| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Working today** | `anima status --tree` prints the tree as text and `anima ui` serves the same tree as a page; both read the decision log, and `--demo` draws the built-in record with no run needed. |
+| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Working today** | `anima voice` turns a clip into text on your own computer (local faster-whisper on the CPU, about 1 to 2 seconds a clip in the fresh-clone runs), matches one of six fixed commands, and asks before running anything. |
 | [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Planned** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. No program reads the file or enforces the rules today. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
 
 Roles and rules, part by part: Roles: Planned, Enforced rules: Planned.
@@ -70,9 +70,9 @@ A harness is the coding tool an agent runs in. ANIMA does not replace it; it plu
 
 | # | Harness | State | Command |
 |---|---|---|---|
-| 1 | Muse Code | **Planned** | planned: `anima run --harness muse --task tiny-bug` |
-| 2 | Claude Code | **Planned** | planned: `anima run --harness claude --task tiny-bug` |
-| 3 | Codex | **Planned** | planned: `anima run --harness codex --task tiny-bug` |
+| 1 | Muse Code | **Working today** | `anima run --harness muse --task tiny-bug` |
+| 2 | Claude Code | **Prototype** | planned: `anima run --harness claude --task tiny-bug` |
+| 3 | Codex | **Prototype** | planned: `anima run --harness codex --task tiny-bug` |
 
 <!-- block:harness:end -->
 
@@ -82,11 +82,9 @@ In a coding workflow the same bug gets fixed twice and the same decision gets ex
 
 <!-- block:memory-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Prototype.** TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one is planned.
+**Working today.** Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK).
 
-Planned: `python3 -m anima.memory ingest <run folder>` stores what a finished run decided and fixed. In a new session `python3 -m anima.memory recall "<task text>"` brings back the most similar past jobs, each with a pointer to the file it came from, and `anima run --memory trace` puts them in the agent's prompt.
-
-Limit: A small local store, not the 100-million-token library. It aims at continuity (the agent knows what was decided before) and makes no claim of better fixes. The 20-question test is a small sample.
+Limit: A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Setup needs the network once.
 
 <!-- block:memory-state:end -->
 
@@ -107,15 +105,16 @@ Limit: A small local store, not the 100-million-token library. It aims at contin
 
 <!-- block:install:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**One-line install: Planned.** Planned line (the address only works after the project's first push to GitHub):
-
-```text
+```bash
 curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh
+anima doctor
 ```
+
+One line, a private folder, no admin rights. `anima doctor` lists which of Muse Code, Claude Code and Codex it found.
 
 <!-- block:install:end -->
 
-Today the way in is a clone. You need Python 3 and git; the download is about 11 MB.
+You need Python 3.11 and git. To check the recorded run without installing anything, clone and run the record check:
 
 ```bash
 git clone https://github.com/Anshul48/anima-substrate
@@ -127,7 +126,9 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:sst:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Planned.** Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree. [What it will look like and what exists](https://anshul48.github.io/anima-substrate/state-tree.html).
+![The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right.](docs/img/sst-screen.png)
+
+*Real screenshot of the state-tree screen showing a recorded run, served from a fresh clone.* [More](https://anshul48.github.io/anima-substrate/state-tree.html). Designed preview: [UI preview: a replay of recorded runs](docs/ui-preview/index.html) ([dashboard](docs/ui-preview/dashboard.html)).
 
 <!-- block:sst:end -->
 
@@ -135,11 +136,9 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:voice-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Planned.** Planned. It uses faster-whisper, a local speech-to-text library, running on the CPU.
+**Working today.** `anima voice` turns a clip into text on your own computer (local faster-whisper on the CPU, about 1 to 2 seconds a clip in the fresh-clone runs), matches one of six fixed commands, and asks before running anything.
 
-Planned: `anima voice voice/clips/show-status.wav --demo` prints what it heard ("Show status.") and then the tree. Starting or stopping a task needs a typed confirmation.
-
-Limit: About six fixed English commands. Shown first from a recorded clip, because a microphone can fail inside WSL. The delay has not been measured.
+Limit: Six fixed English commands. Shown first from a recorded clip. Needs a Python with faster-whisper; the model downloads once.
 
 <!-- block:voice-state:end -->
 
@@ -201,7 +200,7 @@ Each decision is one line in a file, and each line carries a fingerprint of the 
 - The second helper was told the failing line, so it was an informed retry, not a blind one.
 - The libraries are public, so the agents may have seen similar fixes before.
 - We make no claim about long runs, or about leaving it alone while you are away. That is untested.
-- The checker's code and the earlier self-test are not in this repository yet, so only the record of the run can be re-checked from here. The earlier self-test is described in the [run-2 notes](docs/evidence/flagship-run2/README.md).
+- The checker's code ships in this repository (see the [integrated demo](docs/INTEGRATED-DEMO.md)); the nine-job run used our earlier driver, so only the record of that run can be re-checked from here. The earlier self-test is described in the [run-2 notes](docs/evidence/flagship-run2/README.md).
 - The TRACE numbers above are our own measurements on our own library. There is no public query service.
 
 ## Next
@@ -211,7 +210,7 @@ Whatever the table marks "Planned" is still to come. When a part lands, one edit
 ## For researchers and contributors
 
 - [Docs index](docs/INDEX.md): every document in `docs/`, by topic
-- [Integrated demo](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run; a placeholder until the integrator's final text lands at about 22:30Z
+- [Integrated demo](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run (exact steps, what each prints, what each needs)
 - [Recorded run: nine jobs](docs/evidence/flagship-run3/README.md), with its [caveats](docs/evidence/flagship-run3/README.md#caveats-state-them-wherever-the-number-is-used) and the [earlier run](docs/evidence/flagship-run2/README.md)
 - [Previous front page](docs/README-technical.md): the repository's earlier technical page (a small offline engine in `src/`; run it: `PYTHONPATH=src python3 examples/quickstart.py`)
 - [Technical report](docs/TECHNICAL-REPORT.md) / [Architecture](docs/ARCHITECTURE.md) / [Reproduce all](REPRODUCE-ALL.md)

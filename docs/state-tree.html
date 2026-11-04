@@ -27,44 +27,15 @@
 </div>
 </header>
 <main id="main">
-<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / One screen (SST)</p><h1>One screen: the State Space Tree <span class="badge" data-state="next">Planned</span></h1><p class="lead">Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.</p><div class="banner" role="note"><p><strong>Planned.</strong> This page says what it will do and what exists today.</p></div></div>
+<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / One screen (SST)</p><h1>One screen: the State Space Tree <span class="badge" data-state="built">Working today</span></h1><p class="lead">Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.</p><div class="banner built" role="note"><p><strong>Working today.</strong> You can check it yourself: the command is under &ldquo;How to check it&rdquo;.</p></div></div>
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
 <h2>What it does</h2>
 <p>When several agents work at once, you end up piecing things together from separate windows. This screen puts the work on one page, as a tree. The root is the mission, the branches are tasks, and the leaves are attempts. Selecting a node shows its decision records. An escalation adds a branch.</p>
 <h2>See it</h2>
+<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot of the state-tree screen showing a recorded run, served from a fresh clone.</figcaption></figure>
+<p>Designed preview of the screen at full size: <a href="ui-preview/index.html">UI preview: a replay of recorded runs</a> (state tree and <a href="ui-preview/dashboard.html">dashboard</a>).</p>
 
-<figure class="stage" style="max-width:520px"><svg viewBox="0 0 420 560" role="img" aria-labelledby="hi-t hi-d">
-<title id="hi-t">Illustration: ANIMA between your coding tool and its memory</title>
-<desc id="hi-d">Your coding tool at the top lists Muse Code first, then Claude Code, then Codex. One line plugs it into ANIMA below. Inside ANIMA a mission branches into three tasks. Task 1 is right, task 2 was wrong and a fix climbed one rung, task 3 is waiting. A memory hit, fixed this before with a source id, feeds the fix.</desc>
-<g text-anchor="middle">
-<rect class="s-box" x="10" y="8" width="400" height="98" rx="16"/>
-<text class="s-cap" x="26" y="32" text-anchor="start">YOUR CODING TOOL</text>
-<rect class="s-first" x="22" y="46" width="120" height="46" rx="10"/><text class="s-t" x="82" y="74">1 Muse Code</text>
-<rect class="s-node" x="150" y="46" width="120" height="46" rx="10"/><text class="s-t" x="210" y="74">2 Claude Code</text>
-<rect class="s-node" x="278" y="46" width="120" height="46" rx="10"/><text class="s-t" x="338" y="74">3 Codex</text>
-<path class="s-line" d="M210 106v18"/><rect class="s-node" x="196" y="124" width="28" height="18" rx="4"/><path class="s-line" d="M203 142v10M217 142v10"/>
-<text class="s-sm" x="236" y="138" text-anchor="start">one line</text>
-<rect class="s-anima" x="10" y="152" width="400" height="398" rx="18"/>
-<text class="s-big" x="30" y="186" text-anchor="start">ANIMA</text>
-<rect class="s-node" x="162" y="198" width="96" height="32" rx="16"/><text class="s-t" x="210" y="219">mission</text>
-<path class="s-line" d="M210 230v16M82 246h256M82 246v16M210 246v16M338 246v16"/>
-<rect class="s-node" x="32" y="262" width="100" height="32" rx="10"/><text class="s-t" x="82" y="283">task 1</text>
-<rect class="s-node" x="160" y="262" width="100" height="32" rx="10"/><text class="s-t" x="210" y="283">task 2</text>
-<rect class="s-node" x="288" y="262" width="100" height="32" rx="10"/><text class="s-t" x="338" y="283">task 3</text>
-<path class="s-line" d="M82 294v32M210 294v32M210 358v32M338 294v32"/>
-<rect class="s-ok" x="32" y="326" width="100" height="32" rx="10"/><text class="s-g" x="82" y="347">right</text>
-<rect class="s-bad" x="160" y="326" width="100" height="32" rx="10"/><text class="s-a" x="210" y="347">wrong</text>
-<rect class="s-ok" x="160" y="390" width="100" height="32" rx="10"/><text class="s-g" x="210" y="411">fixed</text>
-<rect class="s-wait" x="288" y="326" width="100" height="32" rx="10"/><text class="s-sm" x="338" y="347">waiting</text>
-<text class="s-sm" x="272" y="411" text-anchor="start">next rung</text>
-<path class="s-recall" d="M210 456v-34"/>
-<rect class="s-mem" x="30" y="456" width="360" height="78" rx="14"/>
-<text class="s-v" x="48" y="486" text-anchor="start">memory hit</text>
-<text class="s-t" x="48" y="515" text-anchor="start">fixed this before, source #37</text>
-</g>
-</svg>
-<figcaption>UI preview (illustration, not a screenshot). The screen is planned.</figcaption></figure>
 <ul class="legend" aria-label="How to read the colours">
 <li><i class="l-ok"></i>right (checked by the hidden checker)</li>
 <li><i class="l-bad"></i>wrong &ldquo;done&rdquo;, caught</li>
@@ -72,9 +43,9 @@
 <li><i class="l-mem"></i>memory hit</li>
 </ul>
 <p class="muted">The colour is always written next to the node too, so nothing relies on colour alone.</p>
-<div class="two"><div class="panel"><h3>What exists today</h3><p>The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is planned.</p></div><div class="panel"><h3>Limits</h3><p>It draws the decision log, not what a model is thinking. One computer.</p></div></div><div class="panel" style="margin-top:var(--space-5)"><h3>What it will do</h3><p>A web page. The root is the mission, the branches are tasks, the leaves are attempts coloured right, wrong or waiting. An escalation adds a branch. <code>python3 -m anima.ui --demo</code> opens it on the recorded nine-job run, and <code>anima status --tree --demo</code> prints the same tree as text. A live run comes after the replay.</p></div>
+<div class="two"><div class="panel"><h3>What exists today</h3><p><code>anima status --tree</code> prints the tree as text and <code>anima ui</code> serves the same tree as a page; both read the decision log, and <code>--demo</code> draws the built-in record with no run needed.</p></div><div class="panel"><h3>Limits</h3><p>It draws the decision log, not what a model is thinking. One computer. Command-file buttons stay disabled: no program reads them.</p></div></div>
 <p class="small muted" style="margin-top:var(--space-5)">SST stands for State Space Tree. An older, separate project of ours also used the letters SST for a search that tries several fixes side by side. That is not what this page means.</p>
-
+<div class="panel" style="margin-top:var(--space-5)"><h3>How to check it</h3><p>Run:</p><div class="cmd"><code>anima status --tree --demo</code><button class="copy" type="button" data-copy="anima status --tree --demo">Copy</button></div><p>Evidence file in this repository: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/UI.md"><code>docs/UI.md</code></a></p></div>
 <nav class="pager" aria-label="Previous and next feature"><a href="install.html">&larr; One-line install</a><a href="voice.html">Voice &rarr;</a></nav>
 </div>
 </section>

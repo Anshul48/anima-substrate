@@ -78,7 +78,7 @@ sed -n '11,19p' stc/src/stc/services/hormones.py
 grep -n "^class .*Protocol" stc/src/stc/protocols/interfaces.py 2>&1 | head
 
 echo "=== P24 absences ==="
-ls /home/anshul/dsh 2>&1 | head -1
+ls ~/dsh 2>&1 | head -1
 git -C substrate rev-parse HEAD 2>&1 | head -1
 
 echo "=== probes done: PASS=$PASS FAIL=$FAIL ==="

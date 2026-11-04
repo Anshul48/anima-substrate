@@ -27,22 +27,22 @@
 </div>
 </header>
 <main id="main">
-<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / One-line install</p><h1>One line to install <span class="badge" data-state="next">Planned</span></h1><p class="lead">One command sets ANIMA up in a private folder, with no admin rights, then checks which of your coding tools it can find.</p><div class="banner" role="note"><p><strong>Planned.</strong> This page says what it will do and what exists today.</p></div></div>
+<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / One-line install</p><h1>One line to install <span class="badge" data-state="built">Working today</span></h1><p class="lead">One command sets ANIMA up in a private folder, with no admin rights, then checks which of your coding tools it can find.</p><div class="banner built" role="note"><p><strong>Working today.</strong> You can check it yourself: the command is under &ldquo;How to check it&rdquo;.</p></div></div>
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
 <h2>What it does</h2>
 <p>You should be able to try ANIMA without a setup day. One line downloads it into a private folder and builds a small Python environment there. It does not need administrator rights and it does not touch the rest of your machine. Then one command checks which of your coding tools it can find.</p>
 <h2>Try it</h2>
-<p class="cmd-label">One line to install <span class="badge" data-state="next">Planned</span> <span>Planned line.</span></p><div class="cmd planned"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code></div>
-<p class="cmd-label">Planned command <span class="badge" data-state="next">Planned</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima doctor</code></div>
+<p class="cmd-label">One line to install <span class="badge" data-state="built">Working today</span></p><div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh">Copy</button></div>
+<p class="cmd-label">Run it <span class="badge" data-state="built">Working today</span></p><div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh">Copy</button></div>
 <h2>What the installer does, step by step</h2>
 <ol class="steps">
 <li><h3>Downloads ANIMA into a private folder</h3><p>Nothing is installed system-wide.</p></li>
 <li><h3>Builds a small Python environment inside it</h3><p>Python 3 and git must already be on your machine.</p></li>
 <li><h3>Checks your tools</h3><p>Muse Code, Claude Code and Codex are looked for, and each one found is reported. They must already be installed and logged in; ANIMA never asks for your passwords or keys.</p></li>
 </ol>
-<div class="two"><div class="panel"><h3>What exists today</h3><p>The one-line install is planned. Today you clone the repository and run the record check (see Try it).</p></div><div class="panel"><h3>Limits</h3><p>The tools must already be installed and logged in. The one-line address only works after the project&#x27;s first push to GitHub, so a clone is the way in until then.</p></div></div><div class="panel" style="margin-top:var(--space-5)"><h3>What it will do</h3><p>One line installs ANIMA into a private folder and a small Python environment. Then <code>anima doctor</code> lists which of Muse Code, Claude Code and Codex it found and writes a starter <code>anima.yaml</code>.</p></div>
-
+<div class="two"><div class="panel"><h3>What exists today</h3><p>One line installs ANIMA into a private folder: the code, a small Python environment, a launcher, and a starter <code>anima.yaml</code> listing the coding tools it found. No admin rights, no passwords or keys asked.</p></div><div class="panel"><h3>Limits</h3><p>The coding tools must already be installed and logged in. Memory setup and voice each need one network download.</p></div></div>
+<div class="panel" style="margin-top:var(--space-5)"><h3>How to check it</h3><p>Run:</p><div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh">Copy</button></div><p>Evidence file in this repository: <a href="https://github.com/Anshul48/anima-substrate/blob/main/install.sh"><code>install.sh</code></a></p></div>
 <nav class="pager" aria-label="Previous and next feature"><a href="harnesses.html">&larr; Your harness</a><a href="state-tree.html">One screen (SST) &rarr;</a></nav>
 </div>
 </section>

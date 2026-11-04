@@ -3,8 +3,8 @@
 # SPDX-License-Identifier: Apache-2.0
 """Speech to text with faster-whisper, on CPU.  One JSON line on stdout.
 
-Run it with the Python that has faster-whisper installed (the author's machine:
-/home/anshul/stt_venv/bin/python).  `anima voice` does that for you.
+Run it with the Python that has faster-whisper installed (for example
+$HOME/stt_venv/bin/python).  `anima voice` does that for you.
 
     python transcribe_worker.py CLIP.wav [--model base|small]
 

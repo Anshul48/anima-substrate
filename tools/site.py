@@ -401,8 +401,9 @@ def blk_install(status: dict) -> str:
 def blk_sst(status: dict) -> str:
     f = status["by_id"]["sst"]
     if f["status"] == "built":
-        return (f"![The ANIMA state tree screen replaying the recorded nine-job run: owner, run, nine tasks, attempts coloured verified or rejected.](docs/img/sst-screen.png)\n\n"
-                f"*Real screenshot: a replay of the recorded nine-job run, not a live run.* [More]({PAGES_URL}state-tree.html)")
+        return (f"![The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right.](docs/img/sst-screen.png)\n\n"
+                f"*Real screenshot of the state-tree screen showing a recorded run, served from a fresh clone.* [More]({PAGES_URL}state-tree.html). "
+                f"Designed preview: [UI preview: a replay of recorded runs](docs/ui-preview/index.html) ([dashboard](docs/ui-preview/dashboard.html)).")
     return f"**{status['states'][f['status']]}.** {f['plain']} [What it will look like and what exists]({PAGES_URL}state-tree.html)."
 
 
