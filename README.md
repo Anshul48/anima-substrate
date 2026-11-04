@@ -1,107 +1,22 @@
-<p align="center">
-  <img src="docs/img/readme-hero.png" alt="The ANIMA project site: Coding agents that remember what they fixed, with the install box, the three supported coding tools (Muse Code, Claude Code, Codex) and a badge on each part." width="100%">
-</p>
-<p align="center"><sub>The project site's front page, as rendered. The diagram on the right is an illustration of the design, not a screenshot of the product.</sub></p>
+# ANIMA - memory for coding work
 
-# ANIMA
+**ANIMA is a prototype.** It is a layer you install in one line on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory, a checker it cannot see, and a screen to watch it work.
 
-**Coding agents that remember what they fixed.**
+- TRACE memory comes first: every answer carries a record of where it came from.
+- Muse Code first; headless adapters for Muse Code, Claude Code and Codex exist.
+- Nine recorded bug-fix jobs you can replay, and a state-tree screen to watch them.
 
-ANIMA plugs into the coding tool you already use, **Muse Code first, then Claude Code, then Codex**, and gives it three things: a memory you can check ([TRACE](https://github.com/Anshul48/trace)), one screen that shows what every agent is doing, and rules that are enforced, not just requested.
-
-**Muse Code first.** Muse Code is the first harness ANIMA is built for, and in both recorded runs (nine jobs each) the first rung of its ladder was a Muse Code worker. It was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026. These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex.
-
-**Site:** [anshul48.github.io/anima-substrate](https://anshul48.github.io/anima-substrate/) &nbsp;|&nbsp; **Status of every part:** [docs/status.json](docs/status.json) &nbsp;|&nbsp; **Docs index:** [docs/INDEX.md](docs/INDEX.md)
-
-## The ecosystem
-
-One builder, three projects. TRACE is at the front: the memory the other two are built to use. This repository is ANIMA; Reflex is the third. Each has its own demo. The owner's profile is calibrated as a map of these projects: [github.com/Anshul48](https://github.com/Anshul48).
+**[Replay the nine-job run](https://anshul48.github.io/anima-substrate/demo/)** — the recorded run, checked in your browser.
 
 <p align="center">
-  <img src="docs/img/ecosystem.svg" alt="Diagram: TRACE in front as the memory, ANIMA and Reflex behind it, with lines from each to TRACE." width="640">
+  <img src="docs/img/hero-illustration.svg" alt="UI preview: your coding tool plugs into ANIMA with one line; inside, a mission branches into tasks, a wrong answer climbs a rung, and a memory hit feeds the fix." width="420">
 </p>
+<p align="center"><sub>UI preview (illustration of the design, not a screenshot). The real screen is in the <a href="#walkthroughs--visual-proofs">walkthroughs</a>.</sub></p>
 
-### TRACE: the memory, at the front
+[Watch the working films.](https://anshul48.github.io/trace/demos/)
+<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
 
-TRACE is a memory that sorts a huge pile of text into groups by itself, so a question opens only the few groups it needs, and every result comes with a record you can check. It is the vanguard of this ecosystem: the part the other two build on, and ANIMA's memory.
-
-**Watch the demo:** [open the TRACE explorer](https://anshul48.github.io/trace/explorer/), a replay of 144 real recorded searches. Nothing to install. [TRACE on GitHub](https://github.com/Anshul48/trace).
-
-### ANIMA: coding agents that remember (this repository)
-
-ANIMA is a layer that sits on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory, a checker it cannot see, and a screen to watch it work. Its memory is TRACE, joined by a prototype link with one small recorded test so far.
-
-**Watch the demo:** [check ANIMA's record in your browser](https://anshul48.github.io/anima-substrate/demo/), a replay of a recorded nine-job run.
-
-### Reflex: an AI that finds the right button
-
-Reflex is a line of work where an AI looks at a screen and finds the right button to press. The direction is SAM 3.1 with Muse Spark: in the early trial, SAM 3.1 cut made-up screens into pieces and Muse Spark read them and chose — an early trial, a direction, with small synthetic tests so far.
-
-**Watch the demo:** [open the replay demo](https://anshul48.github.io/demo-trace-anima-reflex/) (no login, pick the Reflex sample) or [watch the short film](https://anshul48.github.io/trace/demos/#reflex). [Early trial results](https://github.com/Anshul48/trace/blob/main/docs/reflex.md).
-
-## What is built and what is not
-
-Every claim in this README comes from one file, [`docs/status.json`](docs/status.json). A part may say **Working today** only if it lists a command anyone can run and a file that backs it. The table below is generated from that file, and a check in CI fails if it disagrees.
-
-<!-- block:status:start (generated from docs/status.json by tools/site.py sync-readme) -->
-
-| Part | State | What exists today |
-|---|---|---|
-| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Working today** | Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK). |
-| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Working today** | The Muse Code adapter runs one small bug task end to end: the worker fixes, the hidden checker judges, the record seals. Fresh-clone runs ended VERDICT PASS. |
-| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Working today** | One line installs ANIMA into a private folder: the code, a small Python environment, a launcher, and a starter `anima.yaml` listing the coding tools it found. No admin rights, no passwords or keys asked. |
-| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Working today** | `anima status --tree` prints the tree as text and `anima ui` serves the same tree as a page; both read the decision log, and `--demo` draws the built-in record with no run needed. |
-| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Working today** | `anima voice` turns a clip into text on your own computer (local faster-whisper on the CPU, about 1 to 2 seconds a clip in the fresh-clone runs), matches one of six fixed commands, and asks before running anything. |
-| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Planned** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. No program reads the file or enforces the rules today. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
-
-Roles and rules, part by part: Roles: Planned, Enforced rules: Planned.
-
-Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it.
-
-<!-- block:status:end -->
-
-Marks on the site are never colour alone: filled dot = working today, half dot = prototype, dashed dot = planned.
-
-## 1. Works inside your harness: Muse Code first
-
-A harness is the coding tool an agent runs in. ANIMA does not replace it; it plugs in. Muse Code first, then Claude Code, then Codex.
-
-<!-- block:harness:start (generated from docs/status.json by tools/site.py sync-readme) -->
-
-| # | Harness | State | Command |
-|---|---|---|---|
-| 1 | Muse Code | **Working today** | `anima run --harness muse --task tiny-bug` |
-| 2 | Claude Code | **Prototype** | planned: `anima run --harness claude --task tiny-bug` |
-| 3 | Codex | **Prototype** | planned: `anima run --harness codex --task tiny-bug` |
-
-<!-- block:harness:end -->
-
-## 2. Memory that carries over: TRACE
-
-In a coding workflow the same bug gets fixed twice and the same decision gets explained again. ANIMA's memory is **TRACE**, our public search that shows its work: every answer comes with a record of where it came from. Everything in this section is **our own measurement**; no outside party has verified it. It is TRACE's record, not an ANIMA result.
-
-<!-- block:memory-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
-
-**Working today.** Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK).
-
-Limit: A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Setup needs the network once.
-
-<!-- block:memory-state:end -->
-
-**The sealed library we tested on: 812,545 passages, 99,891,846 tokens.** The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%).
-
-- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On 50 test searches (40 written questions and 10 taken from passage openings) TRACE scored **0.79% of the rows**, measured on one of the library's four equal parts. That is about **127 times less scoring work** than looking at everything, and it kept **0.9985 of exact meaning-based search's results**.
-- **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. What we measured: at every library size we tested (10,000 to 200,000 passages, one recipe), a passage's ten closest matches fell in about 5 groups on average, where random groups would give 10; for the 50 test searches on our 100-million-token library it was about 7 groups out of 10. This measures how ordered the finished grouping is. It does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
-- **A checkable record on every answer.** Each result carries a record of where it came from, with a fingerprint you can recompute yourself.
-
-**Earlier, larger tests (ours, kept apart from the numbers above):**
-
-- **504,480,146 tokens.** Around 28 October 2026 we sealed a TRACE memory of 504,480,146 tokens in 13 parts on a cloud machine. That machine has since been shut down, so this test cannot be re-run. It is an earlier test by us, recorded in our own receipts, and nobody outside has checked it.
-- **1.53 billion tokens, routing only.** A separate test on rented GPUs (16 October 2026) turned 1,531,809,092 tokens of a different, larger collection into 7,134,906 searchable vectors in 109 pieces. A search that looked only at the most likely groups kept 0.9947 of the exact top ten while looking at 6.6% of the vectors. It tested routing only: no merged index, not served through TRACE, no checkable records at that scale, and not a one-billion-vector run.
-
-**Where TRACE does not win:** on the same 50 test searches, ordinary keyword search put the right source passage in its top ten for 82% of searches; TRACE did for 52%, and so did exact meaning-based search. Keyword search also had the shorter response time (6 milliseconds against 1.2 seconds for TRACE). Stored size on disk: TRACE 2.28 GB, exact vectors 1.25 GB, keyword index 0.51 GB. TRACE has not been run on public benchmarks, and there is no public query service. Details: [the memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
-
-## 3. One line to install
+## Install
 
 <!-- block:install:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
@@ -122,7 +37,120 @@ cd anima-substrate
 python3 docs/evidence/flagship-run3/check_chain.py --tamper
 ```
 
-## 4. One screen: the State Space Tree (SST)
+## The 3-minute proof
+
+ANIMA plugs into the coding tool you already use instead of replacing it. Its memory is [TRACE](https://github.com/Anshul48/trace), a memory that sorts a huge pile of text into groups by itself, joined by a prototype link with one small recorded test so far. [Try the memory and the harness.](https://anshul48.github.io/anima-substrate/try.html)
+
+What the recorded runs show, for one job type (fix a bug against hidden tests): nine real bug-fixing jobs from well-known open-source Python libraries, written down decision by decision. Seven were right the first time; two wrong "done" answers were caught by the hidden checker and fixed by the next helper. Across two recorded runs: 18 jobs, 16 verified first try, 2 caught. [Read the run.](https://anshul48.github.io/anima-substrate/evidence.html) Nine jobs in one run is a worked example, not a statistic.
+
+Muse Code was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026. These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex.
+
+### The ecosystem
+
+One builder, three projects. TRACE is at the front: the memory the other two are built to use. The owner's profile is calibrated as a map of these projects: [github.com/Anshul48](https://github.com/Anshul48).
+
+| Project | Repository | Demo |
+|---|---|---|
+| TRACE | [Repository](https://github.com/Anshul48/trace) | [Explorer](https://anshul48.github.io/trace/explorer/) |
+| ANIMA | [Repository](https://github.com/Anshul48/anima-substrate) | [Recorded demo](https://anshul48.github.io/anima-substrate/demo/) |
+| Reflex | [Demo repository](https://github.com/Anshul48/demo-trace-anima-reflex) | [Replay](https://anshul48.github.io/demo-trace-anima-reflex/) |
+
+Reflex is a line of work where an AI looks at a screen and finds the right button to press. It is part of the ecosystem; it does not use TRACE.
+
+### Walkthroughs & Visual Proofs
+
+| Walkthrough | What it is | Open it |
+|---|---|---|
+| Flagship film (3 min) | One story for TRACE, ANIMA and Reflex | [Watch the working films](https://anshul48.github.io/trace/demos/) |
+| State-tree replay | The recorded runs as a tree, in your browser (UI preview) | [UI preview: state tree](docs/ui-preview/index.html) |
+| Dashboard preview | Install, status and memory at a glance (UI preview) | [UI preview: dashboard](docs/ui-preview/dashboard.html) |
+| Nine-job record check | What the hidden checker decided, plus the sealed record | [Replay the nine-job run](https://anshul48.github.io/anima-substrate/demo/) |
+
+<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA state-tree replay - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA dashboard preview - Replace href when rendered -->
+<!-- VIDEO_SLOT: ANIMA nine-job record check - Replace href when rendered -->
+
+## The deep end
+
+- [Receipts](docs/evidence/flagship-run3/README.md): the recorded nine-job run — log, 69-record decision chain, checker output ([earlier run](docs/evidence/flagship-run2/README.md), [TRACE link test](docs/evidence/trace-card-100m/README.md))
+- [Reproduce](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run, exact steps ([all generations](docs/REPRODUCE-ALL.md))
+- [Architecture](docs/ARCHITECTURE.md): the package, its contracts and the earlier engine ([technical report](docs/TECHNICAL-REPORT.md), [earlier front page](docs/README-technical.md))
+- [Research notes](docs/INDEX.md): every document in `docs/`, by topic
+- [Status](docs/status.json): the one file every claim comes from ([status page](https://anshul48.github.io/anima-substrate/status.html))
+- [Contribute](.github/CONTRIBUTING.md) ([security](.github/SECURITY.md), [changelog](docs/CHANGELOG.md), [citation](docs/CITATION.cff))
+
+Every claim in this README comes from one file, [`docs/status.json`](docs/status.json). A part may say **Working today** only if it lists a command anyone can run and a file that backs it. A check in CI fails if the tables below disagree with it. Marks on the site are never colour alone: filled dot = working today, half dot = prototype, dashed dot = planned.
+
+<details>
+<summary>Status of every part</summary>
+
+<!-- block:status:start (generated from docs/status.json by tools/site.py sync-readme) -->
+
+| Part | State | What exists today |
+|---|---|---|
+| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Working today** | Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK). |
+| [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Working today** | The Muse Code adapter runs one small bug task end to end: the worker fixes, the hidden checker judges, the record seals. Fresh-clone runs ended VERDICT PASS. |
+| [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Working today** | One line installs ANIMA into a private folder: the code, a small Python environment, a launcher, and a starter `anima.yaml` listing the coding tools it found. No admin rights, no passwords or keys asked. |
+| [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Working today** | `anima status --tree` prints the tree as text and `anima ui` serves the same tree as a page; both read the decision log, and `--demo` draws the built-in record with no run needed. |
+| [Voice](https://anshul48.github.io/anima-substrate/voice.html) | **Working today** | `anima voice` turns a clip into text on your own computer (local faster-whisper on the CPU, about 1 to 2 seconds a clip in the fresh-clone runs), matches one of six fixed commands, and asks before running anything. |
+| [Roles and rules](https://anshul48.github.io/anima-substrate/rules.html) | **Planned** | A design only, written down in docs/ROLES-AND-RULES.md with what exists marked. No program reads the file or enforces the rules today. The checker, the ladder and the record, which do exist in some form, are on the checker page. |
+
+Roles and rules, part by part: Roles: Planned, Enforced rules: Planned.
+
+Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py check` fails if this table or the site disagrees with it.
+
+<!-- block:status:end -->
+
+</details>
+
+<details>
+<summary>The harness ladder: Muse Code first</summary>
+
+A harness is the coding tool an agent runs in. ANIMA does not replace it; it plugs in. Muse Code first, then Claude Code, then Codex.
+
+<!-- block:harness:start (generated from docs/status.json by tools/site.py sync-readme) -->
+
+| # | Harness | State | Command |
+|---|---|---|---|
+| 1 | Muse Code | **Working today** | `anima run --harness muse --task tiny-bug` |
+| 2 | Claude Code | **Prototype** | planned: `anima run --harness claude --task tiny-bug` |
+| 3 | Codex | **Prototype** | planned: `anima run --harness codex --task tiny-bug` |
+
+<!-- block:harness:end -->
+
+</details>
+
+<details>
+<summary>Memory (TRACE) in full</summary>
+
+<!-- block:memory-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
+
+**Working today.** Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK).
+
+Limit: A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Setup needs the network once.
+
+<!-- block:memory-state:end -->
+
+In a coding workflow the same bug gets fixed twice and the same decision gets explained again. ANIMA's memory is **TRACE**, our public search that shows its work: every answer comes with a record of where it came from. Everything in this section is **our own measurement**; no outside party has verified it. It is TRACE's record, not an ANIMA result.
+
+**The sealed library we tested on: 812,545 passages, 99,891,846 tokens.** The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%).
+
+- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On 50 test searches (40 written questions and 10 taken from passage openings) TRACE scored **0.79% of the rows**, measured on one of the library's four equal parts. That is about **127 times less scoring work** than looking at everything, and it kept **0.9985 of exact meaning-based search's results**.
+- **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. What we measured: at every library size we tested (10,000 to 200,000 passages, one recipe), a passage's ten closest matches fell in about 5 groups on average, where random groups would give 10; for the 50 test searches on our 100-million-token library it was about 7 groups out of 10. This measures how ordered the finished grouping is. It does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
+- **A checkable record on every answer.** Each result carries a record of where it came from, with a fingerprint you can recompute yourself.
+
+**Earlier, larger tests (ours, kept apart from the numbers above):**
+
+- **504,480,146 tokens.** Around 28 October 2026 we sealed a TRACE memory of 504,480,146 tokens in 13 parts on a cloud machine. That machine has since been shut down, so this test cannot be re-run. It is an earlier test by us, recorded in our own receipts, and nobody outside has checked it.
+- **1.53 billion tokens, routing only.** A separate test on rented GPUs (16 October 2026) turned 1,531,809,092 tokens of a different, larger collection into 7,134,906 searchable vectors in 109 pieces. A search that looked only at the most likely groups kept 0.9947 of the exact top ten while looking at 6.6% of the vectors. It tested routing only: no merged index, not served through TRACE, no checkable records at that scale, and not a one-billion-vector run.
+
+**Where TRACE does not win:** on the same 50 test searches, ordinary keyword search put the right source passage in its top ten for 82% of searches; TRACE did for 52%, and so did exact meaning-based search. Keyword search also had the shorter response time (6 milliseconds against 1.2 seconds for TRACE). Stored size on disk: TRACE 2.28 GB, exact vectors 1.25 GB, keyword index 0.51 GB. TRACE has not been run on public benchmarks, and there is no public query service. Details: [the memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
+
+</details>
+
+<details>
+<summary>The screen, voice, roles and rules</summary>
 
 <!-- block:sst:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
@@ -132,8 +160,6 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 <!-- block:sst:end -->
 
-## 5. Talk to it
-
 <!-- block:voice-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
 **Working today.** `anima voice` turns a clip into text on your own computer (local faster-whisper on the CPU, about 1 to 2 seconds a clip in the fresh-clone runs), matches one of six fixed commands, and asks before running anything.
@@ -141,8 +167,6 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 Limit: Six fixed English commands. Shown first from a recorded clip. Needs a Python with faster-whisper; the model downloads once.
 
 <!-- block:voice-state:end -->
-
-## 6. Roles and enforced rules
 
 Architect, manager and worker; secrets, no-push and budgets; a hidden checker; a tamper-evident record. This is the professional discipline behind the other five parts: written down once, and enforced by a program, not by an agent's good intentions. [Design: docs/ROLES-AND-RULES.md](docs/ROLES-AND-RULES.md).
 
@@ -156,13 +180,12 @@ Limit: Designed from how we actually run our own work. Of the ten controls in th
 
 <!-- block:rules-state:end -->
 
-## What is real today, for one kind of job
+</details>
+
+<details>
+<summary>The nine jobs, in full</summary>
 
 We gave the hidden checker and the ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down. The ladder is the order of helpers: a Muse Code worker first (in the recorded runs), then Claude Sonnet, then Codex. Each wrong answer moves up to a stronger helper.
-
-- **Nine jobs.** Each one is a real bug with a plain-English description. The agent has to fix it.
-- **Seven were right the first time.** A Muse Code worker did the work, and the hidden tests agreed.
-- **Two were wrong.** The agent said "done" both times. The checker said no, the next helper (Claude Sonnet) fixed both, and all nine ended verified.
 
 A trimmed copy of the real log ([full file](docs/evidence/flagship-run3/real3.log)):
 
@@ -193,7 +216,10 @@ edited copy: CHAIN BROKEN - 69 records, line 7 does not match the line before it
 
 Each decision is one line in a file, and each line carries a fingerprint of the line before it, so an edit shows. The same check runs in your browser on the [demo page](https://anshul48.github.io/anima-substrate/demo/). This checks the record. It does not re-run the nine jobs, and it cannot show that the run itself was honest.
 
-## Honest limits
+</details>
+
+<details>
+<summary>Limits, stated once</summary>
 
 - What was validated is **one kind of job**: fix a bug, judged by hidden tests. It is not a general job scheduler. Every other part carries the badge in the table above.
 - Nine jobs in one run is a worked example, not a statistic.
@@ -203,18 +229,8 @@ Each decision is one line in a file, and each line carries a fingerprint of the 
 - The checker's code ships in this repository (see the [integrated demo](docs/INTEGRATED-DEMO.md)); the nine-job run used our earlier driver, so only the record of that run can be re-checked from here. The earlier self-test is described in the [run-2 notes](docs/evidence/flagship-run2/README.md).
 - The TRACE numbers above are our own measurements on our own library. There is no public query service.
 
-## Next
+</details>
 
-Whatever the table marks "Planned" is still to come. When a part lands, one edit to `docs/status.json` flips it everywhere. See the [roadmap](docs/ROADMAP.md).
-
-## For researchers and contributors
-
-- [Docs index](docs/INDEX.md): every document in `docs/`, by topic
-- [Integrated demo](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run (exact steps, what each prints, what each needs)
-- [Recorded run: nine jobs](docs/evidence/flagship-run3/README.md), with its [caveats](docs/evidence/flagship-run3/README.md#caveats-state-them-wherever-the-number-is-used) and the [earlier run](docs/evidence/flagship-run2/README.md)
-- [Previous front page](docs/README-technical.md): the repository's earlier technical page (a small offline engine in `src/`; run it: `PYTHONPATH=src python3 docs/examples/quickstart.py`)
-- [Technical report](docs/TECHNICAL-REPORT.md) / [Architecture](docs/ARCHITECTURE.md) / [Reproduce all](docs/REPRODUCE-ALL.md)
-- [Contributing](.github/CONTRIBUTING.md) / [Security](.github/SECURITY.md) / [Changelog](docs/CHANGELOG.md) / [Citation](docs/CITATION.cff)
-- Rebuild the site from its sources: `python3 tools/site.py build && python3 tools/site.py check`
+Rebuild the site from its sources: `python3 tools/site.py build && python3 tools/site.py check`
 
 Apache License 2.0, see [LICENSE](LICENSE).
