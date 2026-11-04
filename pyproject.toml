@@ -48,9 +48,9 @@ include = [
   "docs",
   "LICENSE",
   "README.md",
-  "CHANGELOG.md",
-  "CONTRIBUTING.md",
-  "CITATION.cff",
+  "docs/CHANGELOG.md",
+  ".github/CONTRIBUTING.md",
+  "docs/CITATION.cff",
   "PROVENANCE.md",
   "pyproject.toml",
 ]

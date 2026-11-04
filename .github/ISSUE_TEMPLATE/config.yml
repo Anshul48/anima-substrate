@@ -5,4 +5,4 @@ contact_links:
     about: Check here first whether a part is working today, a prototype, or planned.
   - name: Report a security problem privately
     url: https://github.com/Anshul48/anima-substrate/security/advisories/new
-    about: Use this instead of a public issue. See SECURITY.md.
+    about: Use this instead of a public issue. See .github/SECURITY.md.

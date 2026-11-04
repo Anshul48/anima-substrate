@@ -213,8 +213,8 @@ Whatever the table marks "Planned" is still to come. When a part lands, one edit
 - [Integrated demo](docs/INTEGRATED-DEMO.md): the one checkable end-to-end run (exact steps, what each prints, what each needs)
 - [Recorded run: nine jobs](docs/evidence/flagship-run3/README.md), with its [caveats](docs/evidence/flagship-run3/README.md#caveats-state-them-wherever-the-number-is-used) and the [earlier run](docs/evidence/flagship-run2/README.md)
 - [Previous front page](docs/README-technical.md): the repository's earlier technical page (a small offline engine in `src/`; run it: `PYTHONPATH=src python3 examples/quickstart.py`)
-- [Technical report](docs/TECHNICAL-REPORT.md) / [Architecture](docs/ARCHITECTURE.md) / [Reproduce all](REPRODUCE-ALL.md)
-- [Contributing](CONTRIBUTING.md) / [Security](SECURITY.md) / [Changelog](CHANGELOG.md) / [Citation](CITATION.cff)
+- [Technical report](docs/TECHNICAL-REPORT.md) / [Architecture](docs/ARCHITECTURE.md) / [Reproduce all](docs/REPRODUCE-ALL.md)
+- [Contributing](.github/CONTRIBUTING.md) / [Security](.github/SECURITY.md) / [Changelog](docs/CHANGELOG.md) / [Citation](docs/CITATION.cff)
 - Rebuild the site from its sources: `python3 tools/site.py build && python3 tools/site.py check`
 
 Apache License 2.0, see [LICENSE](LICENSE).

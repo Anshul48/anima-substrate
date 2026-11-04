@@ -97,7 +97,7 @@ Details: [docs/ARCHITECTURE.md](ARCHITECTURE.md),
 - Roadmap/gaps (18 vectors, A → C → B → D): [docs/ROADMAP.md](ROADMAP.md)
 - Technical report / artifact guide:
   [docs/TECHNICAL-REPORT.md](TECHNICAL-REPORT.md)
-- Reproduction of historical evidence: [REPRODUCE-ALL.md](../REPRODUCE-ALL.md)
+- Reproduction of historical evidence: [REPRODUCE-ALL.md](REPRODUCE-ALL.md)
 - Research archive curation: [docs/RESEARCH-ARCHIVE.md](RESEARCH-ARCHIVE.md)
 
 ## Development

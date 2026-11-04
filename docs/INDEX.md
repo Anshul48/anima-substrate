@@ -12,7 +12,7 @@ Everything in `docs/`, by what you are probably looking for. The project site is
 | Understand roles and enforced rules | [ROLES-AND-RULES.md](ROLES-AND-RULES.md) |
 | Read about the memory (TRACE) | [TRACE repository](https://github.com/Anshul48/trace) and the [memory page](https://anshul48.github.io/anima-substrate/memory.html) |
 | See the one end-to-end run | [INTEGRATED-DEMO.md](INTEGRATED-DEMO.md): what is tested today, with the record for each line |
-| Rebuild or change the site | [CONTRIBUTING.md](../CONTRIBUTING.md), section "Changing the site" |
+| Rebuild or change the site | [CONTRIBUTING.md](../.github/CONTRIBUTING.md), section "Changing the site" |
 
 ## Evidence
 

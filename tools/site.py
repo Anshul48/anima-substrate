@@ -730,16 +730,17 @@ def check() -> int:
     lic = (ROOT / "LICENSE").read_text(encoding="utf-8", errors="replace") if (ROOT / "LICENSE").exists() else ""
     if "Apache License" not in lic or "Version 2.0" not in lic:
         need.append("LICENSE is not Apache-2.0 text")
-    for name in ("SECURITY.md", "CONTRIBUTING.md", "CHANGELOG.md", "CITATION.cff", ".github/PULL_REQUEST_TEMPLATE.md",
-                 ".github/workflows/pages.yml", ".github/ISSUE_TEMPLATE/config.yml", "docs/INDEX.md"):
+    for name in (".github/SECURITY.md", ".github/CONTRIBUTING.md", "docs/CHANGELOG.md", "docs/CITATION.cff",
+                 ".github/PULL_REQUEST_TEMPLATE.md", ".github/workflows/pages.yml",
+                 ".github/ISSUE_TEMPLATE/config.yml", "docs/INDEX.md"):
         if not (ROOT / name).exists():
             need.append(f"missing {name}")
-    cff = (ROOT / "CITATION.cff").read_text(encoding="utf-8") if (ROOT / "CITATION.cff").exists() else ""
+    cff = (ROOT / "docs/CITATION.cff").read_text(encoding="utf-8") if (ROOT / "docs/CITATION.cff").exists() else ""
     for key in ("cff-version", "title", "authors", "license", "repository-code"):
         if not re.search(rf"^{key}:", cff, re.M):
-            need.append(f"CITATION.cff lacks {key}")
-    if "Unreleased" not in (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"):
-        need.append("CHANGELOG.md has no Unreleased section")
+            need.append(f"docs/CITATION.cff lacks {key}")
+    if "Unreleased" not in (ROOT / "docs/CHANGELOG.md").read_text(encoding="utf-8"):
+        need.append("docs/CHANGELOG.md has no Unreleased section")
     (r.bad if need else r.ok)("repository files (LICENSE, SECURITY, CONTRIBUTING, CITATION, CHANGELOG, templates, Pages workflow): " + ("; ".join(need) if need else "present"))
 
     print(f"\n{'ALL CHECKS PASS' if not r.fails else str(r.fails) + ' CHECK(S) FAILED'}")
