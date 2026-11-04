@@ -113,7 +113,8 @@
    "base": "ca892b368a535a79cc5e2181d052245b94fd6652",
    "fix": "392aef707c0e74341ab4a51420984e9ea6b566c5",
    "_local": "humanize",
-   "issue_text": "humanize.naturaldelta truncates the number of years instead of rounding it to the nearest year. A timedelta of 2.6 years (365 * 2.6 days) is shown as \"2 years\" but should be \"3 years\".\nExpected: days=365*2 -> \"2 years\"; 365*2.4 -> \"2 years\"; 365*2.6 -> \"3 years\"; 365*2.9 -> \"3 years\"; 365*3 -> \"3 years\". Results below one year must not change."
+   "issue_text": "humanize.naturaldelta truncates the number of years instead of rounding it to the nearest year. A timedelta of 2.6 years (365 * 2.6 days) is shown as \"2 years\" but should be \"3 years\".\nExpected: days=365*2 -> \"2 years\"; 365*2.4 -> \"2 years\"; 365*2.6 -> \"3 years\"; 365*2.9 -> \"3 years\"; 365*3 -> \"3 years\". Results below one year must not change.",
+   "excluded": "gate unsound: the package needs a build-generated _version.py, so even the fixed code cannot be imported from a plain checkout"
   }
  ]
 }
