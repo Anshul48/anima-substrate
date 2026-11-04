@@ -61,7 +61,8 @@ def summarize(run_root: Path, arm: str, task: str, exit_code: int, seconds: floa
         res.update(verdict=a.get("verdict"), failed_rule=a.get("failed_rule"), digest=(a.get("digest") or "")[:200],
                    said_done=a.get("said_done"), wall_seconds=a.get("wall_seconds"), failure_class=a.get("failure_class"),
                    input_tokens=tok[0] if tok else None, output_tokens=tok[1] if tok else None,
-                   cached_tokens=tok[2] if tok else None, summary=(h.get("summary") or "")[-300:])
+                   cached_tokens=tok[2] if tok else None, summary=(h.get("summary") or "")[-300:],
+                   model_calls=sum(int(m.get("calls") or 0) for m in ((h.get("usage") or {}).get("models") or [])) or None)
     ch = rd / "decisions.jsonl"
     if ch.is_file():
         for ln in ch.read_text().splitlines():
@@ -113,6 +114,10 @@ def load_all(out: Path):
     for arm in ARMS:
         for f in sorted((out / arm).glob("*/result.json")) if (out / arm).is_dir() else []:
             r = json.loads(f.read_text())
+            if "model_calls" not in r and r.get("run_dir"):  # results written before this field existed
+                hj = next(iter(sorted(Path(r["run_dir"]).glob("attempts/*/hand.json"))), None)
+                ms = ((json.loads(hj.read_text()).get("usage") or {}).get("models") or []) if hj else []
+                r["model_calls"] = sum(int(m.get("calls") or 0) for m in ms) or None
             rows.setdefault(r["task"], {})[arm] = r
     return rows
 
@@ -132,8 +137,8 @@ def cmd_report(args):
         hits = rows[t].get("B", {}).get("memory_hits") or []
         w(f"| {t} | {cells[0]} | {cells[1]} | {cells[2]} | " + ("; ".join(f"{a} {b:.2f}" for a, b in hits) or "none") + " |")
     w("")
-    w("| arm | tasks run | first-time PASS | FAIL | NOT RUN | input tokens | output tokens | cached tokens | input+output per task (median) |")
-    w("|---|---|---|---|---|---|---|---|---|")
+    w("| arm | tasks run | first-time PASS | FAIL | NOT RUN | input tokens | output tokens | cached tokens | input+output per task (median) | model calls | wall seconds |")
+    w("|---|---|---|---|---|---|---|---|---|---|---|")
     for arm in ARMS:
         rs = [rows[t][arm] for t in tasks if arm in rows[t]]
         if not rs:
@@ -143,7 +148,8 @@ def cmd_report(args):
         per = sorted((r.get("input_tokens") or 0) + (r.get("output_tokens") or 0) for r in rs)
         med = per[len(per) // 2] if per else 0
         w(f"| {arm} | {len(rs)} | {sum(r['verdict'] == 'PASS' for r in rs)} | {sum(r['verdict'] == 'FAIL' for r in rs)} | "
-          f"{sum(r['verdict'] == 'NOT RUN' for r in rs)} | {tot('input_tokens'):,} | {tot('output_tokens'):,} | {tot('cached_tokens'):,} | {med:,} |")
+          f"{sum(r['verdict'] == 'NOT RUN' for r in rs)} | {tot('input_tokens'):,} | {tot('output_tokens'):,} | {tot('cached_tokens'):,} | {med:,} | "
+          f"{tot('model_calls'):,} | {sum(r['seconds'] for r in rs):,.0f} |")
     both = [t for t in tasks if "A1" in rows[t] and "A2" in rows[t] and "B" in rows[t]]
     if both:
         w("")
