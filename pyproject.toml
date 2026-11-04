@@ -51,7 +51,7 @@ include = [
   "docs/CHANGELOG.md",
   ".github/CONTRIBUTING.md",
   "docs/CITATION.cff",
-  "PROVENANCE.md",
+  "docs/records/PROVENANCE.md",
   "pyproject.toml",
 ]
 exclude = [

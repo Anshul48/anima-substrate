@@ -12,24 +12,24 @@ This is the broad developmental substrate project, distinct from the stc.substra
 
 ## Read for the discussion
 
-- [SUBSTRATE addressed handoff](docs/ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md): full discussion brief, local record routes, constraints and expected response home.
-- [ANIMA orientation](../ANIMA/START-HERE.md).
-- [Current synthesis](../ANIMA/context/integrations/2026-10-10/SYNTHESIS.md).
-- [Macro proposal](../ANIMA/architecture/proposals/2026-10-10-PERSONAL-ASSISTANT-AND-DEVELOPMENTAL-SUBSTRATE/README.md).
-- [Proposed shared SOPs](../ANIMA/architecture/proposals/2026-10-10-PERSONAL-ASSISTANT-AND-DEVELOPMENTAL-SUBSTRATE/SOPs/README.md).
+- [SUBSTRATE addressed handoff](../ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md): full discussion brief, local record routes, constraints and expected response home.
+- [ANIMA orientation](../../ANIMA/START-HERE.md).
+- [Current synthesis](../../ANIMA/context/integrations/2026-10-10/SYNTHESIS.md).
+- [Macro proposal](../../ANIMA/architecture/proposals/2026-10-10-PERSONAL-ASSISTANT-AND-DEVELOPMENTAL-SUBSTRATE/README.md).
+- [Proposed shared SOPs](../../ANIMA/architecture/proposals/2026-10-10-PERSONAL-ASSISTANT-AND-DEVELOPMENTAL-SUBSTRATE/SOPs/README.md).
 
 ## Existing local record routes
 
 Read the relevant owner records below before making consequential claims. Reconcile dated records with later accepted decisions; do not recursively inspect private stores or treat a dated process/session reference as live.
 
-- [substrate/README.md](README.md).
-- [substrate/CANONICAL-RECORD.md](CANONICAL-RECORD.md).
-- [substrate/docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
-- [substrate/docs/CONSUMER.md](docs/CONSUMER.md).
-- [substrate/docs/CONTRACTS.md](docs/CONTRACTS.md).
-- [substrate/docs/ROADMAP.md](docs/ROADMAP.md).
-- [substrate/prototype/programme-20261004/CONTINUING-PROGRAMME.md](prototype/programme-20261004/CONTINUING-PROGRAMME.md).
-- [substrate/prototype/programme-20261004/STC-548615a-ASSESSMENT.md](prototype/programme-20261004/STC-548615a-ASSESSMENT.md).
+- [substrate/README.md](../../README.md).
+- [substrate/CANONICAL-RECORD.md](../records/CANONICAL-RECORD.md).
+- [substrate/docs/ARCHITECTURE.md](../ARCHITECTURE.md).
+- [substrate/docs/CONSUMER.md](../CONSUMER.md).
+- [substrate/docs/CONTRACTS.md](../CONTRACTS.md).
+- [substrate/docs/ROADMAP.md](../ROADMAP.md).
+- [substrate/prototype/programme-20261004/CONTINUING-PROGRAMME.md](../research/prototype/programme-20261004/CONTINUING-PROGRAMME.md).
+- [substrate/prototype/programme-20261004/STC-548615a-ASSESSMENT.md](../research/prototype/programme-20261004/STC-548615a-ASSESSMENT.md).
 
 ## Starting a fresh discussion
 

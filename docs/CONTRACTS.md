@@ -122,9 +122,9 @@ cross-host refs, multi-writer safety, or disk-loss tolerance.
   `re_executed_invokes == 0`. (Port note: s006 additionally pinned
   `resume.py` byte-identical to frozen s005; the maintained package
   replaces byte pins with PROVENANCE discipline — every shipped
-  file's sha256 recorded in `PROVENANCE.md` and enforced by
+  file's sha256 recorded in `docs/records/PROVENANCE.md` and enforced by
   `tests/test_successor.py::test_14`.)
-- Code: `host/resume.py` (sha recorded in `PROVENANCE.md`).
+- Code: `host/resume.py` (sha recorded in `docs/records/PROVENANCE.md`).
 - Test: `tests/test_coupling.py::test_cc9_engine_carried_unmodified_and_resumes`
   (PROVENANCE consistency + full-plan second drive skips all).
 

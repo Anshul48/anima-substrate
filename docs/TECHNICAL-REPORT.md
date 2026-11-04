@@ -108,7 +108,7 @@ experimental use is unqualified-only with full-replay semantics
 
 ## 5. Reproduction pointers
 
-- Index: `REPRODUCE-ALL.md` (identities → suites → demos, $0/offline).
+- Index: `docs/REPRODUCE-ALL.md` (identities → suites → demos, $0/offline).
 - Two-minute review: `prototype/programme-20261004/S6-REVIEW-ROUTE.md`.
 - Per-tree: `REPRODUCE.md` / `RUNBOOK.md` / `CONSUMER.md` next to the
   code; U-execute `RUNBOOK.md` + `PREREG.md` (§§1–8 + C1–C11).
@@ -119,7 +119,7 @@ experimental use is unqualified-only with full-replay semantics
 ## 6. Primary sources (read these, not summaries of them)
 
 - Canonical map: `prototype/programme-20261004/COMPLETION-MAP.md`;
-  project record: `CANONICAL-RECORD.md`.
+  project record: `docs/records/CANONICAL-RECORD.md`.
 - r1/r2/r3: `prototype/release-20261004/RELEASE-RECORD.md`,
   `prototype/release-r2/RELEASE-RECORD.md`,
   `prototype/release-r3/RELEASE-RECORD.md`.

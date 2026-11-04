@@ -18,7 +18,7 @@ import anima_substrate
 
 PKG = Path(anima_substrate.__file__).resolve().parent
 TOP = PKG.parent.parent
-PROVENANCE = TOP / "PROVENANCE.md"
+PROVENANCE = TOP / "docs" / "records" / "PROVENANCE.md"
 
 SECTION = "## Maintained package file record"
 
