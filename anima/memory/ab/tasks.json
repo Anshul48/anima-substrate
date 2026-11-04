@@ -115,6 +115,33 @@
    "_local": "humanize",
    "issue_text": "humanize.naturaldelta truncates the number of years instead of rounding it to the nearest year. A timedelta of 2.6 years (365 * 2.6 days) is shown as \"2 years\" but should be \"3 years\".\nExpected: days=365*2 -> \"2 years\"; 365*2.4 -> \"2 years\"; 365*2.6 -> \"3 years\"; 365*2.9 -> \"3 years\"; 365*3 -> \"3 years\". Results below one year must not change.",
    "excluded": "gate unsound: the package needs a build-generated _version.py, so even the fixed code cannot be imported from a plain checkout"
+  },
+  {
+   "id": "dateutil-tzstr-doy-rules",
+   "flagship": true,
+   "repo": "https://github.com/dateutil/dateutil.git",
+   "_local": "dateutil",
+   "base": "208f5872937a3578058736708318b712aff29d6a",
+   "fix": "99f6653c0152ee1f7f91b30d764a67d407407938",
+   "issue_text": "dateutil.tz.tzfile reads the POSIX TZ string at the end of a compiled zone file (the footer) to work out the daylight-saving transitions after the last explicit transition. The day-of-year rules in such strings give the wrong dates.\nRule \"n\" counts days from 0 (0..365) and does count February 29th in leap years. It currently comes out one day early: with the footer \"STD0DST-1,10/0,J100/0\" the DST period should start on January 11th (day 10 counted from 0), not January 10th; \"STD0DST-1,59/0,300/0\" starts DST on February 29th in a leap year (2024) and on March 1st otherwise (2023). A rule \"0/0\" must not land on December 31st of the previous year.\nRule \"Jn\" counts from 1 (1..365) and never counts February 29th: J59 is always February 28th, and J60 is always March 1st, also in leap years (so with \"STD0DST-1,J60/0,J300/0\" in 2024 February 29th is still standard time and DST starts on March 1st). Today the leap-year shift starts one day too early, at J59.\nA zone that is on DST all year, written like \"EST5EDT,0/0,J365/25\" or \"<+00>0<+01>,0/0,J365/25\", must really be on DST across New Year as well.\nThe \"Mm.w.d\" rules must keep giving the dates they give now."
+  },
+  {
+   "id": "semver-bump-prerelease",
+   "flagship": true,
+   "repo": "https://github.com/python-semver/python-semver.git",
+   "_local": "semver",
+   "base": "94debf9d3e714ccb08ca7c0199b5bce96cfd7687",
+   "fix": "bcd151fa63df3053b9f30e698e9ae1020187be1a",
+   "issue_text": "semver.Version.next_version(\"prerelease\", token) can return a version that is OLDER than the one it was called on, when you switch to a prerelease token that sorts earlier than the current one. The result must always be greater than the original.\nExpected: switching to an earlier-sorting token moves to the next patch version and restarts the counter: \"1.2.3-rc.1\" with token \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-beta.3\" + \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-rc.1+build.7\" + \"dev\" -> \"1.2.4-dev.1\" (build metadata is dropped); \"1.2.3-rc3\" + \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-rc.1\" + \"2\" -> \"1.2.4-2.1\"; \"1.2.3-alphaXbeta9\" + \"alpha.beta\" -> \"1.2.4-alpha.beta.1\".\nSwitching to a token that sorts later keeps the patch version: \"1.2.3-alpha.4\" + \"rc\" -> \"1.2.3-rc.1\". Incrementing with the same token behaves as before. The original Version object is never modified."
+  },
+  {
+   "id": "cachetools-cachedmethod-pickle",
+   "flagship": true,
+   "repo": "https://github.com/tkem/cachetools.git",
+   "_local": "cachetools",
+   "base": "b34643f37174751df37016899f4e7f5f6b189012",
+   "fix": "2609f068f909197d46c1ad84083fb3b1226db3de",
+   "issue_text": "Instances of a class that has @cachedmethod methods can no longer be pickled; pickle.dumps(obj) fails. This worked in earlier releases and must work again (issue 417), for methods decorated with plain @cachedmethod(cachefn) and with info=True, and for a subclass that adds its own cached method.\nExpected: pickle.loads(pickle.dumps(obj)) returns an object whose cached methods work and use the cache that the cache function returns for the unpickled object. The cache contents travel with the object: if obj's cache held one entry when it was pickled, the unpickled object's cache holds that entry too (a hit on it is a hit) and further calls fill the unpickled object's cache, not the original's. For info=True methods the hit/miss counters start again at 0 after unpickling, while currsize reflects the cache contents (e.g. cache_info() == (0, 0, maxsize, 1) right after unpickling an object whose cache holds one entry).\nNormal (non-pickled) behaviour must not change."
   }
  ]
 }
