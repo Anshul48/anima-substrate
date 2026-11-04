@@ -5,7 +5,7 @@
 # What it does (it prints this plan before it starts):
 #   1. checks that git and python3 (3.11 or newer) exist
 #   2. clones the repository into $ANIMA_HOME/repo (or fast-forwards an existing clone)
-#   3. creates a Python venv at $ANIMA_HOME/venv (no packages are installed: ANIMA is standard library only)
+#   3. creates a Python venv at $ANIMA_HOME/venv (no pip, no packages: ANIMA is standard library only)
 #   4. writes a launcher at $ANIMA_HOME/bin/anima
 #   5. runs `anima init`: looks for muse, claude and codex programs and writes $ANIMA_HOME/anima.yaml
 #      (an existing anima.yaml is kept)
@@ -69,12 +69,12 @@ fi
 step "3/6 python venv"
 if [ -x "$ANIMA_HOME/venv/bin/python" ]; then
   say "venv already there: $ANIMA_HOME/venv"
-elif python3 -m venv "$ANIMA_HOME/venv" >/dev/null 2>&1; then
-  say "created: $ANIMA_HOME/venv"
+elif python3 -m venv --without-pip "$ANIMA_HOME/venv" >/dev/null 2>&1; then
+  say "created: $ANIMA_HOME/venv (without pip: nothing needs installing)"
 else
   rm -rf "$ANIMA_HOME/venv"
-  say "python3 -m venv is not available here (on Debian/Ubuntu it is the python3-venv package, which needs an admin)."
-  say "continuing with the system python3: ANIMA has no dependencies, so nothing is lost."
+  say "the venv module is not available here, so ANIMA will use the system python3."
+  say "that loses nothing: ANIMA has no dependencies."
 fi
 
 step "4/6 launcher"
