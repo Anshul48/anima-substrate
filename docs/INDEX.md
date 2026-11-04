@@ -1,6 +1,6 @@
 # Docs index
 
-Everything in `docs/`, by what you are probably looking for. The project site is built from `docs/*.html`; those pages are generated from `site/` by `tools/site.py` and should not be edited by hand.
+Everything in `docs/`, by what you are probably looking for. The project site is built from `docs/*.html`; those pages are generated from `docs/source/` by `tools/site.py` and should not be edited by hand.
 
 ## Start here
 
@@ -57,6 +57,6 @@ Written during the programme's design phase. They record direction and open ques
 |---|---|
 | `docs/status.json` | Feature states. The only place a badge is decided |
 | `docs/videos.json` | The list of films the Demos page shows; swap a film with one edit |
-| `site/` | Page templates, partials and the layout |
+| `docs/source/` | Page templates, partials and the layout |
 | `tools/site.py` | `build` (render pages), `sync-readme` (update the README tables), `check` (fail on stale pages, banned phrases, broken links, missing alt text, size, contrast) |
 | `docs/assets/tokens.css` | Shared design tokens, the same file the TRACE site uses |

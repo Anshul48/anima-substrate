@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """ANIMA site tool. Python 3.11+, standard library only, no network.
 
-    python3 tools/site.py build         render site/ + docs/status.json + docs/videos.json into docs/*.html
+    python3 tools/site.py build         render docs/source/ + docs/status.json + docs/videos.json into docs/*.html
     python3 tools/site.py sync-readme   rewrite the generated tables inside README.md from docs/status.json
     python3 tools/site.py check         validate: status rules, generated files up to date, links, alt text,
                                         banned phrases, no outside files, size, contrast, repo files
-    python3 tools/site.py social        render site/social-preview.html to docs/img/social-preview.png (needs Playwright)
+    python3 tools/site.py social        render docs/source/social-preview.html to docs/img/social-preview.png (needs Playwright)
 
 Why it exists: the site must never say more than the project can show. docs/status.json is the only place a
 feature's state is set; pages and the README are rendered from it, and `check` fails when they disagree.
@@ -21,7 +21,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-SITE = ROOT / "site"
+SITE = ROOT / "docs" / "source"
 PAGES_URL = "https://anshul48.github.io/anima-substrate/"
 REPO_URL = "https://github.com/Anshul48/anima-substrate"
 
@@ -589,7 +589,7 @@ def check() -> int:
     # 2. generated pages up to date
     gen = build(write=False)
     stale = [rel for rel, text in gen.items() if not (DOCS / rel).exists() or (DOCS / rel).read_text(encoding="utf-8") != text]
-    (r.bad if stale else r.ok)(f"generated pages match site/ + status.json ({len(gen)} pages)" if not stale else
+    (r.bad if stale else r.ok)(f"generated pages match docs/source/ + status.json ({len(gen)} pages)" if not stale else
                                "stale generated pages (run: python3 tools/site.py build): " + ", ".join(stale))
 
     # 3. README status table in sync
@@ -600,7 +600,8 @@ def check() -> int:
         r.bad(str(e))
 
     # 4. per-page checks
-    html_files = sorted(p for p in DOCS.rglob("*.html") if "evidence" not in p.relative_to(DOCS).parts)
+    html_files = sorted(p for p in DOCS.rglob("*.html")
+                        if "evidence" not in p.relative_to(DOCS).parts and "source" not in p.relative_to(DOCS).parts)
     id_cache: dict[Path, set[str]] = {}
     page_problems, link_problems, ext_problems, weight_problems = [], [], [], []
     css_js = sum((DOCS / "assets" / n).stat().st_size for n in ("tokens.css", "site.css", "site.js"))
@@ -748,7 +749,7 @@ def check() -> int:
 
 
 def social() -> int:
-    """Render site/social-preview.html to docs/img/social-preview.png (1280 x 640). Needs Playwright with a Chromium."""
+    """Render docs/source/social-preview.html to docs/img/social-preview.png (1280 x 640). Needs Playwright with a Chromium."""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
