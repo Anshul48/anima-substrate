@@ -22,6 +22,7 @@ def augment_prompt(prompt, task_text=None, store_dir=DEFAULT_STORE, k=DEFAULT_K,
         return prompt, {"injected": 0, "error": f"{type(exc).__name__}: {exc}"}
     block = format_block(res)
     report = {"injected": len(res["hits"]), "backend": res.get("backend"), "seconds": res.get("seconds"),
+              "excluded": [{"task": e["task"], "reason": e["reason"]} for e in res.get("excluded", [])],
               "hits": [{k_: h[k_] for k_ in ("rank", "score", "task", "doc_id", "pointer", "source_check")}
                        for h in res["hits"]], "block_chars": len(block)}
     if not block:

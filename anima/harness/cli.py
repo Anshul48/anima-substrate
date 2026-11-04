@@ -1,16 +1,16 @@
-"""`anima` command line: init, doctor, harness list/add/test/use, run, check, verify-log.
+"""`anima` command line: init, doctor, harness list/add/test/use, run, check, verify-log, and the groups
+below, which are forwarded EXPLICITLY (verb kept) to their own module:
 
-Other groups plug in without editing this file: `anima <group> ...` imports
-`anima.<group>.cli` and calls its `main(argv)` if that module exists
-(for example `anima.memory.cli`).
+    anima ui | status | cmd | voice  ->  anima.ui.cli   (called with the verb as its first argument)
+    anima memory ...                 ->  anima.memory.cli
 """
 from __future__ import annotations
 
 import argparse
 import importlib
 import json
+import os
 import shutil
-import subprocess
 import sys
 import tempfile
 import time
@@ -18,9 +18,10 @@ import uuid
 from pathlib import Path
 
 from . import chain as chainmod
+from . import memlink
 from . import miniyaml
 from .adapters import DETECT_ORDER, KINDS, Adapter, HarnessError, detect_installed, make_adapter
-from .ladder import architect_plan, load_task, run_task
+from .ladder import architect_plan, load_task, require_approved, run_task
 from .profile import HEADER, Profile, anima_home, build_default, find_profile, load, save
 from .rules import DEFAULT_PACKS, check_command, hook_decision, packs_for
 
@@ -161,6 +162,15 @@ def cmd_doctor(a) -> int:
         if k not in names:
             names.append(k)
     out(f"anima doctor  (profile: {prof.path if prof else 'none'})")
+    out(f"  launcher    {launcher()}   (use this full path if `anima` is not on your PATH)")
+    out(f"  state root  {anima_home()}   (anima.yaml, runs/, memory/)")
+    if prof:
+        mc = prof.memory_cfg()
+        out(f"  memory      backend={mc['backend']}" + (f" store={mc['store']} recall k={mc['k']} record={'yes' if mc['record'] else 'no'}" if mc["backend"] == "trace"
+                                                         else "  (off; `anima memory setup`, then set `memory: {backend: trace}` or pass --memory trace)"))
+        for nm in prof.names():
+            if prof.harness_cfg(nm).get("yolo"):
+                out(f"  WARNING     harness {nm!r} has yolo: true (no approval, no sandbox): DEMO-ONLY, refused outside the approved fixtures")
     worst = 0
     for name in names:
         in_prof = prof is not None and name in prof.names()
@@ -315,8 +325,10 @@ def cmd_run(a) -> int:
     prof = open_profile(a.profile)
     task = load_task(a.task)
     runs_dir = Path(a.runs_dir) if a.runs_dir else anima_home() / "runs"
+    out(f"state root: {anima_home()}   config: {prof.path}   runs: {runs_dir}")
     if a.role == "architect":
         name = a.harness or prof.role_harness("architect")
+        require_approved(prof, task, {name}, a.allow_unapproved_task, out)
         run_dir = runs_dir / f"{time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())}-{task.id}-plan-{uuid.uuid4().hex[:6]}"
         run_dir.mkdir(parents=True, exist_ok=True)
         ch = chainmod.Chain(run_dir / "decisions.jsonl", mode="REAL")
@@ -331,20 +343,15 @@ def cmd_run(a) -> int:
             return 0
         out(f"PLAN NOT RUN/FAILED: {res.error if res else 'no result'}")
         return EXIT_NOT_RUN
-    memory = {"store": a.memory_store, "k": a.memory_k, "exclude_self": a.memory_exclude_self} if a.memory == "trace" else None
+    memory = memlink.resolve(a, prof)
+    if memory:
+        out(f"memory: trace (store {memory['store']}, recall {memory['k']}, record after run: {'yes' if memory['record'] else 'no'})")
     res = run_task(prof, task, runs_dir, harness=a.harness, ladder=a.ladder, plan_first=a.plan_first, dry_run=a.dry_run, say=out,
-                   memory=memory)
+                   memory=memory, allow_unapproved=a.allow_unapproved_task)
     if a.dry_run:
         return EXIT_NOT_RUN
-    if memory and not a.memory_no_record:
-        from .ladder import _memory_cmd, _memory_env
-        try:
-            r = subprocess.run(_memory_cmd("ingest", str(res.run_dir), "--task", str(task.dir), "--store", a.memory_store),
-                               capture_output=True, text=True, timeout=300, env=_memory_env())
-            tail = (r.stdout.strip().splitlines() or [""])[-1] if r.returncode == 0 else ((r.stderr or r.stdout).strip().splitlines() or ["failed"])[-1]
-            out(f"memory: {'recorded this run -> ' if r.returncode == 0 else 'NOT recorded: '}{tail[:160]}")
-        except (OSError, subprocess.SubprocessError) as exc:
-            out(f"memory: NOT recorded: {exc}")
+    if memory and memory["record"]:
+        memlink.record_run(res.run_dir, task, memory, out)  # never changes the exit code; failures go in the record
     ok, why, n, digest = chainmod.verify(res.chain_path)
     f = res.final
     if res.verdict == "PASS":
@@ -354,7 +361,10 @@ def cmd_run(a) -> int:
     else:
         out(f"VERDICT NOT RUN  (task {task.id}: {f.note if f else 'nothing ran'})")
     out(f"{'CHAIN OK' if ok else 'CHAIN BROKEN'} - {n} records, {why}")
+    out(f"chain fingerprint (SHA-256): {digest}")
+    out("  tamper-evident only relative to a fingerprint you keep somewhere the agent cannot write; a hash alone does not stop rewriting")
     out(f"run dir: {res.run_dir}")
+    out(f"watch it:  {launcher()} ui --chain {res.chain_path}")
     return {"PASS": 0, "FAIL": 1}.get(res.verdict, EXIT_NOT_RUN)
 
 
@@ -396,7 +406,16 @@ def cmd_verify(a) -> int:
 
 # ----------------------------------------------------------------- parser
 def build_parser():
-    ap = argparse.ArgumentParser(prog="anima", description="ANIMA: plug into the coding agent you already have (Muse Code, Claude Code, Codex).")
+    ap = argparse.ArgumentParser(
+        prog="anima", formatter_class=argparse.RawDescriptionHelpFormatter,
+        description="ANIMA: plug into the coding agent you already have (Muse Code, Claude Code, Codex).",
+        epilog="""also (forwarded, verb intact, to their own module):
+  ui [--chain FILE | --run latest | --demo]    the state space tree screen on 127.0.0.1 (read-only view; its buttons are disabled)
+  status --tree [--chain FILE | --demo]        the same tree as text
+  cmd VERB TARGET                              writes a command file. NOTHING READS THESE FILES YET: no verb changes a run
+  voice CLIP.wav | --mic SECONDS               speech -> one of five phrases, shown, runs only after you answer y
+  memory setup|ingest|recall|prompt|verify|status|record   TRACE memory (docs/MEMORY.md)
+one state root: $ANIMA_HOME (default ~/.anima) holds anima.yaml, runs/ and memory/; ./anima.yaml overrides the config file only.""")
     ap.add_argument("--profile", help="path to anima.yaml (default: ./anima.yaml, then ~/.anima/anima.yaml)")
     sub = ap.add_subparsers(dest="command", required=True)
     s = sub.add_parser("init", help="detect Muse Code / Claude Code / Codex and write anima.yaml")
@@ -429,12 +448,16 @@ def build_parser():
     s.add_argument("--plan-first", action="store_true", help="ask the architect role for a plan, hand it to the worker")
     s.add_argument("--dry-run", action="store_true", help="print the command lines that would run; start nothing")
     s.add_argument("--runs-dir")
-    s.add_argument("--memory", choices=["off", "trace"], default="off",
-                   help="trace: put similar past fixes from the local TRACE memory in front of the worker's prompt, and record this run afterwards (see docs/MEMORY.md)")
-    s.add_argument("--memory-store", default=".anima/trace", help="memory folder (default .anima/trace)")
-    s.add_argument("--memory-k", type=int, default=3, help="how many past jobs to recall")
+    s.add_argument("--memory", choices=["off", "trace"], default=None,
+                   help="trace: put similar past fixes from the local TRACE memory in front of the worker's prompt, and record this run afterwards "
+                        "(default: the `memory:` block of anima.yaml, which is off until you set it; see docs/MEMORY.md)")
+    s.add_argument("--memory-store", default=None, help="memory folder (default: anima.yaml memory.store, else $ANIMA_HOME/memory)")
+    s.add_argument("--memory-k", type=int, default=None, help="how many past jobs to recall (default 3, at most 5)")
     s.add_argument("--memory-no-record", action="store_true", help="recall only; do not add this run to the memory")
     s.add_argument("--memory-exclude-self", action="store_true", help="never recall this same task's own earlier jobs (used for the A/B)")
+    s.add_argument("--allow-unapproved-task", action="store_true",
+                   help="run a task that is not a built-in approved fixture (tiny-bug, push-trap, secret-trap). Containment of an agent in "
+                        "an arbitrary repository is NOT tested: you accept the risk")
     s = sub.add_parser("check", help="would this command be blocked? (exit 3 = block)")
     s.add_argument("--cmd"); s.add_argument("--hook", action="store_true"); s.add_argument("--pack", action="append")
     s.add_argument("--mode", default="enforce", choices=["warn", "enforce"])
@@ -471,17 +494,77 @@ def _json_argv(flag: str, text: str) -> list:
     return val
 
 
+UI_VERBS = ("ui", "status", "cmd", "voice")
+MEMORY_STORE_VERBS = ("ingest", "record", "recall", "prompt", "status", "verify")
+MEMORY_WRITE_VERBS = ("ingest", "record")
+
+
+def launcher() -> str:
+    """The full path to use for `anima` in examples (it may not be on PATH)."""
+    for cand in (anima_home() / "bin" / "anima", Path(__file__).resolve().parents[2] / "bin" / "anima"):
+        if cand.exists():
+            return str(cand)
+    return "anima"
+
+
+def _memory_default_store() -> str:
+    try:
+        path = find_profile(None)
+        if path and path.exists():
+            return Profile(load(path), path).memory_cfg()["store"]
+    except (HarnessError, miniyaml.YamlError, OSError):
+        pass
+    from .profile import memory_default_store
+    return str(memory_default_store())
+
+
+def forward(argv: list) -> int | None:
+    """`anima ui|status|cmd|voice ...` and `anima memory ...`: hand the arguments, verb intact, to the group's module.
+    Returns None when argv[0] is not a forwarded group."""
+    verb, rest = argv[0], argv[1:]
+    if verb in UI_VERBS:
+        try:
+            mod = importlib.import_module("anima.ui.cli")
+        except ImportError as exc:
+            print(f"anima: the UI is not installed in this checkout ({exc})", file=sys.stderr)
+            return 64
+        return int(mod.main([verb] + rest) or 0)
+    if verb == "memory":
+        try:
+            mod = importlib.import_module("anima.memory.cli")
+        except ImportError as exc:
+            print(f"anima: memory is not installed in this checkout ({exc})", file=sys.stderr)
+            return 64
+        sub = next((x for x in rest if not x.startswith("-")), None)
+        if sub in MEMORY_STORE_VERBS and not any(x == "--store" or x.startswith("--store=") for x in rest):
+            rest = rest + ["--store", _memory_default_store()]  # one state root: not the current directory
+        if sub in MEMORY_WRITE_VERBS:
+            store = rest[rest.index("--store") + 1] if "--store" in rest else _memory_default_store()
+            with memlink.store_lock(store) as got:
+                if not got:
+                    print("anima: another ANIMA process is writing the memory; try again in a minute", file=sys.stderr)
+                    return 75
+                return int(mod.main(rest) or 0)
+        return int(mod.main(rest) or 0)
+    return None
+
+
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
+    if len(argv) >= 2 and argv[0] == "--profile":  # `anima --profile P ui ...`: keep the verb first for the groups
+        os.environ["ANIMA_PROFILE"] = argv[1]
+        argv_after = argv[2:]
+        if argv_after and (argv_after[0] in UI_VERBS or argv_after[0] == "memory"):
+            argv = argv_after
+    if argv and (argv[0] in UI_VERBS or argv[0] == "memory"):
+        rc = forward(argv)
+        if rc is not None:
+            return rc
     known = {"init", "doctor", "harness", "run", "check", "verify-log", "-h", "--help", "--profile"}
     if argv and argv[0] not in known and not argv[0].startswith("-"):
-        try:
-            mod = importlib.import_module(f"anima.{argv[0].replace('-', '_')}.cli")
-        except ModuleNotFoundError:
-            print(f"anima: unknown command {argv[0]!r}. Known: init, doctor, harness, run, check, verify-log "
-                  f"(other groups appear when installed: anima.<group>.cli)", file=sys.stderr)
-            return 64
-        return int(mod.main(argv[1:]) or 0)
+        print(f"anima: unknown command {argv[0]!r}. Known: init, doctor, harness, run, check, verify-log, "
+              f"ui, status, cmd, voice, memory", file=sys.stderr)
+        return 64
     a = build_parser().parse_args(argv)
     try:
         return {"init": cmd_init, "doctor": cmd_doctor, "harness": cmd_harness, "run": cmd_run,

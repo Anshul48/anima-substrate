@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -120,8 +121,15 @@ def cmd_record(args):
         print(f"anima memory record: {args.job} is not {SCHEMA}", file=sys.stderr)
         return 2
     store = Path(args.store)
+    rid = str(j.get("job_id") or j.get("task") or "")
+    if not re.match(r"^[A-Za-z0-9][A-Za-z0-9_.\-]{0,100}$", rid) or ".." in rid:
+        print(f"anima memory record: record id {rid!r} is not allowed (letters, digits, - _ . only; no path parts)", file=sys.stderr)
+        return 2
     (store / "jobs").mkdir(parents=True, exist_ok=True)
-    dest = store / "jobs" / f"{j.get('job_id') or j['task']}.json"
+    dest = store / "jobs" / f"{rid}.json"
+    if dest.is_symlink() or not dest.resolve().is_relative_to((store / "jobs").resolve()):
+        print(f"anima memory record: {dest} would be outside {store / 'jobs'}; refused", file=sys.stderr)
+        return 2
     shutil.copyfile(args.job, dest)
     root = Path(read_config(store)["project_root"]) if read_config(store) else Path.cwd()
     st = _open(args, create=True)
@@ -145,6 +153,8 @@ def cmd_recall(args):
         print(res["note"])
     print(f"query  : {res['query'][:200]}")
     print(f"recall : {len(res['hits'])} hit(s) in {res['seconds']} s (min similarity {args.min_score})")
+    for e in res.get("excluded", []):
+        print(f"  EXCLUDED (not shown): task {e['task']}: {e['reason']}: {e['detail']}")
     for h in res["hits"]:
         print(f"\n[{h['rank']}] similarity {h['score']:.3f}  task {h['task']}  "
               f"({h['meta'].get('verdict')}{', rule ' + h['meta']['failed_rule'] if h['meta'].get('failed_rule') else ''})")

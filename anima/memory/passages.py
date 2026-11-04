@@ -34,6 +34,16 @@ MAX_WORDS = 175  # TRACE chunks at 200 whitespace tokens; keep one passage = one
 _EXTRA = re.compile(r"-e\d+$")
 
 
+def _redact_text(text):
+    from anima.harness.redact import redact_text
+    return redact_text(text)[0]
+
+
+def _redact_obj(obj):
+    from anima.harness.redact import redact_obj
+    return redact_obj(obj)[0]
+
+
 @dataclass
 class Passage:
     base_id: str                 # stable id, e.g. "decision:flagship-run3:click-short-help-abbrev:a0"
@@ -43,6 +53,11 @@ class Passage:
     text: str                    # what TRACE indexes and what the next agent reads
     source: dict                 # {"file","line"?, "record_id"?, "sha256", "what"}
     meta: dict = field(default_factory=dict)  # verdict, rule, pool, rung, ...
+
+    def __post_init__(self):
+        # key-shaped strings never reach the memory (redacted BEFORE the content-addressed id is computed)
+        self.text = _redact_text(self.text)
+        self.meta = _redact_obj(self.meta)
 
     @property
     def sha(self) -> str:
@@ -78,6 +93,19 @@ def clip(text: str, n: int) -> str:
         w = w[2:].lstrip()
     parts = w.split(" ")
     return w if len(parts) <= n else " ".join(parts[:n]) + " ..."
+
+
+def combined_sha(main: Path, parts) -> str:
+    """SHA-256 over the main file and the named sibling files it was written together with, so a changed summary
+    or patch is caught by the source check, not only a changed attempt.json. No parts: plain file hash."""
+    if not parts:
+        return sha256_bytes(Path(main).read_bytes())
+    h = hashlib.sha256()
+    h.update(Path(main).read_bytes())
+    for name in parts:
+        h.update(b"\0" + name.encode() + b"\0")
+        h.update((Path(main).parent / name).read_bytes())
+    return h.hexdigest()
 
 
 def _rel(path: Path, root: Path | None) -> str:
@@ -267,11 +295,12 @@ def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
         if aj.is_file():
             araw = aj.read_bytes()
             hj, pj = sub / "hand.json", sub / "changes.patch"
+            parts = [x.name for x in (hj, pj) if x.is_file()]
             items.append((json.loads(araw), json.loads(hj.read_text()) if hj.is_file() else {},
-                          pj.read_text(errors="replace") if pj.is_file() else None, aj, sha256_bytes(araw)))
+                          pj.read_text(errors="replace") if pj.is_file() else None, aj, combined_sha(aj, parts), parts))
     items.sort(key=lambda t: t[0].get("rung", 0))
     out, prior_fail = [], None
-    for i, (a, h, patch, aj, fsha) in enumerate(items):
+    for i, (a, h, patch, aj, fsha, parts) in enumerate(items):
         tid = a.get("task") or run_dir.name
         lib, verdict = library_of(tid), a.get("verdict", "UNKNOWN")
         card = find_task_card(task, tid)
@@ -298,7 +327,7 @@ def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
             base_id=f"run:{run_dir.name}:{tid}:a{i}", kind="run-attempt", task=tid, library=lib,
             text=" ".join(text.split()),
             source={"file": _rel(aj, root), "record_id": a.get("job_id") or aj.parent.name, "sha256": fsha,
-                    "what": "anima run attempt.json (whole file)"},
+                    "parts": parts, "what": "anima run attempt.json + " + " + ".join(parts) + " (every file the text was written from)"},
             meta={"verdict": verdict, "failed_rule": a.get("failed_rule"), "pool": a.get("harness"),
                   "rung": a.get("rung"), "first_failure": (a.get("digest") or "").strip() or None,
                   "origin": "anima-run", "run": run_dir.name, "attempt": i + 1, "has_task_text": bool(card)}))
@@ -404,6 +433,11 @@ def verify_pointer(src: dict, root=None) -> tuple[str, str]:
                     return "CHANGED", f"line {n} has a different record id"
             except ValueError:
                 return "CHANGED", f"line {n} is not JSON"
+    elif src.get("parts"):
+        try:
+            got = combined_sha(f, src["parts"])
+        except OSError as exc:
+            return "MISSING", f"a file the text was written from is gone: {exc}"
     else:
         got = sha256_bytes(raw)
     if got != src["sha256"]:

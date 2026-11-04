@@ -15,6 +15,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -25,13 +26,40 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .adapters import HarnessError, Result
+from . import memlink
 from .chain import Chain
 from .profile import Profile
+from .redact import redact_obj, redact_text
 
 PKG = Path(__file__).resolve().parent
 GATE = PKG / "gate" / "gate.py"
 EXAMPLES = PKG / "examples"
 IGNORE = shutil.ignore_patterns(".git", "__pycache__", ".pytest_cache")
+# The only tasks ANIMA has tested its rules and process watch against. Anything else (your own repository)
+# needs --allow-unapproved-task, because containment of an agent in an arbitrary repository is NOT tested.
+APPROVED_FIXTURES = ("tiny-bug", "push-trap", "secret-trap")
+_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.\-]{0,79}$")
+
+
+def valid_id(text: str) -> bool:
+    """Task, run and record IDs become folder and file names: letters, digits, - _ . only, no path parts."""
+    return bool(isinstance(text, str) and _ID_RE.match(text) and ".." not in text)
+
+
+def _inside(child: Path, parent: Path) -> bool:
+    try:
+        child.resolve().relative_to(parent.resolve())
+        return True
+    except ValueError:
+        return False
+
+
+def check_tree(root: Path, what: str) -> None:
+    """Refuse a task folder whose files can point outside it: any symlink whose target is outside `root`
+    (copying would silently pull that file into the agent's workspace)."""
+    for p in root.rglob("*"):
+        if p.is_symlink() and not _inside(p, root):
+            raise HarnessError(f"{what}: {p.relative_to(root)} is a symlink that points outside the task folder; refused")
 
 
 def sha256_file(p) -> str:
@@ -52,6 +80,7 @@ class Task:
     timeout_s: int
     gate_timeout_s: int
     card_sha256: str
+    approved: bool = False
 
 
 def load_task(spec: str) -> Task:
@@ -64,20 +93,33 @@ def load_task(spec: str) -> Task:
         raise HarnessError(f"task not found: {spec} (give a folder with task.json, a task.json, or a built-in name: "
                            + ", ".join(sorted(d.name for d in EXAMPLES.iterdir() if d.is_dir())) + ")")
     raw = p.read_bytes()
-    t = json.loads(raw)
+    try:
+        t = json.loads(raw)
+    except ValueError as exc:
+        raise HarnessError(f"{p}: not valid JSON ({exc})") from exc
     base = p.parent
     for key in ("id", "issue_text", "workspace_seed", "gate_argv"):
         if not t.get(key):
             raise HarnessError(f"{p}: missing {key!r}")
+    if not valid_id(t["id"]):
+        raise HarnessError(f"{p}: task id {t['id']!r} is not allowed (letters, digits, - _ . only, at most 80 characters)")
+    for key in ("workspace_seed", "hidden_dir"):
+        v = t.get(key)
+        if v and (Path(v).is_absolute() or not _inside(base / v, base)):
+            raise HarnessError(f"{p}: {key} {v!r} points outside the task folder; refused")
     seed = (base / t["workspace_seed"]).resolve()
     if not seed.is_dir():
         raise HarnessError(f"{p}: workspace_seed {seed} is not a folder")
+    check_tree(seed, "workspace_seed")
     hidden = (base / t["hidden_dir"]).resolve() if t.get("hidden_dir") else None
+    if hidden is not None:
+        check_tree(hidden, "hidden_dir")
+    approved = base.resolve().parent == EXAMPLES.resolve() and t["id"] in APPROVED_FIXTURES
     return Task(id=t["id"], dir=base, issue_text=t["issue_text"], seed=seed, hidden=hidden,
                 hidden_name=Path(t.get("hidden_dir") or "hidden").name, protected=list(t.get("protected") or []),
                 protected_roots=list(t.get("protected_roots") or ["tests"]), gate_argv=list(t["gate_argv"]),
                 timeout_s=int(t.get("timeout_s") or 1800), gate_timeout_s=int(t.get("gate_timeout_s") or 300),
-                card_sha256=hashlib.sha256(raw).hexdigest())
+                card_sha256=hashlib.sha256(raw).hexdigest(), approved=approved)
 
 
 def _gate_module():
@@ -122,8 +164,10 @@ def capture_diff(co: Path, dest: Path) -> int:
     try:
         _git(co, "add", "-A")
         r = _git(co, "diff", "--cached", "HEAD")
-        dest.write_text(r.stdout)
-        return len(r.stdout.splitlines())
+        text, _n = redact_text(r.stdout)  # a key-shaped string in a diff is not stored
+        dest.write_text(text)
+        dest.chmod(0o600)
+        return len(text.splitlines())
     except (OSError, subprocess.SubprocessError):
         return 0
 
@@ -235,20 +279,6 @@ def architect_plan(profile: Profile, name: str, task: Task, run_dir: Path, chain
     return plan, res
 
 
-def _memory_cmd(*args) -> list:
-    """`python -m anima.memory ...` in a child process: it re-launches itself inside the memory venv
-    (built by `anima memory setup`) when this interpreter has no numpy/onnxruntime, so `anima run`
-    works from any venv."""
-    return [sys.executable, "-m", "anima.memory", *args]
-
-
-def _memory_env() -> dict:
-    root = str(Path(__file__).resolve().parents[2])  # the folder that contains the `anima` package
-    env = dict(os.environ)
-    env["PYTHONPATH"] = os.pathsep.join(filter(None, [root, env.get("PYTHONPATH", "")]))
-    return env
-
-
 def _recall_into(text: str, task: Task, memory: dict, chain: Chain, say, adir: Path) -> str:
     """`--memory trace`: put similar past fixes (with source pointers) in front of the worker's prompt.
     Fail-open: any problem leaves the prompt as it was; the decision log says what happened."""
@@ -257,11 +287,11 @@ def _recall_into(text: str, task: Task, memory: dict, chain: Chain, say, adir: P
         pf, tf = adir / "prompt-before-memory.txt", adir / "task-text.txt"
         pf.write_text(text)
         tf.write_text(task.issue_text)
-        argv = _memory_cmd("prompt", "--prompt-file", str(pf), "--task-file", str(tf), "--store", memory["store"],
+        argv = memlink.memory_cmd("prompt", "--prompt-file", str(pf), "--task-file", str(tf), "--store", memory["store"],
                            "-k", str(memory.get("k", 3)))
         if memory.get("exclude_self"):
             argv += ["--exclude-task", task.id]
-        r = subprocess.run(argv, capture_output=True, text=True, timeout=300, env=_memory_env())
+        r = subprocess.run(argv, capture_output=True, text=True, timeout=300, env=memlink.memory_env())
         if r.returncode == 0:
             new = r.stdout
             rep = json.loads(r.stderr.strip().splitlines()[-1])
@@ -277,11 +307,29 @@ def _recall_into(text: str, task: Task, memory: dict, chain: Chain, say, adir: P
     return new if rep.get("injected") else text
 
 
+def require_approved(profile: Profile, task: Task, harness_names, allow_unapproved: bool, say=print) -> None:
+    """Refuse an unapproved task unless the person said so; refuse yolo anywhere but the approved fixtures."""
+    if not task.approved and not allow_unapproved:
+        raise HarnessError(
+            f"task {task.id!r} is not one of the approved fixtures ({', '.join(APPROVED_FIXTURES)}). ANIMA's rules and process "
+            "watch have only been tested on those; containment of an agent in an arbitrary repository is NOT tested. "
+            "Run it anyway with --allow-unapproved-task (you accept that the agent can do what your CLI login lets it do).")
+    if not task.approved:
+        say("WARNING: unapproved task, containment NOT tested; the rules are a safety net, not a sandbox.")
+    for nm in sorted(n for n in harness_names if n):
+        if profile.harness_cfg(nm).get("yolo") and not task.approved:
+            raise HarnessError(f"harness {nm!r} has yolo: true (no approval, no sandbox). yolo is DEMO-ONLY and only allowed on the "
+                               f"approved fixtures ({', '.join(APPROVED_FIXTURES)}); remove it from anima.yaml to run {task.id!r}")
+
+
 def run_task(profile: Profile, task: Task, runs_dir: Path, *, harness: str | None = None, ladder: bool = False,
-             plan_first: bool = False, dry_run: bool = False, say=print, memory: dict | None = None) -> Outcome:
+             plan_first: bool = False, dry_run: bool = False, say=print, memory: dict | None = None,
+             allow_unapproved: bool = False) -> Outcome:
     start = harness or profile.role_harness("worker")
     if not start:
         raise HarnessError("no harness configured: run `anima init` (or `anima harness add muse|claude|codex`)")
+    require_approved(profile, task, {start} | {st["harness"] for st in plan_attempts(profile, start, single=harness is not None, ladder=ladder) if "harness" in st},
+                     allow_unapproved, say)
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
     run_dir = Path(runs_dir) / f"{stamp}-{task.id}-{uuid.uuid4().hex[:6]}"
     plan_steps = plan_attempts(profile, start, single=harness is not None, ladder=ladder)
@@ -344,11 +392,12 @@ def run_task(profile: Profile, task: Task, runs_dir: Path, *, harness: str | Non
         att.said_done, att.wall_seconds, att.failure_class = res.ok, res.wall_seconds, res.failure_class
         att.cost_usd, att.watch = res.cost_usd, res.watch
         capture_diff(co, adir / "changes.patch")
-        (adir / "hand.json").write_text(json.dumps({
+        hand, _n = redact_obj({
             "job_id": att.job_id, "pool": name, "kind": ad.kind, "returncode": res.returncode, "said_done": res.ok,
             "summary": res.summary[-600:], "wall_seconds": res.wall_seconds, "failure_class": res.failure_class,
             "error": res.error, "cost_usd": res.cost_usd, "turns": res.turns, "model_seen": res.model_seen,
-            "session_id": res.session_id, "argv": res.argv, "watch": res.watch, "usage": res.usage}, indent=2, sort_keys=True))
+            "session_id": res.session_id, "argv": res.argv, "watch": res.watch, "usage": res.usage})
+        (adir / "hand.json").write_text(json.dumps(hand, indent=2, sort_keys=True))
         if not res.ok:
             att.verdict, att.note = "NOT RUN", f"{res.failure_class}: {res.error}"
             att.digest = att.note

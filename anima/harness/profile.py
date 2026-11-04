@@ -7,7 +7,8 @@ have (`harnesses:`, where `anima init` records the binaries it found).
 What is run (see `anima doctor` for the live list):
   version, harness, harnesses, enforce, roles.<r>.{harness,model,may,must_not,budget},
   rules, watches (stall only), ladder (retry_with_failure_line, run_with, ask)
-What is read and kept but NOT run here: mission, memory (memory worker),
+  memory.{backend: off|trace, store, k, record}  (run: `anima run` recalls before and records after; CLI flags override)
+What is read and kept but NOT run here: mission,
   watches other than stall, budget keys other than timeout_s / attempts / max_turns.
 """
 from __future__ import annotations
@@ -34,6 +35,11 @@ WRITE_MAY = {"write_workspace", "write_repo", "bulk_edit"}
 
 def anima_home() -> Path:
     return Path(os.environ.get("ANIMA_HOME") or (Path.home() / ".anima"))
+
+
+def memory_default_store() -> Path:
+    """One state root: the memory folder lives under ANIMA_HOME, not under whatever the current directory is."""
+    return anima_home() / "memory"
 
 
 def find_profile(explicit: str | None = None) -> Path | None:
@@ -97,6 +103,16 @@ def validate(data: dict) -> list[str]:
     for p in data.get("rules") or []:
         if p not in PACKS:
             bad.append(f"rules: unknown pack {p!r} (known: {', '.join(PACKS)})")
+    mem = data.get("memory")
+    if mem is not None:
+        if not isinstance(mem, dict):
+            bad.append("memory must be a mapping, e.g. memory: {backend: trace}")
+        else:
+            if mem.get("backend") not in (None, "off", "trace"):
+                bad.append("memory.backend must be off or trace")
+            k = mem.get("k")
+            if k is not None and not (isinstance(k, int) and not isinstance(k, bool) and 1 <= k <= 5):
+                bad.append("memory.k must be a whole number from 1 to 5")
     enf = data.get("enforce") or {}
     if enf.get("mode") not in (None, "warn", "enforce", "shadow"):
         bad.append("enforce.mode must be warn, shadow or enforce")
@@ -108,7 +124,7 @@ def build_default(found: dict) -> dict:
     order = [k for k in DETECT_ORDER if k in found]
     if not order:
         return {"version": 1, "harness": None, "harnesses": {}, "enforce": {"mode": "warn", "via": "wrapper"},
-                "rules": list(DEFAULT_PACKS)}
+                "memory": {"backend": "off"}, "rules": list(DEFAULT_PACKS)}
     main = order[0]
     ladder = [{"on": "gate_fail", "do": "run_with", "harness": k} for k in order[1:]]
     ladder.append({"on": "still_failing", "do": "ask", "role": "architect"})
@@ -123,6 +139,7 @@ def build_default(found: dict) -> dict:
                        "must_not": ["secrets", "push", "message_owner"],
                        "budget": {"timeout_s": 1800}},
         },
+        "memory": {"backend": "off"},
         "rules": list(DEFAULT_PACKS),
         "ladder": ladder,
     }
@@ -175,6 +192,13 @@ class Profile:
             cfg["extra_args"] = list(cfg.get("extra_args") or []) + ["--max-turns", str(budget["max_turns"])]
         return make_adapter(name, cfg)
 
+    def memory_cfg(self) -> dict:
+        """The resolved memory settings from anima.yaml (CLI flags override them in `anima run`)."""
+        m = self.data.get("memory")
+        m = dict(m) if isinstance(m, dict) else {}
+        return {"backend": m.get("backend") or "off", "store": str(m.get("store") or memory_default_store()),
+                "k": int(m.get("k") or 3), "record": m.get("record") is not False}
+
     def adapter_mode(self, role: str) -> str:
         """Adapter mode for a profile role: 'worker' (may edit the workspace) or
         'architect' (read-only). A role with no `may` list is a worker only if it is called worker."""
@@ -211,9 +235,8 @@ class Profile:
             for k in ((rc or {}).get("budget") or {}):
                 if k not in RUN_BUDGET_KEYS:
                     out.append(f"roles.{r}.budget.{k}")
-        for k in ("mission", "memory"):
-            if self.data.get(k):
-                out.append(f"{k} (read and kept; not run by the harness adapter)")
+        if self.data.get("mission"):
+            out.append("mission (read and kept; not run by the harness adapter)")
         for w in self.data.get("watches") or []:
             if isinstance(w, dict) and not str(w.get("check", "")).startswith("no_output_for"):
                 out.append(f"watches.{w.get('name')}")

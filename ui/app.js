@@ -438,6 +438,13 @@ function taskTargetOf(n) {
 }
 function renderCmdVerbs(n) {
   const box = $('#cmd-verbs'); box.textContent = '';
+  $('#cmd-title').textContent = S.meta.commands_enabled ? 'Change it (file-format test only: nothing reads the files)' : 'Change it (disabled: nothing reads commands yet)';
+  if (!S.meta.commands_enabled) {   // nothing reads command files yet: no button that could not change a run
+    $('#cmd-form').hidden = true;
+    $('#cmd-note').textContent = 'Controls are disabled. Nothing in ANIMA reads command files yet, so a button here could not change a run. '
+      + 'This screen is a live read-only view of the decision record. (Start with --enable-command-files to test the file format only.)';
+    return;
+  }
   const t = taskTargetOf(n);
   const verbs = t ? ['pause', 'resume', 'reprioritise', 'redirect', 'cancel'] : ['run-next'];
   verbs.forEach(v => {

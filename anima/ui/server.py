@@ -33,7 +33,7 @@ STATIC = {
 MAX_BODY = 8 * 1024
 
 
-def make_handler(src, token, port):
+def make_handler(src, token, port, commands_enabled=False):
     allowed_hosts = {f"127.0.0.1:{port}", f"localhost:{port}"}
 
     class Handler(BaseHTTPRequestHandler):
@@ -82,6 +82,7 @@ def make_handler(src, token, port):
                 if u.path == "/api/meta":
                     d = src.describe()
                     d["token"] = token
+                    d["commands_enabled"] = bool(commands_enabled)
                     d["hand_run"] = bool(cmdmod.hand_run_path())
                     d["verbs"] = cmdmod.VERBS
                     d["harnesses"] = cmdmod.HARNESSES
@@ -115,6 +116,9 @@ def make_handler(src, token, port):
                 return self._send(HTTPStatus.FORBIDDEN, {"error": "bad origin"})
             if urlparse(self.path).path != "/api/command":
                 return self._send(HTTPStatus.NOT_FOUND, {"error": "not found"})
+            if not commands_enabled:
+                return self._send(HTTPStatus.CONFLICT, {"error": "command files are disabled: nothing reads them yet, so a command could "
+                                                                  "not change any run (start with --enable-command-files to test the file format)"})
             if not secrets.compare_digest(self.headers.get("X-Anima-Token", ""), token):
                 return self._send(HTTPStatus.FORBIDDEN, {"error": "bad token"})
             try:
@@ -146,14 +150,15 @@ def make_handler(src, token, port):
     return Handler
 
 
-def serve(src, host="127.0.0.1", port=8765, open_browser=False):
+def serve(src, host="127.0.0.1", port=8765, open_browser=False, commands_enabled=False):
     assert host == "127.0.0.1", "the SST screen is local-only"
     token = secrets.token_urlsafe(18)
-    srv = ThreadingHTTPServer((host, port), make_handler(src, token, port))
+    srv = ThreadingHTTPServer((host, port), make_handler(src, token, port, commands_enabled))
     d = src.describe()
     url = f"http://127.0.0.1:{port}/"
     print(f"ANIMA SST screen: {url}  ({d['mode']}; chains={d['chains']}; jobs={d['jobs']})", flush=True)
-    print(f"command files go to: {d['commands']}", flush=True)
+    print("command files: " + (f"ENABLED (file-format test only; nothing reads {d['commands']})" if commands_enabled
+                               else "disabled (nothing reads them yet); this screen is a read-only view"), flush=True)
     if open_browser:
         webbrowser.open(url)
     try:

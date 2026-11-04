@@ -5,10 +5,10 @@ commands -> shown to you -> run only after you confirm.
 
 The command set is deliberately tiny (nothing else is ever run, whatever is said):
 
-    show status                      -> anima status --tree
-    pause task <n> / resume task <n> -> anima cmd pause|resume <task>   (a command file)
-    run the next job with <harness>  -> anima cmd run-next --harness muse|claude|codex
-    recall similar fixes             -> anima memory recall "<newest open task>"  (memory link)
+    show status                      -> anima status --tree                          (works)
+    recall similar fixes             -> anima memory recall "<newest open task>"     (works; reads the TRACE memory)
+    pause task <n> / resume task <n> -> anima cmd pause|resume <task>   RECOGNISED, DISABLED: nothing reads command files yet
+    run the next job with <harness>  -> anima cmd run-next --harness ... RECOGNISED, DISABLED: same reason
 
 <n> is the number printed by `anima status --tree`.  Input is an audio file
 (any format ffmpeg reads; short clips) or, if the machine has one, the
@@ -43,6 +43,9 @@ HARNESS_ALIASES = {
 }
 SET_HELP = ("show status | pause task N | resume task N | "
             "run the next job with muse / claude / codex | recall similar fixes")
+
+
+COMMAND_FILE_NAMES = ("pause", "resume", "run-next")   # their effect is a command file; nothing reads those yet
 
 
 class NoMatch(Exception):
@@ -180,10 +183,10 @@ def build_argv(m, tasks_by_number, flags, heard, recall_query=None):
         if t is None:
             raise NoMatch(f"there is no task {m['number']} (the tree has {len(tasks_by_number)} tasks)")
         return (["cmd", m["verb"], t, "--issued-by", "voice", "--reason", why] + flags,
-                "writes one command file; anima applies it when it reads the folder")
+                "would write one command file; nothing reads command files yet (disabled)")
     if m["name"] == "run-next":
         return (["cmd", "run-next", "--harness", m["harness"], "--issued-by", "voice", "--reason", why] + flags,
-                "writes one command file; anima starts the job when it reads the folder")
+                "would write one command file; nothing reads command files yet (disabled)")
     return (["memory", "recall", recall_query], "asks the memory link for past fixes like this task; read-only")
 
 
@@ -199,17 +202,13 @@ def recall_query_from(tasks_info):
 
 
 def run_recall(query):
-    """Call the memory-link worker's `recall` (anima.memory.cli.main) if it exists in this checkout."""
+    """Call `anima memory recall` through the main dispatcher, so the memory in the one state root ($ANIMA_HOME/memory) is used."""
     try:
-        spec = importlib.util.find_spec("anima.memory.cli")
-    except (ImportError, ValueError):
-        spec = None
-    if spec is None:
-        print("not wired: no `anima.memory` in this checkout, so there is nothing to recall from. "
-              "Nothing was run.")
+        cli = importlib.import_module("anima.harness.cli")
+    except ImportError:
+        print("not wired: the anima command line is not importable here, so there is nothing to recall from. Nothing was run.")
         return 4
-    mod = importlib.import_module("anima.memory.cli")
-    return int(mod.main(["recall", query]) or 0)
+    return int(cli.main(["memory", "recall", query]) or 0)
 
 
 def task_numbers(a):
@@ -271,6 +270,10 @@ def run(a, flags, cli_main):
     print(f"matched:  {label}")
     print(f"will run: {shown}")
     print(f"effect:   {effect}")
+    if m["name"] in COMMAND_FILE_NAMES:
+        print("DISABLED: nothing reads command files yet, so this could not change any run. Recognised, not run.")
+        print("(works today: 'show status' and 'recall similar fixes')")
+        return 5
     if a.dry_run:
         print("dry run: not running it.")
         return 0

@@ -7,6 +7,7 @@
 import hashlib
 import http.client
 import json
+import os
 import tempfile
 import threading
 import unittest
@@ -135,7 +136,7 @@ class ServerTests(unittest.TestCase):
         self.httpd = ThreadingHTTPServer(("127.0.0.1", 0), h)
         self.port = self.httpd.server_address[1]
         # the handler was built with port 0 for the Host allow-list; rebuild with the real one
-        self.httpd.RequestHandlerClass = server.make_handler(self.src, self.token, self.port)
+        self.httpd.RequestHandlerClass = server.make_handler(self.src, self.token, self.port, commands_enabled=True)
         threading.Thread(target=self.httpd.serve_forever, daemon=True).start()
 
     def tearDown(self):
@@ -182,12 +183,71 @@ class ServerTests(unittest.TestCase):
         st, out = self.call("POST", "/api/command", json.dumps({"verb": "explode"}), ok)
         self.assertEqual(st, 400)
 
+    def test_commands_disabled_by_default(self):
+        """Nothing reads command files yet, so the server refuses to write one unless started with commands_enabled."""
+        h = server.make_handler(self.src, self.token, self.port)  # default: disabled
+        self.httpd.RequestHandlerClass = h
+        hdr = {"Content-Type": "application/json", "Host": f"127.0.0.1:{self.port}", "X-Anima-Token": self.token}
+        st, out = self.call("POST", "/api/command", json.dumps({"verb": "pause", "target": "task:x"}), hdr)
+        self.assertEqual(st, 409)
+        self.assertEqual(list(Path(self.tmp.name).glob("*.json")), [])
+        st, out = self.call("GET", "/api/meta", headers={"Host": f"127.0.0.1:{self.port}"})
+        self.assertFalse(json.loads(out)["commands_enabled"])
+
     def test_dry_run_writes_nothing(self):
         hdr = {"Content-Type": "application/json", "Host": f"127.0.0.1:{self.port}", "X-Anima-Token": self.token}
         st, out = self.call("POST", "/api/command", json.dumps(
             {"verb": "pause", "target": "task:x", "dry_run": True}), hdr)
         self.assertEqual(st, 200)
         self.assertEqual(list(Path(self.tmp.name).glob("*.json")), [])
+
+
+class RunSourceTests(unittest.TestCase):
+    """The UI reads the real run chain under the one state root ($ANIMA_HOME/runs)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self._old = os.environ.get("ANIMA_HOME")
+        os.environ["ANIMA_HOME"] = self.tmp.name
+
+    def tearDown(self):
+        if self._old is None:
+            os.environ.pop("ANIMA_HOME", None)
+        else:
+            os.environ["ANIMA_HOME"] = self._old
+        self.tmp.cleanup()
+
+    def test_no_runs_is_a_clear_error(self):
+        with self.assertRaises(SystemExit) as cm:
+            source.resolve_run("latest")
+        self.assertIn("no runs yet", str(cm.exception))
+
+    def test_latest_and_named_run(self):
+        for name in ("20261104T000001Z-a", "20261104T000002Z-b"):
+            d = Path(self.tmp.name) / "runs" / name
+            d.mkdir(parents=True)
+            (d / "decisions.jsonl").write_text("")
+            os.utime(d / "decisions.jsonl", (1000 + len(name) + int(name[-6:-4] == "02"), 1000 + int(name.endswith("b")) * 50))
+        self.assertTrue(str(source.resolve_run("latest")).endswith("-b/decisions.jsonl"))
+        self.assertTrue(str(source.resolve_run("20261104T000001Z-a")).endswith("-a/decisions.jsonl"))
+
+    def test_run_names_cannot_escape(self):
+        for bad in ("../x", "a/b", "..", "/etc", "x..y"):
+            with self.assertRaises(SystemExit):
+                source.resolve_run(bad)
+
+    def test_symlinked_run_is_refused(self):
+        outside = Path(self.tmp.name) / "outside.jsonl"
+        outside.write_text("")
+        d = Path(self.tmp.name) / "runs" / "evil"
+        d.mkdir(parents=True)
+        (d / "decisions.jsonl").symlink_to(outside)
+        with self.assertRaises(SystemExit):
+            source.resolve_run("evil")
+
+    def test_default_commands_dir_is_under_the_state_root(self):
+        s = source.Source.from_args(chains=[str(Path(self.tmp.name) / "x.jsonl")])
+        self.assertEqual(s.commands, Path(self.tmp.name) / "commands")
 
 
 if __name__ == "__main__":

@@ -28,6 +28,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from .redact import redact_file
 from .rules import ProcessWatch
 
 KINDS = ("muse", "claude", "codex", "custom")
@@ -174,6 +175,8 @@ class Adapter:
         out_file = str(d / "out.txt")
         inv = self.build(role, workspace, prompt_file, out_file, job_id)
         res = execute(inv, d, timeout_s or self.timeout_s, watch)
+        for _fn in ("stdout.log", "stderr.log", "out.txt"):  # key-shaped strings never stay on disk or reach a summary
+            redact_file(d / _fn)
         parsed = self.parse(role, str(d / "stdout.log"), out_file, res["returncode"])
         parsed.watch = res.get("watch")
         parsed.argv = inv.argv

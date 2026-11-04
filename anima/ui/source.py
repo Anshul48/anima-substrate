@@ -8,6 +8,8 @@ caller decides how often to poll), so a live run shows up without a restart.
 from __future__ import annotations
 
 import hashlib
+import os
+import re
 import tempfile
 import time
 from pathlib import Path
@@ -17,6 +19,33 @@ from . import model
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 DEMO_CHAIN = REPO_ROOT / "docs" / "evidence" / "flagship-run3" / "decisions.jsonl"
+_RUN_ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.\-]{0,120}$")
+
+
+def anima_home():
+    """The one state root, shared with `anima run` and `anima memory`: $ANIMA_HOME, else ~/.anima."""
+    return Path(os.environ.get("ANIMA_HOME") or (Path.home() / ".anima"))
+
+
+def runs_dir():
+    return anima_home() / "runs"
+
+
+def resolve_run(run="latest"):
+    """The decision record of one real `anima run` under <state root>/runs: a run folder name, or 'latest'.
+    The name is validated (no path parts) so it cannot point outside the runs folder."""
+    root = runs_dir()
+    if run in (None, "", "latest"):
+        found = sorted(root.glob("*/decisions.jsonl"), key=lambda q: q.stat().st_mtime) if root.is_dir() else []
+        if not found:
+            raise SystemExit(f"anima: no runs yet in {root}. Run `anima run --task tiny-bug` first, or use --demo for the recorded run.")
+        return found[-1]
+    if not _RUN_ID.match(run) or ".." in run:
+        raise SystemExit(f"anima: bad run name {run!r} (a folder name under {root}, or 'latest')")
+    chain = root / run / "decisions.jsonl"
+    if not chain.is_file() or chain.is_symlink() or not chain.resolve().is_relative_to(root.resolve()):
+        raise SystemExit(f"anima: no run {run!r} with a decisions.jsonl in {root}")
+    return chain
 
 
 class Source:
@@ -36,7 +65,7 @@ class Source:
         elif self.state:
             self.commands = self.state / "commands"
         else:
-            self.commands = Path.cwd() / "anima-commands"
+            self.commands = anima_home() / "commands"
 
     # ------------------------------------------------------------ construction
     @classmethod

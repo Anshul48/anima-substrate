@@ -12,6 +12,8 @@ import time
 import uuid
 from pathlib import Path
 
+from .redact import redact_obj
+
 
 def _ts() -> str:
     t = time.time()
@@ -22,6 +24,10 @@ class Chain:
     def __init__(self, path, actor="anima", mode="REAL"):
         self.path, self.actor, self.mode = Path(path), actor, mode
         self.path.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            self.path.parent.chmod(0o700)  # the run folder is the owner's only
+        except OSError:
+            pass
         self.prev = "GENESIS"
         self.count = 0
         if self.path.exists() and self.path.stat().st_size:
@@ -31,10 +37,14 @@ class Chain:
 
     def append(self, kind: str, task: str = "", actor: str | None = None, supersedes=(), **data) -> dict:
         data.setdefault("mode", self.mode)
+        data, nred = redact_obj(data)  # key-shaped strings never reach the record (redacted BEFORE hashing)
+        if nred:
+            data["redactions"] = nred
         ev = {"actor": actor or self.actor, "data": data, "id": uuid.uuid4().hex, "kind": kind,
               "prev": self.prev, "supersedes": list(supersedes), "task": task, "ts": _ts()}
         line = json.dumps(ev, sort_keys=True, separators=(",", ":")).encode()
         with open(self.path, "ab") as f:
+            os.fchmod(f.fileno(), 0o600)
             f.write(line + b"\n")
             f.flush()
             os.fsync(f.fileno())

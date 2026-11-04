@@ -11,12 +11,14 @@
 #      (an existing anima.yaml is kept)
 #   6. links `anima` into ~/.local/bin only if that folder already exists and is on your PATH
 # It never uses sudo, never edits shell startup files, never reads or copies a login or key file,
-# and never calls a model. Safe to run again.
+# and never calls a model. Safe to run again. It only ever deletes a venv it created itself (marker file
+# $ANIMA_HOME/venv/.anima-owned); a venv that was already there is never modified or removed.
 #
 # Settings (all optional):
 #   ANIMA_HOME=~/.anima          where everything goes
 #   ANIMA_REPO_URL=...           another remote (a file:// path works for testing)
 #   ANIMA_BRANCH=main            branch to install
+#   ANIMA_COMMIT=<sha>           pin: check out exactly this commit (full or abbreviated sha) and stop if it is not found
 #   ANIMA_NO_LINK=1              skip step 6
 set -eu
 
@@ -64,17 +66,35 @@ else
   git clone --quiet --branch "$BRANCH" "$REPO_URL" "$ANIMA_HOME/repo" || die "git clone failed for $REPO_URL (branch $BRANCH)"
   say "cloned: $(git -C "$ANIMA_HOME/repo" log --oneline -1)"
 fi
+if [ -n "${ANIMA_COMMIT:-}" ]; then
+  git -C "$ANIMA_HOME/repo" fetch --quiet origin "$BRANCH" >/dev/null 2>&1 || true
+  git -C "$ANIMA_HOME/repo" checkout --quiet --detach "$ANIMA_COMMIT" 2>/dev/null \
+    || die "ANIMA_COMMIT=$ANIMA_COMMIT is not in the repository (is it on branch $BRANCH?)"
+  say "pinned to: $(git -C "$ANIMA_HOME/repo" log --oneline -1)"
+fi
 [ -f "$ANIMA_HOME/repo/anima/harness/cli.py" ] || die "this checkout has no anima/harness (wrong branch? set ANIMA_BRANCH)"
 
 step "3/6 python venv"
 if [ -x "$ANIMA_HOME/venv/bin/python" ]; then
-  say "venv already there: $ANIMA_HOME/venv"
-elif python3 -m venv --without-pip "$ANIMA_HOME/venv" >/dev/null 2>&1; then
-  say "created: $ANIMA_HOME/venv (without pip: nothing needs installing)"
+  if [ -f "$ANIMA_HOME/venv/.anima-owned" ]; then
+    say "venv already there (created by this installer): $ANIMA_HOME/venv"
+  else
+    say "venv already there, NOT created by this installer: $ANIMA_HOME/venv is used as it is and will never be modified or removed"
+  fi
 else
-  rm -rf "$ANIMA_HOME/venv"
-  say "the venv module is not available here, so ANIMA will use the system python3."
-  say "that loses nothing: ANIMA has no dependencies."
+  venv_existed=0
+  [ -e "$ANIMA_HOME/venv" ] && venv_existed=1
+  if [ "$venv_existed" = 0 ] && python3 -m venv --without-pip "$ANIMA_HOME/venv" >/dev/null 2>&1; then
+    : > "$ANIMA_HOME/venv/.anima-owned"
+    say "created: $ANIMA_HOME/venv (without pip: nothing needs installing)"
+  elif [ "$venv_existed" = 0 ]; then
+    [ -f "$ANIMA_HOME/venv/.anima-owned" ] || rm -rf "$ANIMA_HOME/venv"   # a half-made folder WE just created, nothing else
+    say "the venv module is not available here, so ANIMA will use the system python3."
+    say "that loses nothing: ANIMA has no dependencies."
+  else
+    say "$ANIMA_HOME/venv exists but has no python and is not ours (no .anima-owned marker): left untouched."
+    say "ANIMA will use the system python3."
+  fi
 fi
 
 step "4/6 launcher"
@@ -110,7 +130,26 @@ else
   say "or add this line to your shell startup file yourself:   export PATH=\"$ANIMA_HOME/bin:\$PATH\""
 fi
 
-printf '\nInstalled. Next:\n'
-say "  $ANIMA_HOME/bin/anima doctor                      # checks each tool it found"
-say "  $ANIMA_HOME/bin/anima harness test muse           # one tiny real call (uses your own login; swap in claude or codex)"
-say "  $ANIMA_HOME/bin/anima run --harness muse --task tiny-bug"
+printf '\nInstalled.\n'
+say "  launcher (full path): $ANIMA_HOME/bin/anima"
+if [ -x "$HOME/.local/bin/anima" ] && case ":$PATH:" in *":$HOME/.local/bin:"*) true ;; *) false ;; esac; then
+  say "  on your PATH as:     anima"
+else
+  say "  not on your PATH. Use the full path above, or add this line to your shell startup file yourself:"
+  say "      export PATH=\"$ANIMA_HOME/bin:\$PATH\""
+fi
+MAIN=$(sed -n 's/^harness: *//p' "$ANIMA_HOME/anima.yaml" 2>/dev/null | head -1)
+case "$MAIN" in muse|claude|codex) ;; *) MAIN="" ;; esac
+say ""
+say "Next:"
+say "  $ANIMA_HOME/bin/anima doctor                       # what ANIMA found, and where its files go"
+if [ -n "$MAIN" ]; then
+  say "  $ANIMA_HOME/bin/anima harness test $MAIN           # one tiny real call through your $MAIN login"
+  say "  $ANIMA_HOME/bin/anima run --task tiny-bug          # a small bug, fixed by $MAIN, judged by a hidden checker"
+  say "  $ANIMA_HOME/bin/anima ui                           # watch the run as a tree (read-only), http://127.0.0.1:8765/"
+else
+  say "  no coding-agent CLI was found. Install Muse Code, Claude Code or Codex and log in, then:"
+  say "  $ANIMA_HOME/bin/anima init --force"
+fi
+say "Optional (needs network once): $ANIMA_HOME/bin/anima memory setup   # TRACE memory; then add --memory trace to anima run"
+say "Optional: voice needs a Python with faster-whisper (set ANIMA_STT_PYTHON); see docs/UI.md"

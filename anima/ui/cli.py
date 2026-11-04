@@ -9,8 +9,12 @@
     anima cmd list
     anima voice CLIP.wav | --mic SECONDS [--model base|small] [--yes]
 
-The bigger `anima` CLI (harness adapter) is expected to forward these four
-subcommands to ``main`` here; see docs/UI.md.
+The `anima` CLI forwards these four verbs to ``main`` here with the verb intact.
+With no data-source flag the newest real run under $ANIMA_HOME/runs is shown.
+
+Command files (`anima cmd ...`, the screen's buttons, spoken pause/resume/run-next): NOTHING READS THEM YET.
+They are therefore off by default: `cmd` only previews, the screen shows no buttons, the voice command says
+"recognised, disabled".  See docs/INTEGRATED-DEMO.md.
 """
 from __future__ import annotations
 
@@ -30,6 +34,8 @@ def add_source_args(p):
                    help="replay the real recorded run in docs/evidence/flagship-run3 (read-only)")
     p.add_argument("--state", help="ANIMA state dir: decisions.jsonl, jobs/, commands/")
     p.add_argument("--chain", action="append", help="decision record (JSONL chain); repeatable")
+    p.add_argument("--run", metavar="NAME|latest",
+                   help="a real run folder under $ANIMA_HOME/runs (what `anima run` writes), or 'latest' (the default when no source is given)")
     p.add_argument("--jobs", help="job folders dir (job.json + events.jsonl per job)")
     p.add_argument("--job-limit", type=int, default=30, help="newest N job folders only (default 30)")
     p.add_argument("--job-prefix", help="only job folders whose name starts with this")
@@ -37,9 +43,12 @@ def add_source_args(p):
 
 
 def source_from(a):
-    if not (a.demo or a.state or a.chain or a.jobs):
-        raise SystemExit("anima: give a data source: --demo, --state DIR, --chain FILE or --jobs DIR")
-    return srcmod.Source.from_args(demo=a.demo, state=a.state, chains=a.chain, jobs=a.jobs,
+    chains = a.chain
+    if a.run:
+        chains = [str(srcmod.resolve_run(a.run))] + list(chains or [])
+    elif not (a.demo or a.state or a.chain or a.jobs):
+        chains = [str(srcmod.resolve_run("latest"))]   # the real run chain, not a recording
+    return srcmod.Source.from_args(demo=a.demo, state=a.state, chains=chains, jobs=a.jobs,
                                    commands=a.commands, job_limit=a.job_limit, job_prefix=a.job_prefix)
 
 
@@ -52,6 +61,8 @@ def source_flags(a):
         f += ["--state", a.state]
     for c in a.chain or []:
         f += ["--chain", c]
+    if getattr(a, "run", None):
+        f += ["--run", a.run]
     if a.jobs:
         f += ["--jobs", a.jobs]
     if a.commands:
@@ -117,9 +128,14 @@ def cmd_cmd(a):
         print("dry run: nothing written")
         print(json.dumps(cmd, indent=1, sort_keys=True))
         return 0
+    if not a.write_file:
+        print("NOT WRITTEN, NOT APPLIED: nothing reads command files yet, so this could not change any run.")
+        print("          (--write-file writes the file anyway; that tests the file format only)")
+        print(json.dumps(cmd, indent=1, sort_keys=True))
+        return 3
     path = cmdmod.write_command(src.commands, cmd)
     print(f"written:  {path}")
-    print("effect:   a command file only; `anima` (the scheduler) applies it when it reads the folder")
+    print("effect:   NONE YET. A command file only; no part of `anima` reads this folder, so nothing will happen")
     if a.forward:
         ran, msg = cmdmod.forward_cancel(cmd, a.jobs or (src.jobs and str(src.jobs)))
         print(("forwarded to hand-run cancel: " if ran else "not forwarded: ") + msg)
@@ -130,7 +146,8 @@ def cmd_cmd(a):
 
 def cmd_ui(a):
     from . import server
-    return server.serve(source_from(a), host="127.0.0.1", port=a.port, open_browser=a.open)
+    return server.serve(source_from(a), host="127.0.0.1", port=a.port, open_browser=a.open,
+                        commands_enabled=a.enable_command_files)
 
 
 def cmd_voice(a):
@@ -155,13 +172,16 @@ def build_parser():
     s.add_argument("--upto", type=int, help="replay: only the first N records")
     s.set_defaults(fn=cmd_status)
 
-    u = sub.add_parser("ui", help="serve the SST screen on 127.0.0.1")
+    u = sub.add_parser("ui", help="serve the SST screen on 127.0.0.1 (read-only view of the newest real run unless told otherwise)")
     add_source_args(u)
     u.add_argument("--port", type=int, default=8765)
     u.add_argument("--open", action="store_true", help="try to open a browser tab")
+    u.add_argument("--enable-command-files", action="store_true",
+                   help="show the command buttons and let them write command files. Off by default: nothing reads those files yet, "
+                        "so a button could not change a run")
     u.set_defaults(fn=cmd_ui)
 
-    c = sub.add_parser("cmd", help="write a command file (pause, reprioritise, redirect, ...)")
+    c = sub.add_parser("cmd", help="preview a command file (pause, reprioritise, redirect, ...). DISABLED by default: nothing reads these files yet")
     c.add_argument("verb", choices=sorted(cmdmod.VERBS) + ["list"])
     c.add_argument("target", nargs="?", help="task name or the number shown by `status --tree`")
     c.add_argument("--priority", choices=cmdmod.PRIORITIES)
@@ -169,6 +189,8 @@ def build_parser():
     c.add_argument("--reason")
     c.add_argument("--issued-by", default="cli", choices=("cli", "ui", "voice"))
     c.add_argument("--dry-run", action="store_true")
+    c.add_argument("--write-file", action="store_true",
+                   help="write the command file even though nothing reads it (tests the file format only)")
     c.add_argument("--forward", action="store_true",
                    help="cancel only: also run the real `hand-run cancel` for a job folder (needs --jobs)")
     add_source_args(c)
