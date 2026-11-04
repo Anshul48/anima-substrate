@@ -337,6 +337,16 @@ class Watch(unittest.TestCase):
         self.assertEqual(res.failure_class, "watch_blocked")
         self.assertIn("GIT-PUSH", log.read_text())
 
+    def test_enforce_sees_and_kills_a_child_in_its_own_session(self):
+        # Muse starts each shell command in a new session (probe in RUN-LOG); the session-only scan missed it.
+        if not shutil.which("setsid"):
+            self.skipTest("setsid not available")
+        t0 = time.time()
+        res, log = self.run_watch("setsid sh -c 'git push nowhere >/dev/null 2>&1; sleep 15' & wait", "enforce")
+        self.assertLess(time.time() - t0, 10)
+        self.assertEqual(res.failure_class, "watch_blocked")
+        self.assertIn("GIT-PUSH", log.read_text())
+
     def test_warn_logs_but_does_not_kill(self):
         res, log = self.run_watch("sh -c 'git push nowhere >/dev/null 2>&1; sleep 1'; true", "warn")
         self.assertTrue(res.ok or res.returncode == 0)
@@ -367,6 +377,80 @@ class Profiles(unittest.TestCase):
         self.assertEqual([s.get("how") or "ask" for s in plan], ["first", "retry", "run_with", "ask"])
         self.assertEqual(p.watch_cfg("worker")["stall_s"], 1200)
         self.assertIn("watches.budget", p.not_enforced())
+
+
+class Cli(unittest.TestCase):
+    def setUp(self):
+        from unittest import mock
+        self.tmp = Path(tempfile.mkdtemp(prefix="anima-cli-"))
+        self.bin = self.tmp / "bin"
+        self.bin.mkdir()
+        self.env = mock.patch.dict(os.environ, {"HOME": str(self.tmp), "ANIMA_HOME": str(self.tmp / "ah"), "PATH": str(self.bin),
+                                                 "ANIMA_PROFILE": ""}, clear=False)
+        self.env.start()
+        os.environ.pop("ANIMA_PROFILE", None)
+        self.cwd = os.getcwd()
+        os.chdir(self.tmp)
+
+    def tearDown(self):
+        os.chdir(self.cwd)
+        self.env.stop()
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def fake_cli(self, name):
+        f = self.bin / name
+        f.write_text("#!/bin/sh\necho %s 9.9\n" % name)
+        f.chmod(0o755)
+
+    def main(self, *argv):
+        from io import StringIO
+        from contextlib import redirect_stdout, redirect_stderr
+        from anima.harness import cli
+        buf = StringIO()
+        with redirect_stdout(buf), redirect_stderr(buf):
+            code = cli.main(list(argv))
+        return code, buf.getvalue()
+
+    def test_check_exit_codes(self):
+        self.assertEqual(self.main("check", "--cmd", "git push origin main")[0], 3)
+        self.assertEqual(self.main("check", "--cmd", "ls src")[0], 0)
+
+    def test_init_finds_the_three_clis_muse_first_and_is_idempotent(self):
+        for n in ("codex", "claude", "muse"):
+            self.fake_cli(n)
+        code, text = self.main("init")
+        self.assertEqual(code, 0)
+        self.assertLess(text.index("muse"), text.index("claude"))
+        prof = Profile(miniyaml.loads((self.tmp / "ah" / "anima.yaml").read_text()))
+        self.assertEqual(prof.main, "muse")
+        self.assertEqual(prof.names(), ["muse", "claude", "codex"])
+        before = (self.tmp / "ah" / "anima.yaml").read_text()
+        code, text = self.main("init")
+        self.assertIn("kept as it is", text)
+        self.assertEqual((self.tmp / "ah" / "anima.yaml").read_text(), before)
+
+    def test_init_with_nothing_installed_and_doctor_says_not_run(self):
+        code, text = self.main("init")
+        self.assertEqual(code, 0)
+        self.assertIn("no harness found", text)
+        code, text = self.main("doctor")
+        self.assertEqual(code, 0)
+        self.assertIn("NOT RUN", text)
+        self.assertNotIn("PASS (live", text)
+
+    def test_add_custom_and_list_and_dry_run(self):
+        code, text = self.main("harness", "add", "custom", "--name", "mine", "--argv",
+                               json.dumps([sys.executable, "-c", "print(1)", "{prompt_file}"]), "--stdin", "prompt_file")
+        self.assertEqual(code, 0, text)
+        code, text = self.main("harness", "list", "--fast")
+        self.assertIn("mine", text)
+        code, text = self.main("run", "--harness", "mine", "--task", "tiny-bug", "--dry-run")
+        self.assertEqual(code, 2)
+        self.assertIn("DRY RUN", text)
+        self.assertEqual(self.main("harness", "add", "muse")[0], 2)  # not installed here -> clear error, nothing written
+
+    def test_unknown_group_is_reported(self):
+        self.assertEqual(self.main("nosuchgroup")[0], 64)
 
 
 if __name__ == "__main__":

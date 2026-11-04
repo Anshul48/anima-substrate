@@ -389,7 +389,7 @@ def cmd_verify(a) -> int:
 def build_parser():
     ap = argparse.ArgumentParser(prog="anima", description="ANIMA: plug into the coding agent you already have (Muse Code, Claude Code, Codex).")
     ap.add_argument("--profile", help="path to anima.yaml (default: ./anima.yaml, then ~/.anima/anima.yaml)")
-    sub = ap.add_subparsers(dest="cmd", required=True)
+    sub = ap.add_subparsers(dest="command", required=True)
     s = sub.add_parser("init", help="detect Muse Code / Claude Code / Codex and write anima.yaml")
     s.add_argument("--force", action="store_true")
     s.add_argument("--local", action="store_true", help="write ./anima.yaml instead of ~/.anima/anima.yaml")
@@ -442,7 +442,7 @@ def main(argv=None) -> int:
     a = build_parser().parse_args(argv)
     try:
         return {"init": cmd_init, "doctor": cmd_doctor, "harness": cmd_harness, "run": cmd_run,
-                "check": cmd_check, "verify-log": cmd_verify}[a.cmd](a)
+                "check": cmd_check, "verify-log": cmd_verify}[a.command](a)
     except HarnessError as exc:
         print(f"anima: {exc}", file=sys.stderr)
         return 2

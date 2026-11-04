@@ -103,22 +103,39 @@ def hook_decision(stdin_text: str, packs=None) -> tuple[int, str]:
 
 
 # ------------------------------------------------------------------ watch
-def _pgrp_children(sid: int, skip: int):
-    """(pid, cmdline) of live processes in session `sid`, excluding `skip`."""
-    out = []
+def _pgrp_children(root: int, skip: int):
+    """(pid, cmdline) of live processes that belong to the run rooted at `root`, excluding `skip`.
+
+    A process belongs if it is in root's session OR is a descendant of root by parent pid.
+    Both are needed: found by probe (RUN-LOG, Muse watch), Muse starts every shell command in a NEW
+    session (the `sh -c` child has its own sid), so a session-only scan never sees it, while the
+    parent chain does. A process that double-forks and is re-parented to init escapes both; the
+    watch polls, it is not a sandbox."""
+    procs = {}  # pid -> (ppid, sid)
     for name in os.listdir("/proc"):
         if not name.isdigit():
             continue
-        pid = int(name)
+        try:
+            stat = Path(f"/proc/{name}/stat").read_text()
+            rest = stat[stat.rindex(")") + 2:].split()
+            procs[int(name)] = (int(rest[1]), int(rest[3]))  # fields 4 (ppid) and 6 (session id)
+        except (OSError, ValueError, IndexError):
+            continue
+    mine = {root}
+    grew = True
+    while grew:
+        grew = False
+        for pid, (ppid, sid) in procs.items():
+            if pid not in mine and (ppid in mine or sid == root):
+                mine.add(pid)
+                grew = True
+    out = []
+    for pid in sorted(mine):
         if pid == skip:
             continue
         try:
-            stat = Path(f"/proc/{pid}/stat").read_text()
-            rest = stat[stat.rindex(")") + 2:].split()
-            if int(rest[3]) != sid:  # field 6 (session id)
-                continue
             raw = Path(f"/proc/{pid}/cmdline").read_bytes()
-        except (OSError, ValueError, IndexError):
+        except OSError:
             continue
         out.append((pid, raw.replace(b"\0", b" ").decode("utf-8", "replace").strip()))
     return out
@@ -146,11 +163,18 @@ class ProcessWatch(threading.Thread):
             f.write(json.dumps(row, sort_keys=True) + "\n")
 
     def _kill(self):
+        """Kill the root's group, then every descendant found by a fresh scan (children that moved
+        to their own session are not in the root's group)."""
         self.killed = True
         try:
             os.killpg(self.root_pid, signal.SIGKILL)
-        except ProcessLookupError:
+        except (ProcessLookupError, PermissionError):
             pass
+        for pid, _ in _pgrp_children(self.root_pid, os.getpid()):
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
 
     def run(self):
         while not self.stop_flag.is_set():
