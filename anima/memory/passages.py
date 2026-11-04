@@ -29,7 +29,11 @@ import re
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
 
+from .safety import reject_escape, safe_label
+
 SCHEMA = "anima-job-v1"
+MAX_CHARS = 1500  # hard bound on one passage, whatever the record contained (a single 'word' can be huge)
+_CTRL = re.compile(r"[\x00-\x08\x0b-\x1f\x7f]")
 MAX_WORDS = 175  # TRACE chunks at 200 whitespace tokens; keep one passage = one atom
 _EXTRA = re.compile(r"-e\d+$")
 
@@ -43,6 +47,13 @@ class Passage:
     text: str                    # what TRACE indexes and what the next agent reads
     source: dict                 # {"file","line"?, "record_id"?, "sha256", "what"}
     meta: dict = field(default_factory=dict)  # verdict, rule, pool, rung, ...
+
+    def __post_init__(self):
+        # Names and text come from record files; make them harmless to store and to show to a worker.
+        self.task, self.library = safe_label(self.task), safe_label(self.library)
+        self.base_id = safe_label(self.base_id, n=240)
+        t = " ".join(_CTRL.sub("", self.text).split())
+        self.text = t if len(t) <= MAX_CHARS else t[:MAX_CHARS // 2] + " [...] " + t[-(MAX_CHARS // 2):]
 
     @property
     def sha(self) -> str:
@@ -162,7 +173,8 @@ def parse_decisions(path, root=None, verify_chain=True):
                 base_id=f"decision:{run}:{orig}:a{idx}", kind="attempt", task=orig, library=library_of(orig),
                 text=text,
                 source={"file": rel, "line": no, "record_id": ev.get("id"), "sha256": sha256_bytes(ln),
-                        "what": "artifact.added attempt record in a hash-chained decision log"},
+                        "what": "artifact.added attempt record in a hash-chained decision log",
+                        "input": rel, "input_kind": "decisions"},
                 meta={"verdict": verdict, "failed_rule": rule, "pool": a.get("pool"), "rung": a.get("rung"),
                       "first_failure": digest or None, "run": run, "origin": "decisions.jsonl"}))
     return out
@@ -206,7 +218,7 @@ def parse_job(path, root=None):
             base_id=f"job:{j.get('job_id') or task}:a{i}", kind="job-attempt", task=task, library=lib,
             text=" ".join(text.split()),
             source={"file": rel, "record_id": j.get("job_id") or task, "sha256": fsha,
-                    "what": f"{SCHEMA} job record (whole file)"},
+                    "what": f"{SCHEMA} job record (whole file)", "input": rel, "input_kind": "job"},
             meta={"verdict": verdict, "failed_rule": a.get("failed_rule"), "pool": a.get("pool"),
                   "first_failure": a.get("first_failure"), "origin": SCHEMA, "attempt": a.get("n", i + 1)}))
     return out
@@ -230,20 +242,26 @@ def diff_summary(patch_text: str, max_files: int = 4) -> str:
     return s + (f", and {len(files) - max_files} more files" if len(files) > max_files else "")
 
 
-def find_task_card(task_ref, task_id: str):
-    """task_ref: a task.json, a task folder, or a folder of task folders. Returns the parsed card or None."""
+def find_task_card_file(task_ref, task_id: str):
+    """task_ref: a task.json, a task folder, or a folder of task folders. Returns (card, path) or (None, None)."""
     if not task_ref:
-        return None
+        return None, None
     p = Path(task_ref)
-    for c in ([p] if p.is_file() else [p / "task.json", p / task_id / "task.json"]):
+    for c in ([p] if p.is_file() else [p / "task.json", p / safe_label(task_id) / "task.json"]):
         if c.is_file():
+            if p.is_dir():
+                reject_escape(c, p, "task card")
             try:
                 card = json.loads(c.read_text())
             except ValueError:
                 continue
-            if card.get("id") == task_id:
-                return card
-    return None
+            if isinstance(card, dict) and card.get("id") == task_id:
+                return card, c
+    return None, None
+
+
+def find_task_card(task_ref, task_id: str):
+    return find_task_card_file(task_ref, task_id)[0]
 
 
 def is_run_dir(p: Path) -> bool:
@@ -265,8 +283,11 @@ def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
     for sub in sorted((run_dir / "attempts").iterdir()):
         aj = sub / "attempt.json"
         if aj.is_file():
-            araw = aj.read_bytes()
             hj, pj = sub / "hand.json", sub / "changes.patch"
+            for f in (sub, aj, hj, pj):
+                if f.exists():
+                    reject_escape(f, run_dir, "run file")
+            araw = aj.read_bytes()
             items.append((json.loads(araw), json.loads(hj.read_text()) if hj.is_file() else {},
                           pj.read_text(errors="replace") if pj.is_file() else None, aj, sha256_bytes(araw)))
     items.sort(key=lambda t: t[0].get("rung", 0))
@@ -274,7 +295,7 @@ def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
     for i, (a, h, patch, aj, fsha) in enumerate(items):
         tid = a.get("task") or run_dir.name
         lib, verdict = library_of(tid), a.get("verdict", "UNKNOWN")
-        card = find_task_card(task, tid)
+        card, card_file = find_task_card_file(task, tid)
         n_issue = 70
         while True:
             issue = clip((card or {}).get("issue_text", ""), n_issue)
@@ -298,7 +319,8 @@ def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
             base_id=f"run:{run_dir.name}:{tid}:a{i}", kind="run-attempt", task=tid, library=lib,
             text=" ".join(text.split()),
             source={"file": _rel(aj, root), "record_id": a.get("job_id") or aj.parent.name, "sha256": fsha,
-                    "what": "anima run attempt.json (whole file)"},
+                    "what": "anima run attempt.json (whole file)", "input": _rel(run_dir, root), "input_kind": "run-dir",
+                    **({"task_ref": _rel(card_file, root)} if card_file else {})},
             meta={"verdict": verdict, "failed_rule": a.get("failed_rule"), "pool": a.get("harness"),
                   "rung": a.get("rung"), "first_failure": (a.get("digest") or "").strip() or None,
                   "origin": "anima-run", "run": run_dir.name, "attempt": i + 1, "has_task_text": bool(card)}))
@@ -314,6 +336,9 @@ def parse_attempts_dir(path, root=None):
         aj = sub / "attempt.json"
         if not aj.is_file():
             continue
+        for f in (sub, aj, sub / "hand.json"):
+            if f.exists():
+                reject_escape(f, path, "attempt file")
         araw = aj.read_bytes()
         a = json.loads(araw)
         hj = sub / "hand.json"
@@ -342,7 +367,7 @@ def parse_attempts_dir(path, root=None):
                 base_id=f"attempts:{path.name}:{orig}:a{i}", kind="attempt", task=orig, library=library_of(orig),
                 text=" ".join(text.split()),
                 source={"file": _rel(aj, root), "record_id": a.get("hand") or aj.parent.name, "sha256": fsha,
-                        "what": "flagship attempt.json (whole file)"},
+                        "what": "flagship attempt.json (whole file)", "input": _rel(path, root), "input_kind": "attempts-dir"},
                 meta={"verdict": verdict, "failed_rule": a.get("failed_rule"), "pool": a.get("pool"),
                       "rung": a.get("rung"), "first_failure": digest or None, "origin": "attempts-dir"}))
     return out
@@ -363,8 +388,10 @@ def load_path(path, root=None, verify_chain=True, task=None):
         if any((s / "attempt.json").is_file() for s in p.iterdir() if s.is_dir()):
             out += parse_attempts_dir(p, root)
         for f in sorted(p.rglob("job.json")):
+            reject_escape(f, p, "job record")
             out += parse_job(f, root)
         for f in sorted(p.rglob("decisions.jsonl")):
+            reject_escape(f, p, "decision log")
             out += parse_decisions(f, root, verify_chain)
         return out
     if p.name.endswith(".jsonl"):
@@ -409,3 +436,47 @@ def verify_pointer(src: dict, root=None) -> tuple[str, str]:
     if got != src["sha256"]:
         return "CHANGED", f"sha256 {got[:12]} != recorded {src['sha256'][:12]}"
     return "OK", f"{f.name}{' line ' + str(src['line']) if src.get('line') else ''} matches"
+
+
+def _abs(rel, root):
+    f = Path(rel)
+    return f if f.is_absolute() or root is None else Path(root) / f
+
+
+def verify_passage(row: dict, root=None):
+    """Check a stored passage against its source, field by field.
+
+    1. the pointer: the recorded file (and line) still has the recorded SHA-256;
+    2. the text: the passage is parsed again from the source files and must come out exactly as stored,
+       so the task text, the agent's summary, the diff summary and the checker's line shown to a worker
+       are the source's words, not whatever the index or the sidecar file now says.
+
+    Returns (status, detail, fresh_passage). status is OK | CHANGED | MISSING | UNBOUND (older record with no
+    re-derivation info). Only OK carries a passage; callers must show that passage, not the stored row."""
+    src = row["source"]
+    status, detail = verify_pointer(src, root)
+    if status != "OK":
+        return status, detail, None
+    kind = src.get("input_kind")
+    if not kind or not src.get("input"):
+        return "UNBOUND", "record has no re-derivation info (ingested by an older version); re-ingest it", None
+    try:
+        inp = _abs(src["input"], root)
+        if kind == "decisions":
+            got = parse_decisions(inp, root, True)
+        elif kind == "job":
+            got = parse_job(inp, root)
+        elif kind == "run-dir":
+            got = parse_run_dir(inp, root, _abs(src["task_ref"], root) if src.get("task_ref") else None, True)
+        elif kind == "attempts-dir":
+            got = parse_attempts_dir(inp, root)
+        else:
+            return "UNBOUND", f"unknown input kind {kind!r}", None
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return "CHANGED", f"source can no longer be read as a record: {type(exc).__name__}: {str(exc)[:100]}", None
+    for p in got:
+        if p.base_id == row.get("base_id"):
+            if p.text == row.get("text") and p.doc_id == row.get("doc_id"):
+                return "OK", detail + "; text re-derived from the source and identical", p
+            return "CHANGED", "stored text differs from what the source now yields", None
+    return "CHANGED", "source no longer yields this passage", None

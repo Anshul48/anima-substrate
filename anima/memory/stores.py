@@ -35,6 +35,13 @@ TRACE_REPO = "https://github.com/Anshul48/trace"
 CONFIG = "anima-memory.json"
 
 
+def default_store() -> Path:
+    """Where the index lives when no --store is given: $ANIMA_MEMORY_STORE, else <ANIMA_HOME>/memory/trace.
+    ANIMA_HOME is the one state root the harness, the memory and the UI share (not the current folder)."""
+    env = os.environ.get("ANIMA_MEMORY_STORE")
+    return Path(env) if env else anima_home() / "memory" / "trace"
+
+
 # --------------------------------------------------------------------------- locating TRACE
 def find_trace_src() -> Path | None:
     """The frozen candidate dir (…/freeze-src/cand), from $ANIMA_TRACE_SRC or $ANIMA_HOME/trace."""

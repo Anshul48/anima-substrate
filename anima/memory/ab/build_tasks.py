@@ -9,7 +9,8 @@ For every entry in tasks.json it creates   <out>/<id>/{task.json, repo/, hidden/
   hidden/  the tests folder as it is at the FIX commit. The checker copies it into
            the workspace only AFTER the agent has finished. The agent never sees it.
   gate     pytest over the test files that the fix commit changed (or, where a whole file is
-           slow, only the test classes named in "select" in tasks.json).
+           slow, only the test classes named in "select" in tasks.json; "deselect_k" drops tests
+           by a pytest -k expression, used only where a test asserts on a private detail).
 
 Then `--check` proves the gate is sound: it must FAIL on the base code and PASS once
 the fix commit's non-test changes are applied. A task that does not satisfy both is
@@ -78,10 +79,10 @@ def split_changes(repo, base, fix):
     return tests, code
 
 
-def gate_argv(targets):
+def gate_argv(targets, deselect_k=None):
     code = ("import sys, pytest; sys.path[:0] = ['src', '.']; "
             "sys.exit(pytest.main(['-q', '-p', 'no:cacheprovider', '--rootdir=.', '-o', 'addopts='] + sys.argv[1:]))")
-    return ["{python}", "-c", code, *targets]
+    return ["{python}", "-c", code, *(["-k", deselect_k] if deselect_k else []), *targets]
 
 
 def build_one(task, out, source, cache):
@@ -110,8 +111,9 @@ def build_one(task, out, source, cache):
         "id": task["id"], "title": task["id"].replace("-", " "),
         "issue_text": task["issue_text"].rstrip() + "\nFix the bug in the repository. Do not edit anything under tests/. Finish with a one-line summary.",
         "workspace_seed": "repo", "hidden_dir": "hidden", "protected_roots": [troot or "tests"],
-        "gate_argv": gate_argv(task.get("select") or targets), "timeout_s": 1500, "gate_timeout_s": 240,
+        "gate_argv": gate_argv(task.get("select") or targets, task.get("deselect_k")), "timeout_s": 1500, "gate_timeout_s": 240,
         "provenance": {"repo": task["repo"], "base": base, "fix": fix, "flagship": bool(task.get("flagship")),
+                       **({"gate_deselected": task["deselect_k"], "gate_deselect_why": task.get("deselect_why", "")} if task.get("deselect_k") else {}),
                        "tests_changed_by_fix": tests, "code_changed_by_fix": code},
     }
     card["provenance"]["dangling_symlinks_removed"] = drop_dangling_links(d / "repo") + drop_dangling_links(d / "hidden")
