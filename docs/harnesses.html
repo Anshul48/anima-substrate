@@ -32,11 +32,18 @@
 <div class="wrap">
 <h2>What it does</h2>
 <p>A harness is the coding tool an agent runs inside. You should not have to switch tools to get memory, rules and a checker. ANIMA wraps the tool you already have: it hands over the task, applies the rules while the agent works, runs the same hidden checker on the result, and records the decision. The same task can go to a different harness by changing one word.</p>
-<h2>In order</h2>
+<div class="band">
+<p class="eyebrow">Muse Code first</p>
+<h2>The first harness ANIMA is built for, and the first rung of its ladder.</h2>
+<p>In both recorded runs (nine jobs each) the first rung of the ladder was a Muse Code worker. Muse Code was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026.</p>
+<p class="small muted">These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex. The plug-in itself is a separate part, and its state is the badge on the <a href="harnesses.html">harness page</a>.</p>
+</div>
+
+<h2 style="margin-top:var(--space-6)">In order</h2>
 <div class="grid c3">
-<div class="card"><h3>1. Muse Code</h3><p>The first harness. Muse Code runs the task and ANIMA wraps it with the hidden checker and the rules.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness muse --task examples/tiny-bug</code></div><div class="foot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
-<div class="card"><h3>2. Claude Code</h3><p>The second harness. The same task, sent to Claude Code, judged by the same hidden checker.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness claude --task examples/tiny-bug</code></div><div class="foot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
-<div class="card"><h3>3. Codex</h3><p>The third harness. The same task, sent to Codex, judged by the same hidden checker.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness codex --task examples/tiny-bug</code></div><div class="foot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
+<div class="card"><h3>1. Muse Code</h3><p>The first harness. Muse Code runs the task and ANIMA wraps it with the hidden checker and the rules.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness muse --task examples/tiny-bug</code></div><div class="cfoot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
+<div class="card"><h3>2. Claude Code</h3><p>The second harness. The same task, sent to Claude Code, judged by the same hidden checker.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness claude --task examples/tiny-bug</code></div><div class="cfoot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
+<div class="card"><h3>3. Codex</h3><p>The third harness. The same task, sent to Codex, judged by the same hidden checker.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness codex --task examples/tiny-bug</code></div><div class="cfoot"><span class="badge" data-state="next">Next, not built yet</span></div></div>
 </div>
 <h2 style="margin-top:var(--space-7)">What exists, per harness</h2>
 <div class="tablewrap"><table><thead><tr><th scope="col">Harness</th><th scope="col">State</th><th scope="col">What exists today</th><th scope="col">Limits</th></tr></thead><tbody>

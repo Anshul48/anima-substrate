@@ -9,6 +9,8 @@
 
 ANIMA plugs into the coding tool you already use, **Muse Code first, then Claude Code, then Codex**, and gives it three things: a memory you can check ([TRACE](https://github.com/Anshul48/trace)), one screen that shows what every agent is doing, and rules that are enforced, not just requested.
 
+**Muse Code first.** Muse Code is the first harness ANIMA is built for, and in both recorded runs (nine jobs each) the first rung of its ladder was a Muse Code worker. It was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026. These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex.
+
 **Site:** [anshul48.github.io/anima-substrate](https://anshul48.github.io/anima-substrate/) &nbsp;|&nbsp; **Status of every part:** [docs/status.json](docs/status.json) &nbsp;|&nbsp; **Docs index:** [docs/INDEX.md](docs/INDEX.md)
 
 ## What is built and what is not
@@ -34,7 +36,21 @@ Rendered from [`docs/status.json`](docs/status.json); `python3 tools/site.py che
 
 Marks on the site are never colour alone: filled dot = working today, half dot = prototype, dashed dot = next, not built yet.
 
-## 1. Memory that carries over: TRACE
+## 1. Works inside your harness: Muse Code first
+
+A harness is the coding tool an agent runs in. ANIMA does not replace it; it plugs in. Muse Code first, then Claude Code, then Codex.
+
+<!-- block:harness:start (generated from docs/status.json by tools/site.py sync-readme) -->
+
+| # | Harness | State | Command |
+|---|---|---|---|
+| 1 | Muse Code | **Next, not built yet** | planned, not available yet: `anima run --harness muse --task examples/tiny-bug` |
+| 2 | Claude Code | **Next, not built yet** | planned, not available yet: `anima run --harness claude --task examples/tiny-bug` |
+| 3 | Codex | **Next, not built yet** | planned, not available yet: `anima run --harness codex --task examples/tiny-bug` |
+
+<!-- block:harness:end -->
+
+## 2. Memory that carries over: TRACE
 
 In a coding workflow the same bug gets fixed twice and the same decision gets explained again. ANIMA's memory is **TRACE**, our public search that shows its work: every answer comes with a record of where it came from. Everything in this section is **our own measurement**; no outside party has verified it. It is TRACE's record, not an ANIMA result.
 
@@ -60,20 +76,6 @@ Limit: A small local store, not the 100-million-token library. It aims at contin
 - **1.53 billion tokens, routing only.** A separate test on rented GPUs (16 October 2026) turned 1,531,809,092 tokens of a different, larger collection into 7,134,906 searchable vectors in 109 pieces. A search that looked only at the most likely groups kept 0.9947 of the exact top ten while looking at 6.6% of the vectors. It tested routing only: no merged index, not served through TRACE, no checkable records at that scale, and not a one-billion-vector run.
 
 **Where TRACE does not win:** on the same 50 test searches, ordinary keyword search put the right source passage in its top ten for 82% of searches; TRACE did for 52%, and so did exact meaning-based search. Keyword search also had the shorter response time (6 milliseconds against 1.2 seconds for TRACE). Stored size on disk: TRACE 2.28 GB, exact vectors 1.25 GB, keyword index 0.51 GB. TRACE has not been run on public benchmarks, and there is no public query service. Details: [the memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
-
-## 2. Works inside your harness
-
-A harness is the coding tool an agent runs in. ANIMA does not replace it; it plugs in. Muse Code first, then Claude Code, then Codex.
-
-<!-- block:harness:start (generated from docs/status.json by tools/site.py sync-readme) -->
-
-| # | Harness | State | Command |
-|---|---|---|---|
-| 1 | Muse Code | **Next, not built yet** | planned, not available yet: `anima run --harness muse --task examples/tiny-bug` |
-| 2 | Claude Code | **Next, not built yet** | planned, not available yet: `anima run --harness claude --task examples/tiny-bug` |
-| 3 | Codex | **Next, not built yet** | planned, not available yet: `anima run --harness codex --task examples/tiny-bug` |
-
-<!-- block:harness:end -->
 
 ## 3. One line to install
 

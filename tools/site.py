@@ -2,9 +2,10 @@
 """ANIMA site tool. Python 3.11+, standard library only, no network.
 
     python3 tools/site.py build         render site/ + docs/status.json + docs/videos.json into docs/*.html
-    python3 tools/site.py sync-readme   rewrite the status table inside README.md from docs/status.json
+    python3 tools/site.py sync-readme   rewrite the generated tables inside README.md from docs/status.json
     python3 tools/site.py check         validate: status rules, generated files up to date, links, alt text,
                                         banned phrases, no outside files, size, contrast, repo files
+    python3 tools/site.py social        render site/social-preview.html to docs/img/social-preview.png (needs Playwright)
 
 Why it exists: the site must never say more than the project can show. docs/status.json is the only place a
 feature's state is set; pages and the README are rendered from it, and `check` fails when they disagree.
@@ -121,7 +122,7 @@ def r_featuregrid(c: Ctx) -> str:
         cards.append(
             f'<a class="card" href="{c.href(fid)}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">{ICONS[fid]}</svg>'
             f'<h3>{esc(f["short"])}</h3><p>{inline(f["plain"])}</p>'
-            f'<div class="foot">{c.badge(fid)}<span class="more">Read more &rarr;</span></div></a>')
+            f'<div class="cfoot">{c.badge(fid)}<span class="more">Read more &rarr;</span></div></a>')
     return '<div class="grid c3">' + "".join(cards) + "</div>"
 
 
@@ -743,6 +744,24 @@ def check() -> int:
     return 1 if r.fails else 0
 
 
+def social() -> int:
+    """Render site/social-preview.html to docs/img/social-preview.png (1280 x 640). Needs Playwright with a Chromium."""
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("Playwright is not installed: pip install playwright && playwright install chromium")
+        return 2
+    out = DOCS / "img" / "social-preview.png"
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        pg = b.new_page(viewport={"width": 1280, "height": 640})
+        pg.goto((SITE / "social-preview.html").resolve().as_uri())
+        pg.screenshot(path=str(out))
+        b.close()
+    print(f"wrote {out.relative_to(ROOT)}")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     cmd = argv[1] if len(argv) > 1 else ""
     if cmd == "build":
@@ -753,6 +772,8 @@ def main(argv: list[str]) -> int:
         return 0
     if cmd == "check":
         return check()
+    if cmd == "social":
+        return social()
     print(__doc__)
     return 2
 
