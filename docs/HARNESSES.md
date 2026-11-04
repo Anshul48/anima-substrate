@@ -27,12 +27,14 @@ of them installed and logged in. ANIMA never logs in for you.
 2. **Check what it found:**
 
    ```sh
-   anima doctor
+   anima doctor            # looks only: is each program there, does it have the flags ANIMA needs?
+   anima doctor --live     # also makes one tiny real call per role, through your own login
    ```
 
-   Each agent shows `READY`, `PASS` or `NOT RUN`. `NOT RUN` means ANIMA could not try it (not installed, not
-   logged in, no network), and it prints the agent's own message so you can fix it. It never prints `PASS` for
-   something it did not run.
+   Without `--live`, an agent shows `READY (not live-tested)` at best, because nothing was tried. With `--live` it
+   shows `PASS` or `NOT RUN`. `NOT RUN` means ANIMA could not try it (not installed, login expired, no network),
+   and it prints the agent's own message so you can fix it. `FAIL` is kept for "it ran and gave a wrong result".
+   ANIMA never prints `PASS` for something it did not run.
 
 3. **Run a task** and let the hidden checker judge it:
 
@@ -58,9 +60,11 @@ and reads Muse's event stream. As a **worker** Muse may edit files. As an **arch
 
 Good to know:
 
-- By default the worker runs with `--approval-mode never`. Muse can edit files but, on the machine this was
-  built on, it could not run shell commands (its shell sandbox was blocked there). For a worker that must run
-  tests, set `yolo: true` for muse in `anima.yaml`. ANIMA's own rule checks then matter more.
+- By default the worker runs with `--approval-mode never`. Muse can edit files but cannot run shell commands
+  here: on the machine this was built on, Muse's shell sandbox could not start (`bwrap: No permissions to create
+  a new namespace`). The tiny task still passes without a shell, but slower (169 s against 20 to 50 s for the
+  others in our run). For a worker that must run tests, set `yolo: true` for muse in `anima.yaml`; then ANIMA's
+  own rule checks matter more.
 - `muse --permission-profile` needs a profile defined by your organisation's policy. On the test machine none
   existed, so Muse printed `Permission profile 'default' is unavailable: profile does not exist.` and ANIMA
   does not use it.
@@ -154,3 +158,29 @@ actual profile.
 - It never uses `sudo`, never pushes to a repository, never installs system packages.
 - The installer never calls a model. A model is called only by `anima harness test`, `anima doctor --live` and
   `anima run`, and always through your own agent and login (so your own plan or bill applies).
+
+## What was tested, and what was not
+
+Tested on one machine (Ubuntu on WSL2, Python 3.12.3, Muse Code 1.4.14, Claude Code 2.1.318, codex-cli 0.163.0),
+from a fresh clone installed by `install.sh`. The commands and their real output are in `RUN-LOG.md`, which ships
+with this change. Anything not in the left column was not run.
+
+| Tested (real output in RUN-LOG.md) | Not tested |
+|---|---|
+| `install.sh` from a fresh clone, run twice (second run kept the profile and changed nothing); link step in a throwaway home | The `curl ... raw.githubusercontent.com` line itself: the address exists only after the owner publishes. It was run against a local `file://` copy |
+| `anima init` found Muse, Claude and Codex and wrote `anima.yaml` | macOS, Windows, other Linux distributions, Python versions other than 3.12 |
+| `anima harness list`, `anima doctor`, `anima doctor --live` | The login-expiry message of Muse Code and Claude Code (only Codex's was seen) |
+| `anima harness test` for Muse, Claude, Codex (second login): both roles, one tiny real call each | Primary Codex login: **NOT RUN**, "refresh token was already used"; the owner must run `codex login` |
+| Real runs of the seeded broken function through Muse, Claude and Codex (second login), each judged by the hidden checker: PASS | Any task beyond the seeded one; the nine real-library jobs were not driven through these adapters |
+| Architect role (read-only plan) with Claude and with Muse; workspace unchanged | Codex as architect in a full `anima run` (only the tiny `harness test` call) |
+| Plan first (Claude plans, Muse edits): PASS | Natural escalation Muse to Claude to Codex on real failures: the demo uses a do-nothing custom adapter as rung 0 and is labelled `CUSTOM` |
+| Escalation: failing rung 0, then Claude passes at rung 1, with the checker's failure line passed along | The ladder's final "ask the architect" stop |
+| `anima check`: secret read and `git push` blocked (exit 3), `ls` allowed | A custom adapter wrapping a real third-party tool (only a do-nothing `true`) |
+| Claude per-action hook blocked a secret read, twice | `enforce.mode: shadow` (same code path as `warn`); the quiet-run (stall) watch and timeouts in a real agent run (unit tests only) |
+| Muse process watch with `yolo: true`: `git push` killed in `enforce` mode, logged but not killed in `warn` mode | Muse process watch catching a secret read: Muse declined to `cat`, and its one-shot `ls` was too short to see (a polling limit) |
+| Decision chain checked by `anima verify-log` and by the repository's own `check_chain.py` | Muse `--permission-profile` (profile does not exist here, so it cannot be used) |
+| 40 unit tests pass (adapters, profile, chain, rules, watch, installer helpers) | Cost and token counts: not measured |
+
+Honest notes: the `claude` command on the build machine is a wrapper that adds `--dangerously-skip-permissions`, so
+the Claude runs there say less about Claude's own permission prompts than they would on a plain install. The watch
+polls and matches text; it is a safety net, not a sandbox.
