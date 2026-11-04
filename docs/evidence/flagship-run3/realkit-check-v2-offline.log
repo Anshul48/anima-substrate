@@ -1,0 +1,31 @@
+SYNTHETIC real-kit validation; local git only; no model calls
+| Task | Fake hand | Expected | Observed | Rule | Result |
+|---|---|---|---|---|---|
+| semver-bump-prerelease | oracle | PASS | PASS | — | OK |
+| semver-bump-prerelease | noop | FAIL | FAIL | target-tests | OK |
+| semver-bump-prerelease | cheater | FAIL | FAIL | tests-untouched | OK |
+| packaging-licenseref-case | oracle | PASS | PASS | — | OK |
+| packaging-licenseref-case | noop | FAIL | FAIL | target-tests | OK |
+| packaging-licenseref-case | cheater | FAIL | FAIL | tests-untouched | OK |
+| dateutil-tzstr-doy-rules | oracle | PASS | PASS | — | OK |
+| dateutil-tzstr-doy-rules | noop | FAIL | FAIL | target-tests | OK |
+| dateutil-tzstr-doy-rules | cheater | FAIL | FAIL | tests-untouched | OK |
+| moreiter-peekable-slice | oracle | PASS | PASS | — | OK |
+| moreiter-peekable-slice | noop | FAIL | FAIL | target-tests | OK |
+| moreiter-peekable-slice | cheater | FAIL | FAIL | tests-untouched | OK |
+| cachetools-cachedmethod-pickle | oracle | PASS | PASS | — | OK |
+| cachetools-cachedmethod-pickle | noop | FAIL | FAIL | target-tests | OK |
+| cachetools-cachedmethod-pickle | cheater | FAIL | FAIL | tests-untouched | OK |
+| cachetools-unbound-keyword | oracle | PASS | PASS | — | OK |
+| cachetools-unbound-keyword | noop | FAIL | FAIL | target-tests | OK |
+| cachetools-unbound-keyword | cheater | FAIL | FAIL | tests-untouched | OK |
+| cachetools-stacked-decorators | oracle | PASS | PASS | — | OK |
+| cachetools-stacked-decorators | noop | FAIL | FAIL | target-tests | OK |
+| cachetools-stacked-decorators | cheater | FAIL | FAIL | tests-untouched | OK |
+| click-short-help-abbrev | oracle | PASS | PASS | — | OK |
+| click-short-help-abbrev | noop | FAIL | FAIL | target-tests | OK |
+| click-short-help-abbrev | cheater | FAIL | FAIL | tests-untouched | OK |
+| click-pager-params | oracle | PASS | PASS | — | OK |
+| click-pager-params | noop | FAIL | FAIL | target-tests | OK |
+| click-pager-params | cheater | FAIL | FAIL | tests-untouched | OK |
+REALKIT-PASS 27/27 expectations; SYNTHETIC fake hands
