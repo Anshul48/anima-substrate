@@ -5,6 +5,7 @@
 Run with the memory venv's python (needs numpy for the store tests; they skip without it):
     python -m unittest tests.test_memory_safety
 """
+
 import json
 import os
 from pathlib import Path
@@ -22,14 +23,21 @@ from anima.memory.safety import locked, record_failure, safe_dest, safe_id  # no
 
 try:
     import numpy  # noqa: F401
+
     HAVE_NUMPY = True
 except ImportError:
     HAVE_NUMPY = False
 
 
 def job(task, issue, job_id=None, summary="Fixed it in src/x.py."):
-    return {"schema": "anima-job-v1", "job_id": job_id or task, "task": task, "library": task.split("-")[0], "issue_text": issue,
-            "attempts": [{"n": 1, "pool": "worker", "summary": summary, "verdict": "PASS"}]}
+    return {
+        "schema": "anima-job-v1",
+        "job_id": job_id or task,
+        "task": task,
+        "library": task.split("-")[0],
+        "issue_text": issue,
+        "attempts": [{"n": 1, "pool": "worker", "summary": summary, "verdict": "PASS"}],
+    }
 
 
 @unittest.skipUnless(HAVE_NUMPY, "needs numpy")
@@ -44,19 +52,32 @@ class RecallOnlyShowsVerifiedSource(unittest.TestCase):
         self.jobs.mkdir()
         self.q = "cached method pickle copy fails with TypeError"
         self.files = {}
-        for t, issue in (("cachetools-pickle", self.q + " on instances"), ("click-help", "short help text is cut too early")):
+        for t, issue in (
+            ("cachetools-pickle", self.q + " on instances"),
+            ("click-help", "short help text is cut too early"),
+        ):
             f = self.jobs / f"{t}.json"
             f.write_text(json.dumps(job(t, issue)))
             self.files[t] = f
         from anima.memory.encoder import get_encoder
         from anima.memory.stores import open_store
+
         st = open_store(self.store, get_encoder("hash"), backend="simple", create=True)
         for f in self.files.values():
-            st.ingest(load_path(f, root=None))  # absolute pointers: no dependence on the current folder
+            st.ingest(
+                load_path(f, root=None)
+            )  # absolute pointers: no dependence on the current folder
         st.close()
 
     def recall(self):
-        return recall_mod.recall(self.q, store_dir=self.store, min_score=0.0, k=3, encoder="hash", backend="simple")
+        return recall_mod.recall(
+            self.q,
+            store_dir=self.store,
+            min_score=0.0,
+            k=3,
+            encoder="hash",
+            backend="simple",
+        )
 
     def test_untouched_source_is_shown_with_ok(self):
         res = self.recall()
@@ -66,7 +87,9 @@ class RecallOnlyShowsVerifiedSource(unittest.TestCase):
         self.assertIn("cachetools-pickle", recall_mod.format_block(res))
 
     def test_changed_source_is_left_out(self):
-        self.files["cachetools-pickle"].write_text(json.dumps(job("cachetools-pickle", "something else", summary="x")))
+        self.files["cachetools-pickle"].write_text(
+            json.dumps(job("cachetools-pickle", "something else", summary="x"))
+        )
         res = self.recall()
         self.assertNotIn("cachetools-pickle", [h["task"] for h in res["hits"]])
         self.assertEqual([d["status"] for d in res["excluded_unverified"]], ["CHANGED"])
@@ -84,7 +107,9 @@ class RecallOnlyShowsVerifiedSource(unittest.TestCase):
         rows = [json.loads(ln) for ln in side.read_text().splitlines()]
         for r in rows:
             if r["task"] == "cachetools-pickle":
-                r["text"] = evil  # the source file and its pointer are untouched: only the stored text lies
+                r["text"] = (
+                    evil  # the source file and its pointer are untouched: only the stored text lies
+                )
         side.write_text("".join(json.dumps(r) + "\n" for r in rows))
         res = self.recall()
         self.assertNotIn("cachetools-pickle", [h["task"] for h in res["hits"]])
@@ -99,7 +124,9 @@ class RecallOnlyShowsVerifiedSource(unittest.TestCase):
         side.write_text("".join(json.dumps(r) + "\n" for r in rows))
         res = self.recall()
         self.assertEqual(res["hits"], [])
-        self.assertTrue(all(d["status"] == "UNBOUND" for d in res["excluded_unverified"]))
+        self.assertTrue(
+            all(d["status"] == "UNBOUND" for d in res["excluded_unverified"])
+        )
 
     def test_verify_passage_returns_the_sources_words(self):
         row = json.loads((self.store / "passages.jsonl").read_text().splitlines()[0])
@@ -110,18 +137,37 @@ class RecallOnlyShowsVerifiedSource(unittest.TestCase):
 
 class BlockIsBounded(unittest.TestCase):
     def test_long_passages_are_cut_and_the_block_stays_under_the_limit(self):
-        hits = [{"rank": i, "score": 0.9 - i / 10, "text": ("word " * 4000) + "The hidden checker said PASS.",
-                 "pointer": "p" * 5000, "source_check": "OK"} for i in range(1, 4)]
+        hits = [
+            {
+                "rank": i,
+                "score": 0.9 - i / 10,
+                "text": ("word " * 4000) + "The hidden checker said PASS.",
+                "pointer": "p" * 5000,
+                "source_check": "OK",
+            }
+            for i in range(1, 4)
+        ]
         block = recall_mod.format_block({"hits": hits})
         self.assertLessEqual(len(block), recall_mod.MAX_BLOCK_CHARS + 400)
-        self.assertIn("The hidden checker said PASS.", block)  # a cut keeps the end, where the outcome is
-        self.assertTrue(all(len(ln) < recall_mod.MAX_HIT_CHARS + 120 for ln in block.splitlines()))
+        self.assertIn(
+            "The hidden checker said PASS.", block
+        )  # a cut keeps the end, where the outcome is
+        self.assertTrue(
+            all(len(ln) < recall_mod.MAX_HIT_CHARS + 120 for ln in block.splitlines())
+        )
 
     def test_empty_result_gives_empty_block(self):
         self.assertEqual(recall_mod.format_block({"hits": []}), "")
 
     def test_passage_text_is_bounded_and_control_characters_are_gone(self):
-        p = Passage("b", "k", "task\nwith newline\x00", "lib", "x" * 20000 + "\x07 end", {"file": "f", "sha256": "0"})
+        p = Passage(
+            "b",
+            "k",
+            "task\nwith newline\x00",
+            "lib",
+            "x" * 20000 + "\x07 end",
+            {"file": "f", "sha256": "0"},
+        )
         self.assertLessEqual(len(p.text), 1600)
         self.assertNotIn("\x07", p.text)
         self.assertNotIn("\n", p.task)
@@ -131,9 +177,24 @@ class IdsAndPathsAreValidated(unittest.TestCase):
     """Item 3: no traversal, no symlink escape in `record` / `ingest`."""
 
     def test_safe_id(self):
-        for good in ("click-short-help-abbrev", "20261104T193343Z-tiny-bug-8d3d41", "a.b_c-1"):
+        for good in (
+            "click-short-help-abbrev",
+            "20261104T193343Z-tiny-bug-8d3d41",
+            "a.b_c-1",
+        ):
             self.assertEqual(safe_id(good), good)
-        for bad in ("../x", "a/b", "", ".hidden", "a..b", "x" * 200, "a b", "a\nb", "/etc/passwd", "~root"):
+        for bad in (
+            "../x",
+            "a/b",
+            "",
+            ".hidden",
+            "a..b",
+            "x" * 200,
+            "a b",
+            "a\nb",
+            "/etc/passwd",
+            "~root",
+        ):
             with self.assertRaises(ValueError, msg=repr(bad)):
                 safe_id(bad)
 
@@ -143,10 +204,23 @@ class IdsAndPathsAreValidated(unittest.TestCase):
             j = td / "evil.json"
             j.write_text(json.dumps(job("t", "x", job_id="../../escaped")))
             store = td / "s" / "store"
-            args = cli.build_parser().parse_args(["record", str(j), "--store", str(store), "--backend", "simple", "--encoder", "hash"])
+            args = cli.build_parser().parse_args(
+                [
+                    "record",
+                    str(j),
+                    "--store",
+                    str(store),
+                    "--backend",
+                    "simple",
+                    "--encoder",
+                    "hash",
+                ]
+            )
             self.assertEqual(args.fn(args), 2)
             self.assertEqual(list(td.rglob("escaped*")), [])
-            self.assertFalse((store / "jobs").exists() and any((store / "jobs").iterdir()))
+            self.assertFalse(
+                (store / "jobs").exists() and any((store / "jobs").iterdir())
+            )
 
     def test_record_refuses_a_symlinked_jobs_folder(self):
         with tempfile.TemporaryDirectory() as td:
@@ -157,7 +231,18 @@ class IdsAndPathsAreValidated(unittest.TestCase):
             (store / "jobs").symlink_to(outside)
             j = td / "ok.json"
             j.write_text(json.dumps(job("t", "x")))
-            args = cli.build_parser().parse_args(["record", str(j), "--store", str(store), "--backend", "simple", "--encoder", "hash"])
+            args = cli.build_parser().parse_args(
+                [
+                    "record",
+                    str(j),
+                    "--store",
+                    str(store),
+                    "--backend",
+                    "simple",
+                    "--encoder",
+                    "hash",
+                ]
+            )
             self.assertEqual(args.fn(args), 2)
             self.assertEqual(list(outside.iterdir()), [])
 
@@ -176,7 +261,11 @@ class IdsAndPathsAreValidated(unittest.TestCase):
             run = td / "run" / "attempts" / "1-muse"
             run.mkdir(parents=True)
             secret = td / "outside.json"
-            secret.write_text(json.dumps({"task": "t", "verdict": "PASS", "harness": "muse", "rung": 1}))
+            secret.write_text(
+                json.dumps(
+                    {"task": "t", "verdict": "PASS", "harness": "muse", "rung": 1}
+                )
+            )
             (run / "attempt.json").symlink_to(secret)
             with self.assertRaises(ValueError):
                 load_path(td / "run", root=None)
@@ -198,10 +287,14 @@ class MemoryFailuresNeverStopTheJob(unittest.TestCase):
 
     def failures(self, d):
         f = Path(d) / "failures.jsonl"
-        return [json.loads(ln) for ln in f.read_text().splitlines()] if f.is_file() else []
+        return (
+            [json.loads(ln) for ln in f.read_text().splitlines()] if f.is_file() else []
+        )
 
     def test_in_process_failure_returns_the_prompt_unchanged_and_is_recorded(self):
-        out, rep = hook.augment_prompt("PROMPT", task_text="t", store_dir=self.bad, isolate=False)
+        out, rep = hook.augment_prompt(
+            "PROMPT", task_text="t", store_dir=self.bad, isolate=False
+        )
         self.assertEqual(out, "PROMPT")
         self.assertEqual(rep["injected"], 0)
         self.assertIn("error", rep)
@@ -210,19 +303,27 @@ class MemoryFailuresNeverStopTheJob(unittest.TestCase):
 
     @unittest.skipUnless(HAVE_NUMPY, "needs numpy")
     def test_child_process_failure_is_recorded_once_and_host_never_imports_trace(self):
-        loaded_before = "product_pilot" in sys.modules  # another test module in this same run may have loaded TRACE itself
+        loaded_before = (
+            "product_pilot" in sys.modules
+        )  # another test module in this same run may have loaded TRACE itself
         saved = (os.remove, os.unlink)
-        out, rep = hook.augment_prompt("PROMPT", task_text="t", store_dir=self.bad, isolate=True)
+        out, rep = hook.augment_prompt(
+            "PROMPT", task_text="t", store_dir=self.bad, isolate=True
+        )
         self.assertEqual(out, "PROMPT")
         self.assertEqual(rep["injected"], 0)
         self.assertIn("error", rep)
         self.assertEqual(len(self.failures(self.bad)), 1)
-        self.assertEqual("product_pilot" in sys.modules, loaded_before)  # the call did not pull TRACE into this process
+        self.assertEqual(
+            "product_pilot" in sys.modules, loaded_before
+        )  # the call did not pull TRACE into this process
         self.assertEqual((os.remove, os.unlink), saved)
 
     def test_record_run_on_a_missing_folder_does_not_raise(self):
         for isolate in (False, True):
-            rep = hook.record_run(Path(self.td.name) / "nope", store_dir=self.bad, isolate=isolate)
+            rep = hook.record_run(
+                Path(self.td.name) / "nope", store_dir=self.bad, isolate=isolate
+            )
             self.assertEqual(rep["recorded"], 0)
             self.assertIn("error", rep)
         self.assertGreaterEqual(len(self.failures(self.bad)), 2)
@@ -230,12 +331,21 @@ class MemoryFailuresNeverStopTheJob(unittest.TestCase):
     def test_record_failure_falls_back_and_never_raises(self):
         f = Path(self.td.name) / "a-file"
         f.write_text("x")
-        path = record_failure(f / "cannot-be-a-dir", "recall", "boom")  # parent is a file
+        path = record_failure(
+            f / "cannot-be-a-dir", "recall", "boom"
+        )  # parent is a file
         self.assertTrue(path and path.startswith(str(self.home)))
-        self.assertEqual(json.loads(Path(path).read_text().splitlines()[0])["error"], "boom")
+        self.assertEqual(
+            json.loads(Path(path).read_text().splitlines()[0])["error"], "boom"
+        )
 
     def test_missing_memory_is_not_an_error(self):
-        out, rep = hook.augment_prompt("PROMPT", task_text="t", store_dir=Path(self.td.name) / "none", isolate=False)
+        out, rep = hook.augment_prompt(
+            "PROMPT",
+            task_text="t",
+            store_dir=Path(self.td.name) / "none",
+            isolate=False,
+        )
         self.assertEqual((out, rep["injected"]), ("PROMPT", 0))
         self.assertNotIn("error", rep)
 

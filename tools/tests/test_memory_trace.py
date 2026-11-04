@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """Needs numpy/blake3 (and, for the TRACE test, the frozen TRACE source + the MiniLM files:
 run `python3 -m anima.memory setup` once). Skipped when they are absent."""
+
 from pathlib import Path
 import shutil
 import sys
@@ -13,6 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 try:
     import numpy  # noqa: F401
+
     HAVE_NP = True
 except ImportError:
     HAVE_NP = False
@@ -54,22 +56,35 @@ class SimpleBackend(Tmp):
 
     def test_ingest_recall_idempotent(self):
         from anima.memory.stores import open_store
+
         if True:
             d = self.tmp()
             st = open_store(d, E.HashEncoder(), backend="simple")
             ps = P.parse_decisions(LOG, root=ROOT) + P.parse_job(JOB, root=ROOT)
             self.assertEqual(st.ingest(ps)["added"], 13)
             self.assertEqual(st.ingest(ps)["added"], 0)
-            res = recall(Q_CLICK, store_dir=d, k=2, min_score=0.0, encoder="hash", store=st, verify=False)
+            res = recall(
+                Q_CLICK,
+                store_dir=d,
+                k=2,
+                min_score=0.0,
+                encoder="hash",
+                store=st,
+                verify=False,
+            )
             self.assertEqual(res["hits"][0]["task"], "click-short-help-abbrev")
             self.assertIn("simple retriever", res["backend"])
             st.close()
 
 
-@unittest.skipUnless(_trace_ready(), "TRACE source / model / deps not set up (python3 -m anima.memory setup)")
+@unittest.skipUnless(
+    _trace_ready(),
+    "TRACE source / model / deps not set up (python3 -m anima.memory setup)",
+)
 class TraceBackend(Tmp):
     def test_ingest_recall_reopen(self):
         from anima.memory.stores import open_store
+
         if True:
             d = self.tmp()
             enc = E.get_encoder("minilm")
@@ -78,15 +93,36 @@ class TraceBackend(Tmp):
             self.assertEqual(st.ingest(ps)["added"], 13)
             self.assertEqual(st.count(), 13)
             st.close()
-            res = recall(Q_CLICK, store_dir=d, k=3, min_score=0.0, encoder="minilm", backend="trace", verify=False)
+            res = recall(
+                Q_CLICK,
+                store_dir=d,
+                k=3,
+                min_score=0.0,
+                encoder="minilm",
+                backend="trace",
+                verify=False,
+            )
             self.assertIn("TRACE frozen engine 38c66bef", res["backend"])
             self.assertEqual(res["hits"][0]["task"], "click-short-help-abbrev")
-            self.assertTrue(all(h["trace_integrity"] == "intact-verified" for h in res["hits"]))
+            self.assertTrue(
+                all(h["trace_integrity"] == "intact-verified" for h in res["hits"])
+            )
             import os
             import shutil
-            self.assertEqual(shutil.rmtree.__module__, "shutil")  # the pilot's delete-preserving patch must not leak
+
+            self.assertEqual(
+                shutil.rmtree.__module__, "shutil"
+            )  # the pilot's delete-preserving patch must not leak
             self.assertEqual(os.remove.__name__, "remove")
-            res2 = recall("cached methods cannot be pickled", store_dir=d, k=1, min_score=0.0, encoder="minilm", backend="trace", verify=False)
+            res2 = recall(
+                "cached methods cannot be pickled",
+                store_dir=d,
+                k=1,
+                min_score=0.0,
+                encoder="minilm",
+                backend="trace",
+                verify=False,
+            )
             self.assertEqual(res2["hits"][0]["task"], "cachetools-cachedmethod-pickle")
 
 
