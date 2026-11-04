@@ -31,17 +31,32 @@ def recall(task_text, store_dir=DEFAULT_STORE, k=DEFAULT_K, min_score=DEFAULT_MI
     own = store is None
     st = store or open_store(store_dir, enc, backend=backend, create=False)
     try:
-        raw = st.search(task_text, k=k + 12 * bool(exclude_tasks) + 4)
+        raw = st.search(task_text, k=max(4 * k, 12))
         root = Path(cfg["project_root"]) if cfg else None
-        hits = []
+        excl = set(exclude_tasks)
+        groups = {}  # one entry per task: its best-scoring passage
         for h in raw:
             row = st.side.rows.get(h["doc_id"])
-            if row is None or row["task"] in set(exclude_tasks) or h["score"] < min_score:
+            if row is None or row["task"] in excl or h["score"] < min_score:
                 continue
-            chk = verify_pointer(row["source"], root) if verify else ("UNCHECKED", "")
-            hits.append({"rank": len(hits) + 1, "score": round(h["score"], 4), "doc_id": h["doc_id"],
-                         "task": row["task"], "text": row["text"], "meta": row["meta"],
-                         "source": row["source"], "pointer": pointer_str(row["source"]),
+            g = groups.get(row["task"])
+            if g is None or h["score"] > g[1]["score"]:
+                groups[row["task"]] = (row, h)
+        hits = []
+        for task, (row, h) in sorted(groups.items(), key=lambda kv: -kv[1][1]["score"]):
+            shown = row
+            if row["meta"].get("verdict") != "PASS":
+                # the best match is a failed attempt: if the same record also holds the attempt that
+                # finally passed, show that one (it names the earlier failure AND the fix)
+                later = [r for r in st.side.rows.values()
+                         if r["task"] == task and r["source"]["file"] == row["source"]["file"]
+                         and r["meta"].get("verdict") == "PASS"]
+                if later:
+                    shown = max(later, key=lambda r: (r["meta"].get("attempt") or r["meta"].get("rung") or 0, r["doc_id"]))
+            chk = verify_pointer(shown["source"], root) if verify else ("UNCHECKED", "")
+            hits.append({"rank": len(hits) + 1, "score": round(h["score"], 4), "doc_id": shown["doc_id"],
+                         "matched_doc_id": h["doc_id"], "task": task, "text": shown["text"], "meta": shown["meta"],
+                         "source": shown["source"], "pointer": pointer_str(shown["source"]),
                          "source_check": chk[0], "source_detail": chk[1],
                          "trace_integrity": h.get("trace_integrity")})
             if len(hits) == k:
