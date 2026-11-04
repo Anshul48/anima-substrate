@@ -13,6 +13,32 @@ ANIMA plugs into the coding tool you already use, **Muse Code first, then Claude
 
 **Site:** [anshul48.github.io/anima-substrate](https://anshul48.github.io/anima-substrate/) &nbsp;|&nbsp; **Status of every part:** [docs/status.json](docs/status.json) &nbsp;|&nbsp; **Docs index:** [docs/INDEX.md](docs/INDEX.md)
 
+## The ecosystem
+
+One builder, three projects. TRACE is at the front: the memory the other two are built to use. This repository is ANIMA; Reflex is the third. Each has its own demo. The owner's profile is calibrated as a map of these projects: [github.com/Anshul48](https://github.com/Anshul48).
+
+<p align="center">
+  <img src="docs/img/ecosystem.svg" alt="Diagram: TRACE in front as the memory, ANIMA and Reflex behind it, with lines from each to TRACE." width="640">
+</p>
+
+### TRACE: the memory, at the front
+
+TRACE is a memory that sorts a huge pile of text into groups by itself, so a question opens only the few groups it needs, and every result comes with a record you can check. It is the vanguard of this ecosystem: the part the other two build on, and ANIMA's memory.
+
+**Watch the demo:** [open the TRACE explorer](https://anshul48.github.io/trace/explorer/), a replay of 144 real recorded searches. Nothing to install. [TRACE on GitHub](https://github.com/Anshul48/trace).
+
+### ANIMA: coding agents that remember (this repository)
+
+ANIMA is a layer that sits on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory, a checker it cannot see, and a screen to watch it work. Its memory is TRACE, joined by a prototype link with one small recorded test so far.
+
+**Watch the demo:** [check ANIMA's record in your browser](https://anshul48.github.io/anima-substrate/demo/), a replay of a recorded nine-job run.
+
+### Reflex: an AI that finds the right button
+
+Reflex is a line of work where an AI looks at a screen and finds the right button to press. The direction is SAM 3.1 with Muse Spark: in the early trial, SAM 3.1 cut made-up screens into pieces and Muse Spark read them and chose — an early trial, a direction, with small synthetic tests so far.
+
+**Watch the demo:** [open the replay demo](https://anshul48.github.io/demo-trace-anima-reflex/) (no login, pick the Reflex sample) or [watch the short film](https://anshul48.github.io/trace/demos/#reflex). [Early trial results](https://github.com/Anshul48/trace/blob/main/docs/reflex.md).
+
 ## What is built and what is not
 
 Every claim in this README comes from one file, [`docs/status.json`](docs/status.json). A part may say **Working today** only if it lists a command anyone can run and a file that backs it. The table below is generated from that file, and a check in CI fails if it disagrees.
