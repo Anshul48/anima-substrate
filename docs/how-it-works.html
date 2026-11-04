@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" data-project="anima">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How ANIMA works, in plain words</title>
+<meta name="description" content="What happens when you give ANIMA a task: memory lookup, your harness does the work, a hidden checker judges it, a wrong answer climbs a rung, every decision is recorded and drawn as a tree.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="How ANIMA works, in plain words">
+<meta property="og:description" content="What happens when you give ANIMA a task: memory lookup, your harness does the work, a hidden checker judges it, a wrong answer climbs a rung, every decision is recorded and drawn as a tree.">
+<meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
+<meta property="og:url" content="https://anshul48.github.io/anima-substrate/how-it-works.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="index.html" aria-label="ANIMA, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0a1124"/><g fill="none" stroke="#2fd6c2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2.6" fill="#2fd6c2"/><path d="M16 11v5M8 24v-4h16v4M16 16v8"/></g><circle cx="8" cy="25" r="2" fill="#a597ff"/><circle cx="16" cy="25" r="2" fill="#4be0a0"/><circle cx="24" cy="25" r="2" fill="#f6b93b"/></svg>ANIMA</a>
+<nav class="nav" aria-label="Main"><a href="try.html">Try it</a><a href="how-it-works.html" aria-current="page">How it works</a><a href="features.html">Features</a><a href="evidence.html">Evidence</a><a href="demos.html">Demos</a><a href="about.html">About</a><a class="gh" href="https://github.com/Anshul48/anima-substrate">GitHub</a><button class="themebtn" type="button" aria-label="Switch between light and dark colours">Theme</button></nav>
+</div>
+</header>
+<main id="main">
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="index.html">Home</a> / How it works</p>
+<h1>How it works, in plain words.</h1>
+<p class="lead">ANIMA sits between you and the coding tool you already use. It does not replace that tool. It adds a memory, rules, a checker and a screen around it.</p>
+<ul class="flow" aria-label="The parts, left to right">
+<li><span class="chip">You<small>typing or voice</small></span><span class="arrow" aria-hidden="true">&rarr;</span></li>
+<li><span class="chip">Your harness<small>Muse Code, Claude Code, Codex</small></span><span class="arrow" aria-hidden="true">&harr;</span></li>
+<li><span class="chip">ANIMA<small>rules, checker, ladder, record</small></span><span class="arrow" aria-hidden="true">&harr;</span></li>
+<li><span class="chip">TRACE<small>the memory</small></span></li>
+</ul>
+<h2>What happens to one task</h2>
+<ol class="steps">
+<li><h3>You give it a task <span class="badge" data-state="next">Next, not built yet</span></h3><p>By typing, or by speaking, with speech turned into text on your own computer.</p></li>
+<li><h3>It looks in the memory <span class="badge" data-state="prototype">Prototype</span></h3><p>Has something like this been fixed or decided before? TRACE returns notes, and each note carries a record id that points to where it came from.</p></li>
+<li><h3>Your harness does the work <span class="badge" data-state="next">Next, not built yet</span> <span class="badge" data-state="next">Next, not built yet</span></h3><p>ANIMA hands the task and the notes to Muse Code, Claude Code or Codex. The rules apply while the agent works: no secrets read, nothing pushed.</p></li>
+<li><h3>A hidden checker judges the answer <span class="badge" data-state="prototype">Prototype</span> <span class="badge" data-state="prototype">Prototype</span></h3><p>Tests the agent cannot see or edit decide. If the answer is wrong, the next helper gets the task plus the one failing line: a small local model, then Claude Sonnet, then Codex.</p></li>
+<li><h3>Every decision is recorded and drawn <span class="badge" data-state="built">Working today</span> <span class="badge" data-state="next">Next, not built yet</span></h3><p>Each decision is one line in a log, and each line carries a fingerprint of the line before it, so an edit shows. The state tree screen draws that log: mission, tasks, attempts.</p></li>
+</ol>
+<h2>What ANIMA is not</h2>
+<ul>
+<li>It is not a model. It makes the tools and models you already have easier to trust and to see.</li>
+<li>It is not a general job scheduler. What was validated is one kind of job: fix a bug, judged by hidden tests.</li>
+<li>It does not claim that agents can work for hours unattended. That is untested.</li>
+</ul>
+<p><a class="btn" href="features.html">See each part</a> <a class="btn" href="evidence.html">See the evidence</a></p>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="wrap cols">
+<div>
+<p><strong>ANIMA</strong>: memory, one screen and enforced rules for the coding agents you already use.</p>
+<p>Apache License 2.0. No cookies, no tracking, no outside files. Status last updated 2026-11-04.</p>
+<p>Also by this team: <a href="https://anshul48.github.io/trace/">TRACE</a>, search that shows its work.</p>
+</div>
+<div>
+<h2>This site</h2>
+<ul>
+<li><a href="try.html">Try it</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="evidence.html">Evidence and limits</a></li>
+<li><a href="verify.html">Check every claim</a></li>
+<li><a href="status.html">What is built</a></li>
+<li><a href="demos.html">Demos</a></li>
+</ul>
+</div>
+<div>
+<h2>Project</h2>
+<ul>
+<li><a href="https://github.com/Anshul48/anima-substrate">Repository</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CHANGELOG.md">Changelog</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/SECURITY.md">Security</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CITATION.cff">Cite it</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/issues/new/choose">Report a problem</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script src="assets/site.js" defer></script>
+
+</body>
+</html>

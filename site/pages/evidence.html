@@ -1,0 +1,59 @@
+title: ANIMA evidence and honest limits
+description: A recorded run of nine real bug-fixing jobs, seven right the first time, two wrong done answers caught and fixed, a record you can check, and every limit stated.
+nav: evidence
+out: evidence.html
+---
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="index.html">Home</a> / Evidence</p>
+<h1>Evidence, and where it stops.</h1>
+<p class="lead">One validated prototype for one kind of job: fix a bug, judged by hidden tests. Everything below is a recorded run you can open and a record you can check.</p>
+
+<h2>The nine jobs</h2>
+<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small local model tries first. A hidden checker, tests the agent does not see and cannot edit, judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job plus the one failing line.</p>
+<div class="tiles">
+<div class="tile"><span class="num">9</span><p>real bug-fix jobs.</p></div>
+<div class="tile"><span class="num">7</span><p>right the first time, confirmed by the hidden tests.</p></div>
+<div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers, caught by the checker and fixed by Claude Sonnet.</p></div>
+</div>
+<ul class="jobs9" aria-label="The nine jobs">
+<li><b>semver-bump-prerelease</b>right first time</li>
+<li><b>packaging-licenseref-case</b>right first time</li>
+<li><b>dateutil-tzstr-doy-rules</b>right first time</li>
+<li><b>moreiter-peekable-slice</b>right first time</li>
+<li><b>cachetools-cachedmethod-pickle</b>right first time</li>
+<li class="caught"><b>cachetools-unbound-keyword</b>wrong &ldquo;done&rdquo;, caught, fixed on rung 2</li>
+<li><b>cachetools-stacked-decorators</b>right first time</li>
+<li class="caught"><b>click-short-help-abbrev</b>wrong &ldquo;done&rdquo;, caught, fixed on rung 2</li>
+<li><b>click-pager-params</b>right first time</li>
+</ul>
+<p>This is a trimmed copy of the real log (<a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/real3.log">full file</a>):</p>
+<pre class="out">REAL cachetools-unbound-keyword rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL rule=target-tests</span>
+REAL cachetools-unbound-keyword rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span>
+REAL click-short-help-abbrev rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL rule=target-tests</span>
+REAL click-short-help-abbrev rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span></pre>
+<p><code>rung=0</code> is the small local model, <code>rung=1</code> is Claude Sonnet. <code>said-done=yes</code> means the agent claimed it was finished. <code>gate=FAIL</code> means the hidden checker disagreed, and <code>rule=target-tests</code> means the tests written for that bug failed.</p>
+<p>What the checker saw in the second case: the agent&rsquo;s fix cut a help text in the wrong place.</p>
+<pre class="out"><span class="bad">E   AssertionError: assert 'Pick a fruit. 3...' == 'Pick a fruit.'</span></pre>
+<p>The agent had not noticed. The checker did, and the next helper was handed the task plus that one line. (<a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/rejected-attempt-click-short-help-abbrev.gate.json">Full checker output</a>)</p>
+
+<h2>The record</h2>
+<p>Each decision in the run is one line in a file, and each line carries a fingerprint (a tamper-evident seal) of the line before it. Change anything and the break shows up. You can check it in your browser or in a terminal.</p>
+<div class="actions"><a class="btn primary" href="demo/">Check the record in your browser</a><a class="btn" href="verify.html">Check it in a terminal</a></div>
+
+<h2 id="limits">Honest limits</h2>
+<div class="callout">
+<ul>
+<li><strong>This is a validated prototype for one kind of job:</strong> fix a bug, judged by hidden tests. It is not a general job scheduler.</li>
+<li><strong>Nine jobs, one run.</strong> That is a worked example, not a statistic.</li>
+<li><strong>The second helper was told the failing line,</strong> so it was an informed retry, not a blind one.</li>
+<li><strong>The libraries are public,</strong> so the agents may have seen similar fixes before.</li>
+<li><strong>We make no claim about long runs,</strong> or about leaving it alone while you are away. That is untested.</li>
+<li><strong>The seal shows the record was not changed afterwards.</strong> It cannot show that the run itself was honest, and the check does not re-run the nine jobs.</li>
+{{#notbuilt:checker}}<li><strong>The checker&rsquo;s code is not yet in this repository as a command you can re-run on the nine jobs,</strong> so only the record of the run can be re-checked from here.</li>{{/notbuilt}}
+<li><strong>Everything on this site is our own measurement.</strong> No outside party has verified it.</li>
+</ul>
+</div>
+<p>Full run notes with their caveats: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">run 3</a> and the <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run2/README.md">earlier run</a>.</p>
+</div>
+</section>

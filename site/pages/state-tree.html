@@ -1,0 +1,26 @@
+title: ANIMA state tree: one screen for every agent
+description: The State Space Tree (SST) screen draws every agent's work as a tree: mission, tasks, attempts, coloured right, wrong or waiting.
+nav: features
+out: state-tree.html
+---
+{{fhead:sst}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>When several agents work at once, you end up piecing things together from separate windows. This screen puts the work on one page, as a tree. The root is the mission, the branches are tasks, and the leaves are attempts. Selecting a node shows its decision records. An escalation adds a branch.</p>
+<h2>See it</h2>
+{{#built:sst}}<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen replaying the recorded nine-job run: owner, run, nine tasks, attempts coloured verified or rejected, and the decision records of the selected task."><figcaption>Real screenshot: a replay of the recorded nine-job run, not a live run. Two tasks show a rejected first attempt and a second attempt that passed.</figcaption></figure>{{/built}}
+{{#notbuilt:sst}}<figure class="stage" style="max-width:520px">{{include:hero-illustration}}<figcaption>Illustration, not a screenshot. The screen is not built yet.</figcaption></figure>{{/notbuilt}}
+<ul class="legend" aria-label="How to read the colours">
+<li><i class="l-ok"></i>right (checked by the hidden checker)</li>
+<li><i class="l-bad"></i>wrong &ldquo;done&rdquo;, caught</li>
+<li><i class="l-wait"></i>waiting</li>
+<li><i class="l-mem"></i>memory hit</li>
+</ul>
+<p class="muted">The colour is always written next to the node too, so nothing relies on colour alone.</p>
+{{facts:sst}}
+<p class="small muted" style="margin-top:var(--space-5)">SST stands for State Space Tree. An older, separate project of ours also used the letters SST for a search that tries several fixes side by side. That is not what this page means.</p>
+{{howtocheck:sst}}
+{{pager:sst}}
+</div>
+</section>

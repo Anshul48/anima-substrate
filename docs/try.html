@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" data-project="anima">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try ANIMA: pick how much time you have</title>
+<meta name="description" content="Check ANIMA&#x27;s recorded run in your browser in 30 seconds, run the tamper check in a terminal in two minutes, or install it and plug in your harness.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Try ANIMA: pick how much time you have">
+<meta property="og:description" content="Check ANIMA&#x27;s recorded run in your browser in 30 seconds, run the tamper check in a terminal in two minutes, or install it and plug in your harness.">
+<meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
+<meta property="og:url" content="https://anshul48.github.io/anima-substrate/try.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="index.html" aria-label="ANIMA, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0a1124"/><g fill="none" stroke="#2fd6c2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2.6" fill="#2fd6c2"/><path d="M16 11v5M8 24v-4h16v4M16 16v8"/></g><circle cx="8" cy="25" r="2" fill="#a597ff"/><circle cx="16" cy="25" r="2" fill="#4be0a0"/><circle cx="24" cy="25" r="2" fill="#f6b93b"/></svg>ANIMA</a>
+<nav class="nav" aria-label="Main"><a href="try.html" aria-current="page">Try it</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="evidence.html">Evidence</a><a href="demos.html">Demos</a><a href="about.html">About</a><a class="gh" href="https://github.com/Anshul48/anima-substrate">GitHub</a><button class="themebtn" type="button" aria-label="Switch between light and dark colours">Theme</button></nav>
+</div>
+</header>
+<main id="main">
+<section class="sec">
+<div class="wrap narrow">
+<p class="crumbs"><a href="index.html">Home</a> / Try it</p>
+<h1>Try it. Pick how much time you have.</h1>
+<p class="lead">Three doors, from least effort to most. The badge on each says whether it works today.</p>
+
+<h2>30 seconds: check the record in your browser</h2>
+<p><span class="badge" data-state="built">Working today</span></p>
+<p>A real recorded run of nine bug-fixing jobs. Press a button and your browser recomputes every fingerprint in the record, then change one character and watch the break show up. Nothing is sent anywhere.</p>
+<div class="actions"><a class="btn primary" href="demo/">Open the check</a></div>
+
+<h2>2 minutes: run the same check in a terminal</h2>
+<p><span class="badge" data-state="built">Working today</span></p>
+<p>You need Python 3 and git. Nothing to install. The download is about 11 MB and the check takes about a second.</p>
+<div class="cmd"><code>git clone https://github.com/Anshul48/anima-substrate
+cd anima-substrate
+python3 docs/evidence/flagship-run3/check_chain.py --tamper</code><button class="copy" type="button" data-copy="git clone https://github.com/Anshul48/anima-substrate&#10;cd anima-substrate&#10;python3 docs/evidence/flagship-run3/check_chain.py --tamper">Copy</button></div>
+<p>What it printed when we ran it:</p>
+<pre class="out"><span class="ok">recorded run: CHAIN OK - 69 records, every link matches</span>
+  file fingerprint (SHA-256): acd95bf03497057c50fc050633eadeb024d1dc49dee55a236cb29f95b989bd5d
+  matches the fingerprint saved at the end of the run: yes
+
+<span class="dim">changed one character on line 6 of a temporary copy (the original is untouched)</span>
+<span class="bad">edited copy: CHAIN BROKEN - 69 records, line 7 does not match the line before it</span>
+  file fingerprint (SHA-256): 2773ad2824efdce0e88ebbb733641de8bf2b06932c8239f1a23bd0317ea80612</pre>
+<p class="muted">This checks the record. It does not re-run the nine jobs.</p>
+
+<h2>5 minutes: install ANIMA and plug in your harness</h2>
+<p><span class="badge" data-state="next">Next, not built yet</span> <span class="badge" data-state="next">Next, not built yet</span></p>
+<div class="banner" role="note"><p><strong>Not built yet.</strong> The boxes below show the planned steps in dashed outlines. They are not available yet; until they are, use the two doors above.</p></div>
+<ol class="steps">
+<li><h3>Install</h3><p>One line, no admin rights.</p><p class="cmd-label">One line to install <span class="badge" data-state="next">Next, not built yet</span> <span>Planned line, not available yet.</span></p><div class="cmd planned"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code></div></li>
+<li><h3>See which of your tools it found</h3><p>It lists Muse Code, Claude Code and Codex, whichever are installed and logged in, and writes a starter <code>anima.yaml</code>.</p><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima doctor</code></div></li>
+<li><h3>Send one small bug task to Muse Code first</h3><p class="cmd-label">Planned command <span class="badge" data-state="next">Next, not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima run --harness muse --task examples/tiny-bug</code></div><p>Then change one word to try <code>claude</code> or <code>codex</code>.</p></li>
+</ol>
+
+<h2>Let your agent do it</h2>
+<p><span class="badge" data-state="next">Next, not built yet</span> Paste this into the coding tool you already use, and it can set things up for you.</p>
+<div class="cmd planned"><code>Install ANIMA from https://github.com/Anshul48/anima-substrate with its one-line installer, run `anima doctor`, and tell me which of Muse Code, Claude Code and Codex it found.</code></div>
+<p class="muted small">Planned prompt, not available yet.</p>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="wrap cols">
+<div>
+<p><strong>ANIMA</strong>: memory, one screen and enforced rules for the coding agents you already use.</p>
+<p>Apache License 2.0. No cookies, no tracking, no outside files. Status last updated 2026-11-04.</p>
+<p>Also by this team: <a href="https://anshul48.github.io/trace/">TRACE</a>, search that shows its work.</p>
+</div>
+<div>
+<h2>This site</h2>
+<ul>
+<li><a href="try.html">Try it</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="evidence.html">Evidence and limits</a></li>
+<li><a href="verify.html">Check every claim</a></li>
+<li><a href="status.html">What is built</a></li>
+<li><a href="demos.html">Demos</a></li>
+</ul>
+</div>
+<div>
+<h2>Project</h2>
+<ul>
+<li><a href="https://github.com/Anshul48/anima-substrate">Repository</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CHANGELOG.md">Changelog</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/SECURITY.md">Security</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CITATION.cff">Cite it</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/issues/new/choose">Report a problem</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script src="assets/site.js" defer></script>
+
+</body>
+</html>

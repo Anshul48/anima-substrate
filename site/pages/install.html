@@ -1,0 +1,24 @@
+title: ANIMA one-line install
+description: One command sets ANIMA up in a private folder with no admin rights, then checks which of your coding tools it can find.
+nav: features
+out: install.html
+---
+{{fhead:install}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>You should be able to try ANIMA without a setup day. One line downloads it into a private folder and builds a small Python environment there. It does not need administrator rights and it does not touch the rest of your machine. Then one command checks which of your coding tools it can find.</p>
+<h2>Try it</h2>
+{{installbox}}
+{{cmds:install}}
+<h2>What the installer does, step by step</h2>
+<ol class="steps">
+<li><h3>Downloads ANIMA into a private folder</h3><p>Nothing is installed system-wide.</p></li>
+<li><h3>Builds a small Python environment inside it</h3><p>Python 3 and git must already be on your machine.</p></li>
+<li><h3>Checks your tools</h3><p>Muse Code, Claude Code and Codex are looked for, and each one found is reported. They must already be installed and logged in; ANIMA never asks for your passwords or keys.</p></li>
+</ol>
+{{facts:install}}
+{{howtocheck:install}}
+{{pager:install}}
+</div>
+</section>

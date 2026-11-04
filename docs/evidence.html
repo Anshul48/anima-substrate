@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-project="anima">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMA evidence and honest limits</title>
+<meta name="description" content="A recorded run of nine real bug-fixing jobs, seven right the first time, two wrong done answers caught and fixed, a record you can check, and every limit stated.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMA evidence and honest limits">
+<meta property="og:description" content="A recorded run of nine real bug-fixing jobs, seven right the first time, two wrong done answers caught and fixed, a record you can check, and every limit stated.">
+<meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
+<meta property="og:url" content="https://anshul48.github.io/anima-substrate/evidence.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+
+</head>
+<body class="">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="index.html" aria-label="ANIMA, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0a1124"/><g fill="none" stroke="#2fd6c2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2.6" fill="#2fd6c2"/><path d="M16 11v5M8 24v-4h16v4M16 16v8"/></g><circle cx="8" cy="25" r="2" fill="#a597ff"/><circle cx="16" cy="25" r="2" fill="#4be0a0"/><circle cx="24" cy="25" r="2" fill="#f6b93b"/></svg>ANIMA</a>
+<nav class="nav" aria-label="Main"><a href="try.html">Try it</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="evidence.html" aria-current="page">Evidence</a><a href="demos.html">Demos</a><a href="about.html">About</a><a class="gh" href="https://github.com/Anshul48/anima-substrate">GitHub</a><button class="themebtn" type="button" aria-label="Switch between light and dark colours">Theme</button></nav>
+</div>
+</header>
+<main id="main">
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="index.html">Home</a> / Evidence</p>
+<h1>Evidence, and where it stops.</h1>
+<p class="lead">One validated prototype for one kind of job: fix a bug, judged by hidden tests. Everything below is a recorded run you can open and a record you can check.</p>
+
+<h2>The nine jobs</h2>
+<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small local model tries first. A hidden checker, tests the agent does not see and cannot edit, judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job plus the one failing line.</p>
+<div class="tiles">
+<div class="tile"><span class="num">9</span><p>real bug-fix jobs.</p></div>
+<div class="tile"><span class="num">7</span><p>right the first time, confirmed by the hidden tests.</p></div>
+<div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers, caught by the checker and fixed by Claude Sonnet.</p></div>
+</div>
+<ul class="jobs9" aria-label="The nine jobs">
+<li><b>semver-bump-prerelease</b>right first time</li>
+<li><b>packaging-licenseref-case</b>right first time</li>
+<li><b>dateutil-tzstr-doy-rules</b>right first time</li>
+<li><b>moreiter-peekable-slice</b>right first time</li>
+<li><b>cachetools-cachedmethod-pickle</b>right first time</li>
+<li class="caught"><b>cachetools-unbound-keyword</b>wrong &ldquo;done&rdquo;, caught, fixed on rung 2</li>
+<li><b>cachetools-stacked-decorators</b>right first time</li>
+<li class="caught"><b>click-short-help-abbrev</b>wrong &ldquo;done&rdquo;, caught, fixed on rung 2</li>
+<li><b>click-pager-params</b>right first time</li>
+</ul>
+<p>This is a trimmed copy of the real log (<a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/real3.log">full file</a>):</p>
+<pre class="out">REAL cachetools-unbound-keyword rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL rule=target-tests</span>
+REAL cachetools-unbound-keyword rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span>
+REAL click-short-help-abbrev rung=0 pool=laptop-muse said-done=yes <span class="bad">gate=FAIL rule=target-tests</span>
+REAL click-short-help-abbrev rung=1 pool=claude-sonnet said-done=yes <span class="ok">gate=PASS rule=-</span></pre>
+<p><code>rung=0</code> is the small local model, <code>rung=1</code> is Claude Sonnet. <code>said-done=yes</code> means the agent claimed it was finished. <code>gate=FAIL</code> means the hidden checker disagreed, and <code>rule=target-tests</code> means the tests written for that bug failed.</p>
+<p>What the checker saw in the second case: the agent&rsquo;s fix cut a help text in the wrong place.</p>
+<pre class="out"><span class="bad">E   AssertionError: assert 'Pick a fruit. 3...' == 'Pick a fruit.'</span></pre>
+<p>The agent had not noticed. The checker did, and the next helper was handed the task plus that one line. (<a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/rejected-attempt-click-short-help-abbrev.gate.json">Full checker output</a>)</p>
+
+<h2>The record</h2>
+<p>Each decision in the run is one line in a file, and each line carries a fingerprint (a tamper-evident seal) of the line before it. Change anything and the break shows up. You can check it in your browser or in a terminal.</p>
+<div class="actions"><a class="btn primary" href="demo/">Check the record in your browser</a><a class="btn" href="verify.html">Check it in a terminal</a></div>
+
+<h2 id="limits">Honest limits</h2>
+<div class="callout">
+<ul>
+<li><strong>This is a validated prototype for one kind of job:</strong> fix a bug, judged by hidden tests. It is not a general job scheduler.</li>
+<li><strong>Nine jobs, one run.</strong> That is a worked example, not a statistic.</li>
+<li><strong>The second helper was told the failing line,</strong> so it was an informed retry, not a blind one.</li>
+<li><strong>The libraries are public,</strong> so the agents may have seen similar fixes before.</li>
+<li><strong>We make no claim about long runs,</strong> or about leaving it alone while you are away. That is untested.</li>
+<li><strong>The seal shows the record was not changed afterwards.</strong> It cannot show that the run itself was honest, and the check does not re-run the nine jobs.</li>
+<li><strong>The checker&rsquo;s code is not yet in this repository as a command you can re-run on the nine jobs,</strong> so only the record of the run can be re-checked from here.</li>
+<li><strong>Everything on this site is our own measurement.</strong> No outside party has verified it.</li>
+</ul>
+</div>
+<p>Full run notes with their caveats: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">run 3</a> and the <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run2/README.md">earlier run</a>.</p>
+</div>
+</section>
+
+</main>
+<footer class="foot">
+<div class="wrap cols">
+<div>
+<p><strong>ANIMA</strong>: memory, one screen and enforced rules for the coding agents you already use.</p>
+<p>Apache License 2.0. No cookies, no tracking, no outside files. Status last updated 2026-11-04.</p>
+<p>Also by this team: <a href="https://anshul48.github.io/trace/">TRACE</a>, search that shows its work.</p>
+</div>
+<div>
+<h2>This site</h2>
+<ul>
+<li><a href="try.html">Try it</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="evidence.html">Evidence and limits</a></li>
+<li><a href="verify.html">Check every claim</a></li>
+<li><a href="status.html">What is built</a></li>
+<li><a href="demos.html">Demos</a></li>
+</ul>
+</div>
+<div>
+<h2>Project</h2>
+<ul>
+<li><a href="https://github.com/Anshul48/anima-substrate">Repository</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CHANGELOG.md">Changelog</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CONTRIBUTING.md">Contributing</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/SECURITY.md">Security</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/CITATION.cff">Cite it</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/issues/new/choose">Report a problem</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script src="assets/site.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+title: Try ANIMA: pick how much time you have
+description: Check ANIMA's recorded run in your browser in 30 seconds, run the tamper check in a terminal in two minutes, or install it and plug in your harness.
+nav: try
+out: try.html
+---
+<section class="sec">
+<div class="wrap narrow">
+<p class="crumbs"><a href="index.html">Home</a> / Try it</p>
+<h1>Try it. Pick how much time you have.</h1>
+<p class="lead">Three doors, from least effort to most. The badge on each says whether it works today.</p>
+
+<h2>30 seconds: check the record in your browser</h2>
+<p><span class="badge" data-state="built">Working today</span></p>
+<p>A real recorded run of nine bug-fixing jobs. Press a button and your browser recomputes every fingerprint in the record, then change one character and watch the break show up. Nothing is sent anywhere.</p>
+<div class="actions"><a class="btn primary" href="demo/">Open the check</a></div>
+
+<h2>2 minutes: run the same check in a terminal</h2>
+<p>{{badge:record}}</p>
+<p>You need Python 3 and git. Nothing to install. The download is about 11 MB and the check takes about a second.</p>
+<div class="cmd"><code>git clone https://github.com/Anshul48/anima-substrate
+cd anima-substrate
+python3 docs/evidence/flagship-run3/check_chain.py --tamper</code><button class="copy" type="button" data-copy="git clone https://github.com/Anshul48/anima-substrate&#10;cd anima-substrate&#10;python3 docs/evidence/flagship-run3/check_chain.py --tamper">Copy</button></div>
+<p>What it printed when we ran it:</p>
+<pre class="out"><span class="ok">recorded run: CHAIN OK - 69 records, every link matches</span>
+  file fingerprint (SHA-256): acd95bf03497057c50fc050633eadeb024d1dc49dee55a236cb29f95b989bd5d
+  matches the fingerprint saved at the end of the run: yes
+
+<span class="dim">changed one character on line 6 of a temporary copy (the original is untouched)</span>
+<span class="bad">edited copy: CHAIN BROKEN - 69 records, line 7 does not match the line before it</span>
+  file fingerprint (SHA-256): 2773ad2824efdce0e88ebbb733641de8bf2b06932c8239f1a23bd0317ea80612</pre>
+<p class="muted">This checks the record. It does not re-run the nine jobs.</p>
+
+<h2>5 minutes: install ANIMA and plug in your harness</h2>
+<p>{{badge:install}} {{badge:harness}}</p>
+{{#next:install}}<div class="banner" role="note"><p><strong>Not built yet.</strong> The boxes below show the planned steps in dashed outlines. They are not available yet; until they are, use the two doors above.</p></div>{{/next}}
+<ol class="steps">
+<li><h3>Install</h3><p>One line, no admin rights.</p>{{installbox}}</li>
+<li><h3>See which of your tools it found</h3><p>It lists Muse Code, Claude Code and Codex, whichever are installed and logged in, and writes a starter <code>anima.yaml</code>.</p>{{cmds:install}}</li>
+<li><h3>Send one small bug task to Muse Code first</h3>{{cmds:harness-muse}}<p>Then change one word to try <code>claude</code> or <code>codex</code>.</p></li>
+</ol>
+
+<h2>Let your agent do it</h2>
+<p>{{badge:install}} Paste this into the coding tool you already use, and it can set things up for you.</p>
+<div class="cmd{{#notbuilt:install}} planned{{/notbuilt}}"><code>Install ANIMA from https://github.com/Anshul48/anima-substrate with its one-line installer, run `anima doctor`, and tell me which of Muse Code, Claude Code and Codex it found.</code></div>
+{{#notbuilt:install}}<p class="muted small">Planned prompt, not available yet.</p>{{/notbuilt}}
+</div>
+</section>

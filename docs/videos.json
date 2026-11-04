@@ -1,0 +1,15 @@
+{
+  "about": "The one list the Demos page and the home page read. To swap a film, replace the file in docs/media/ (or change 'file' here) and run: python3 tools/site.py build",
+  "videos": [
+    {
+      "id": "anima-film",
+      "title": "ANIMA in two minutes",
+      "file": "media/anima-film.mp4",
+      "captions": "media/anima-film.vtt",
+      "poster": "media/anima-film.png",
+      "length": "2:08",
+      "caption": "A recorded run of the checker and the nine bug-fix jobs, the tamper check, and what is built and what is next.",
+      "note": "Recorded before the plug-in, install, state-tree and voice work. The status page shows what is built today."
+    }
+  ]
+}

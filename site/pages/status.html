@@ -1,0 +1,19 @@
+title: What is built in ANIMA, feature by feature
+description: The honesty table. Every feature of ANIMA with its state, what exists today and the command that checks it. Rendered from status.json.
+nav: features
+out: status.html
+---
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="index.html">Home</a> / What is built</p>
+<h1>What is built, feature by feature.</h1>
+<p class="lead">This table is rendered from <a href="status.json"><code>status.json</code></a>. Last updated {{updated}}.</p>
+<ul class="strip" style="grid-template-columns:1fr" aria-label="The three states">
+<li><span><b>Working today</b>: it has a command anyone can run, and an evidence file in this repository.</span><span class="badge" data-state="built">Working today</span></li>
+<li><span><b>Prototype</b>: something runs in a limited form, or a recorded test exists. The limits are stated.</span><span class="badge" data-state="prototype">Prototype</span></li>
+<li><span><b>Next, not built yet</b>: the page says plainly what it will do and what exists.</span><span class="badge" data-state="next">Next, not built yet</span></li>
+</ul>
+{{statustable}}
+<p class="muted small">A page cannot show a badge that this file does not give it: <code>python3 tools/site.py check</code> fails if a feature is marked working today without a command and an existing evidence file, or if a page or the README disagrees with this file.</p>
+</div>
+</section>

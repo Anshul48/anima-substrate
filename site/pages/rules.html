@@ -1,0 +1,66 @@
+title: ANIMA roles and enforced rules
+description: Architect, manager, worker; secrets, no-push and budgets; a hidden checker; an escalation ladder; a tamper-evident record. The discipline behind ANIMA, with the state of each part.
+nav: features
+out: rules.html
+---
+{{fhead:discipline}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>Agents are most useful when they work inside rules they cannot quietly bend. ANIMA's design comes from how we run our own work: an architect decides, a manager splits the mission into task cards, workers do one job each in one folder, a program enforces the rules, and a hidden checker judges the result. ANIMA turns that into one file and a few commands that work on any harness.</p>
+
+<h2>The five parts, and what each is today</h2>
+<div class="tablewrap"><table><thead><tr><th scope="col">Part</th><th scope="col">State</th><th scope="col">What exists today</th><th scope="col">Limits</th></tr></thead><tbody>
+<tr><td><b>A hidden checker judges every answer</b></td><td>{{badge:checker}}</td><td>{{f:checker.exists}}</td><td>{{f:checker.limit}}</td></tr>
+<tr><td><b>A wrong answer climbs to a stronger helper</b></td><td>{{badge:ladder}}</td><td>{{f:ladder.exists}}</td><td>{{f:ladder.limit}}</td></tr>
+<tr><td><b>A record nobody can quietly edit</b></td><td>{{badge:record}}</td><td>{{f:record.exists}}</td><td>{{f:record.limit}}</td></tr>
+<tr><td><b>Rules that are enforced</b></td><td>{{badge:rules}}</td><td>{{f:rules.exists}}</td><td>{{f:rules.limit}}</td></tr>
+<tr><td><b>Roles and a mission file</b></td><td>{{badge:roles}}</td><td>{{f:roles.exists}}</td><td>{{f:roles.limit}}</td></tr>
+</tbody></table></div>
+
+<h2>The ladder</h2>
+<figure class="fig"><img src="img/three-steps.svg" alt="Illustration of the ladder: step 1, the agent works; step 2, a hidden checker judges the result; step 3, a wrong answer climbs one rung to the next helper."><figcaption>Illustration of the ladder. The recorded run used it twice.</figcaption></figure>
+
+<h2>Roles</h2>
+<p class="muted">{{#next:roles}}Design only. Nothing enforces these yet.{{/next}}{{#notnext:roles}}As implemented; see the evidence below.{{/notnext}}</p>
+<div class="tablewrap"><table><thead><tr><th scope="col">Role</th><th scope="col">May</th><th scope="col">Must not</th><th scope="col">Checked by</th></tr></thead><tbody>
+<tr><td><b>You (the owner)</b></td><td>Set the mission, deadlines and budgets. Alone approve spending and anything public.</td><td>Be pinged for small things: questions are batched, each with a default.</td><td>No one. You read a digest.</td></tr>
+<tr><td><b>Architect</b></td><td>Decide the design, rule on conflicts, review at gates.</td><td>Do bulk work, push to a public repository, read secrets.</td><td>The rules, a second opinion, you.</td></tr>
+<tr><td><b>Meta-coordinator</b></td><td>Routine operations: pick up briefs, re-issue blocked results, keep queues stocked.</td><td>Decide design, spend, publish, cancel workers.</td><td>The architect, through a digest.</td></tr>
+<tr><td><b>Manager</b> (one per project)</td><td>Split the mission into cards whose test is a file. Accept or reject output.</td><td>Change the mission, publish.</td><td>The architect.</td></tr>
+<tr><td><b>Worker</b></td><td>One job, one folder: read the brief, write in its workspace, run tests.</td><td>Read secrets, message the owner, push, cancel other workers.</td><td>The rules, a supervisor, the manager&rsquo;s acceptance file, the hidden checker.</td></tr>
+</tbody></table></div>
+
+<h2>One file</h2>
+<p>{{#next:roles}}Design, nothing reads this file yet.{{/next}}{{#notnext:roles}}An example of the file <code>anima doctor</code> writes.{{/notnext}} Roles, permissions, budgets, watches and the ladder are data, so one file can work on any harness. Only the <code>harness</code> line and the way the rules are enforced change.</p>
+<pre class="yaml{{#next:roles}} planned{{/next}}">version: 1
+harness: muse                 # or: claude, codex
+mission: MISSION.md           # the manager enforces it
+memory: {kind: trace, store: .anima/trace}
+roles:
+  manager:
+    may: [read_repo, write_cards, accept_or_reject]
+    must_not: [push, edit_mission]
+  worker:
+    may: [read_workspace, write_workspace, run_tests]
+    must_not: [secrets, push, message_owner]
+    budget: {timeout_s: 3000, attempts: 3}
+rules: [secrets, sudo, push-public, delete-protected]
+ladder:                       # first match wins
+  - {on: gate_fail, do: retry_with_failure_line, times: 1}
+  - {on: gate_fail, do: run_with, harness: claude}
+  - {on: still_failing, do: ask, role: architect}</pre>
+<h2>Also in the design, none of it built</h2>
+<ul>
+<li>Budgets and time limits per role, with a warning at 90% of the budget.</li>
+<li>Model pins: each role may only use the model it is assigned.</li>
+<li>A watch that restarts a worker that has gone quiet, starting in a log-only mode.</li>
+<li>Memory and disk guards that pause new work when the machine is short.</li>
+</ul>
+<p>The full design, including what we run on our own work today and which controls ANIMA does not have yet: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/ROLES-AND-RULES.md"><code>docs/ROLES-AND-RULES.md</code></a>.</p>
+{{facts:discipline}}
+{{howtocheck:discipline}}
+{{howtocheck:record}}
+{{pager:discipline}}
+</div>
+</section>

@@ -1,0 +1,25 @@
+title: ANIMA features and what each one is today
+description: The six parts of ANIMA, with the state of each: working today, prototype, or next.
+nav: features
+out: features.html
+---
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="index.html">Home</a> / Features</p>
+<h1>Six parts. Each says what it is today.</h1>
+<p class="lead">Badges are read from <a href="status.json"><code>status.json</code></a>. A part is marked working today only when it has a command anyone can run.</p>
+{{featuregrid}}
+<h2 style="margin-top:var(--space-8)">Inside &ldquo;your harness&rdquo; and &ldquo;roles and rules&rdquo;</h2>
+<div class="grid c2">
+<div class="panel"><h3>Harnesses, in order</h3>{{harnessstrip}}</div>
+<div class="panel"><h3>Roles and rules, part by part</h3>
+<ul class="strip" style="grid-template-columns:1fr">
+<li><b>Hidden checker</b>{{badge:checker}}</li>
+<li><b>Escalation ladder</b>{{badge:ladder}}</li>
+<li><b>Tamper-evident record</b>{{badge:record}}</li>
+<li><b>Roles and a mission file</b>{{badge:roles}}</li>
+<li><b>Enforced rules</b>{{badge:rules}}</li>
+</ul></div>
+</div>
+</div>
+</section>

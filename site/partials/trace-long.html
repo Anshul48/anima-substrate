@@ -1,0 +1,29 @@
+<h2 id="trace">The memory behind it: TRACE</h2>
+<p>TRACE is our public sister project: search that shows its work. ANIMA uses it as its memory. This section is TRACE&rsquo;s own record, not an ANIMA result. Every number here is our own measurement; no outside party has verified it.</p>
+<div class="tiles">
+<div class="tile"><span class="num">812,545</span><p>passages in the sealed library we tested on: 99,891,846 tokens. The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%).</p></div>
+<div class="tile"><span class="num">0.79%</span><p>of the rows scored per search, measured on one of the library&rsquo;s four equal parts. About 127 times less scoring work than looking at everything.</p></div>
+<div class="tile"><span class="num">0.9985</span><p>of exact meaning-based search&rsquo;s results kept, on 50 test searches (40 written questions and 10 taken from passage openings).</p></div>
+</div>
+<h3>What that means, in plain words</h3>
+<ul>
+<li><strong>Sparse activation.</strong> A question wakes only the few groups likely to hold the answer; the rest of the library stays untouched. The term is borrowed from brain science: TRACE is inspired by it and does not work like a brain.</li>
+<li><strong>Groups that hold answers together.</strong> The library is sorted into small groups of about nine passages. In our tests a search&rsquo;s ten best matches fell into about 7 groups on average, out of at most 10. With random groups it would be 10. The groups come from one ordinary sorting run, so we do not claim the library organises itself as it grows.</li>
+<li><strong>A checkable record on every answer.</strong> Each result carries a record of where it came from, with a fingerprint you can recompute yourself.</li>
+</ul>
+<h3>Earlier, larger tests (ours, kept apart from the numbers above)</h3>
+<ul>
+<li><strong>504,480,146 tokens.</strong> Around 28 October 2026 we sealed a TRACE memory of 504,480,146 tokens in 13 parts on a cloud machine. That machine has since been shut down, so this test cannot be re-run. It is an earlier test by us, recorded in our own receipts, and nobody outside has checked it.</li>
+<li><strong>1.53 billion tokens, routing only.</strong> A separate test on rented GPUs (16 October 2026) turned 1,531,809,092 tokens of a different, larger collection into 7,134,906 searchable vectors in 109 pieces. A search that looked only at the most likely groups kept 0.9947 of the exact top ten while looking at 6.6% of the vectors. This tested routing only: there is no merged index, it was not served through TRACE, there are no checkable records at that scale, and it is not a one-billion-vector run.</li>
+</ul>
+<div class="callout">
+<h3><span class="badge limit">Limit</span> Where TRACE does not win</h3>
+<ul>
+<li>On the same 50 test searches, ordinary keyword search put the right source passage in its top ten for 82% of searches. TRACE did for 52%, and so did exact meaning-based search, so the gap is meaning-search against keywords, not TRACE&rsquo;s shortcut.</li>
+<li>Keyword search also answered faster: 6 milliseconds against 1.2 seconds for TRACE. TRACE is for meaning-based search you can verify, not a replacement for keyword search.</li>
+<li>Stored size on disk: TRACE 2.28 GB, exact vectors 1.25 GB, keyword index 0.51 GB.</li>
+<li>TRACE has not been run on public benchmarks. A simple stand-in grouping we tried on three small public sets did not reproduce the 0.79% result at that small size, so the result is for our library and our method only.</li>
+<li>There is no public query service. The TRACE explorer replays real recorded searches in your browser.</li>
+</ul>
+</div>
+<p><a class="btn" href="https://anshul48.github.io/trace/">Open the TRACE site</a> <a class="btn" href="https://anshul48.github.io/trace/explorer/">Replay a recorded search</a></p>

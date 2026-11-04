@@ -1,0 +1,25 @@
+title: ANIMA memory: what an agent fixed comes back, with its source
+description: ANIMA uses TRACE as memory for coding work: a fix or decision stored in one session comes back in the next with a record id that points to where it came from.
+nav: features
+out: memory.html
+---
+{{fhead:memory}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what was decided and what was fixed, and brings it back when a similar job comes up. Each note carries a record id that points to its source, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
+<h2>See it</h2>
+{{#built:memory}}<figure class="fig"><img src="img/memory-run.png" alt="A terminal: one session stores a decision, a new session asks and gets it back with a record id."><figcaption>Real capture from a fresh clone.</figcaption></figure>{{/built}}
+{{#notbuilt:memory}}<figure class="fig dashed"><span class="tag">Illustration, not a screenshot</span>
+<ol class="steps"><li><h3>Session 1: store</h3><p>The agent records: &ldquo;decision: retries stay at three&rdquo;. It gets a record id back.</p></li>
+<li><h3>Session 2: ask</h3><p>A new process asks: &ldquo;how many retries?&rdquo; The answer comes back with the text and the record id that points to where it was written.</p></li></ol>
+<figcaption>What the planned memory link will do. The commands below are planned, not available yet.</figcaption></figure>{{/notbuilt}}
+{{cmds:memory}}
+{{facts:memory}}
+{{howtocheck:memory}}
+<div style="margin-top:var(--space-8)">
+{{include:trace-long}}
+</div>
+{{pager:memory}}
+</div>
+</section>

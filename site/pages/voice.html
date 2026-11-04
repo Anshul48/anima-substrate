@@ -1,0 +1,24 @@
+title: ANIMA voice control with local Whisper
+description: Talk to ANIMA. Speech is turned into text on your own computer with local Whisper, then matched to a small set of commands, with a typed confirmation for anything that starts or stops work.
+nav: features
+out: voice.html
+---
+{{fhead:voice}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>You say what you want. Speech is turned into text on your own computer, with no cloud service, then matched to a short list of commands. The screen shows what it heard, the command it understood, a confirmation step, and the result. Starting or stopping work needs a typed confirmation, so a misheard word cannot start anything by itself.</p>
+<h2>How a command flows</h2>
+<ol class="steps">
+<li><h3>Heard</h3><p>The text the speech recogniser produced, for example &ldquo;status&rdquo;.</p></li>
+<li><h3>Understood</h3><p>The command it matched, for example <code>{"cmd":"status"}</code>. Anything that matches nothing is refused.</p></li>
+<li><h3>Confirmed</h3><p>For start and stop, you type to confirm.</p></li>
+<li><h3>Result</h3><p>The answer appears on the state tree screen.</p></li>
+</ol>
+{{#notbuilt:voice}}<p class="muted">This flow is the design. It is not built yet.</p>{{/notbuilt}}
+{{cmds:voice}}
+{{facts:voice}}
+{{howtocheck:voice}}
+{{pager:voice}}
+</div>
+</section>

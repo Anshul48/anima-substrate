@@ -1,0 +1,86 @@
+/* Record-check page. Rides on ../assets/tokens.css and ../assets/site.css; only the page's own parts are styled here. */
+.demo { --teal: var(--accent); --green: var(--st-built); --orange: var(--st-proto); --red: var(--st-limit); --grey-cell: var(--line-strong); }
+.demo h2 .num { color: var(--accent); margin-right: 0.35em; }
+.demo section.sec { padding: var(--space-6) 0; }
+.demo .controls { display: flex; flex-wrap: wrap; gap: var(--space-3); margin: var(--space-5) 0 var(--space-2); }
+.demo .btn.warn { border-color: var(--st-proto); color: var(--st-proto); }
+.demo .btn[disabled] { opacity: 0.5; cursor: not-allowed; }
+@media (max-width: 520px) { .demo .controls .btn { flex: 1 1 100%; } }
+
+.demo .tile .big { display: block; font-size: var(--step-4); line-height: 1; font-weight: 780; margin-bottom: var(--space-3); }
+.demo .tile.t-teal .big { color: var(--accent); }
+.demo .tile.t-green .big { color: var(--st-built); }
+.demo .tile.t-orange .big { color: var(--st-limit); }
+.demo .tile .what { display: block; color: var(--ink-2); }
+
+.demo .jobs { list-style: none; margin: var(--space-5) 0 0; padding: 0; display: grid; gap: var(--space-3); max-width: none; }
+.demo .jobs-head { display: none; }
+.demo .job { margin: 0; padding: var(--space-4); background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--st-built); border-radius: var(--radius); display: grid; gap: var(--space-3); }
+.demo .job.caught { border-left-color: var(--st-proto); }
+.demo .job .cap { display: block; margin-bottom: 2px; color: var(--muted); font-size: var(--step--1); letter-spacing: 0.04em; text-transform: uppercase; }
+.demo .job-name { font-family: var(--font-mono); font-weight: 650; overflow-wrap: anywhere; }
+.demo .job-name .cap { font-family: var(--font-sans); font-weight: 500; }
+.demo .job .cell { min-width: 0; }
+.demo .verdict-word { font-family: var(--font-mono); font-weight: 750; letter-spacing: 0.04em; }
+.demo .verdict-word.pass { color: var(--st-built); }
+.demo .verdict-word.fail { color: var(--st-proto); }
+.demo .job .why { display: block; margin-top: 2px; font-size: var(--step--1); color: var(--muted); line-height: 1.4; }
+.demo .job-detail { margin: 0; padding: var(--space-3) var(--space-4); background: var(--surface-2); border-radius: var(--radius-s); font-size: 1rem; max-width: none; }
+.demo .job-detail code { display: block; margin: 4px 0 6px; font-size: 0.9rem; color: var(--st-proto); overflow-wrap: anywhere; background: none; border: 0; padding: 0; }
+@media (max-width: 799px) {
+  .demo .job .cell:not(.job-name) { display: grid; grid-template-columns: minmax(7.5rem, 9rem) minmax(0, 1fr); gap: 4px 12px; align-items: baseline; }
+  .demo .job .cell:not(.job-name) .cap { margin: 0; }
+  .demo .job-name .cap { display: none; }
+}
+@media (min-width: 800px) {
+  .demo .jobs-head, .demo .job { grid-template-columns: minmax(0, 1.55fr) minmax(0, 0.9fr) minmax(0, 1.2fr) minmax(0, 1.35fr); column-gap: var(--space-5); }
+  .demo .jobs-head { display: grid; padding: 0 var(--space-5); color: var(--muted); font-size: var(--step--1); letter-spacing: 0.04em; text-transform: uppercase; }
+  .demo .job { align-items: start; }
+  .demo .job .cap { display: none; }
+  .demo .job-detail { grid-column: 1 / -1; }
+}
+
+.demo .panel { margin-top: var(--space-4); }
+.demo .result { margin: 0 0 var(--space-4); padding: var(--space-4) var(--space-5); background: var(--surface-2); border: 1px solid var(--line); border-left-width: 6px; border-radius: var(--radius); }
+.demo .result.ok { border-left-color: var(--st-built); }
+.demo .result.broken { border-left-color: var(--st-proto); }
+.demo .result .which { margin: 0 0 4px; color: var(--muted); font-size: var(--step--1); letter-spacing: 0.04em; text-transform: uppercase; }
+.demo .verdict { margin: 0 0 var(--space-3); font-family: var(--font-mono); font-weight: 750; font-size: clamp(1.05rem, 3.4vw, 1.4rem); line-height: 1.35; max-width: none; overflow-wrap: anywhere; }
+.demo .result.ok .verdict { color: var(--st-built); }
+.demo .result.broken .verdict { color: var(--st-proto); }
+.demo .facts { margin: 0; display: grid; gap: var(--space-2); font-size: 1rem; }
+.demo .facts dt { margin: 0; color: var(--muted); }
+.demo .facts dd { margin: 0; overflow-wrap: anywhere; }
+@media (min-width: 760px) { .demo .facts { grid-template-columns: minmax(14rem, 20rem) minmax(0, 1fr); column-gap: var(--space-5); align-items: baseline; } }
+.demo .hash { font-family: var(--font-mono); font-size: 0.88rem; word-break: break-all; }
+.demo .idle { margin: 0; color: var(--muted); }
+.demo .yes { color: var(--st-built); font-weight: 750; }
+.demo .no { color: var(--st-proto); font-weight: 750; }
+
+.demo .strip { display: flex; flex-wrap: wrap; gap: 4px; margin: var(--space-4) 0 var(--space-2); padding: 0; list-style: none; max-width: none; grid-template-columns: none; }
+.demo .strip li { margin: 0; padding: 0; border: 0; width: 18px; height: 18px; border-radius: 4px; background: var(--grey-cell); display: grid; place-items: center; font: 700 10px/1 var(--font-mono); color: var(--bg); }
+.demo .strip li[data-state="ok"] { background: var(--accent); }
+.demo .strip li[data-state="edited"] { background: var(--st-proto); width: 28px; }
+.demo .strip li[data-state="bad"] { background: var(--st-limit); width: 28px; }
+.demo .strip li[data-state="edited"]::after, .demo .strip li[data-state="bad"]::after { content: attr(data-n); }
+.demo .legend { margin: var(--space-2) 0 0; }
+.demo .legend i { border: 0; border-radius: 3px; }
+
+.demo .tamper { margin: var(--space-2) 0 0; padding: var(--space-4) var(--space-5); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); }
+.demo .tamper h3 { margin: 0 0 var(--space-2); font-size: var(--step-0); }
+.demo .tamper p { max-width: none; margin-bottom: var(--space-3); }
+.demo .diff { margin: 0 0 var(--space-3); padding: 0; display: grid; gap: 6px; font-family: var(--font-mono); font-size: 0.85rem; line-height: 1.5; }
+.demo .diff div { display: grid; grid-template-columns: 4.5rem minmax(0, 1fr); gap: var(--space-2); }
+.demo .diff .tag { border: 0; padding: 0; color: var(--muted); font-family: var(--font-sans); font-size: var(--step--1); }
+.demo .diff .text { overflow-wrap: anywhere; word-break: break-all; }
+.demo .diff mark { padding: 0 3px; border-radius: 3px; color: var(--bg); background: var(--accent); font-weight: 750; }
+.demo .diff mark.edit { background: var(--st-proto); }
+.demo .compare { margin: 0; display: grid; gap: 4px; }
+.demo .compare dt { color: var(--muted); }
+.demo .compare dd { margin: 0 0 var(--space-2); }
+.demo .status-line { min-height: 1.6em; margin: var(--space-3) 0 0; color: var(--muted); }
+.demo .prov { color: var(--muted); }
+.demo details { margin-top: var(--space-4); max-width: var(--measure); }
+.demo summary { cursor: pointer; color: var(--link); font-weight: 650; padding: 6px 0; min-height: var(--tap); }
+.demo pre { margin: var(--space-3) 0; padding: var(--space-4); background: var(--stage-bg); color: var(--stage-ink); border: 1px solid var(--stage-line); border-radius: var(--radius); overflow-x: auto; font-size: 0.9rem; line-height: 1.55; }
+.demo .nojs { padding: var(--space-4); border: 2px solid var(--st-proto); border-radius: var(--radius); }

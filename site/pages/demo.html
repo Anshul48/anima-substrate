@@ -1,0 +1,82 @@
+title: Check ANIMA's record in your browser
+description: A real recorded run of nine bug-fixing jobs. See what the hidden checker decided, then check the written record yourself in your browser, and change one character to watch the break show up.
+nav: try
+out: demo/index.html
+class: demo
+css: demo.css
+js: data.js chain.js app.js
+---
+<section class="sec">
+<div class="wrap">
+<p class="crumbs"><a href="../index.html">Home</a> / <a href="../try.html">Try it</a> / Check the record</p>
+<p class="eyebrow">A real recorded run</p>
+<h1>A checker the agent cannot edit. A record you can verify.</h1>
+<p class="lead">Nine real bug-fixing jobs, run once and written down. Below you can see what the hidden checker decided for each job, then check the written record yourself. It all runs in your browser. Nothing is sent anywhere.</p>
+<p class="prov" id="provenance">This page holds a copy of the run&rsquo;s record files (<code>decisions.jsonl</code> and <code>real3.log</code>). Checking that copy now&hellip;</p>
+<noscript><p class="nojs">This page needs JavaScript to run the check. The same check runs in a terminal with <code>python3 docs/evidence/flagship-run3/check_chain.py --tamper</code> (see the repository).</p></noscript>
+</div>
+</section>
+
+<section id="jobs" class="sec alt" aria-labelledby="jobs-h">
+<div class="wrap">
+<h2 id="jobs-h"><span class="num">1</span>The nine jobs</h2>
+<p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small model on the laptop tries first. A hidden checker (tests the agent does not see and cannot edit) judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job.</p>
+<div class="tiles" id="tiles" aria-label="Summary of the run"></div>
+<p class="muted small" id="tiles-note"></p>
+<div class="jobs-head" aria-hidden="true"><span>Job</span><span>Small local model said</span><span>Hidden checker said</span><span>Next helper (Claude Sonnet)</span></div>
+<ol class="jobs" id="job-list"></ol>
+<p class="muted small" style="margin-top:12px">Read straight from the real log: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/real3.log"><code>real3.log</code></a>. The line the checker saw for the two caught jobs comes from the decision record below.</p>
+</div>
+</section>
+
+<section id="check" class="sec" aria-labelledby="check-h">
+<div class="wrap">
+<h2 id="check-h"><span class="num">2</span>Check the record</h2>
+<p>Every decision in the run is one line in a file. Each line carries a digital fingerprint (a tamper-evident seal) of the line before it. Press the button and your browser recomputes every fingerprint, in order, and compares.</p>
+<div class="controls">
+<button type="button" class="btn primary" id="btn-check">Check the record</button>
+<button type="button" class="btn warn" id="btn-tamper">Change one character</button>
+<button type="button" class="btn" id="btn-reset" disabled>Reset</button>
+</div>
+<p class="muted small">&ldquo;Change one character&rdquo; edits a temporary copy in your browser&rsquo;s memory. The original record is never changed.</p>
+<div class="panel">
+<div id="results" aria-live="polite"><p class="idle">Not checked yet. Press &ldquo;Check the record&rdquo;.</p></div>
+<ol class="strip" id="strip" role="img" aria-label="One square per record. Not checked yet."></ol>
+<ul class="legend" aria-hidden="true">
+<li><i style="background:var(--teal)"></i>matches the one before it</li>
+<li><i style="background:var(--orange)"></i>edited</li>
+<li><i style="background:var(--red)"></i>does not match</li>
+<li><i style="background:var(--grey-cell)"></i>not checked yet, or not reached</li>
+</ul>
+<div id="tamper" class="tamper" hidden></div>
+<p class="status-line" id="status" aria-live="polite"></p>
+</div>
+<details>
+<summary>How the check works, and how to run it yourself</summary>
+<p>The first record says <code>"prev":"GENESIS"</code> (it has nothing before it). Every later record carries, as <code>"prev"</code>, the SHA-256 fingerprint of the exact text of the record before it. Change anything in an earlier record and the next record no longer matches, so the change shows up.</p>
+<p>This page follows the same rule as <code>check_chain.py</code> in the repository, step for step. In a terminal it prints the same fingerprints and the same break:</p>
+<pre>git clone https://github.com/Anshul48/anima-substrate
+cd anima-substrate
+python3 docs/evidence/flagship-run3/check_chain.py --tamper</pre>
+<p>You need Python 3 and git. Nothing to install.</p>
+</details>
+</div>
+</section>
+
+<section id="limits" class="sec alt" aria-labelledby="limits-h">
+<div class="wrap">
+<div class="callout">
+<h2 id="limits-h">Honest limits</h2>
+<ul>
+<li><strong>This checks the record. It does not re-run the nine jobs.</strong> A full re-run needs access to each helper used in the run.</li>
+<li>What was validated is <strong>one kind of job</strong>: fix a bug, judged by hidden tests.</li>
+<li>Nine jobs in one run is a worked example, not a statistic.</li>
+<li>The second helper was told the failing line, so it was an informed retry, not a blind one.</li>
+<li>The libraries are public, so the agents may have seen similar fixes before.</li>
+<li>We make no claim about long runs, or about leaving it alone while you are away. That is untested.</li>
+<li>The seal shows the record was not changed afterwards. It cannot show that the run itself was honest.</li>
+</ul>
+<p><a href="../evidence.html#limits">All limits</a> &middot; <a href="../verify.html">Check other claims</a></p>
+</div>
+</div>
+</section>

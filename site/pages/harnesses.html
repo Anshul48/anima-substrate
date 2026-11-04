@@ -1,0 +1,27 @@
+title: ANIMA plugs into your harness: Muse Code, Claude Code, Codex
+description: ANIMA works inside the coding tool you already use. Muse Code first, then Claude Code, then Codex. The state of each adapter is shown from the status file.
+nav: features
+out: harnesses.html
+---
+{{fhead:harness}}
+<section class="sec" style="padding-top:var(--space-4)">
+<div class="wrap">
+<h2>What it does</h2>
+<p>A harness is the coding tool an agent runs inside. You should not have to switch tools to get memory, rules and a checker. ANIMA wraps the tool you already have: it hands over the task, applies the rules while the agent works, runs the same hidden checker on the result, and records the decision. The same task can go to a different harness by changing one word.</p>
+<h2>In order</h2>
+<div class="grid c3">
+<div class="card"><h3>1. Muse Code</h3><p>{{f:harness-muse.plain}}</p>{{cmds:harness-muse}}<div class="foot">{{badge:harness-muse}}</div></div>
+<div class="card"><h3>2. Claude Code</h3><p>{{f:harness-claude.plain}}</p>{{cmds:harness-claude}}<div class="foot">{{badge:harness-claude}}</div></div>
+<div class="card"><h3>3. Codex</h3><p>{{f:harness-codex.plain}}</p>{{cmds:harness-codex}}<div class="foot">{{badge:harness-codex}}</div></div>
+</div>
+<h2 style="margin-top:var(--space-7)">What exists, per harness</h2>
+<div class="tablewrap"><table><thead><tr><th scope="col">Harness</th><th scope="col">State</th><th scope="col">What exists today</th><th scope="col">Limits</th></tr></thead><tbody>
+<tr><td><b>Muse Code</b></td><td>{{badge:harness-muse}}</td><td>{{f:harness-muse.exists}}</td><td>{{f:harness-muse.limit}}</td></tr>
+<tr><td><b>Claude Code</b></td><td>{{badge:harness-claude}}</td><td>{{f:harness-claude.exists}}</td><td>{{f:harness-claude.limit}}</td></tr>
+<tr><td><b>Codex</b></td><td>{{badge:harness-codex}}</td><td>{{f:harness-codex.exists}}</td><td>{{f:harness-codex.limit}}</td></tr>
+</tbody></table></div>
+{{facts:harness}}
+{{howtocheck:harness}}
+{{pager:harness}}
+</div>
+</section>

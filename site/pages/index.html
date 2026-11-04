@@ -1,0 +1,65 @@
+title: ANIMA: coding agents that remember what they fixed
+description: ANIMA plugs into the coding tool you already use, Muse Code first, then Claude Code and Codex, and gives it a memory you can check, one screen that shows what every agent is doing, and rules that are enforced.
+nav:
+out: index.html
+---
+<section class="hero">
+<div class="wrap">
+<div>
+<p class="eyebrow">For the coding tools you already use</p>
+<h1>Coding agents that remember what they fixed.</h1>
+<p class="lead">ANIMA plugs into the coding tool you already use and gives it three things: a memory you can check, one screen that shows what every agent is doing, and rules that are enforced, not just requested.</p>
+<div class="actions"><a class="btn primary" href="try.html">Try it</a><a class="btn" href="evidence.html">See the evidence</a></div>
+{{installbox}}
+<p class="eyebrow" style="margin-top:var(--space-5)">Works inside your harness (the coding tool an agent runs in)</p>
+{{harnessstrip}}
+</div>
+<figure class="stage">
+{{#built:sst}}<img src="img/sst-screen.png" alt="The ANIMA state tree screen: a mission branching into tasks and attempts, each coloured right, wrong or waiting, with the decision records of the selected task on the right.">
+<figcaption>Real screenshot: the state tree screen replaying the recorded nine-job run. It is a replay, not a live run.</figcaption>{{/built}}
+{{#notbuilt:sst}}{{include:hero-illustration}}
+<figcaption>Illustration, not a screenshot: your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs a rung, memory feeds the fix.</figcaption>{{/notbuilt}}
+</figure>
+</div>
+</section>
+
+<section class="sec alt" aria-labelledby="pain-h">
+<div class="wrap">
+<h2 id="pain-h">The trouble with coding agents today</h2>
+<ul class="pain">
+<li>They forget between sessions.<span>You fix the same bug twice and explain the same decision again.</span></li>
+<li>You cannot see what several are doing.<span>Work happens in separate windows, and you piece it together.</span></li>
+<li>&ldquo;Done&rdquo; is not proof.<span>An agent can say it is finished and be wrong.</span></li>
+</ul>
+</div>
+</section>
+
+<section class="sec" aria-labelledby="parts-h">
+<div class="wrap">
+<h2 id="parts-h">Six parts, one badge each</h2>
+<p class="intro lead">Each badge says what exists today. It comes from one status file, so a page cannot claim more than the project can show.</p>
+{{featuregrid}}
+<p style="margin-top:var(--space-5)"><a href="status.html">See the full status table</a></p>
+</div>
+</section>
+
+<section class="sec alt" aria-labelledby="trace-h">
+<div class="wrap">
+<h2 id="trace-h" class="sr">The memory</h2>
+{{include:trace-short}}
+</div>
+</section>
+
+<section class="sec" aria-labelledby="real-h">
+<div class="wrap">
+<h2 id="real-h">What is real today, for one kind of job</h2>
+<p class="intro lead">We gave ANIMA's hidden checker and ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down.</p>
+<div class="tiles">
+<div class="tile"><span class="num">9</span><p>real bug-fix jobs, each with a plain-English description. The agent has to fix it.</p></div>
+<div class="tile"><span class="num">7</span><p>right the first time. A small model on a laptop did the work and the hidden tests agreed.</p></div>
+<div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers. The hidden checker caught both and the next helper fixed them.</p></div>
+</div>
+<div class="actions"><a class="btn primary" href="demo/">Check the record in your browser</a><a class="btn" href="evidence.html">Read the run</a></div>
+{{include:limits}}
+</div>
+</section>
