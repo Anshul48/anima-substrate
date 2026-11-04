@@ -10,8 +10,8 @@ out: voice.html
 <p>You say what you want. Speech is turned into text on your own computer, with no cloud service, then matched to a short list of commands. The screen shows what it heard, the command it understood, a confirmation step, and the result. Starting or stopping work needs a typed confirmation, so a misheard word cannot start anything by itself.</p>
 <h2>How a command flows</h2>
 <ol class="steps">
-<li><h3>Heard</h3><p>The text the speech recogniser produced, for example &ldquo;status&rdquo;.</p></li>
-<li><h3>Understood</h3><p>The command it matched, for example <code>{"cmd":"status"}</code>. Anything that matches nothing is refused.</p></li>
+<li><h3>Heard</h3><p>The text the speech recogniser produced, for example &ldquo;Show status.&rdquo;</p></li>
+<li><h3>Understood</h3><p>The command it matched, for example &ldquo;show status&rdquo; or &ldquo;pause task 3&rdquo;. Anything that matches nothing is refused and nothing runs.</p></li>
 <li><h3>Confirmed</h3><p>For start and stop, you type to confirm.</p></li>
 <li><h3>Result</h3><p>The answer appears on the state tree screen.</p></li>
 </ol>

@@ -63,6 +63,7 @@ BANNED = [  # (regex, why). Matched case-insensitively against site pages and th
     (r"cannot cheat|can't cheat|unhackable|tamper-proof", "no absolute claims"),
     (r"coming soon|in progress|under construction|work in progress", "use the NEXT badge instead"),
 ]
+PLANNED_PREFIXES = ("anima ", "curl ", "python3 -m anima")  # commands in a feature's "will" text that are shown as planned boxes
 ALLOWED_A_HOSTS = ("github.com", "raw.githubusercontent.com", "anshul48.github.io")
 
 
@@ -211,7 +212,7 @@ def r_cmds(c: Ctx, fid: str) -> str:
     f = c.feat(fid)
     if f["status"] == "built" and f["verify"]:
         return '<p class="cmd-label">Run it ' + c.badge(fid) + "</p>" + cmd_box(f["verify"], planned=False)
-    cmds = [m for m in re.findall(r"`([^`]+)`", f["will"]) if m.startswith(("anima ", "curl "))]
+    cmds = [m for m in re.findall(r"`([^`]+)`", f["will"]) if m.startswith(PLANNED_PREFIXES)]
     if not cmds:
         return ""
     return ('<p class="cmd-label">Planned command ' + c.badge(fid) + " <span>Not available yet.</span></p>"
@@ -360,7 +361,7 @@ def _block_markers(name: str) -> tuple[str, str]:
 
 
 def _planned_cmds(f: dict) -> list[str]:
-    return [m for m in re.findall(r"`([^`]+)`", f["will"]) if m.startswith(("anima ", "curl "))]
+    return [m for m in re.findall(r"`([^`]+)`", f["will"]) if m.startswith(PLANNED_PREFIXES)]
 
 
 def blk_status(status: dict) -> str:

@@ -34,14 +34,14 @@
 <p>You say what you want. Speech is turned into text on your own computer, with no cloud service, then matched to a short list of commands. The screen shows what it heard, the command it understood, a confirmation step, and the result. Starting or stopping work needs a typed confirmation, so a misheard word cannot start anything by itself.</p>
 <h2>How a command flows</h2>
 <ol class="steps">
-<li><h3>Heard</h3><p>The text the speech recogniser produced, for example &ldquo;status&rdquo;.</p></li>
-<li><h3>Understood</h3><p>The command it matched, for example <code>{"cmd":"status"}</code>. Anything that matches nothing is refused.</p></li>
+<li><h3>Heard</h3><p>The text the speech recogniser produced, for example &ldquo;Show status.&rdquo;</p></li>
+<li><h3>Understood</h3><p>The command it matched, for example &ldquo;show status&rdquo; or &ldquo;pause task 3&rdquo;. Anything that matches nothing is refused and nothing runs.</p></li>
 <li><h3>Confirmed</h3><p>For start and stop, you type to confirm.</p></li>
 <li><h3>Result</h3><p>The answer appears on the state tree screen.</p></li>
 </ol>
 <p class="muted">This flow is the design. It is not built yet.</p>
-<p class="cmd-label">Planned command <span class="badge" data-state="next">Not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima voice --file voice/samples/status.wav</code></div>
-<div class="two"><div class="panel"><h3>What exists today</h3><p>Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.</p></div><div class="panel"><h3>Limits</h3><p>About six fixed English commands. Shown first from a recorded clip, because a microphone can fail inside WSL. The delay has not been measured.</p></div></div><div class="panel" style="margin-top:var(--space-5)"><h3>What it will do</h3><p><code>anima voice --file voice/samples/status.wav</code> prints what it heard and the command it understood, for example {&quot;cmd&quot;:&quot;status&quot;}. Starting or stopping a task needs a typed confirmation.</p></div>
+<p class="cmd-label">Planned command <span class="badge" data-state="next">Not built yet</span> <span>Not available yet.</span></p><div class="cmd planned"><code>anima voice voice/clips/show-status.wav --demo</code></div>
+<div class="two"><div class="panel"><h3>What exists today</h3><p>Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.</p></div><div class="panel"><h3>Limits</h3><p>About six fixed English commands. Shown first from a recorded clip, because a microphone can fail inside WSL. The delay has not been measured.</p></div></div><div class="panel" style="margin-top:var(--space-5)"><h3>What it will do</h3><p><code>anima voice voice/clips/show-status.wav --demo</code> prints what it heard (&quot;Show status.&quot;) and then the tree. Starting or stopping a task needs a typed confirmation.</p></div>
 
 <nav class="pager" aria-label="Previous and next feature"><a href="state-tree.html">&larr; One screen (SST)</a><a href="rules.html">Roles and rules &rarr;</a></nav>
 </div>

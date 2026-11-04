@@ -44,9 +44,9 @@ A harness is the coding tool an agent runs in. ANIMA does not replace it; it plu
 
 | # | Harness | State | Command |
 |---|---|---|---|
-| 1 | Muse Code | **Not built yet** | planned, not available yet: `anima run --harness muse --task examples/tiny-bug` |
-| 2 | Claude Code | **Not built yet** | planned, not available yet: `anima run --harness claude --task examples/tiny-bug` |
-| 3 | Codex | **Not built yet** | planned, not available yet: `anima run --harness codex --task examples/tiny-bug` |
+| 1 | Muse Code | **Not built yet** | planned, not available yet: `anima run --harness muse --task tiny-bug` |
+| 2 | Claude Code | **Not built yet** | planned, not available yet: `anima run --harness claude --task tiny-bug` |
+| 3 | Codex | **Not built yet** | planned, not available yet: `anima run --harness codex --task tiny-bug` |
 
 <!-- block:harness:end -->
 
@@ -58,7 +58,7 @@ In a coding workflow the same bug gets fixed twice and the same decision gets ex
 
 **Prototype.** TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one does not exist yet.
 
-Planned: `anima memory put "decision: retries stay at three"` stores a decision or a fix. In a new session, `anima memory ask "how many retries?"` brings it back with the text and a record id that points to where it came from.
+Planned: `python3 -m anima.memory ingest <run folder>` stores what a finished run decided and fixed. In a new session `python3 -m anima.memory recall "<task text>"` brings back the most similar past jobs, each with a pointer to the file it came from, and `anima run --memory trace` puts them in the agent's prompt.
 
 Limit: A small local store, not the 100-million-token library. It aims at continuity (the agent knows what was decided before) and makes no claim of better fixes. The 20-question test is a small sample.
 
@@ -111,7 +111,7 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 **Not built yet.** Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.
 
-Planned: `anima voice --file voice/samples/status.wav` prints what it heard and the command it understood, for example {"cmd":"status"}. Starting or stopping a task needs a typed confirmation.
+Planned: `anima voice voice/clips/show-status.wav --demo` prints what it heard ("Show status.") and then the tree. Starting or stopping a task needs a typed confirmation.
 
 Limit: About six fixed English commands. Shown first from a recorded clip, because a microphone can fail inside WSL. The delay has not been measured.
 

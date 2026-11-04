@@ -7,12 +7,12 @@ out: memory.html
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
 <h2>What it does</h2>
-<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what was decided and what was fixed, and brings it back when a similar job comes up. Each note carries a record id that points to its source, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
+<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what past jobs decided and fixed, and brings the most similar ones back when a new job comes up. Each recalled note carries a pointer to the file it came from, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
 <h2>See it</h2>
-{{#built:memory}}<figure class="fig"><img src="img/memory-run.png" alt="A terminal: one session stores a decision, a new session asks and gets it back with a record id."><figcaption>Real capture from a fresh clone.</figcaption></figure>{{/built}}
+{{#built:memory}}<figure class="fig"><img src="img/memory-run.png" alt="A terminal: one session stores a finished run, a new session recalls the most similar past jobs, each with a pointer to its source file."><figcaption>Real capture from a fresh clone.</figcaption></figure>{{/built}}
 {{#notbuilt:memory}}<figure class="fig dashed"><span class="tag">Illustration, not a screenshot</span>
-<ol class="steps"><li><h3>Session 1: store</h3><p>The agent records: &ldquo;decision: retries stay at three&rdquo;. It gets a record id back.</p></li>
-<li><h3>Session 2: ask</h3><p>A new process asks: &ldquo;how many retries?&rdquo; The answer comes back with the text and the record id that points to where it was written.</p></li></ol>
+<ol class="steps"><li><h3>Session 1: store</h3><p>A run finishes. Its task, the failing test line and the fix are stored as one record, with a pointer to the run folder.</p></li>
+<li><h3>Session 2: recall</h3><p>A similar job arrives in a new process. The nearest past jobs come back, each with its source pointer, and go into the agent&rsquo;s prompt.</p></li></ol>
 <figcaption>What the planned memory link will do. The commands below are planned, not available yet.</figcaption></figure>{{/notbuilt}}
 {{cmds:memory}}
 {{facts:memory}}

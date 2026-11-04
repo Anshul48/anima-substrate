@@ -16,7 +16,7 @@
       "page": "memory.html",
       "plain": "What an agent fixed or decided comes back in a later session, with a record of where it came from.",
       "exists": "TRACE, our public search that shows its work, is the memory. One small recorded test exists: a helper asked TRACE 20 questions over our full test library, and a hidden checker with 23 rules accepted the recorded answers. The command that stores a fix in one session and brings it back in a new one does not exist yet.",
-      "will": "`anima memory put \"decision: retries stay at three\"` stores a decision or a fix. In a new session, `anima memory ask \"how many retries?\"` brings it back with the text and a record id that points to where it came from.",
+      "will": "`python3 -m anima.memory ingest <run folder>` stores what a finished run decided and fixed. In a new session `python3 -m anima.memory recall \"<task text>\"` brings back the most similar past jobs, each with a pointer to the file it came from, and `anima run --memory trace` puts them in the agent's prompt.",
       "limit": "A small local store, not the 100-million-token library. It aims at continuity (the agent knows what was decided before) and makes no claim of better fixes. The 20-question test is a small sample.",
       "verify": "",
       "proof": "docs/evidence/trace-card-100m/README.md"
@@ -35,7 +35,7 @@
       "requires": "first",
       "plain": "ANIMA works inside the coding tool you already use (the harness): Muse Code first, then Claude Code, then Codex.",
       "exists": "Nothing is wired yet. The three tools have command-line modes, and ANIMA's adapters are meant to call them.",
-      "will": "`anima run --harness muse --task examples/tiny-bug` sends one small bug task to Muse Code and ends with the hidden checker's verdict. The same task goes to Claude Code or Codex by changing one word.",
+      "will": "`anima run --harness muse --task tiny-bug` sends one small bug task to Muse Code and ends with the hidden checker's verdict. The same task goes to Claude Code or Codex by changing one word.",
       "limit": "Thin adapters and a tiny task first. Blocking a forbidden action before it runs is expected to work first on Claude Code, which has per-action hooks. On Muse Code and Codex ANIMA starts with a wrapper and a process watch.",
       "verify": "",
       "proof": ""
@@ -48,7 +48,7 @@
       "page": "harnesses.html",
       "plain": "The first harness. Muse Code runs the task and ANIMA wraps it with the hidden checker and the rules.",
       "exists": "Muse Code already did the first-rung work in the recorded nine-job run (it said done nine times, seven were right). That run used our earlier driver, not the new plug-in.",
-      "will": "`anima run --harness muse --task examples/tiny-bug` ends with `VERDICT PASS` and exit code 0.",
+      "will": "`anima run --harness muse --task tiny-bug` ends with `VERDICT PASS` and exit code 0.",
       "limit": "Tiny task only. The tool must already be installed and logged in on your machine.",
       "verify": "",
       "proof": ""
@@ -61,7 +61,7 @@
       "page": "harnesses.html",
       "plain": "The second harness. The same task, sent to Claude Code, judged by the same hidden checker.",
       "exists": "Claude Sonnet fixed both wrong answers in the recorded run, as the second rung of the ladder. That run used our earlier driver, not the new plug-in.",
-      "will": "`anima run --harness claude --task examples/tiny-bug` ends with the checker's verdict.",
+      "will": "`anima run --harness claude --task tiny-bug` ends with the checker's verdict.",
       "limit": "Tiny task only. The tool must already be installed and logged in.",
       "verify": "",
       "proof": ""
@@ -74,7 +74,7 @@
       "page": "harnesses.html",
       "plain": "The third harness. The same task, sent to Codex, judged by the same hidden checker.",
       "exists": "Codex is the last rung of the recorded ladder; it was not needed in the nine-job run.",
-      "will": "`anima run --harness codex --task examples/tiny-bug` ends with the checker's verdict.",
+      "will": "`anima run --harness codex --task tiny-bug` ends with the checker's verdict.",
       "limit": "The run may end as NOT RUN if Codex is not installed and logged in on the machine. Tiny task only.",
       "verify": "",
       "proof": ""
@@ -100,7 +100,7 @@
       "page": "state-tree.html",
       "plain": "Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.",
       "exists": "The recorded nine-job run exists as a decision log with 69 records, which is what the screen reads. The screen itself is not built yet.",
-      "will": "A web page. The root is the mission, the branches are tasks, the leaves are attempts coloured right, wrong or waiting. An escalation adds a branch. It first replays the recorded nine-job run, then follows a live run.",
+      "will": "A web page. The root is the mission, the branches are tasks, the leaves are attempts coloured right, wrong or waiting. An escalation adds a branch. `python3 -m anima.ui --demo` opens it on the recorded nine-job run, and `anima status --tree --demo` prints the same tree as text. A live run comes after the replay.",
       "limit": "It draws the decision log, not what a model is thinking. One computer.",
       "verify": "",
       "proof": ""
@@ -113,7 +113,7 @@
       "page": "voice.html",
       "plain": "Say what you want. Speech is turned into text on your own computer, with local Whisper.",
       "exists": "Nothing is built yet. The plan uses faster-whisper, a local speech-to-text library, running on the CPU.",
-      "will": "`anima voice --file voice/samples/status.wav` prints what it heard and the command it understood, for example {\"cmd\":\"status\"}. Starting or stopping a task needs a typed confirmation.",
+      "will": "`anima voice voice/clips/show-status.wav --demo` prints what it heard (\"Show status.\") and then the tree. Starting or stopping a task needs a typed confirmation.",
       "limit": "About six fixed English commands. Shown first from a recorded clip, because a microphone can fail inside WSL. The delay has not been measured.",
       "verify": "",
       "proof": ""
