@@ -14,6 +14,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -234,8 +235,50 @@ def architect_plan(profile: Profile, name: str, task: Task, run_dir: Path, chain
     return plan, res
 
 
+def _memory_cmd(*args) -> list:
+    """`python -m anima.memory ...` in a child process: it re-launches itself inside the memory venv
+    (built by `anima memory setup`) when this interpreter has no numpy/onnxruntime, so `anima run`
+    works from any venv."""
+    return [sys.executable, "-m", "anima.memory", *args]
+
+
+def _memory_env() -> dict:
+    root = str(Path(__file__).resolve().parents[2])  # the folder that contains the `anima` package
+    env = dict(os.environ)
+    env["PYTHONPATH"] = os.pathsep.join(filter(None, [root, env.get("PYTHONPATH", "")]))
+    return env
+
+
+def _recall_into(text: str, task: Task, memory: dict, chain: Chain, say, adir: Path) -> str:
+    """`--memory trace`: put similar past fixes (with source pointers) in front of the worker's prompt.
+    Fail-open: any problem leaves the prompt as it was; the decision log says what happened."""
+    rep, new = {"injected": 0}, text
+    try:
+        pf, tf = adir / "prompt-before-memory.txt", adir / "task-text.txt"
+        pf.write_text(text)
+        tf.write_text(task.issue_text)
+        argv = _memory_cmd("prompt", "--prompt-file", str(pf), "--task-file", str(tf), "--store", memory["store"],
+                           "-k", str(memory.get("k", 3)))
+        if memory.get("exclude_self"):
+            argv += ["--exclude-task", task.id]
+        r = subprocess.run(argv, capture_output=True, text=True, timeout=300, env=_memory_env())
+        if r.returncode == 0:
+            new = r.stdout
+            rep = json.loads(r.stderr.strip().splitlines()[-1])
+        else:
+            rep = {"injected": 0, "error": ((r.stderr or r.stdout).strip().splitlines() or ["exit " + str(r.returncode)])[-1][:200]}
+    except (OSError, ValueError, IndexError, subprocess.SubprocessError) as exc:
+        rep = {"injected": 0, "error": f"{type(exc).__name__}: {exc}"[:200]}
+    chain.append("decision.made", task.id, actor="anima-memory", decision="memory-recall", injected=rep.get("injected", 0),
+                 backend=rep.get("backend"), seconds=rep.get("seconds"), error=rep.get("error"), block_chars=rep.get("block_chars"),
+                 hits=[{"task": h["task"], "score": h["score"], "pointer": h["pointer"]} for h in rep.get("hits", [])])
+    say(f"memory: {rep.get('injected', 0)} similar past job(s) put in front of the prompt"
+        + (f" (memory error, running without it: {rep['error']})" if rep.get("error") else ""))
+    return new if rep.get("injected") else text
+
+
 def run_task(profile: Profile, task: Task, runs_dir: Path, *, harness: str | None = None, ladder: bool = False,
-             plan_first: bool = False, dry_run: bool = False, say=print) -> Outcome:
+             plan_first: bool = False, dry_run: bool = False, say=print, memory: dict | None = None) -> Outcome:
     start = harness or profile.role_harness("worker")
     if not start:
         raise HarnessError("no harness configured: run `anima init` (or `anima harness add muse|claude|codex`)")
@@ -287,7 +330,10 @@ def run_task(profile: Profile, task: Task, runs_dir: Path, *, harness: str | Non
         co = prepare_checkout(task, adir)
         baseline = _gate_module().protected_snapshot(co, task.protected, task.protected_roots)
         prompt = adir / "prompt.txt"
-        prompt.write_text(_prompt(task, plan_text, prev if (prev is not None and prev.verdict == "FAIL" and step["how"] != "first") else None))
+        ptext = _prompt(task, plan_text, prev if (prev is not None and prev.verdict == "FAIL" and step["how"] != "first") else None)
+        if memory:
+            ptext = _recall_into(ptext, task, memory, chain, say, adir)
+        prompt.write_text(ptext)
         chain.append("task.created", task.id, original_task=task.id, pool=name, rung=rung, surface="done", role="worker",
                      harness_kind=ad.kind, how=step["how"])
         chain.append("task.started", task.id, job_id=att.job_id, original_task=task.id, pool=name, rung=rung,

@@ -10,6 +10,7 @@ import argparse
 import importlib
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 import time
@@ -330,9 +331,20 @@ def cmd_run(a) -> int:
             return 0
         out(f"PLAN NOT RUN/FAILED: {res.error if res else 'no result'}")
         return EXIT_NOT_RUN
-    res = run_task(prof, task, runs_dir, harness=a.harness, ladder=a.ladder, plan_first=a.plan_first, dry_run=a.dry_run, say=out)
+    memory = {"store": a.memory_store, "k": a.memory_k, "exclude_self": a.memory_exclude_self} if a.memory == "trace" else None
+    res = run_task(prof, task, runs_dir, harness=a.harness, ladder=a.ladder, plan_first=a.plan_first, dry_run=a.dry_run, say=out,
+                   memory=memory)
     if a.dry_run:
         return EXIT_NOT_RUN
+    if memory and not a.memory_no_record:
+        from .ladder import _memory_cmd, _memory_env
+        try:
+            r = subprocess.run(_memory_cmd("ingest", str(res.run_dir), "--task", str(task.dir), "--store", a.memory_store),
+                               capture_output=True, text=True, timeout=300, env=_memory_env())
+            tail = (r.stdout.strip().splitlines() or [""])[-1] if r.returncode == 0 else ((r.stderr or r.stdout).strip().splitlines() or ["failed"])[-1]
+            out(f"memory: {'recorded this run -> ' if r.returncode == 0 else 'NOT recorded: '}{tail[:160]}")
+        except (OSError, subprocess.SubprocessError) as exc:
+            out(f"memory: NOT recorded: {exc}")
     ok, why, n, digest = chainmod.verify(res.chain_path)
     f = res.final
     if res.verdict == "PASS":
@@ -417,6 +429,12 @@ def build_parser():
     s.add_argument("--plan-first", action="store_true", help="ask the architect role for a plan, hand it to the worker")
     s.add_argument("--dry-run", action="store_true", help="print the command lines that would run; start nothing")
     s.add_argument("--runs-dir")
+    s.add_argument("--memory", choices=["off", "trace"], default="off",
+                   help="trace: put similar past fixes from the local TRACE memory in front of the worker's prompt, and record this run afterwards (see docs/MEMORY.md)")
+    s.add_argument("--memory-store", default=".anima/trace", help="memory folder (default .anima/trace)")
+    s.add_argument("--memory-k", type=int, default=3, help="how many past jobs to recall")
+    s.add_argument("--memory-no-record", action="store_true", help="recall only; do not add this run to the memory")
+    s.add_argument("--memory-exclude-self", action="store_true", help="never recall this same task's own earlier jobs (used for the A/B)")
     s = sub.add_parser("check", help="would this command be blocked? (exit 3 = block)")
     s.add_argument("--cmd"); s.add_argument("--hook", action="store_true"); s.add_argument("--pack", action="append")
     s.add_argument("--mode", default="enforce", choices=["warn", "enforce"])
