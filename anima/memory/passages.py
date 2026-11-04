@@ -13,6 +13,9 @@ Three inputs are understood:
                     what `anima memory record` writes.
   attempts dir      a folder of `<task>/attempt.json + hand.json` as written by the
                     flagship harness (adds the agent's own one-line summary).
+  run folder        what `anima run` writes: attempts/<rung>-<harness>/{attempt.json,
+                    hand.json,changes.patch} next to decisions.jsonl. One passage per
+                    attempt, with a line-count summary of the diff (never the code).
 
 Every passage carries a SOURCE POINTER that can be re-checked later: a file, a line
 (for logs), a record id and the SHA-256 of that line or file. `verify_pointer` re-reads
@@ -209,6 +212,99 @@ def parse_job(path, root=None):
     return out
 
 
+# --------------------------------------------------------------------------- `anima run` run folders
+def diff_summary(patch_text: str, max_files: int = 4) -> str:
+    """'src/a.py (+3 -1), src/b.py (+10 -0)' from a unified diff. Counts lines only; never quotes code."""
+    files, cur = [], None
+    for ln in patch_text.splitlines():
+        if ln.startswith("diff --git "):
+            cur = [ln.split(" b/", 1)[-1].strip(), 0, 0]
+            files.append(cur)
+        elif cur and ln.startswith("+") and not ln.startswith("+++"):
+            cur[1] += 1
+        elif cur and ln.startswith("-") and not ln.startswith("---"):
+            cur[2] += 1
+    if not files:
+        return "no file changes"
+    s = ", ".join(f"{f} (+{a} -{b})" for f, a, b in files[:max_files])
+    return s + (f", and {len(files) - max_files} more files" if len(files) > max_files else "")
+
+
+def find_task_card(task_ref, task_id: str):
+    """task_ref: a task.json, a task folder, or a folder of task folders. Returns the parsed card or None."""
+    if not task_ref:
+        return None
+    p = Path(task_ref)
+    for c in ([p] if p.is_file() else [p / "task.json", p / task_id / "task.json"]):
+        if c.is_file():
+            try:
+                card = json.loads(c.read_text())
+            except ValueError:
+                continue
+            if card.get("id") == task_id:
+                return card
+    return None
+
+
+def is_run_dir(p: Path) -> bool:
+    a = p / "attempts"
+    return a.is_dir() and any((s / "attempt.json").is_file() for s in a.iterdir() if s.is_dir())
+
+
+def parse_run_dir(run_dir, root=None, task=None, verify_chain=True):
+    """A folder written by `anima run`: attempts/<rung>-<harness>/{attempt.json,hand.json,changes.patch}
+    next to a hash-chained decisions.jsonl. One passage per attempt. The task text is not stored in the
+    run folder, so pass `task` (a task.json, a task folder, or a folder of task folders)."""
+    run_dir = Path(run_dir)
+    chain = run_dir / "decisions.jsonl"
+    if verify_chain and chain.is_file():
+        ok, why, _ = check_chain(chain.read_bytes())
+        if not ok:
+            raise ValueError(f"{chain}: CHAIN BROKEN ({why}); refusing to ingest a run whose log does not verify")
+    items = []
+    for sub in sorted((run_dir / "attempts").iterdir()):
+        aj = sub / "attempt.json"
+        if aj.is_file():
+            araw = aj.read_bytes()
+            hj, pj = sub / "hand.json", sub / "changes.patch"
+            items.append((json.loads(araw), json.loads(hj.read_text()) if hj.is_file() else {},
+                          pj.read_text(errors="replace") if pj.is_file() else None, aj, sha256_bytes(araw)))
+    items.sort(key=lambda t: t[0].get("rung", 0))
+    out, prior_fail = [], None
+    for i, (a, h, patch, aj, fsha) in enumerate(items):
+        tid = a.get("task") or run_dir.name
+        lib, verdict = library_of(tid), a.get("verdict", "UNKNOWN")
+        card = find_task_card(task, tid)
+        n_issue = 70
+        while True:
+            issue = clip((card or {}).get("issue_text", ""), n_issue)
+            text = f"Task {tid} (library {lib}): {issue} " if issue else f"Task {tid} (library {lib}; task words: {words(tid)}). "
+            text += f"Attempt {i + 1} by {a.get('harness', 'unknown')}."
+            if h.get("summary"):
+                text += f" The agent's summary: {clip(h['summary'], 40)}"
+                if not text.endswith("."):
+                    text += "."
+            if patch is not None:
+                text += f" Change: {clip(diff_summary(patch), 40)}."
+            text += " " + _outcome_sentence(verdict, a.get("failed_rule"), (a.get("digest") or "").strip())
+            if verdict == "PASS" and prior_fail:
+                text += f" It passed after the earlier attempt failed on: {clip(prior_fail, 40)}."
+            if len(text.split()) <= MAX_WORDS or n_issue <= 15:
+                break
+            n_issue -= 10
+        if verdict != "PASS" and (a.get("digest") or "").strip():
+            prior_fail = a["digest"]
+        out.append(Passage(
+            base_id=f"run:{run_dir.name}:{tid}:a{i}", kind="run-attempt", task=tid, library=lib,
+            text=" ".join(text.split()),
+            source={"file": _rel(aj, root), "record_id": a.get("job_id") or aj.parent.name, "sha256": fsha,
+                    "what": "anima run attempt.json (whole file)"},
+            meta={"verdict": verdict, "failed_rule": a.get("failed_rule"), "pool": a.get("harness"),
+                  "rung": a.get("rung"), "first_failure": (a.get("digest") or "").strip() or None,
+                  "origin": "anima-run", "run": run_dir.name, "attempt": i + 1, "has_task_text": bool(card)}))
+    return out
+
+
 # --------------------------------------------------------------------------- flagship attempts dir
 def parse_attempts_dir(path, root=None):
     """<dir>/<task>/{attempt.json,hand.json}: the flagship harness' evidence layout."""
@@ -252,11 +348,18 @@ def parse_attempts_dir(path, root=None):
     return out
 
 
-def load_path(path, root=None, verify_chain=True):
-    """Dispatch on what `path` is. Returns a list of Passage."""
+def load_path(path, root=None, verify_chain=True, task=None):
+    """Dispatch on what `path` is. Returns a list of Passage. `task` = where to find task.json text for `anima run` folders."""
     p = Path(path)
     if p.is_dir():
+        if is_run_dir(p):
+            return parse_run_dir(p, root, task, verify_chain)
         out = []
+        runs = [d for d in sorted(p.iterdir()) if d.is_dir() and is_run_dir(d)]
+        for d in runs:
+            out += parse_run_dir(d, root, task, verify_chain)
+        if runs:
+            return out
         if any((s / "attempt.json").is_file() for s in p.iterdir() if s.is_dir()):
             out += parse_attempts_dir(p, root)
         for f in sorted(p.rglob("job.json")):

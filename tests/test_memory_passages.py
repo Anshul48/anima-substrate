@@ -75,6 +75,53 @@ class JobRecord(unittest.TestCase):
                 P.parse_job(f)
 
 
+class RunFolder(unittest.TestCase):
+    """The folder `anima run` writes: attempts/<rung>-<harness>/ next to a hash-chained decisions.jsonl."""
+
+    def make_run(self, d):
+        import hashlib
+        run = Path(d) / "20261104T190000Z-demo-bug-abc123"
+        for rung, (verdict, rule, digest, patch) in enumerate([
+                ("FAIL", "hidden-tests", "AssertionError: assert 2 == 3",
+                 "diff --git a/src/m.py b/src/m.py\n--- a/src/m.py\n+++ b/src/m.py\n@@ -1 +1 @@\n-x = 1\n+x = 2\n"),
+                ("PASS", None, "", "diff --git a/src/m.py b/src/m.py\n+++ b/src/m.py\n+a\n+b\n-c\n")]):
+            a = run / "attempts" / f"{rung}-muse"
+            a.mkdir(parents=True)
+            (a / "attempt.json").write_text(json.dumps({"rung": rung, "harness": "muse", "verdict": verdict, "failed_rule": rule,
+                                                        "digest": digest, "task": "demo-bug", "job_id": f"j{rung}"}))
+            (a / "hand.json").write_text(json.dumps({"summary": "Changed the loop bound."}))
+            (a / "changes.patch").write_text(patch)
+        line = json.dumps({"prev": "GENESIS", "kind": "heartbeat", "id": "1"}, sort_keys=True).encode()
+        nxt = json.dumps({"prev": hashlib.sha256(line).hexdigest(), "kind": "task.done", "id": "2"}, sort_keys=True).encode()
+        (run / "decisions.jsonl").write_bytes(line + b"\n" + nxt + b"\n")
+        task = Path(d) / "tasks" / "demo-bug"
+        task.mkdir(parents=True)
+        (task / "task.json").write_text(json.dumps({"id": "demo-bug", "issue_text": "The loop in m.py stops one item early."}))
+        return run, Path(d) / "tasks"
+
+    def test_run_folder_becomes_two_passages_with_task_text_and_diff_summary(self):
+        with tempfile.TemporaryDirectory() as d:
+            run, tasks = self.make_run(d)
+            ps = P.load_path(run, root=d, task=tasks)
+            self.assertEqual([p.meta["verdict"] for p in ps], ["FAIL", "PASS"])
+            self.assertIn("The loop in m.py stops one item early", ps[0].text)
+            self.assertIn("src/m.py (+1 -1)", ps[0].text)
+            self.assertIn("src/m.py (+2 -1)", ps[1].text)
+            self.assertIn("passed after the earlier attempt failed on: AssertionError", ps[1].text)
+            self.assertTrue(all(len(p.text.split()) <= P.MAX_WORDS for p in ps))
+            self.assertTrue(all(P.verify_pointer(p.source, d)[0] == "OK" for p in ps))
+            # a folder of run folders is understood too
+            self.assertEqual(len(P.load_path(Path(d), root=d, task=tasks)), 2)
+
+    def test_run_folder_with_a_broken_chain_is_refused(self):
+        with tempfile.TemporaryDirectory() as d:
+            run, tasks = self.make_run(d)
+            raw = (run / "decisions.jsonl").read_bytes().replace(b'"id": "1"', b'"id": "9"')
+            (run / "decisions.jsonl").write_bytes(raw)
+            with self.assertRaises(ValueError):
+                P.load_path(run, root=d, task=tasks)
+
+
 class Block(unittest.TestCase):
     def test_block_text_and_empty(self):
         res = {"hits": [{"rank": 1, "score": 0.5, "text": "Job a.", "pointer": "f line 1 sha256 ab", "source_check": "OK"}]}
