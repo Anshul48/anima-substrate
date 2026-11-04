@@ -6,7 +6,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -92,59 +91,92 @@ def _open(args, create):
     return open_store(args.store, _enc_arg(args), backend=args.backend, create=create)
 
 
+def _apply_require(args):
+    """--require trace/minilm: the run must use exactly that engine and encoder, or it stops (exit 3).
+    Without it a missing TRACE source or model would quietly fall back to the labelled simple retriever."""
+    spec = getattr(args, "require", None)
+    if not spec:
+        return
+    want_b, _, want_e = spec.partition("/")
+    for have, want, what in ((args.backend, want_b, "backend"), (args.encoder, want_e, "encoder")):
+        if have not in ("auto", want):
+            print(f"anima memory: --require {spec} conflicts with --{what} {have}", file=sys.stderr)
+            raise SystemExit(3)
+    args.backend, args.encoder = want_b, want_e
+
+
+def _check_required(args, backend_kind, encoder_name):
+    spec = getattr(args, "require", None)
+    if spec:
+        want_b, _, want_e = spec.partition("/")
+        if backend_kind != want_b or not str(encoder_name or "").startswith(want_e):
+            print(f"anima memory: --require {spec}, but this memory is {backend_kind}/{encoder_name}. Stopping.", file=sys.stderr)
+            raise SystemExit(3)
+
+
 def cmd_ingest(args):
     from .passages import load_path
+    from .safety import locked
     from .stores import read_config
+    _apply_require(args)
     store = Path(args.store)
     root = Path(read_config(store)["project_root"]) if read_config(store) else Path.cwd()
-    passages = []
+    passages, say = [], (lambda *a: print(*a, file=sys.stderr)) if args.json else print
     for p in args.paths:
         got = load_path(p, root=root, verify_chain=not args.no_verify_chain, task=args.task)
-        print(f"read {len(got):3d} passages from {p}")
+        say(f"read {len(got):3d} passages from {p}")
         passages += got
-    st = _open(args, create=True)
-    try:
-        rep = st.ingest(passages)
-        print(f"backend: {st.label()}")
-        print("ingest:", json.dumps(rep))
-        print(f"store {store}: {st.count()} atoms searchable")
-    finally:
-        st.close()
+    with locked(store, exclusive=True):  # one writer at a time
+        st = _open(args, create=True)
+        try:
+            _check_required(args, st.backend, st.enc.name)
+            rep = st.ingest(passages)
+            if args.json:
+                print(json.dumps({"recorded": len(passages), "store_count": st.count(), "ingest": rep, "backend": st.label()}))
+            else:
+                say(f"backend: {st.label()}")
+                say("ingest:", json.dumps(rep))
+                say(f"store {store}: {st.count()} atoms searchable")
+        finally:
+            st.close()
     return 0
 
 
 def cmd_record(args):
     from .passages import SCHEMA, load_path
     from .stores import read_config
+    from .safety import locked, safe_dest, safe_id
+    _apply_require(args)
     j = json.loads(Path(args.job).read_text())
     if j.get("schema") != SCHEMA:
         print(f"anima memory record: {args.job} is not {SCHEMA}", file=sys.stderr)
         return 2
     store = Path(args.store)
-    rid = str(j.get("job_id") or j.get("task") or "")
-    if not re.match(r"^[A-Za-z0-9][A-Za-z0-9_.\-]{0,100}$", rid) or ".." in rid:
-        print(f"anima memory record: record id {rid!r} is not allowed (letters, digits, - _ . only; no path parts)", file=sys.stderr)
+    try:  # the id becomes a file name: no '/', no '..', no symlink in the way
+        dest = safe_dest(store / "jobs", safe_id(j.get("job_id") or j["task"], "job id") + ".json")
+    except ValueError as exc:
+        print(f"anima memory record: refused: {exc}", file=sys.stderr)
         return 2
-    (store / "jobs").mkdir(parents=True, exist_ok=True)
-    dest = store / "jobs" / f"{rid}.json"
-    if dest.is_symlink() or not dest.resolve().is_relative_to((store / "jobs").resolve()):
-        print(f"anima memory record: {dest} would be outside {store / 'jobs'}; refused", file=sys.stderr)
-        return 2
-    shutil.copyfile(args.job, dest)
-    root = Path(read_config(store)["project_root"]) if read_config(store) else Path.cwd()
-    st = _open(args, create=True)
-    try:
-        rep = st.ingest(load_path(dest, root=root))
-        print("record:", json.dumps(rep), f"-> {dest}")
-    finally:
-        st.close()
+    with locked(store, exclusive=True):
+        shutil.copyfile(args.job, dest)
+        root = Path(read_config(store)["project_root"]) if read_config(store) else Path.cwd()
+        st = _open(args, create=True)
+        try:
+            _check_required(args, st.backend, st.enc.name)
+            rep = st.ingest(load_path(dest, root=root))
+            print("record:", json.dumps(rep), f"-> {dest}")
+        finally:
+            st.close()
     return 0
 
 
 def cmd_recall(args):
     from .recall import recall
+    _apply_require(args)
     res = recall(args.task, store_dir=args.store, k=args.k, min_score=args.min_score, exclude_tasks=args.exclude_task,
                  encoder=args.encoder, backend=args.backend, verify=not args.no_verify)
+    if res.get("backend"):
+        _check_required(args, res["backend_kind"], res["encoder"])
     if args.json:
         print(json.dumps(res, indent=1))
         return 0
@@ -153,8 +185,8 @@ def cmd_recall(args):
         print(res["note"])
     print(f"query  : {res['query'][:200]}")
     print(f"recall : {len(res['hits'])} hit(s) in {res['seconds']} s (min similarity {args.min_score})")
-    for e in res.get("excluded", []):
-        print(f"  EXCLUDED (not shown): task {e['task']}: {e['reason']}: {e['detail']}")
+    for d in res.get("excluded_unverified", []):
+        print(f"left out (source check {d['status']}): task {d['task']} - {d['detail']}")
     for h in res["hits"]:
         print(f"\n[{h['rank']}] similarity {h['score']:.3f}  task {h['task']}  "
               f"({h['meta'].get('verdict')}{', rule ' + h['meta']['failed_rule'] if h['meta'].get('failed_rule') else ''})")
@@ -169,8 +201,11 @@ def cmd_prompt(args):
     from .hook import augment_prompt
     prompt = Path(args.prompt_file).read_text() if args.prompt_file else sys.stdin.read()
     task = Path(args.task_file).read_text() if args.task_file else None
+    _apply_require(args)
     new, rep = augment_prompt(prompt, task_text=task, store_dir=args.store, k=args.k, min_score=args.min_score,
-                              exclude_tasks=args.exclude_task, encoder=args.encoder, backend=args.backend)
+                              exclude_tasks=args.exclude_task, encoder=args.encoder, backend=args.backend, isolate=False)
+    if getattr(args, "require", None) and rep.get("backend_kind"):
+        _check_required(args, rep["backend_kind"], rep.get("encoder"))
     print(json.dumps(rep), file=sys.stderr)
     sys.stdout.write(new)
     return 0
@@ -189,17 +224,17 @@ def cmd_status(args):
 
 
 def cmd_verify(args):
-    from .passages import verify_pointer
+    from .passages import verify_passage
     from .stores import Sidecar, read_config
     cfg = read_config(args.store)
     root = Path(cfg["project_root"]) if cfg else Path.cwd()
     side, bad = Sidecar(Path(args.store)), 0
     for r in side.rows.values():
-        status, detail = verify_pointer(r["source"], root)
+        status, detail, _ = verify_passage(r, root)  # pointer AND the stored text, re-derived from the source
         bad += status != "OK"
         if status != "OK" or args.verbose:
             print(f"{status:8s} {r['doc_id']}  {detail}")
-    print(f"verified {len(side.rows)} source pointers: {len(side.rows) - bad} OK, {bad} not OK")
+    print(f"verified {len(side.rows)} passages (source pointer and text): {len(side.rows) - bad} OK, {bad} not OK")
     return 1 if bad else 0
 
 
@@ -209,19 +244,22 @@ def build_parser():
 
     def common(p, store=True):
         if store:
-            p.add_argument("--store", default=".anima/trace", help="memory folder (default .anima/trace)")
+            p.add_argument("--store", default=None, help="memory folder (default: $ANIMA_MEMORY_STORE, else <ANIMA_HOME>/memory/trace)")
         p.add_argument("--encoder", choices=["auto", "minilm", "hash"], default="auto")
         p.add_argument("--backend", choices=["auto", "trace", "simple"], default="auto")
+        p.add_argument("--require", choices=["trace/minilm"], help="stop (exit 3) unless the memory is the real TRACE engine with the MiniLM encoder; no silent fallback")
 
     p = sub.add_parser("setup", help="build the memory venv, clone TRACE, fetch the model (needs network once)")
     p.add_argument("--check", action="store_true", help="only report")
     p.add_argument("--no-model", action="store_true")
     p.set_defaults(fn=cmd_setup)
+    
 
     p = sub.add_parser("ingest", help="turn decision logs / job records / attempt folders into passages in the TRACE index")
     p.add_argument("paths", nargs="+")
     p.add_argument("--no-verify-chain", action="store_true", help="ingest a decision log even if its hash chain does not verify")
     p.add_argument("--task", help="for `anima run` folders: a task.json, a task folder, or a folder of task folders (the run folder does not store the task text)")
+    p.add_argument("--json", action="store_true", help="print one JSON report line on stdout (progress goes to stderr)")
     common(p)
     p.set_defaults(fn=cmd_ingest)
 
@@ -251,11 +289,11 @@ def build_parser():
 
     p = sub.add_parser("status")
     common(p, store=False)
-    p.add_argument("--store", default=".anima/trace")
+    p.add_argument("--store", default=None)
     p.set_defaults(fn=cmd_status)
 
-    p = sub.add_parser("verify", help="re-check every stored source pointer against its file")
-    p.add_argument("--store", default=".anima/trace")
+    p = sub.add_parser("verify", help="re-check every stored passage against its source (pointer and text)")
+    p.add_argument("--store", default=None)
     p.add_argument("-v", "--verbose", action="store_true")
     p.set_defaults(fn=cmd_verify)
     return ap
@@ -264,6 +302,9 @@ def build_parser():
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
     args = build_parser().parse_args(argv)
+    if hasattr(args, "store") and not args.store:
+        from .stores import default_store
+        args.store = str(default_store())
     if args.cmd not in ("setup", "verify"):
         _ensure_deps(argv)
     return args.fn(args)
