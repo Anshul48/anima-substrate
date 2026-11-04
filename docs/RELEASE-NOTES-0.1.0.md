@@ -13,7 +13,7 @@ python -c "import anima_substrate; print(anima_substrate.__version__)"
 ```
 
 Linux/Ubuntu + Python 3.10–3.12 (verified on 3.12). Zero runtime
-dependencies. Quickstart: `examples/quickstart.py` in the sdist,
+dependencies. Quickstart: `docs/examples/quickstart.py` in the sdist,
 or the README journey.
 
 ## Verification (observed, 2026-10-08)

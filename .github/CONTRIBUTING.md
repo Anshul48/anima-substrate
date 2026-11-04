@@ -60,8 +60,8 @@ export PYTHONDONTWRITEBYTECODE=1
 ## Test commands
 
 ```sh
-./.venv/bin/python -m pytest tests/ -q          # full suite (~16 min)
-./.venv/bin/python -m pytest tests/test_families.py -q   # fast subset
+./.venv/bin/python -m pytest tools/tests/ -q          # full suite (~16 min)
+./.venv/bin/python -m pytest tools/tests/test_families.py -q   # fast subset
 ./.venv/bin/python examples/quickstart.py       # consumer journey
 ```
 

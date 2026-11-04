@@ -40,7 +40,7 @@ directory, never in the installed package.
 ## Working example
 
 ```
-python examples/quickstart.py
+python docs/examples/quickstart.py
 ```
 
 It builds a tiny release tree, runs the release-check participant,
@@ -58,7 +58,7 @@ anima-substrate ops j1-status --state-dir $D
 ```
 
 Full journey (interruption, fusion, quarantine, reuse):
-[examples/quickstart.py](../examples/quickstart.py) and
+[docs/examples/quickstart.py](examples/quickstart.py) and
 [docs/RECOVERY.md](RECOVERY.md).
 
 ## Implemented capabilities

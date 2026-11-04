@@ -27,7 +27,7 @@ From a checkout, tooling lives in `./.venv` (pytest/ruff/build —
 never installed with the package):
 
 ```
-.venv/bin/python -m pytest tests/ -q
+.venv/bin/python -m pytest tools/tests/ -q
 ```
 
 SST leg — stage the pinned SST root once (see `docs/SST-STAGING.md`

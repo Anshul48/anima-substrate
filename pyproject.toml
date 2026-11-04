@@ -43,8 +43,8 @@ artifacts = []
 # (frozen research trees), .venv, dist, and run state never ship.
 include = [
   "src",
-  "tests",
-  "examples",
+  "tools/tests",
+  "docs/examples",
   "docs",
   "LICENSE",
   "README.md",
@@ -68,7 +68,7 @@ exclude = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tools/tests"]
 addopts = "-q"
 
 [tool.ruff]

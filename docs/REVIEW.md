@@ -13,9 +13,9 @@ python -c "import anima_substrate; print(anima_substrate.__version__)"
 ## 2. Run the journeys (3 min)
 
 ```
-python examples/quickstart.py            # project world + delegation +
+python docs/examples/quickstart.py            # project world + delegation +
                                          # close/reopen + recover + settle
-python examples/external_participant.py  # add your own world kind
+python docs/examples/external_participant.py  # add your own world kind
                                          # (zero host edits)
 ```
 

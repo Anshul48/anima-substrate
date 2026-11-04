@@ -32,10 +32,10 @@ src/anima_substrate/
     successor_demo.py  integrated S1–S6 + SST + settle demo
     j1_demo.py         J1 persistent-worlds journey demo (10 stages)
   accept/            frozen S1–S6 accept pack + EXPECTED.json
-tests/               ported suites (s005 57+39+17, s006 9+7+10+13+6)
+tools/tests/        ported suites (s005 57+39+17, s006 9+7+10+13+6)
                      + maintained suites (families, M1, M3, M4, SST,
                      calibrate/demo)
-examples/            quickstart script (installed-package flow)
+docs/examples/     quickstart script (installed-package flow)
 docs/                CONSUMER / CONTRACTS / ARCHITECTURE / RECOVERY /
                      SST-STAGING
 ```
@@ -59,7 +59,7 @@ A family = one kind of task work behind four operations
 (create/run/recover/change) plus advertised caps/reps/grant shape.
 Families register themselves and bind the public host surface only
 (`host.api`, `host.minihost`, public constants) — adding one needs
-zero host edits (enforced by `tests/test_families.py`).
+zero host edits (enforced by `tools/tests/test_families.py`).
 
 | family | version | task work |
 |---|---|---|
@@ -74,23 +74,23 @@ zero host edits (enforced by `tests/test_families.py`).
   `family-run` on real files → close/reopen byte-verified →
   `settle` stranded=0; install = `pip install` from a built wheel;
   3 seeded failure cases raise actionable errors (cause + fix).
-  Evidence: `tests/test_m1_journey.py` (+ gated wheel test).
+  Evidence: `tools/tests/test_m1_journey.py` (+ gated wheel test).
 - M2 pinned participants: ≥2 base families + SST optional extra
   via caller-provided root at pinned `df78f42` + compat probe;
   relcheck v1→v2 upgrade with old pins reproducible; refusals via
-  consumer interfaces. Evidence: `tests/test_families.py`,
-  `tests/test_sst_staging.py`, `tests/test_successor.py` SST legs.
+  consumer interfaces. Evidence: `tools/tests/test_families.py`,
+  `tools/tests/test_sst_staging.py`, `tools/tests/test_successor.py` SST legs.
 - M3 persistent organization: channels + relationship evidence +
   custody persist across reopen (byte-verified inventories);
   `export-composite` produces a portable executable consumed
   unmodified in a fresh separate state dir (explicit new grants,
   lineage preserved); kill-during-persist converges via
-  reopen + recover. Evidence: `tests/test_m3_org.py`.
+  reopen + recover. Evidence: `tools/tests/test_m3_org.py`.
 - M4 experience loop: propose → assess (P0–P3 + independent
   re-hash) → retain → reuse on a meaningfully different task, with
   a filed prereg (programme format) predating comparison runs, a
   from-scratch baseline with costs/interventions, and
-  superiority_claimed=false. Evidence: `tests/test_m4_loop.py`,
+  superiority_claimed=false. Evidence: `tools/tests/test_m4_loop.py`,
   `runs/m4/` (witnessed instance).
 
 ## 5. Limits (package envelope)
@@ -117,7 +117,7 @@ these limits.
    SIGKILL leg). Kill DURING repair converges on re-run.
 4. Central-bytes accounting is a serialized-bytes ratio inside the
    task envelope ONLY. RE-PROVEN in this package: 2.61x (810/310,
-   `tests/test_calibrate_demo.py`). J1 work plans claim NO lane
+   `tools/tests/test_calibrate_demo.py`). J1 work plans claim NO lane
    bytes (no clarification dialogue by design).
 5. Fusion/fission/quarantine/nest are structural but single-host.
    Cross-host anything is NOT implemented. (Portable composites
@@ -172,7 +172,7 @@ these limits.
     (`j1-export-*.json`) remains evidence, not executable.
 15. (Package delta — s006 gap CLOSED.) The full 57-test procedure
     suite is ported and green in this tree
-    (`tests/test_procedure.py` 57/57); procedure behavior is
+    (`tools/tests/test_procedure.py` 57/57); procedure behavior is
     verified here, not carried on byte-identity.
 16. J1 verify is single-checker: one `sched.verify` verdict per
     task (optionally cross-world). No independent second checker,

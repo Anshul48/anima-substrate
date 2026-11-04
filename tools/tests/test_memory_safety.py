@@ -13,7 +13,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from anima.memory import cli, hook, recall as recall_mod  # noqa: E402
 from anima.memory.passages import Passage, load_path, verify_passage  # noqa: E402
