@@ -1,0 +1,38 @@
+{
+ "show-status": {
+  "voice": "af_heart",
+  "text": "Show status.",
+  "seconds": 1.05,
+  "sample_rate": 24000
+ },
+ "pause-task-3": {
+  "voice": "af_heart",
+  "text": "Pause task three.",
+  "seconds": 1.22,
+  "sample_rate": 24000
+ },
+ "run-next-claude": {
+  "voice": "am_michael",
+  "text": "Run the next job with Claude.",
+  "seconds": 1.88,
+  "sample_rate": 24000
+ },
+ "run-next-muse": {
+  "voice": "af_heart",
+  "text": "Run the next job with Muse.",
+  "seconds": 1.62,
+  "sample_rate": 24000
+ },
+ "recall-similar": {
+  "voice": "am_michael",
+  "text": "Recall similar fixes.",
+  "seconds": 1.73,
+  "sample_rate": 24000
+ },
+ "not-a-command": {
+  "voice": "af_heart",
+  "text": "Delete everything in the repository.",
+  "seconds": 2.28,
+  "sample_rate": 24000
+ }
+}

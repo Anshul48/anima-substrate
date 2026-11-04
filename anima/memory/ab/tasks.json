@@ -1,0 +1,149 @@
+{
+ "note": "Bug tasks rebuilt from public fix commits. 'flagship' = same library and bug as one of the nine jobs in docs/evidence/flagship-run3 (the original kit files were damaged, so base/fix commits were re-identified from git history and the issue text was re-written by hand from the fix commit message and the new tests; they are NOT the byte-identical original kits).",
+ "tasks": [
+  {
+   "id": "cachetools-unbound-keyword",
+   "flagship": true,
+   "repo": "https://github.com/tkem/cachetools.git",
+   "base": "36d4e87f3fd6ec557323e150dcb40123312f2730",
+   "fix": "b34643f37174751df37016899f4e7f5f6b189012",
+   "_local": "cachetools",
+   "issue_text": "A method decorated with cachetools' @cachedmethod does not behave like a plain method when it is called through the class and the instance is passed by keyword.\nExpected: Cached.get(self=obj, value=1) gives the same result as Cached.get(obj, value=1) when the method's first parameter is really called `self`, and the method is only computed once per distinct argument. If the first parameter has another name (for example `this`), then Named.get(this=obj, value=1) works but Named.get(self=obj, value=1) must raise TypeError, exactly as a plain function would. A positional-only first parameter must not accept the instance by keyword (TypeError). Calling the method through the class with no instance at all (Cached.get(value=1)), or a decorated method that takes no parameters (Named.get_noargs()), must raise TypeError.\nCalls through an instance must keep working and keep caching as before."
+  },
+  {
+   "id": "cachetools-stacked-decorators",
+   "flagship": true,
+   "repo": "https://github.com/tkem/cachetools.git",
+   "base": "952e3bbd70de9d0a5d7699621b69219503ddbe6a",
+   "fix": "41e4b1616a292e26ebac3c5f68a8c5d5e43edc68",
+   "_local": "cachetools",
+   "issue_text": "Stacking cachetools caching decorators does not work as it should. If a function that is already wrapped by cachetools.cached(...) (or by one of the decorators in cachetools.func such as lru_cache) is wrapped a second time with its own cache, the two layers must stay independent.\nExpected: the outer wrapper's __wrapped__ is the inner wrapper; the outer wrapper has its own cache (outer.cache is the cache passed to the outer decorator), its own cache_info() counters, cache_parameters() and cache_clear(); clearing the outer cache does not clear the inner one; the inner wrapper keeps its own hit/miss counts and parameters. For example with two info=True layers, calling outer(0) twice gives outer.cache_info() == (1, 1, 2, 1) and inner.cache_info() == (0, 1, 2, 1).\nToday these expectations do not hold when two cachetools decorators are stacked."
+  },
+  {
+   "id": "cachetools-rr-empty",
+   "flagship": false,
+   "repo": "https://github.com/tkem/cachetools.git",
+   "base": "eadb91cc9d54a57d6738386bc5c575ff3c7d22ec",
+   "fix": "bcf9e8176ebe16da58751fce971c98ffe045ede1",
+   "_local": "cachetools",
+   "issue_text": "RRCache.popitem() on an empty cache must raise KeyError, whatever `choice` function the cache was created with. The documented contract only requires `choice` to handle non-empty sequences (for example choice=min, choice=max, or lambda seq: next(iter(seq))), but with such a function an empty cache currently raises some other exception instead of KeyError.\nExpected: popitem() on an empty RRCache raises KeyError; after adding one item popitem() returns that item and the next popitem() raises KeyError again. The default random.choice behaviour must stay the same."
+  },
+  {
+   "id": "click-short-help-abbrev",
+   "flagship": true,
+   "repo": "https://github.com/pallets/click.git",
+   "base": "6d5bac5c712195cbfa9666ba0ecbf0573cdea356",
+   "fix": "f67c2bb6c2f055c1c7a57cd46c3697fc26a7742e",
+   "_local": "click",
+   "issue_text": "click.utils.make_default_short_help(help, max_length) cuts the help text at the end of the first sentence if it fits, but it mistakes abbreviations and other dots for the end of a sentence.\nExpected results: (\"123 567 9. Aaaa bbb\", 10) -> \"123 567 9.\"; (\"123 567 9.\", 10) -> \"123 567 9.\"; (\"Weigh apples vs. pears.\", 30) -> \"Weigh apples vs. pears.\" (a dot followed by a lowercase word is not a sentence end); (\"Weigh apples vs. pears and plums.\", 20) -> \"Weigh apples vs....\"; (\"123 567 9. aaaa bbb\", 10) -> \"123 567...\"; (\"Pick a fruit. 3 remain.\", 20) -> \"Pick a fruit.\". A hyphenated word or one long word is never split: (\"well-behaved.\", 8) -> \"...\", (\"supercalifragilistic\", 10) -> \"...\". When max_length is too small for the \"...\" suffix (3 or less, or negative) the result is just \"...\"; text that already fits (\"ab\", 2) is returned unchanged."
+  },
+  {
+   "id": "moreiter-peekable-slice",
+   "flagship": true,
+   "repo": "https://github.com/more-itertools/more-itertools.git",
+   "base": "b21ec4ee8e139ebe297e2221980a694bebb69523",
+   "fix": "e6ce1b0f65a57c459fc5004ad84158447b65b0ac",
+   "_local": "more-itertools",
+   "issue_text": "more_itertools.peekable slicing with a negative step and an omitted stop reads and caches the whole underlying iterable, even though only the items down to the start index are needed.\nExpected: for p = peekable(iter(range(100))), p[5::-1] returns [5, 4, 3, 2, 1, 0], and afterwards only 6 items have been pulled from the source (len(p._cache) == 6) and next(p) still returns 0. A peekable over an infinite iterator such as itertools.count() must also support this: p[4::-2] returns [4, 2, 0] without hanging, with 5 items cached, and next(p) still returns 0.\nOther slicing behaviour must not change.",
+   "select": [
+    "hidden/test_more.py::PeekableTests"
+   ]
+  },
+  {
+   "id": "moreiter-chunked-even",
+   "flagship": false,
+   "repo": "https://github.com/more-itertools/more-itertools.git",
+   "base": "4aeb4338ae1407d8da9723e86da99efeb446f719",
+   "fix": "fbd55137fe47b44f55190c3714c75f1b21bf834d",
+   "_local": "more-itertools",
+   "issue_text": "chunked_even(iterable, n) mishandles edge chunk sizes.\nWith n=0 it raises an internal islice error instead of yielding nothing, and it consumes items from the source iterator first.\nWith negative n it leaks a low-level islice index error instead of a clear ValueError, and also touches the source.\nIt should reject n<0 with a ValueError without reading the source, and treat n=0 as empty output.",
+   "select": [
+    "hidden/test_more.py::ChunkedEvenTests"
+   ]
+  },
+  {
+   "id": "packaging-licenseref-case",
+   "flagship": true,
+   "repo": "https://github.com/pypa/packaging.git",
+   "base": "0625596e502163179b9a82796aee82c178efc16d",
+   "fix": "2c87a33f665828b7aa0f650b1b50243b3ab95695",
+   "_local": "packaging",
+   "issue_text": "packaging.licenses.canonicalize_license_expression mangles LicenseRef identifiers that differ only in letter case. The idstring after \"LicenseRef-\" is case-insensitive in SPDX, so spellings that differ only in case are the same license and the result must use one spelling for all of them: the first spelling that appears in the expression.\nExpected: \"LicenseRef-mit OR licenseref-MIT\" -> \"LicenseRef-mit OR LicenseRef-mit\"; \"licenseref-MIT AND LicenseRef-mit\" -> \"LicenseRef-MIT AND LicenseRef-MIT\"; \"(LICENSEREF-Foo OR licenseref-foo) AND MIT AND LicenseRef-FOO\" -> \"(LicenseRef-Foo OR LicenseRef-Foo) AND MIT AND LicenseRef-Foo\"; \"licenseref-public-domain\" -> \"LicenseRef-public-domain\". Expressions without case-variant LicenseRef identifiers must give the same result as today."
+  },
+  {
+   "id": "packaging-url-whitespace",
+   "flagship": false,
+   "repo": "https://github.com/pypa/packaging.git",
+   "base": "23669b1b69fb5fffbc773a68fc099166fc847356",
+   "fix": "2602dd07d8bd5d6c54a3ce0e212f52eb2e127f3e",
+   "_local": "packaging",
+   "issue_text": "packaging.requirements.Requirement accepts a URL that contains a line break. For example Requirement(\"name @ https://example.com/name.whl\\nevil==1\") (also with \\r and \\r\\n) is parsed with the rest of the text absorbed into the URL, so serializing the requirement later could produce a second requirement line.\nExpected: a requirement whose URL contains whitespace such as a line break must be rejected with InvalidRequirement. Ordinary URL requirements such as \"name @ https://example.com/name.whl\" must keep parsing."
+  },
+  {
+   "id": "packaging-wheel-buildtag",
+   "flagship": false,
+   "repo": "https://github.com/pypa/packaging.git",
+   "base": "959bb79c06cb883bf1ecd1ddc94a079294907e0f",
+   "fix": "0625596e502163179b9a82796aee82c178efc16d",
+   "_local": "packaging",
+   "issue_text": "packaging.utils.parse_wheel_filename silently accepts a malformed build tag that contains a newline. For example \"foo-1.0-1\\nabc-py3-none-any.whl\" returns build=(1, '') and drops the rest of the build part without raising.\nExpected: a build part must match the build tag format in full; a build part such as \"1\\nabc\" or \"1\\n\" must raise InvalidWheelFilename. Valid build tags such as \"1\" or \"1abc\" must keep working."
+  },
+  {
+   "id": "semver-replace-typeerror",
+   "flagship": false,
+   "repo": "https://github.com/python-semver/python-semver.git",
+   "base": "15a42d0d5efaa04526e87cf5b0d485ca7883864e",
+   "fix": "0bd62d4547c808233f6e033059a98218c9b637c1",
+   "_local": "semver",
+   "issue_text": "semver.Version.replace() hides the real error when the new value for a version part has the wrong type. For example Version.parse(\"1.2.3\").replace(major=None) (or minor/patch set to None or a plain object()) fails in the Version constructor with a TypeError that says what is wrong, but replace() raises a different, less useful error message instead.\nExpected: when the keyword names are valid, replace() raises the same TypeError, with the identical message, that Version(**parts) would raise for those values. The existing custom error for genuinely unknown keyword names must stay as it is, and replace() on subclasses must keep working."
+  },
+  {
+   "id": "dateutil-yearday-366",
+   "flagship": false,
+   "repo": "https://github.com/dateutil/dateutil.git",
+   "base": "5391455e7c7839e300b63649041806fb5219432e",
+   "fix": "d23ff760f8448b51579016d96f39590018445724",
+   "_local": "dateutil",
+   "issue_text": "dateutil.relativedelta(yearday=366) resolves to the wrong day in leap years: it gives December 30, the same date as yearday=365.\nExpected: for every year, date(year, 1, 1) + relativedelta(yearday=n) is the n-th day of that year, for n from 1 to 365 in common years and 1 to 366 in leap years (so yearday=366 is December 31 in a leap year), checked for years such as 1900, 2000, 2001 and 2024. Other yeardays must keep their current results."
+  },
+  {
+   "id": "humanize-naturaldelta-years",
+   "flagship": false,
+   "repo": "https://github.com/python-humanize/humanize.git",
+   "base": "ca892b368a535a79cc5e2181d052245b94fd6652",
+   "fix": "392aef707c0e74341ab4a51420984e9ea6b566c5",
+   "_local": "humanize",
+   "issue_text": "humanize.naturaldelta truncates the number of years instead of rounding it to the nearest year. A timedelta of 2.6 years (365 * 2.6 days) is shown as \"2 years\" but should be \"3 years\".\nExpected: days=365*2 -> \"2 years\"; 365*2.4 -> \"2 years\"; 365*2.6 -> \"3 years\"; 365*2.9 -> \"3 years\"; 365*3 -> \"3 years\". Results below one year must not change.",
+   "excluded": "gate unsound: the package needs a build-generated _version.py, so even the fixed code cannot be imported from a plain checkout"
+  },
+  {
+   "id": "dateutil-tzstr-doy-rules",
+   "flagship": true,
+   "repo": "https://github.com/dateutil/dateutil.git",
+   "_local": "dateutil",
+   "base": "208f5872937a3578058736708318b712aff29d6a",
+   "fix": "99f6653c0152ee1f7f91b30d764a67d407407938",
+   "issue_text": "dateutil.tz.tzfile reads the POSIX TZ string at the end of a compiled zone file (the footer) to work out the daylight-saving transitions after the last explicit transition. The day-of-year rules in such strings give the wrong dates.\nRule \"n\" counts days from 0 (0..365) and does count February 29th in leap years. It currently comes out one day early: with the footer \"STD0DST-1,10/0,J100/0\" the DST period should start on January 11th (day 10 counted from 0), not January 10th; \"STD0DST-1,59/0,300/0\" starts DST on February 29th in a leap year (2024) and on March 1st otherwise (2023). A rule \"0/0\" must not land on December 31st of the previous year.\nRule \"Jn\" counts from 1 (1..365) and never counts February 29th: J59 is always February 28th, and J60 is always March 1st, also in leap years (so with \"STD0DST-1,J60/0,J300/0\" in 2024 February 29th is still standard time and DST starts on March 1st). Today the leap-year shift starts one day too early, at J59.\nA zone that is on DST all year, written like \"EST5EDT,0/0,J365/25\" or \"<+00>0<+01>,0/0,J365/25\", must really be on DST across New Year as well.\nThe \"Mm.w.d\" rules must keep giving the dates they give now."
+  },
+  {
+   "id": "semver-bump-prerelease",
+   "flagship": true,
+   "repo": "https://github.com/python-semver/python-semver.git",
+   "_local": "semver",
+   "base": "94debf9d3e714ccb08ca7c0199b5bce96cfd7687",
+   "fix": "bcd151fa63df3053b9f30e698e9ae1020187be1a",
+   "issue_text": "semver.Version.next_version(\"prerelease\", token) can return a version that is OLDER than the one it was called on, when you switch to a prerelease token that sorts earlier than the current one. The result must always be greater than the original.\nExpected: switching to an earlier-sorting token moves to the next patch version and restarts the counter: \"1.2.3-rc.1\" with token \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-beta.3\" + \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-rc.1+build.7\" + \"dev\" -> \"1.2.4-dev.1\" (build metadata is dropped); \"1.2.3-rc3\" + \"alpha\" -> \"1.2.4-alpha.1\"; \"1.2.3-rc.1\" + \"2\" -> \"1.2.4-2.1\"; \"1.2.3-alphaXbeta9\" + \"alpha.beta\" -> \"1.2.4-alpha.beta.1\".\nSwitching to a token that sorts later keeps the patch version: \"1.2.3-alpha.4\" + \"rc\" -> \"1.2.3-rc.1\". Incrementing with the same token behaves as before. The original Version object is never modified."
+  },
+  {
+   "id": "cachetools-cachedmethod-pickle",
+   "flagship": true,
+   "repo": "https://github.com/tkem/cachetools.git",
+   "_local": "cachetools",
+   "base": "b34643f37174751df37016899f4e7f5f6b189012",
+   "fix": "2609f068f909197d46c1ad84083fb3b1226db3de",
+   "issue_text": "Instances of a class that has @cachedmethod methods can no longer be pickled; pickle.dumps(obj) fails. This worked in earlier releases and must work again (issue 417), for methods decorated with plain @cachedmethod(cachefn) and with info=True, and for a subclass that adds its own cached method.\nExpected: pickle.loads(pickle.dumps(obj)) returns an object whose cached methods work and use the cache that the cache function returns for the unpickled object. The cache contents travel with the object: if obj's cache held one entry when it was pickled, the unpickled object's cache holds that entry too (a hit on it is a hit) and further calls fill the unpickled object's cache, not the original's. For info=True methods the hit/miss counters start again at 0 after unpickling, while currsize reflects the cache contents (e.g. cache_info() == (0, 0, maxsize, 1) right after unpickling an object whose cache holds one entry).\nThe object you get when you read the decorated method from the class itself (Cached.get, not cached.get) must also survive copying: pickle.loads(pickle.dumps(Cached.get, proto)) is Cached.get for every pickle protocol, and copy.copy / copy.deepcopy of it return the very same object. Aliasing it inside a subclass (alias = Cached.get) must keep working: Alias.alias is Cached.get, cached.alias is cached.get, and calls through the alias fill the same cache as the original name.\nNormal (non-pickled) behaviour must not change.",
+   "deselect_k": "not test_decorator_pickle_super and not test_decorator_deepcopy_super",
+   "deselect_why": "those two tests assert on cachetools' private attribute vars(obj)['__cachetools_cachedmethods'], which no issue text can fairly specify; removed from the gate for every arm (revision made after the first A1 run, see docs/MEMORY.md)"
+  }
+ ]
+}

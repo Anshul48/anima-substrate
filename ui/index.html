@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMA state tree</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand"><span class="logo">ANIMA</span><span class="sub">state space tree</span></div>
+  <div id="mode" class="badge" role="status"></div>
+  <div id="chain" class="badge" role="status"></div>
+  <div id="summary"></div>
+</header>
+
+<main>
+  <section id="treepane" aria-label="State space tree">
+    <div id="colheads">
+      <span style="--c:0">owner</span><span style="--c:1">workstream</span>
+      <span style="--c:2">task</span><span style="--c:3">attempt (agent on harness)</span>
+    </div>
+    <div id="treescroll">
+      <div id="tree">
+        <svg id="edges" aria-hidden="true"></svg>
+        <div id="nodes"></div>
+        <div id="empty" hidden>No records yet.</div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="detail" aria-label="Selected node">
+    <div id="d-head">
+      <div class="kicker" id="d-type"></div>
+      <h2 id="d-name"></h2>
+      <span class="pill" id="d-status"></span>
+    </div>
+    <dl id="d-facts"></dl>
+    <div class="block" id="d-last"></div>
+    <div class="block grow">
+      <h3 id="d-rec-title">Decision records</h3>
+      <ol id="d-records"></ol>
+    </div>
+    <div class="block" id="cmd">
+      <h3 id="cmd-title">Change it</h3>
+      <div id="cmd-verbs"></div>
+      <div id="cmd-form" hidden>
+        <div id="cmd-fields"></div>
+        <div class="cmd-actions">
+          <button id="cmd-preview" type="button">Preview command</button>
+          <button id="cmd-write" type="button" disabled>Write command file</button>
+        </div>
+        <pre id="cmd-out" aria-live="polite"></pre>
+      </div>
+      <p id="cmd-note"></p>
+    </div>
+  </aside>
+</main>
+
+<footer id="bar">
+  <div id="now" aria-live="polite"></div>
+  <div id="transport">
+    <button id="b-prev" type="button" title="Back one record (left arrow)">&#9664;&#9664;</button>
+    <button id="b-play" type="button" title="Play / pause (space)">Play</button>
+    <button id="b-next" type="button" title="Forward one record (right arrow)">&#9654;&#9654;</button>
+    <span id="speeds" role="group" aria-label="Replay speed"></span>
+    <div id="scrub"><div id="ticks"></div><input id="range" type="range" min="0" max="0" step="1" value="0" aria-label="Replay position"></div>
+    <span id="clock"></span>
+  </div>
+  <div id="livebar" hidden></div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "id": "tiny-bug",
+  "title": "moving_average drops the last window and misses edge cases",
+  "issue_text": "statslite.moving_average(values, window) should return one simple average for every full window of `window` consecutive items, left to right.\nToday it leaves out the last window: moving_average([1, 2, 3, 4], 2) returns [1.5, 2.5] where [1.5, 2.5, 3.5] is expected, and a window equal to the whole list returns [] where one value is expected.\nExpected behaviour: a window larger than the data returns []; an empty list returns []; a window of 0 or a negative window raises ValueError; the input list is never modified.\nFix the bug in the repository (the code is under src/). Do not edit anything under tests/. Finish with a one-line summary.",
+  "workspace_seed": "repo",
+  "hidden_dir": "hidden",
+  "protected_roots": ["tests"],
+  "gate_argv": ["{python}", "-m", "unittest", "discover", "-s", "hidden", "-p", "test_hidden.py"],
+  "timeout_s": 900,
+  "gate_timeout_s": 120
+}

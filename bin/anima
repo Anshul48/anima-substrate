@@ -1,0 +1,7 @@
+#!/bin/sh
+# Launcher for a clone of anima-substrate: runs the anima CLI with the venv python if there is one.
+here=$(cd "$(dirname "$0")/.." && pwd -P)
+home="${ANIMA_HOME:-$HOME/.anima}"
+py=python3
+[ -x "$home/venv/bin/python" ] && py="$home/venv/bin/python"
+PYTHONPATH="$here${PYTHONPATH:+:$PYTHONPATH}" exec "$py" -m anima.harness "$@"
