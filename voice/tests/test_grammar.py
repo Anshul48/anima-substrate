@@ -36,6 +36,14 @@ class GrammarTests(unittest.TestCase):
             with self.assertRaises(v.NoMatch, msg=text):
                 v.parse(text)
 
+    def test_recall_query_is_the_newest_open_task_else_newest(self):
+        tasks = [(1, "alpha-one", "verified"), (2, "beta-two", "running"), (3, "gamma-three", "verified")]
+        self.assertEqual(v.recall_query_from(tasks), "beta two")
+        self.assertEqual(v.recall_query_from([(1, "alpha-one", "verified"), (2, "gamma-three", "verified")]),
+                         "gamma three")
+        with self.assertRaises(v.NoMatch):
+            v.recall_query_from([])
+
 
 if __name__ == "__main__":
     unittest.main()

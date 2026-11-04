@@ -8,7 +8,7 @@ The command set is deliberately tiny (nothing else is ever run, whatever is said
     show status                      -> anima status --tree
     pause task <n> / resume task <n> -> anima cmd pause|resume <task>   (a command file)
     run the next job with <harness>  -> anima cmd run-next --harness muse|claude|codex
-    recall similar fixes             -> anima recall --similar          (memory link; see below)
+    recall similar fixes             -> anima memory recall "<newest open task>"  (memory link)
 
 <n> is the number printed by `anima status --tree`.  Input is an audio file
 (any format ffmpeg reads; short clips) or, if the machine has one, the
@@ -170,7 +170,7 @@ def record_mic(seconds, out):
 
 
 # ------------------------------------------------------------------ run
-def build_argv(m, tasks_by_number, flags, heard):
+def build_argv(m, tasks_by_number, flags, heard, recall_query=None):
     """The argv (after `anima`) that carries out the matched command, plus a note."""
     why = f"voice: {m['phrase']}"
     if m["name"] == "status":
@@ -184,32 +184,43 @@ def build_argv(m, tasks_by_number, flags, heard):
     if m["name"] == "run-next":
         return (["cmd", "run-next", "--harness", m["harness"], "--issued-by", "voice", "--reason", why] + flags,
                 "writes one command file; anima starts the job when it reads the folder")
-    return ["recall", "--similar"], "asks the memory link for fixes like the current task"
+    return (["memory", "recall", recall_query], "asks the memory link for past fixes like this task; read-only")
 
 
-def run_recall():
-    """Call the memory-link worker's recall command if it exists in this checkout."""
-    spec = importlib.util.find_spec("anima.memory") if importlib.util.find_spec("anima") else None
+def recall_query_from(tasks_info):
+    """The text to recall against: the newest task that is not verified yet (running, rejected, blocked),
+    else the newest task.  `tasks_info` is a list of (number, label, status) in tree order.  The query is
+    shown in the command line before anything runs, so the choice is never hidden."""
+    if not tasks_info:
+        raise NoMatch("the tree has no tasks, so there is nothing to recall similar fixes for")
+    open_ones = [t for t in tasks_info if t[2] != "verified"]
+    num, label, _ = (open_ones or tasks_info)[-1]
+    return label.replace("-", " ")
+
+
+def run_recall(query):
+    """Call the memory-link worker's `recall` (anima.memory.cli.main) if it exists in this checkout."""
+    try:
+        spec = importlib.util.find_spec("anima.memory.cli")
+    except (ImportError, ValueError):
+        spec = None
     if spec is None:
         print("not wired: no `anima.memory` in this checkout, so there is nothing to recall from. "
               "Nothing was run.")
         return 4
-    mod = importlib.import_module("anima.memory")
-    fn = getattr(mod, "recall_main", None)
-    if fn is None:
-        print("not wired: anima.memory has no recall_main(); nothing was run.")
-        return 4
-    return int(fn(["--similar"]) or 0)
+    mod = importlib.import_module("anima.memory.cli")
+    return int(mod.main(["recall", query]) or 0)
 
 
 def task_numbers(a):
-    from anima.ui import cli as uicli, model
+    return {n: label for n, label, _ in task_list(a)}
+
+
+def task_list(a):
+    """[(number, label, status)] for every task in the tree, in tree order."""
+    from anima.ui import cli as uicli
     snap = uicli.source_from(a).snapshot()
-    out = {}
-    for ws in snap["tree"]["children"]:
-        for t in ws["children"]:
-            out[t["num"]] = t["label"]
-    return out
+    return [(t["num"], t["label"], t.get("status")) for ws in snap["tree"]["children"] for t in ws["children"]]
 
 
 def run(a, flags, cli_main):
@@ -248,7 +259,8 @@ def run(a, flags, cli_main):
     try:
         m = parse(heard)
         tasks = task_numbers(a) if m["name"] in ("pause", "resume") else {}
-        argv, effect = build_argv(m, tasks, flags, heard)
+        query = recall_query_from(task_list(a)) if m["name"] == "recall" else None
+        argv, effect = build_argv(m, tasks, flags, heard, query)
     except NoMatch as e:
         print(f"no match: {e}")
         print(f"I only understand: {SET_HELP}")
@@ -274,5 +286,5 @@ def run(a, flags, cli_main):
             return 3
     print("-" * 40, flush=True)
     if m["name"] == "recall":
-        return run_recall()
+        return run_recall(query)
     return cli_main(argv)
