@@ -98,7 +98,7 @@ def cmd_ingest(args):
     root = Path(read_config(store)["project_root"]) if read_config(store) else Path.cwd()
     passages = []
     for p in args.paths:
-        got = load_path(p, root=root, verify_chain=not args.no_verify_chain)
+        got = load_path(p, root=root, verify_chain=not args.no_verify_chain, task=args.task)
         print(f"read {len(got):3d} passages from {p}")
         passages += got
     st = _open(args, create=True)
@@ -211,6 +211,7 @@ def build_parser():
     p = sub.add_parser("ingest", help="turn decision logs / job records / attempt folders into passages in the TRACE index")
     p.add_argument("paths", nargs="+")
     p.add_argument("--no-verify-chain", action="store_true", help="ingest a decision log even if its hash chain does not verify")
+    p.add_argument("--task", help="for `anima run` folders: a task.json, a task folder, or a folder of task folders (the run folder does not store the task text)")
     common(p)
     p.set_defaults(fn=cmd_ingest)
 

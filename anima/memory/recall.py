@@ -48,9 +48,11 @@ def recall(task_text, store_dir=DEFAULT_STORE, k=DEFAULT_K, min_score=DEFAULT_MI
             if row["meta"].get("verdict") != "PASS":
                 # the best match is a failed attempt: if the same record also holds the attempt that
                 # finally passed, show that one (it names the earlier failure AND the fix)
+                def same_record(r):  # same job record: same run folder if there is one, else same source file
+                    run = row["meta"].get("run")
+                    return r["meta"].get("run") == run if run else r["source"]["file"] == row["source"]["file"]
                 later = [r for r in st.side.rows.values()
-                         if r["task"] == task and r["source"]["file"] == row["source"]["file"]
-                         and r["meta"].get("verdict") == "PASS"]
+                         if r["task"] == task and same_record(r) and r["meta"].get("verdict") == "PASS"]
                 if later:
                     shown = max(later, key=lambda r: (r["meta"].get("attempt") or r["meta"].get("rung") or 0, r["doc_id"]))
             chk = verify_pointer(shown["source"], root) if verify else ("UNCHECKED", "")

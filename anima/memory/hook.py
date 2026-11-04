@@ -27,3 +27,25 @@ def augment_prompt(prompt, task_text=None, store_dir=DEFAULT_STORE, k=DEFAULT_K,
     if not block:
         return prompt, report
     return block + "\n---\n\n" + prompt, report
+
+
+def record_run(run_dir, task_ref=None, store_dir=DEFAULT_STORE, encoder="auto", backend="auto"):
+    """After `anima run`: put the finished run's attempts into memory so the next job can recall them.
+    Returns a small report; never raises (memory must not turn a finished job into a crash)."""
+    try:
+        from pathlib import Path
+
+        from .encoder import get_encoder
+        from .passages import load_path
+        from .stores import open_store, read_config
+        cfg = read_config(store_dir)
+        root = Path(cfg["project_root"]) if cfg else Path.cwd()
+        passages = load_path(run_dir, root=root, task=task_ref)
+        st = open_store(store_dir, get_encoder(encoder), backend=backend, create=True)
+        try:
+            rep = st.ingest(passages)
+            return {"recorded": len(passages), "store_count": st.count(), "ingest": rep, "backend": st.label()}
+        finally:
+            st.close()
+    except Exception as exc:  # noqa: BLE001
+        return {"recorded": 0, "error": f"{type(exc).__name__}: {exc}"}
