@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMA: try the check</title>
+<meta name="description" content="A real recorded run of nine bug-fixing jobs. See what the hidden checker decided, then check the record yourself in your browser.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1622'/%3E%3Cpath d='M8 17l5 5 11-12' fill='none' stroke='%2354d6c8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="../">ANIMA</a>
+    <nav aria-label="Links">
+      <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">Read the run</a>
+      <a href="https://github.com/Anshul48/anima-substrate">Repository</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" style="margin-top:0">
+      <p class="eyebrow">A real recorded run</p>
+      <h1>A checker the agent cannot edit.<br><span class="accent">A record you can verify.</span></h1>
+      <p class="lead">Nine real bug-fixing jobs, run once and written down. Below you can see what the hidden checker decided for each job, then check the written record yourself. It all runs in your browser. Nothing is sent anywhere.</p>
+      <p class="prov" id="provenance">This page holds a copy of the run&rsquo;s record files (<code>decisions.jsonl</code> and <code>real3.log</code>). Checking that copy now&hellip;</p>
+      <noscript><p class="nojs">This page needs JavaScript to run the check. The same check runs in a terminal with <code>python3 docs/evidence/flagship-run3/check_chain.py --tamper</code> (see the repository).</p></noscript>
+    </section>
+
+    <section id="jobs" aria-labelledby="jobs-h">
+      <h2 id="jobs-h"><span class="num">1</span>The nine jobs</h2>
+      <p>Each job is a real bug from a well-known open-source Python library, with a plain-English description. A small model on the laptop tries first. A hidden checker (tests the agent does not see and cannot edit) judges the result. If the checker says no, the next helper, Claude Sonnet, gets the job.</p>
+      <div class="tiles" id="tiles" aria-label="Summary of the run"></div>
+      <p class="muted small" id="tiles-note"></p>
+      <div class="jobs-head" aria-hidden="true">
+        <span>Job</span><span>Small local model said</span><span>Hidden checker said</span><span>Next helper (Claude Sonnet)</span>
+      </div>
+      <ol class="jobs" id="job-list"></ol>
+      <p class="muted small" style="margin-top:12px">Read straight from the real log: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/real3.log"><code>real3.log</code></a>. The line the checker saw for the two caught jobs comes from the decision record below.</p>
+    </section>
+
+    <section id="check" aria-labelledby="check-h">
+      <h2 id="check-h"><span class="num">2</span>Check the record</h2>
+      <p>Every decision in the run is one line in a file. Each line carries a digital fingerprint (a tamper-evident seal) of the line before it. Press the button and your browser recomputes every fingerprint, in order, and compares.</p>
+      <div class="controls">
+        <button type="button" class="btn primary" id="btn-check">Check the record</button>
+        <button type="button" class="btn warn" id="btn-tamper">Change one character</button>
+        <button type="button" class="btn" id="btn-reset" disabled>Reset</button>
+      </div>
+      <p class="muted small">&ldquo;Change one character&rdquo; edits a temporary copy in your browser&rsquo;s memory. The original record is never changed.</p>
+
+      <div class="panel">
+        <div id="results" aria-live="polite"><p class="idle">Not checked yet. Press &ldquo;Check the record&rdquo;.</p></div>
+        <ol class="strip" id="strip" role="img" aria-label="One square per record. Not checked yet."></ol>
+        <ul class="legend" aria-hidden="true">
+          <li><i style="background:var(--teal)"></i>matches the one before it</li>
+          <li><i style="background:var(--orange)"></i>edited</li>
+          <li><i style="background:var(--red)"></i>does not match</li>
+          <li><i style="background:var(--grey-cell)"></i>not checked yet, or not reached</li>
+        </ul>
+        <div id="tamper" class="tamper" hidden></div>
+        <p class="status-line" id="status" aria-live="polite"></p>
+      </div>
+
+      <details>
+        <summary>How the check works, and how to run it yourself</summary>
+        <p>The first record says <code>"prev":"GENESIS"</code> (it has nothing before it). Every later record carries, as <code>"prev"</code>, the SHA-256 fingerprint of the exact text of the record before it. Change anything in an earlier record and the next record no longer matches, so the change shows up.</p>
+        <p>This page follows the same rule as <code>check_chain.py</code> in the repository, step for step. In a terminal it prints the same fingerprints and the same break:</p>
+<pre>git clone https://github.com/Anshul48/anima-substrate
+cd anima-substrate
+python3 docs/evidence/flagship-run3/check_chain.py --tamper</pre>
+        <p>You need Python 3 and git. Nothing to install.</p>
+      </details>
+    </section>
+
+    <section id="limits" aria-labelledby="limits-h">
+      <div class="limits">
+        <h2 id="limits-h">Honest limits</h2>
+        <ul>
+          <li><strong>This checks the record. It does not re-run the nine jobs.</strong> A full re-run needs access to each helper used in the run.</li>
+          <li>The Harness is a validated prototype for <strong>one kind of job</strong>: fix a bug, judged by hidden tests. Other kinds of job are not built yet.</li>
+          <li>Nine jobs in one run is a worked example, not a statistic.</li>
+          <li>The second helper was told the failing line, so it was an informed retry, not a blind one.</li>
+          <li>The libraries are public, so the agents may have seen similar fixes before.</li>
+          <li>We make no claim about long runs, or about leaving it alone while you are away. That is untested.</li>
+          <li>The seal shows the record was not changed afterwards. It cannot show that the run itself was honest.</li>
+          <li>The Harness code and its self-test (63 checks) are not in this repository yet, so neither can be re-run from here.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="links">
+      <a href="../">Back to the start</a>
+      <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">Read the run</a>
+      <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/rejected-attempt-click-short-help-abbrev.gate.json">One caught attempt, in full</a>
+      <a href="https://github.com/Anshul48/anima-substrate">Repository</a>
+    </div>
+    <div>Apache License 2.0. No cookies, no tracking, no outside files.</div>
+  </footer>
+
+</div>
+<script src="data.js"></script>
+<script src="chain.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

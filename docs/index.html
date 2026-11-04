@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMA: agents say done, a checker decides</title>
+<meta name="description" content="ANIMA's Harness is a safety net for AI coding agents: a hidden checker judges each answer, stronger helpers step in when it is wrong, and every decision goes into a record you can check.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d1622'/%3E%3Cpath d='M8 17l5 5 11-12' fill='none' stroke='%2354d6c8' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- the look is shared with the demo page: docs/demo/style.css -->
+<link rel="stylesheet" href="demo/style.css">
+</head>
+<body class="landing">
+<div class="wrap">
+
+  <header class="top">
+    <span class="brand">ANIMA</span>
+  </header>
+
+  <main>
+    <section class="hero" style="margin-top:0">
+      <p class="eyebrow">Safety net for AI coding agents</p>
+      <h1>Agents say &ldquo;done.&rdquo;<br><span class="accent">A checker decides.</span></h1>
+      <p class="lead">ANIMA&rsquo;s Harness is a safety net for AI coding agents: a hidden checker judges each answer, stronger helpers step in when it is wrong, and every decision goes into a record you can check.</p>
+
+      <div class="actions">
+        <a class="btn primary" href="demo/">Try the check</a>
+        <a class="btn" href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">Read the run</a>
+        <a class="btn" href="https://github.com/Anshul48/anima-substrate">Repository</a>
+      </div>
+
+      <ol class="steps">
+        <li>The agent works on a real bug.</li>
+        <li>A hidden checker, which the agent cannot see or edit, judges the result.</li>
+        <li>A wrong answer moves up to the next helper. Every step is written down.</li>
+      </ol>
+
+      <p class="fine">In the demo you can look through a real recorded run of nine bug-fixing jobs, check the written record yourself in your browser, then change one character and watch the break show up.</p>
+      <p class="fine">The Harness is a validated prototype for one kind of job: fixing a bug, judged by hidden tests. The demo checks the written record of one run. It does not re-run the jobs. Its memory is <a href="https://github.com/Anshul48/trace">TRACE</a>, our search that shows its work (the link between the two is a prototype).</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div>Apache License 2.0. No cookies, no tracking, no outside files.</div>
+  </footer>
+
+</div>
+</body>
+</html>
