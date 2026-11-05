@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-project="anima">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIMA docs index</title>
+<meta name="description" content="Every document in the ANIMA repository, grouped by what you are looking for, one line each.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ANIMA docs index">
+<meta property="og:description" content="Every document in the ANIMA repository, grouped by what you are looking for, one line each.">
+<meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
+<meta property="og:url" content="https://anshul48.github.io/anima-substrate/docs.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}</script>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+
+<style>
+/* Lab look for pages with class "lab": white page, ink text, one blue accent, calm borders, no gradients.
+   Light is the default; the Theme button still switches. Only variables are remapped, so the shared stylesheet is untouched. */
+body.lab{--accent:#1a4fd6;--accent-ink:#fff;--accent-soft:#e6edfc;--link:#1a4fd6;--ink:#0d1220;--ink-2:#2a3347;--muted:#566077;--bg:#fff;--bg-2:#f5f7fa;--surface:#fff;--line:#dfe3ea;--line-strong:#b9c1d0;--shadow:none;
+--stage-bg:#fff;--stage-bg-2:#f5f7fa;--stage-ink:var(--ink);--stage-muted:#566077;--stage-line:#b9c1d0;--stage-accent:#1a4fd6;--stage-amber:#8a4b00;--stage-violet:#3b4a6b;--stage-green:#0f6b45;--stage-rose:#a3202c;--stage-glow:none}
+html[data-theme="dark"] body.lab{--accent:#8fb0ff;--accent-ink:#0a1020;--accent-soft:#16224a;--link:#8fb0ff;--ink:#eef1f8;--ink-2:#cfd6e6;--muted:#a3adc4;--bg:#0b0f1a;--bg-2:#10162a;--surface:#10162a;--line:#26304a;--line-strong:#3a4768;
+--stage-bg:#10162a;--stage-bg-2:#16203a;--stage-muted:#a3adc4;--stage-line:#3a4768;--stage-accent:#8fb0ff;--stage-amber:#f0b45a;--stage-violet:#b4bfdc;--stage-green:#5fd3a0;--stage-rose:#ff8f9b;--stage-glow:none}
+body.lab .hero{padding:var(--space-8) 0 var(--space-7)}
+body.lab .hero h1{font-size:clamp(2.2rem,1.4rem + 3vw,3.6rem);letter-spacing:-0.02em;line-height:1.08}
+body.lab .hero .lead{font-size:var(--step-1);max-width:34em}
+body.lab .stage{padding:var(--space-5)}
+body.lab .tag{display:inline-block;margin:0 0 var(--space-3);padding:2px 10px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-size:var(--step--1);font-weight:650}
+body.lab .quiet{margin-top:var(--space-4);font-size:var(--step-0)}
+body.lab .scope{border-left:3px solid var(--accent);padding:var(--space-2) var(--space-4);color:var(--ink-2);font-size:var(--step--1);margin:var(--space-4) 0}
+body.lab .layer{font-size:var(--step--1);font-weight:650;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--muted);margin:0 0 var(--space-2)}
+body.lab .doclist{list-style:none;padding:0;margin:0 0 var(--space-6);max-width:none;border-top:1px solid var(--line)}
+body.lab .doclist li{display:grid;gap:var(--space-1) var(--space-5);padding:var(--space-3) 0;margin:0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){body.lab .doclist li{grid-template-columns:minmax(0,18rem) minmax(0,1fr)}}
+body.lab .doclist a{font-weight:650;overflow-wrap:anywhere}
+body.lab .doclist span{color:var(--ink-2)}
+body.lab pre,body.lab code{overflow-wrap:anywhere}
+</style>
+</head>
+<body class="lab">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<div class="wrap">
+<a class="brand" href="index.html" aria-label="ANIMA, home"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#0a1124"/><g fill="none" stroke="#2fd6c2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="8" r="2.6" fill="#2fd6c2"/><path d="M16 11v5M8 24v-4h16v4M16 16v8"/></g><circle cx="8" cy="25" r="2" fill="#a597ff"/><circle cx="16" cy="25" r="2" fill="#4be0a0"/><circle cx="24" cy="25" r="2" fill="#f6b93b"/></svg>ANIMA</a>
+<nav class="nav" aria-label="Main"><a href="try.html">Try it</a><a href="how-it-works.html">How it works</a><a href="features.html">Features</a><a href="evidence.html">Evidence</a><a href="demos.html">Demos</a><a href="about.html">About</a><a class="gh" href="https://github.com/Anshul48/anima-substrate">GitHub</a><button class="themebtn" type="button" aria-label="Switch between light and dark colours">Theme</button></nav>
+</div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="docs-h">
+<div class="wrap" style="display:block">
+<p class="layer">Docs index</p>
+<h1 id="docs-h">Find the document you need</h1>
+<p class="lead">Grouped by purpose, one line per document. ANIMA is a prototype, and the Status page says what is built.</p>
+<div class="actions"><a class="btn primary" href="status.html">Read what is built today</a></div>
+</div>
+</section>
+
+<section class="sec alt" aria-labelledby="g0"><div class="wrap"><h2 id="g0">Start here</h2><p>Read these first, in this order.</p><ul class="doclist">
+<li><a href="status.html">Status</a><span>What is built, what is a prototype and what is only planned.</span></li>
+<li><a href="install.html">Install</a><span>What the one-line install puts on your machine today and what it does not.</span></li>
+<li><a href="demo/">Replay the nine-job run</a><span>The recorded run in your browser, with the record check.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/HARNESSES.md">Use ANIMA with your coding agent</a><span>How ANIMA sits next to Muse Code, Claude Code or Codex.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/UI.md">The state tree screen, text mode and voice</a><span>The one screen, the same tree as text, and the voice command.</span></li>
+</ul></div></section>
+<section class="sec" aria-labelledby="g1"><div class="wrap"><h2 id="g1">Receipts and reproduction</h2><p>Everything here can be checked by running a command.</p><ul class="doclist">
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run3/README.md">Recorded run, nine jobs</a><span>Log, decision chain, checker output and the chain checker.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/flagship-run2/README.md">Earlier recorded run</a><span>Kept for the record; nine jobs, no escalation.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/evidence/trace-card-100m/README.md">One small recorded TRACE test</a><span>A hidden checker accepted a small set of questions over the full test library.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/REPRODUCE-ALL.md">Reproduce everything</a><span>Offline steps for Linux and WSL, with what each one needs.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/INTEGRATED-DEMO.md">The integrated demo</a><span>What is tested end to end today, with the record for each line.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/MEMORY.md">ANIMA memory on TRACE</a><span>How finished jobs are written down, and what the small recall checks showed.</span></li>
+</ul></div></section>
+<section class="sec alt" aria-labelledby="g2"><div class="wrap"><h2 id="g2">Design and architecture</h2><p>How the parts are meant to fit. Planned parts are marked in the documents.</p><ul class="doclist">
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/ROLES-AND-RULES.md">Roles and rules</a><span>Architect, manager and worker, and the rules a program would enforce.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/ROADMAP.md">Roadmap</a><span>A gap map of what is not done.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/ARCHITECTURE.md">Architecture of the package</a><span>Persistent project worlds and a crash-safe local host.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CONTRACTS.md">Contracts</a><span>The pinned contracts the package tests enforce.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/TECHNICAL-REPORT.md">Technical report</a><span>What the package measured and what it only proposes.</span></li>
+</ul></div></section>
+<section class="sec" aria-labelledby="g3"><div class="wrap"><h2 id="g3">The earlier package in src/</h2><p>The small offline engine that was the first front page. Kept as it was.</p><ul class="doclist">
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/README-technical.md">Earlier front page</a><span>The toolkit in src/, written for researchers.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CONSUMER.md">Consumer guide</a><span>How to use the package as a library.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/REVIEW.md">Reviewer entry point</a><span>A ten-minute path for a reviewer.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RECOVERY.md">Recovery</a><span>Interruption boundaries and recovery procedures.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/SST-STAGING.md">SST staging</a><span>Staging a checkout of an older project that shares the abbreviation SST. It is not the state tree screen.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RELEASE-NOTES-0.1.0.md">Release notes 0.1.0</a><span>First package release.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RELEASE-NOTES-0.1.1.md">Release notes 0.1.1</a><span>Second package release.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/examples/quickstart.py">Examples</a><span>A short quickstart script and an external-participant example.</span></li>
+</ul></div></section>
+<section class="sec alt" aria-labelledby="g4"><div class="wrap"><h2 id="g4">Research notes</h2><p>Proposals written during design. They record direction and open questions, not measurements.</p><ul class="doclist">
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/SUBSTRATE-DIRECTION.md">Substrate direction</a><span>Where the substrate idea was heading.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/WORLD-BOUNDARIES.md">World boundaries</a><span>How project worlds are separated.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/MEMORY-TIERS-AND-GRAPH-RETIREMENT.md">Memory tiers and graph retirement</a><span>Proposal for tiers of memory.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/PERSONAL-MODEL-AND-PROACTIVE-COLLABORATION.md">Personal model and proactive collaboration</a><span>Proposal; nothing here is built.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/HARDWARE-AND-RESEARCH-ACCELERATION.md">Hardware and research acceleration</a><span>Notes on hardware options.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md">Architecture channel handoff</a><span>A dated handoff note.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/PENDING-B1-B2-REVIEW-2026-10-05.md">Pending review, B1 and B2</a><span>A dated review note.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RESEARCH-ARCHIVE.md">Research archive</a><span>Index of older research material.</span></li>
+</ul></div></section>
+<section class="sec" aria-labelledby="g5"><div class="wrap"><h2 id="g5">Project and site</h2><p>For people changing the repository or the pages.</p><ul class="doclist">
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CHANGELOG.md">Changelog</a><span>Notable changes to the package.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CITATION.cff">Cite it</a><span>Citation metadata.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/records/CANONICAL-RECORD.md">Builder log, canonical record, provenance</a><span>Records of how the project was built.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/maintainer/ANIMA-CONTEXT.md">Maintainer context</a><span>Orientation notes for maintainers.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/status.json">status.json</a><span>The one source for every badge on the site.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/videos.json">videos.json</a><span>The list of films the Demos page shows.</span></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/.github/CONTRIBUTING.md">Changing the site</a><span>Rebuild and check the pages with tools/site.py.</span></li>
+</ul></div></section>
+
+</main>
+<footer class="foot">
+<div class="wrap cols">
+<div>
+<p><strong>ANIMA</strong>: memory (a prototype link), one screen and enforced rules for the coding agents you already use.</p>
+<p>Apache License 2.0. No cookies, no tracking, no outside files. Status last updated 2026-11-04.</p>
+<p>Also by this team: <a href="https://anshul48.github.io/trace/">TRACE</a>, search that shows its work.</p>
+</div>
+<div>
+<h2>This site</h2>
+<ul>
+<li><a href="try.html">Try it</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="evidence.html">Evidence and limits</a></li>
+<li><a href="verify.html">Check every claim</a></li>
+<li><a href="status.html">What is built</a></li>
+<li><a href="demos.html">Demos</a></li>
+<li><a href="docs.html">Docs index</a></li>
+</ul>
+</div>
+<div>
+<h2>Project</h2>
+<ul>
+<li><a href="https://github.com/Anshul48/anima-substrate">Repository</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CHANGELOG.md">Changelog</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/.github/CONTRIBUTING.md">Contributing</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/.github/SECURITY.md">Security</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/CITATION.cff">Cite it</a></li>
+<li><a href="https://github.com/Anshul48/anima-substrate/issues/new/choose">Report a problem</a></li>
+</ul>
+</div>
+</div>
+</footer>
+<script src="assets/site.js" defer></script>
+
+</body>
+</html>

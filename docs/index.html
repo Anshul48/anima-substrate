@@ -4,21 +4,43 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ANIMA — memory for coding work</title>
-<meta name="description" content="ANIMA is a prototype layer you install in one line on top of the coding agent you already use, Muse Code first, then Claude Code and Codex, giving it memory (a prototype link), a checker it cannot see, and a screen to watch it work.">
+<meta name="description" content="ANIMA is a prototype that gives the coding agent you already use a memory link for past fixes (a recorded run put a past job back in front of the next prompt; recall of new jobs is a small preliminary test), a hidden checker for its answers, and one screen to watch it work. Validated on one job type: fix a bug, judged by hidden tests.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:title" content="ANIMA — memory for coding work">
-<meta property="og:description" content="ANIMA is a prototype layer you install in one line on top of the coding agent you already use, Muse Code first, then Claude Code and Codex, giving it memory (a prototype link), a checker it cannot see, and a screen to watch it work.">
+<meta property="og:description" content="ANIMA is a prototype that gives the coding agent you already use a memory link for past fixes (a recorded run put a past job back in front of the next prompt; recall of new jobs is a small preliminary test), a hidden checker for its answers, and one screen to watch it work. Validated on one job type: fix a bug, judged by hidden tests.">
 <meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
 <meta property="og:url" content="https://anshul48.github.io/anima-substrate/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<script>document.documentElement.classList.add('js');try{var t=localStorage.getItem('anima-theme');document.documentElement.setAttribute('data-theme',(t==='light'||t==='dark')?t:'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}</script>
 <link rel="stylesheet" href="assets/tokens.css">
 <link rel="stylesheet" href="assets/site.css">
 
+<style>
+/* Lab look for pages with class "lab": white page, ink text, one blue accent, calm borders, no gradients.
+   Light is the default; the Theme button still switches. Only variables are remapped, so the shared stylesheet is untouched. */
+body.lab{--accent:#1a4fd6;--accent-ink:#fff;--accent-soft:#e6edfc;--link:#1a4fd6;--ink:#0d1220;--ink-2:#2a3347;--muted:#566077;--bg:#fff;--bg-2:#f5f7fa;--surface:#fff;--line:#dfe3ea;--line-strong:#b9c1d0;--shadow:none;
+--stage-bg:#fff;--stage-bg-2:#f5f7fa;--stage-ink:var(--ink);--stage-muted:#566077;--stage-line:#b9c1d0;--stage-accent:#1a4fd6;--stage-amber:#8a4b00;--stage-violet:#3b4a6b;--stage-green:#0f6b45;--stage-rose:#a3202c;--stage-glow:none}
+html[data-theme="dark"] body.lab{--accent:#8fb0ff;--accent-ink:#0a1020;--accent-soft:#16224a;--link:#8fb0ff;--ink:#eef1f8;--ink-2:#cfd6e6;--muted:#a3adc4;--bg:#0b0f1a;--bg-2:#10162a;--surface:#10162a;--line:#26304a;--line-strong:#3a4768;
+--stage-bg:#10162a;--stage-bg-2:#16203a;--stage-muted:#a3adc4;--stage-line:#3a4768;--stage-accent:#8fb0ff;--stage-amber:#f0b45a;--stage-violet:#b4bfdc;--stage-green:#5fd3a0;--stage-rose:#ff8f9b;--stage-glow:none}
+body.lab .hero{padding:var(--space-8) 0 var(--space-7)}
+body.lab .hero h1{font-size:clamp(2.2rem,1.4rem + 3vw,3.6rem);letter-spacing:-0.02em;line-height:1.08}
+body.lab .hero .lead{font-size:var(--step-1);max-width:34em}
+body.lab .stage{padding:var(--space-5)}
+body.lab .tag{display:inline-block;margin:0 0 var(--space-3);padding:2px 10px;border:1px solid var(--accent);border-radius:999px;color:var(--accent);font-size:var(--step--1);font-weight:650}
+body.lab .quiet{margin-top:var(--space-4);font-size:var(--step-0)}
+body.lab .scope{border-left:3px solid var(--accent);padding:var(--space-2) var(--space-4);color:var(--ink-2);font-size:var(--step--1);margin:var(--space-4) 0}
+body.lab .layer{font-size:var(--step--1);font-weight:650;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--muted);margin:0 0 var(--space-2)}
+body.lab .doclist{list-style:none;padding:0;margin:0 0 var(--space-6);max-width:none;border-top:1px solid var(--line)}
+body.lab .doclist li{display:grid;gap:var(--space-1) var(--space-5);padding:var(--space-3) 0;margin:0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){body.lab .doclist li{grid-template-columns:minmax(0,18rem) minmax(0,1fr)}}
+body.lab .doclist a{font-weight:650;overflow-wrap:anywhere}
+body.lab .doclist span{color:var(--ink-2)}
+body.lab pre,body.lab code{overflow-wrap:anywhere}
+</style>
 </head>
-<body class="">
+<body class="lab">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
 <div class="wrap">
@@ -27,20 +49,17 @@
 </div>
 </header>
 <main id="main">
-<section class="hero">
+<section class="hero" aria-labelledby="home-h">
 <div class="wrap">
 <div>
-<p class="eyebrow">A prototype for the coding tools you already use</p>
-<h1>Memory for coding work.</h1>
-<p class="lead">ANIMA is a layer you install in one line on top of the coding agent you already use, giving it memory (a prototype link), a checker it cannot see, and a screen to watch it work.</p>
+<p class="layer">A prototype for one job type</p>
+<h1 id="home-h">ANIMA — memory for coding work</h1>
+<p class="lead">ANIMA sits next to the coding agent you already use. A recorded run put a past fix back in front of the next prompt; recall of a new, different job is a small preliminary test. It hands every answer to a checker the agent cannot see, and shows the work on one screen. It is a prototype, validated on one job type: fix a bug, judged by hidden tests.</p>
 <div class="actions"><a class="btn primary" href="demo/">Replay the nine-job run</a></div>
-<p><a href="https://anshul48.github.io/trace/demos/">Watch the working films.</a></p>
-<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
-<p class="cmd-label">One line to install <span class="badge" data-state="built">Working today</span></p><div class="cmd"><code>curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/Anshul48/anima-substrate/main/install.sh | sh">Copy</button></div>
-<p class="eyebrow" style="margin-top:var(--space-5)">Works inside your harness (the coding tool an agent runs in)</p>
-<ul class="strip" aria-label="Harnesses, in order"><li><span><span class="n" aria-hidden="true">1</span><b>Muse Code</b></span><span class="badge" data-state="built">Working today</span></li><li><span><span class="n" aria-hidden="true">2</span><b>Claude Code</b></span><span class="badge" data-state="prototype">Prototype</span></li><li><span><span class="n" aria-hidden="true">3</span><b>Codex</b></span><span class="badge" data-state="prototype">Prototype</span></li></ul>
+<p class="quiet"><a href="https://anshul48.github.io/trace/demos/">Watch the working films</a></p>
 </div>
 <figure class="stage">
+<span class="tag">UI preview</span>
 <svg viewBox="0 0 420 560" role="img" aria-labelledby="hi-t hi-d">
 <title id="hi-t">Illustration: ANIMA between your coding tool and its memory</title>
 <desc id="hi-d">Your coding tool at the top lists Muse Code first, then Claude Code, then Codex. One line plugs it into ANIMA below. Inside ANIMA a mission branches into three tasks. Task 1 is right, task 2 was wrong and a fix climbed one rung, task 3 is waiting. A memory hit, fixed this before with a source id, feeds the fix.</desc>
@@ -72,45 +91,27 @@
 </g>
 </svg>
 
-<figcaption>UI preview (illustration of the design, not a screenshot): your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs a rung, memory feeds the fix.</figcaption>
+<figcaption>UI preview: an illustration of the design, not a screenshot. Your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs one rung, and a memory hit feeds the fix.</figcaption>
 </figure>
 </div>
 </section>
 
-<section class="sec" aria-label="Muse Code first" style="padding-bottom:0">
+<section class="sec alt" id="proof" aria-labelledby="proof-h">
 <div class="wrap">
+<p class="layer">The three-minute proof</p>
+<h2 id="proof-h">Three things you can check</h2>
+<h3>1. Nine recorded jobs, judged by a hidden checker</h3>
+<p>We gave ANIMA nine real bug-fixing jobs from well-known open-source Python libraries. A Muse Code worker did the work, the hidden checker judged each answer, and every decision went into a sealed record. Where the checker caught a wrong &ldquo;done&rdquo;, the next helper up the ladder fixed it. <a href="demo/">Replay the nine-job run</a> or <a href="evidence.html">read the run and its limits</a>.</p>
+<h3>2. A state tree you can read</h3>
+<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone. For a designed replay of all nine jobs see the <a href="ui-preview/index.html">UI preview: state tree</a>.</figcaption></figure>
+<h3>3. A memory that shows its work</h3>
 <div class="band">
-<p class="eyebrow">Muse Code first</p>
-<h2>The first harness ANIMA is built for, and the first rung of its ladder.</h2>
-<p>In both recorded runs (nine jobs each) the first rung of the ladder was a Muse Code worker. Muse Code was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026.</p>
-<p class="small muted">These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex. The plug-in itself is a separate part, and its state is the badge on the <a href="harnesses.html">harness page</a>.</p>
+<p class="eyebrow">The memory is TRACE</p>
+<h2>Search that shows its work, and wakes only a small part of the library.</h2>
+<p>In the sealed library we tested on (812,545 passages, 99,891,846 tokens), TRACE kept 0.9985 of exact meaning-based search&rsquo;s results on 50 test searches while scoring 0.79% of the rows, measured on one of the library&rsquo;s four equal parts. That is about 127 times less scoring work, and every answer comes with a checkable record of where it came from.</p>
+<p class="small muted">The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%). On the same searches, ordinary keyword search found the source passage more often (82% against 52%). These are our own measurements; no outside party has verified them. <a href="memory.html#trace">All the TRACE numbers, the earlier larger tests and the limits</a>.</p>
 </div>
 
-</div>
-</section>
-
-<section class="sec alt" aria-labelledby="pain-h">
-<div class="wrap">
-<h2 id="pain-h">The trouble with coding agents today</h2>
-<ul class="pain">
-<li>They forget between sessions.<span>You fix the same bug twice and explain the same decision again.</span></li>
-<li>You cannot see what several are doing.<span>Work happens in separate windows, and you piece it together.</span></li>
-<li>&ldquo;Done&rdquo; is not proof.<span>An agent can say it is finished and be wrong.</span></li>
-</ul>
-</div>
-</section>
-
-<section class="sec" aria-labelledby="real-h">
-<div class="wrap">
-<h2 id="real-h">What is real today, for one kind of job</h2>
-<p class="intro lead">We gave ANIMA's hidden checker and ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down. Across two recorded runs: 18 jobs, 16 verified first try, 2 caught.</p>
-<div class="tiles">
-<div class="tile"><span class="num">9</span><p>real bug-fix jobs, each with a plain-English description. The agent has to fix it.</p></div>
-<div class="tile"><span class="num">7</span><p>right the first time. A Muse Code worker did the work and the hidden tests agreed.</p></div>
-<div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers. The hidden checker caught both and the next helper fixed them.</p></div>
-</div>
-<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone.</figcaption></figure>
-<p><a href="demo/">Replay the nine-job run</a> &middot; <a href="evidence.html">Read the run</a></p>
 <div class="callout">
 <h2>Honest limits</h2>
 <ul>
@@ -125,60 +126,19 @@
 </div>
 </section>
 
-<section class="sec alt" aria-labelledby="walk-h">
+<section class="sec" id="deep" aria-labelledby="deep-h">
 <div class="wrap">
-<h2 id="walk-h">Walkthroughs &amp; Visual Proofs</h2>
-<div class="tablewrap"><table>
-<thead><tr><th scope="col">Walkthrough</th><th scope="col">What it is</th><th scope="col">Open it</th></tr></thead>
-<tbody>
-<tr><td>Flagship film (3 min)</td><td>One story for TRACE, ANIMA and Reflex</td><td><a href="https://anshul48.github.io/trace/demos/">Watch the working films</a></td></tr>
-<tr><td>State-tree replay</td><td>The recorded runs as a tree, in your browser (UI preview)</td><td><a href="ui-preview/index.html">UI preview: state tree</a></td></tr>
-<tr><td>Dashboard preview</td><td>Install, status and memory at a glance (UI preview)</td><td><a href="ui-preview/dashboard.html">UI preview: dashboard</a></td></tr>
-<tr><td>Nine-job record check</td><td>What the hidden checker decided, plus the sealed record</td><td><a href="demo/">Replay the nine-job run</a></td></tr>
-</tbody>
-</table></div>
-<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA state-tree replay - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA dashboard preview - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA nine-job record check - Replace href when rendered -->
+<p class="layer">The deep end</p>
+<h2 id="deep-h">Receipts, reproduce, architecture, research, status, contribute</h2>
+<div class="grid c3">
+<a class="card" href="evidence.html"><h3>Receipts</h3><p>The recorded run: log, decision chain, checker output, and what the record cannot show.</p></a>
+<a class="card" href="verify.html"><h3>Reproduce</h3><p>Every claim next to the command that checks it, and what each command needs.</p></a>
+<a class="card" href="how-it-works.html"><h3>Architecture</h3><p>The ladder, the hidden checker, the record and the memory, in plain words.</p></a>
+<a class="card" href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RESEARCH-ARCHIVE.md"><h3>Research notes</h3><p>Design-phase proposals and open questions. Direction, not results.</p></a>
+<a class="card" href="status.html"><h3>Status</h3><p>What is built, what is a prototype and what is only planned, from one status file.</p></a>
+<a class="card" href="https://github.com/Anshul48/anima-substrate/blob/main/.github/CONTRIBUTING.md"><h3>Contribute</h3><p>How to run the checks, change the site and report a problem.</p></a>
 </div>
-</section>
-
-<section class="sec" aria-labelledby="eco-h">
-<div class="wrap">
-<h2 id="eco-h">The ecosystem</h2>
-<p class="intro lead">One builder, three projects. TRACE is at the front: the memory the other two are built to use.</p>
-<div class="tablewrap"><table>
-<thead><tr><th scope="col">Project</th><th scope="col">Repository</th><th scope="col">Demo</th></tr></thead>
-<tbody>
-<tr><td>TRACE</td><td><a href="https://github.com/Anshul48/trace">Repository</a></td><td><a href="https://anshul48.github.io/trace/explorer/">Explorer</a></td></tr>
-<tr><td>ANIMA</td><td><a href="https://github.com/Anshul48/anima-substrate">Repository</a></td><td><a href="demo/">Recorded demo</a></td></tr>
-<tr><td>Reflex</td><td><a href="https://github.com/Anshul48/demo-trace-anima-reflex">Demo repository</a></td><td><a href="https://anshul48.github.io/demo-trace-anima-reflex/">Replay</a></td></tr>
-</tbody>
-</table></div>
-<p class="muted small">Reflex is a line of work where an AI looks at a screen and finds the right button to press. It is part of the ecosystem; it does not use TRACE.</p>
-</div>
-</section>
-
-<section class="sec alt" aria-labelledby="parts-h">
-<div class="wrap">
-<h2 id="parts-h">Six parts, one badge each</h2>
-<p class="intro lead">Each badge says what exists today. It comes from one status file, so a page cannot claim more than the project can show.</p>
-<div class="grid c3"><a class="card" href="memory.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/></svg><h3>Memory (TRACE)</h3><p>A recorded run put a past job back in front of the next prompt, with a record of where it came from. Recall of a new, different job is a small preliminary test.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="harnesses.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3v5M15 3v5"/><path d="M6 8h12v3a6 6 0 0 1-12 0V8z"/><path d="M12 17v4"/></svg><h3>Your harness</h3><p>ANIMA works inside the coding tool you already use (the harness): Muse Code first, then Claude Code, then Codex.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="install.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/></svg><h3>One-line install</h3><p>One command sets ANIMA up in a private folder, with no admin rights, then checks which of your coding tools it can find.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="state-tree.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M6 17v-6h12v6M12 11v6"/></svg><h3>One screen (SST)</h3><p>Every agent, task and attempt on one screen, drawn as a tree you can follow. SST stands for State Space Tree.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="voice.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><h3>Voice</h3><p>Say what you want. Speech is turned into text on your own computer, with local Whisper.</p><div class="cfoot"><span class="badge" data-state="built">Working today</span><span class="more">Read more &rarr;</span></div></a><a class="card" href="rules.html"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg><h3>Roles and rules</h3><p>Architect, manager and worker: who may do what, and rules a program enforces (secrets, no-push, budgets), written down once.</p><div class="cfoot"><span class="badge" data-state="next">Planned</span><span class="more">Read more &rarr;</span></div></a></div>
-<p style="margin-top:var(--space-5)"><a href="status.html">See the full status table</a></p>
-</div>
-</section>
-
-<section class="sec" aria-labelledby="trace-h">
-<div class="wrap">
-<h2 id="trace-h" class="sr">The memory</h2>
-<div class="band">
-<p class="eyebrow">The memory is TRACE</p>
-<h2>Search that shows its work, and wakes only a small part of the library.</h2>
-<p>In the sealed library we tested on (812,545 passages, 99,891,846 tokens), TRACE kept 0.9985 of exact meaning-based search&rsquo;s results on 50 test searches while scoring 0.79% of the rows, measured on one of the library&rsquo;s four equal parts. That is about 127 times less scoring work, and every answer comes with a checkable record of where it came from.</p>
-<p class="small muted">The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%). On the same searches, ordinary keyword search found the source passage more often (82% against 52%). These are our own measurements; no outside party has verified them. <a href="memory.html#trace">All the TRACE numbers, the earlier larger tests and the limits</a>.</p>
-</div>
-
+<p class="quiet"><a href="install.html">Install</a> &middot; <a href="docs.html">Docs index</a> &middot; <a href="demos.html">Demos</a></p>
 </div>
 </section>
 
@@ -199,6 +159,7 @@
 <li><a href="verify.html">Check every claim</a></li>
 <li><a href="status.html">What is built</a></li>
 <li><a href="demos.html">Demos</a></li>
+<li><a href="docs.html">Docs index</a></li>
 </ul>
 </div>
 <div>
