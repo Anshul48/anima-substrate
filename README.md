@@ -1,6 +1,6 @@
 # ANIMA - memory for coding work
 
-**ANIMA is a prototype.** It is a layer you install in one line on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory, a checker it cannot see, and a screen to watch it work.
+**ANIMA is a prototype.** It is a layer you install in one line on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory (a prototype link), a checker it cannot see, and a screen to watch it work.
 
 - TRACE memory comes first: every answer carries a record of where it came from.
 - Muse Code first; headless adapters for Muse Code, Claude Code and Codex exist.
@@ -89,7 +89,7 @@ Every claim in this README comes from one file, [`docs/status.json`](docs/status
 
 | Part | State | What exists today |
 |---|---|---|
-| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Working today** | Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK). |
+| [Memory (TRACE)](https://anshul48.github.io/anima-substrate/memory.html) | **Working today** | Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` returns similar past fixes, showing only hits re-checked against their source (one recorded fresh-clone run: 1 hit, similarity 0.67, source check OK). A separate small held-out check found 0 hits at 0.30 with the baseline passages; two tuned variants cleared 0.30 on 2 of 3 new tasks (preliminary). |
 | [Your harness](https://anshul48.github.io/anima-substrate/harnesses.html) | **Working today** | The Muse Code adapter runs one small bug task end to end: the worker fixes, the hidden checker judges, the record seals. Fresh-clone runs ended VERDICT PASS. |
 | [One-line install](https://anshul48.github.io/anima-substrate/install.html) | **Working today** | One line installs ANIMA into a private folder: the code, a small Python environment, a launcher, and a starter `anima.yaml` listing the coding tools it found. No admin rights, no passwords or keys asked. |
 | [One screen (SST)](https://anshul48.github.io/anima-substrate/state-tree.html) | **Working today** | `anima status --tree` prints the tree as text and `anima ui` serves the same tree as a page; both read the decision log, and `--demo` draws the built-in record with no run needed. |
@@ -126,9 +126,9 @@ A harness is the coding tool an agent runs in. ANIMA does not replace it; it plu
 
 <!-- block:memory-state:start (generated from docs/status.json by tools/site.py sync-readme) -->
 
-**Working today.** Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK).
+**Working today.** Setup, record and recall run: `anima memory setup` prepares a local TRACE store; each `anima run --memory trace` records the run; `anima memory recall` returns similar past fixes, showing only hits re-checked against their source (one recorded fresh-clone run: 1 hit, similarity 0.67, source check OK). A separate small held-out check found 0 hits at 0.30 with the baseline passages; two tuned variants cleared 0.30 on 2 of 3 new tasks (preliminary).
 
-Limit: A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Setup needs the network once.
+Limit: A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Recall of a new, different job is a small preliminary test (baseline 0 hits at 0.30 on 3 held-out tasks). Setup needs the network once.
 
 <!-- block:memory-state:end -->
 

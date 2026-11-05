@@ -1,5 +1,5 @@
-title: ANIMA memory: what an agent fixed comes back, with its source
-description: ANIMA uses TRACE as memory for coding work: a fix or decision stored in one session comes back in the next with a record id that points to where it came from.
+title: ANIMA memory: a recorded past job comes back, with its source
+description: ANIMA uses TRACE as memory for coding work: in a recorded run, a past job came back in the next session with a record id that points to where it came from. Recall of new, different jobs is a small preliminary test.
 nav: features
 out: memory.html
 ---
@@ -7,7 +7,7 @@ out: memory.html
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
 <h2>What it does</h2>
-<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what past jobs decided and fixed, and brings the most similar ones back when a new job comes up. Each recalled note carries a pointer to the file it came from, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
+<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what past jobs decided and fixed: a recorded run put a past job back in front of the next prompt. Recall of a new, different job is a small preliminary test (baseline 0 hits at 0.30 on 3 held-out tasks; two tuned variants cleared 0.30 on 2 of 3). Each recalled note carries a pointer to the file it came from, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
 <h2>See it</h2>
 {{#built:memory}}<figure class="fig"><img src="img/memory-run.png" alt="A terminal: one session stores a finished run, a new session recalls the most similar past jobs, each with a pointer to its source file."><figcaption>Real capture from a fresh clone.</figcaption></figure>{{/built}}
 {{#notbuilt:memory}}<figure class="fig dashed"><span class="tag">Illustration, not a screenshot</span>

@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ANIMA memory: what an agent fixed comes back, with its source</title>
-<meta name="description" content="ANIMA uses TRACE as memory for coding work: a fix or decision stored in one session comes back in the next with a record id that points to where it came from.">
+<title>ANIMA memory: a recorded past job comes back, with its source</title>
+<meta name="description" content="ANIMA uses TRACE as memory for coding work: in a recorded run, a past job came back in the next session with a record id that points to where it came from. Recall of new, different jobs is a small preliminary test.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ANIMA memory: what an agent fixed comes back, with its source">
-<meta property="og:description" content="ANIMA uses TRACE as memory for coding work: a fix or decision stored in one session comes back in the next with a record id that points to where it came from.">
+<meta property="og:title" content="ANIMA memory: a recorded past job comes back, with its source">
+<meta property="og:description" content="ANIMA uses TRACE as memory for coding work: in a recorded run, a past job came back in the next session with a record id that points to where it came from. Recall of new, different jobs is a small preliminary test.">
 <meta property="og:image" content="https://anshul48.github.io/anima-substrate/img/social-preview.png">
 <meta property="og:url" content="https://anshul48.github.io/anima-substrate/memory.html">
 <meta name="twitter:card" content="summary_large_image">
@@ -27,16 +27,16 @@
 </div>
 </header>
 <main id="main">
-<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / Memory (TRACE)</p><h1>Memory that carries over <span class="badge" data-state="built">Working today</span></h1><p class="lead">What an agent fixed or decided comes back in a later session, with a record of where it came from.</p><div class="banner built" role="note"><p><strong>Working today.</strong> You can check it yourself: the command is under &ldquo;How to check it&rdquo;.</p></div></div>
+<div class="wrap fhead"><p class="crumbs"><a href="features.html">Features</a> / Memory (TRACE)</p><h1>Memory that carries over <span class="badge" data-state="built">Working today</span></h1><p class="lead">A recorded run put a past job back in front of the next prompt, with a record of where it came from. Recall of a new, different job is a small preliminary test.</p><div class="banner built" role="note"><p><strong>Working today.</strong> You can check it yourself: the command is under &ldquo;How to check it&rdquo;.</p></div></div>
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
 <h2>What it does</h2>
-<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what past jobs decided and fixed, and brings the most similar ones back when a new job comes up. Each recalled note carries a pointer to the file it came from, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
+<p>Coding agents forget everything when a session ends. ANIMA keeps a memory of what past jobs decided and fixed: a recorded run put a past job back in front of the next prompt. Recall of a new, different job is a small preliminary test (baseline 0 hits at 0.30 on 3 held-out tasks; two tuned variants cleared 0.30 on 2 of 3). Each recalled note carries a pointer to the file it came from, so you can check a note instead of trusting it. The store behind it is TRACE.</p>
 <h2>See it</h2>
 <figure class="fig"><img src="img/memory-run.png" alt="A terminal: one session stores a finished run, a new session recalls the most similar past jobs, each with a pointer to its source file."><figcaption>Real capture from a fresh clone.</figcaption></figure>
 
 <p class="cmd-label">Run it <span class="badge" data-state="built">Working today</span></p><div class="cmd"><code>anima memory recall &quot;statslite moving average should return one simple average for every full window&quot;</code><button class="copy" type="button" data-copy="anima memory recall &quot;statslite moving average should return one simple average for every full window&quot;">Copy</button></div>
-<div class="two"><div class="panel"><h3>What exists today</h3><p>Setup, record and recall run: <code>anima memory setup</code> prepares a local TRACE store; each <code>anima run --memory trace</code> records the run; <code>anima memory recall</code> brings back similar past fixes, showing only hits re-checked against their source (fresh-clone run: 1 hit, similarity 0.67, source check OK).</p></div><div class="panel"><h3>Limits</h3><p>A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Setup needs the network once.</p></div></div>
+<div class="two"><div class="panel"><h3>What exists today</h3><p>Setup, record and recall run: <code>anima memory setup</code> prepares a local TRACE store; each <code>anima run --memory trace</code> records the run; <code>anima memory recall</code> returns similar past fixes, showing only hits re-checked against their source (one recorded fresh-clone run: 1 hit, similarity 0.67, source check OK). A separate small held-out check found 0 hits at 0.30 with the baseline passages; two tuned variants cleared 0.30 on 2 of 3 new tasks (preliminary).</p></div><div class="panel"><h3>Limits</h3><p>A small local store, not the 100-million-token library. Recall is only as good as the runs recorded. Recall of a new, different job is a small preliminary test (baseline 0 hits at 0.30 on 3 held-out tasks). Setup needs the network once.</p></div></div>
 <div class="panel" style="margin-top:var(--space-5)"><h3>How to check it</h3><p>Run:</p><div class="cmd"><code>anima memory recall &quot;statslite moving average should return one simple average for every full window&quot;</code><button class="copy" type="button" data-copy="anima memory recall &quot;statslite moving average should return one simple average for every full window&quot;">Copy</button></div><p>Evidence file in this repository: <a href="https://github.com/Anshul48/anima-substrate/blob/main/docs/MEMORY.md"><code>docs/MEMORY.md</code></a></p></div>
 <div style="margin-top:var(--space-8)">
 <h2 id="trace">The memory behind it: TRACE</h2>
@@ -78,7 +78,7 @@
 <footer class="foot">
 <div class="wrap cols">
 <div>
-<p><strong>ANIMA</strong>: memory, one screen and enforced rules for the coding agents you already use.</p>
+<p><strong>ANIMA</strong>: memory (a prototype link), one screen and enforced rules for the coding agents you already use.</p>
 <p>Apache License 2.0. No cookies, no tracking, no outside files. Status last updated 2026-11-04.</p>
 <p>Also by this team: <a href="https://anshul48.github.io/trace/">TRACE</a>, search that shows its work.</p>
 </div>

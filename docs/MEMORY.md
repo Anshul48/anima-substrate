@@ -1,8 +1,9 @@
 # ANIMA memory on TRACE (prototype link)
 
 What this is: after a job finishes, ANIMA writes down what happened (the task, what was changed, what the hidden checker said, what failed first).
-Those notes go into a small local [TRACE](https://github.com/Anshul48/trace) index. When the next job starts, ANIMA asks the index for similar past jobs
-and puts the top few in front of the worker's prompt, each with a pointer you can re-check against the original record.
+Those notes go into a small local [TRACE](https://github.com/Anshul48/trace) index. In a recorded run, the next job asked the index for similar past jobs
+and put the top hit in front of the worker's prompt, each with a pointer re-checked against the original record.
+Recall of a new, different job is a small preliminary test (see the held-out note below).
 
 Everything here runs on a plain laptop: no GPU, no API key, no network after the one-time setup.
 
@@ -115,10 +116,11 @@ One attempt per job; a PASS means the hidden checker passed it first time. The m
 
 Result: A1 15/15, A2 15/15, B 15/15. No arm failed anything, so the test cannot show that
 memory helps — these jobs are too easy for this worker. It does show two things: memory did
-not harm (B passed everything too, with similar token use), and recall works (for 13 of the
-14 B jobs that had a same-library past job in memory, recall returned one and ranked it first;
-similarities 0.30-0.69). One hard job (cachetools-cachedmethod-pickle) failed its first
-no-memory attempt and passed the rerun — single runs are noisy, which is why A1 ran twice.
+not harm (B passed everything too, with similar token use), and same-library recall returned
+a hit in that test (for 13 of the 14 B jobs that had a same-library past job in memory,
+recall returned one and ranked it first; similarities 0.30-0.69). One hard job
+(cachetools-cachedmethod-pickle) failed its first no-memory attempt and passed the rerun —
+single runs are noisy, which is why A1 ran twice.
 
 One honest limit found on the way. TRACE refuses recalls that arrive at the same
 moment from separate jobs ("fence held by a live committer"); the jobs then ran without
@@ -126,6 +128,16 @@ memory and still passed, and the two affected jobs were re-run one at a time wit
 injected. Parallel jobs sharing one store should stagger recalls or retry; the code does not
 retry yet, and it never serves memory it cannot verify. Full numbers: the A/B report in the
 branch (`anima/memory/ab/run_ab.py report`) and the memory worker's RUN-LOG.
+
+## Held-out recall: a small preliminary check
+
+A separate small check asked the memory for tasks it had never seen (3 held-out tasks: 1 genuine
+bug report, 2 hand-written stand-ins). With the baseline passages (short log lines) it found
+0 hits at similarity 0.30 on all three; the top hit still ranked a same-library past job first,
+but below the 0.30 floor (0.22-0.23). Two tuned variants (a task-name prefix on the query, and
+that prefix plus matching record tags) cleared 0.30 on the 2 tasks whose library was in the
+index. Treat this as a probe, not a production claim: 3 queries, a plain cosine scan rather than
+the TRACE engine, and no worker ran with and without memory, so no pass-rate effect was measured.
 
 ## Limits
 

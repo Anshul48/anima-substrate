@@ -68,6 +68,10 @@ not tested live), [memory](MEMORY.md), [screen and voice](UI.md).
   the voice commands label those buttons DISABLED instead of pretending.
 - Recall is only as good as the runs it recorded, and a hit it cannot tie to
   its source is left out and named, not shown.
+- Recall of a new, different bug is a small preliminary test: a 3-task held-out
+  check found 0 hits at similarity 0.30 with the baseline passages, while two
+  tuned variants cleared 0.30 on 2 of 3. The run above recalls the same bug,
+  second run.
 - The memory needs the network once (setup). The runs themselves need your
   agent login. Voice needs faster-whisper installed and downloads its model
   once; the demo clips ship with the repo.
