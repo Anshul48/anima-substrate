@@ -1,72 +1,75 @@
 # Docs index
 
-Everything in `docs/`, grouped by what you are probably looking for, one line per document. The project site is built from `docs/*.html`; those pages are generated from `docs/source/` by `python3 tools/site.py build` and should not be edited by hand. The same list is on the [Docs index page](https://anshul48.github.io/anima-substrate/docs.html).
+Everything in `docs/`, grouped by what you are probably looking for. The project site is built from `docs/*.html`; those pages are generated from `docs/source/` by `tools/site.py` and should not be edited by hand. The same list is on the [Docs index page](https://anshul48.github.io/anima-substrate/docs.html).
 
-## Start here
+## Receipts
 
-Read these first, in this order.
+- [Recorded run: nine jobs](evidence/flagship-run3/README.md): log, 69-record decision chain, checker output, and the chain checker. To check it yourself, run `python3 docs/evidence/flagship-run3/check_chain.py --tamper`.
+- [Earlier run](evidence/flagship-run2/README.md): kept for the record (nine jobs, no escalation).
+- [TRACE card, 100M test library](evidence/trace-card-100m/README.md): one small recorded TRACE test, 20 questions over the full test library, accepted by a hidden checker with 23 rules.
+- [Evidence page](https://anshul48.github.io/anima-substrate/evidence.html): the same records, on the site.
 
-- [Status](https://anshul48.github.io/anima-substrate/status.html): What is built, what is a prototype and what is only planned.
-- [Install](https://anshul48.github.io/anima-substrate/install.html): What the one-line install puts on your machine today and what it does not.
-- [Replay the nine-job run](https://anshul48.github.io/anima-substrate/demo/): The recorded run in your browser, with the record check.
-- [Use ANIMA with your coding agent](HARNESSES.md): How ANIMA sits next to Muse Code, Claude Code or Codex.
-- [The state tree screen, text mode and voice](UI.md): The one screen, the same tree as text, and the voice command.
+## Reproduce
 
-## Receipts and reproduction
+- [REPRODUCE-ALL.md](REPRODUCE-ALL.md): reproduce everything, on Linux or WSL, offline.
+- [REVIEW.md](REVIEW.md): ten-minute reviewer entry point.
+- [Verify page](https://anshul48.github.io/anima-substrate/verify.html): what each check proves, and what it does not.
+- [HARNESSES.md](HARNESSES.md): use ANIMA with the coding agent you already have.
+- [RECOVERY.md](RECOVERY.md): interruption boundaries and recovery procedures.
 
-Everything here can be checked by running a command.
+## Architecture
 
-- [Recorded run, nine jobs](evidence/flagship-run3/README.md): Log, decision chain, checker output and the chain checker.
-- [Earlier recorded run](evidence/flagship-run2/README.md): Kept for the record; nine jobs, no escalation.
-- [One small recorded TRACE test](evidence/trace-card-100m/README.md): A hidden checker accepted a small set of questions over the full test library.
-- [Reproduce everything](REPRODUCE-ALL.md): Offline steps for Linux and WSL, with what each one needs.
-- [The integrated demo](INTEGRATED-DEMO.md): What is tested end to end today, with the record for each line.
-- [ANIMA memory on TRACE](MEMORY.md): How finished jobs are written down and recalled for the next job.
+- [ROLES-AND-RULES.md](ROLES-AND-RULES.md): roles (architect, manager, worker) and the rules a program enforces; design, with what exists today marked.
+- [ARCHITECTURE.md](ARCHITECTURE.md): the `anima-substrate` Python package: persistent project worlds and a crash-safe local host.
+- [CONTRACTS.md](CONTRACTS.md): the pinned contracts the package tests enforce.
+- [MEMORY.md](MEMORY.md): ANIMA memory on TRACE, a prototype link. See also the [memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
+- [UI.md](UI.md): the state space tree screen, text mode, and voice.
+- [TECHNICAL-REPORT.md](TECHNICAL-REPORT.md): citable guide to what the package measured and what it only proposes.
+- [INTEGRATED-DEMO.md](INTEGRATED-DEMO.md): the one end-to-end run, what is tested today, with the record for each line.
 
-## Design and architecture
+### The earlier engine
 
-How the parts are meant to fit. Planned parts are marked in the documents.
+The small offline engine in `src/` is the repository's earlier front page and is kept as it was.
 
-- [Roles and rules](ROLES-AND-RULES.md): Architect, manager and worker, and the rules a program would enforce.
-- [Roadmap](ROADMAP.md): A gap map of what is not done.
-- [Architecture of the package](ARCHITECTURE.md): Persistent project worlds and a crash-safe local host.
-- [Contracts](CONTRACTS.md): The pinned contracts the package tests enforce.
-- [Technical report](TECHNICAL-REPORT.md): What the package measured and what it only proposes.
-
-## The earlier package in src/
-
-The small offline engine that was the first front page. Kept as it was.
-
-- [Earlier front page](README-technical.md): The toolkit in src/, written for researchers.
-- [Consumer guide](CONSUMER.md): How to use the package as a library.
-- [Reviewer entry point](REVIEW.md): A ten-minute path for a reviewer.
-- [Recovery](RECOVERY.md): Interruption boundaries and recovery procedures.
-- [SST staging](SST-STAGING.md): Staging a checkout of an older project that shares the abbreviation SST. It is not the state tree screen.
-- [Release notes 0.1.0](RELEASE-NOTES-0.1.0.md): First package release.
-- [Release notes 0.1.1](RELEASE-NOTES-0.1.1.md): Second package release.
-- [Examples](examples/quickstart.py): A short quickstart script and an external-participant example.
+- [README-technical.md](README-technical.md): the earlier front page.
+- [CONSUMER.md](CONSUMER.md): consumer guide.
+- [SST-STAGING.md](SST-STAGING.md): how the package stages a caller-provided checkout of an older search project that shares the abbreviation SST. It is not the State Space Tree screen described on the site.
+- [RELEASE-NOTES-0.1.0.md](RELEASE-NOTES-0.1.0.md), [RELEASE-NOTES-0.1.1.md](RELEASE-NOTES-0.1.1.md): release notes.
 
 ## Research notes
 
-Proposals written during design. They record direction and open questions, not measurements.
+Proposals, not results. Written during the programme's design phase; they record direction and open questions.
 
-- [Substrate direction](SUBSTRATE-DIRECTION.md): Where the substrate idea was heading.
-- [World boundaries](WORLD-BOUNDARIES.md): How project worlds are separated.
-- [Memory tiers and graph retirement](MEMORY-TIERS-AND-GRAPH-RETIREMENT.md): Proposal for tiers of memory.
-- [Personal model and proactive collaboration](PERSONAL-MODEL-AND-PROACTIVE-COLLABORATION.md): Proposal; nothing here is built.
-- [Hardware and research acceleration](HARDWARE-AND-RESEARCH-ACCELERATION.md): Notes on hardware options.
-- [Architecture channel handoff](ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md): A dated handoff note.
-- [Pending review, B1 and B2](PENDING-B1-B2-REVIEW-2026-10-05.md): A dated review note.
-- [Research archive](RESEARCH-ARCHIVE.md): Index of older research material.
+- [ROADMAP.md](ROADMAP.md): gap map of what is not done.
+- [SUBSTRATE-DIRECTION.md](SUBSTRATE-DIRECTION.md)
+- [WORLD-BOUNDARIES.md](WORLD-BOUNDARIES.md)
+- [MEMORY-TIERS-AND-GRAPH-RETIREMENT.md](MEMORY-TIERS-AND-GRAPH-RETIREMENT.md)
+- [PERSONAL-MODEL-AND-PROACTIVE-COLLABORATION.md](PERSONAL-MODEL-AND-PROACTIVE-COLLABORATION.md)
+- [HARDWARE-AND-RESEARCH-ACCELERATION.md](HARDWARE-AND-RESEARCH-ACCELERATION.md)
+- [ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md](ANIMA-ARCHITECTURE-CHANNEL-HANDOFF-2026-10-10.md)
+- [PENDING-B1-B2-REVIEW-2026-10-05.md](PENDING-B1-B2-REVIEW-2026-10-05.md)
+- [RESEARCH-ARCHIVE.md](RESEARCH-ARCHIVE.md)
 
-## Project and site
+## Status
 
-For people changing the repository or the pages.
+- [`status.json`](status.json): the one source for what is built and what is not.
+- [Status page](https://anshul48.github.io/anima-substrate/status.html): the same record, on the site.
+- [CHANGELOG.md](CHANGELOG.md): what changed.
 
-- [Changelog](CHANGELOG.md): Notable changes to the package.
-- [Cite it](CITATION.cff): Citation metadata.
-- [Builder log, canonical record, provenance](records/CANONICAL-RECORD.md): Records of how the project was built.
-- [Maintainer context](maintainer/ANIMA-CONTEXT.md): Orientation notes for maintainers.
-- [status.json](status.json): The one source for every badge on the site.
-- [videos.json](videos.json): The list of films the Demos page shows.
-- [Changing the site](../.github/CONTRIBUTING.md): Rebuild and check the pages with tools/site.py.
+## Contribute
+
+- [CONTRIBUTING.md](../.github/CONTRIBUTING.md), section ["Changing the site"](../.github/CONTRIBUTING.md#changing-the-site): rebuild or change the site.
+
+| Site source path | What it is |
+|---|---|
+| `docs/status.json` | Feature states. The only place a badge is decided |
+| `docs/videos.json` | The list of films the Demos page shows; swap a film with one edit |
+| `docs/source/` | Page templates, partials and the layout |
+| `tools/site.py` | `build` (render pages), `sync-readme` (update the README tables), `check` (fail on stale pages, banned phrases, broken links, missing alt text, size, contrast) |
+| `docs/assets/tokens.css` | Shared design tokens, the same file the TRACE site uses |
+
+## Demos and films
+
+- [Recorded demo](demo/index.html): check the record in a browser (open the file, or use the [Pages site](https://anshul48.github.io/anima-substrate/demo/)). Recorded replay.
+- [Demos page](https://anshul48.github.io/anima-substrate/demos.html): the films.
+- [`ui-preview/`](ui-preview/index.html): the dashboard screens. UI preview.
