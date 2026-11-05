@@ -1,9 +1,7 @@
-/* ANIMA UI preview v6 — shared style.
-   Palette (dark, calm, high-contrast):
-   ink #0A0F16 · panel #101927 · raised #17222F · hairline #26374C
-   text #F2F6FB · muted #9DB0C6 · faint #67798F
-   architect gold #E8B84B · coordinator teal #45D8C3 · worker blue #6CB8F0
-   pass green #4ADE80 · fail red #F26D6D · running amber #F5A524
+/* ANIMA UI preview v7 — shared style. Light by default (also under a dark system setting);
+   the theme button sets data-theme="dark" and remembers it. Styling only: no data, no logic.
+   Palette (light): white page, ink text, one blue accent, calm hairlines.
+   Status colours (pass / fail / running) are meaning, always written next to the word.
    Type: Sora (local woff2) + system fallbacks; ui-monospace for code/hashes. */
 @font-face {
   font-family: 'Sora';
@@ -20,21 +18,52 @@
   font-display: swap;
   src: url('fonts/sora-latin-ext.woff2') format('woff2');
 }
+/* Role and meaning tokens keep their old names so the page-level rules stay readable:
+   --gold = architect (ink), --teal and --blue = the one accent. */
 :root {
+  color-scheme: light;
+  --bg: #FFFFFF;
+  --bg2: #FFFFFF;
+  --bg3: #F5F7FA;
+  --line: #E1E6EE;
+  --line-strong: #C3CBD8;
+  --text: #0B1220;
+  --muted: #444F63;
+  --faint: #566174;
+  --accent: #1D4ED8;
+  --accent-ink: #FFFFFF;
+  --gold: #0B1220;
+  --teal: #1D4ED8;
+  --blue: #1D4ED8;
+  --green: #15803D;
+  --red: #B91C1C;
+  --amber: #B45309;
+  --att-fill: #EEF3FD;
+  --pass-bg: #E6F4EC;
+  --fail-bg: #FBEAEA;
+  --mono: ui-monospace, 'Cascadia Mono', Consolas, 'DejaVu Sans Mono', monospace;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #0A0F16;
   --bg2: #101927;
   --bg3: #17222F;
   --line: #26374C;
+  --line-strong: #3A4C66;
   --text: #F2F6FB;
-  --muted: #9DB0C6;
-  --faint: #67798F;
-  --gold: #E8B84B;
-  --teal: #45D8C3;
-  --blue: #6CB8F0;
+  --muted: #A9BAD0;
+  --faint: #8798AF;
+  --accent: #7BA4FF;
+  --accent-ink: #0A0F16;
+  --gold: #F2F6FB;
+  --teal: #7BA4FF;
+  --blue: #7BA4FF;
   --green: #4ADE80;
-  --red: #F26D6D;
+  --red: #F58A8A;
   --amber: #F5A524;
-  --mono: ui-monospace, 'Cascadia Mono', Consolas, 'DejaVu Sans Mono', monospace;
+  --att-fill: #1B2A3D;
+  --pass-bg: #14301F;
+  --fail-bg: #3A1A1A;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -42,30 +71,31 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Sora', 'Segoe UI', system-ui, -apple-system, sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
+  font-size: 17px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 /* Fixed corner tag (required on every screen). */
 .preview-tag {
   position: fixed;
-  top: 12px;
-  right: 14px;
+  top: 14px;
+  right: 16px;
   z-index: 50;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13px;
+  font-weight: 650;
   letter-spacing: 0.04em;
-  color: var(--bg);
-  background: var(--teal);
+  color: var(--accent);
+  background: var(--bg);
+  border: 1.5px solid var(--accent);
   border-radius: 999px;
-  padding: 4px 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+  padding: 4px 14px;
 }
 header.top {
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 14px 120px 12px 28px;
+  gap: 12px 14px;
+  padding: 18px 120px 16px 32px;
   border-bottom: 1px solid var(--line);
   flex-wrap: wrap;
 }
@@ -80,15 +110,16 @@ h1.wordmark { margin: 0; }
   font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--muted);
-  margin-left: 10px;
+  margin-left: 12px;
 }
-nav.switch { display: flex; gap: 8px; margin-left: 6px; }
+nav.switch { display: flex; gap: 8px; margin-left: 4px; }
 nav.switch a {
   color: var(--muted);
   text-decoration: none;
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
-  padding: 7px 16px;
+  padding: 8px 18px;
+  min-height: 40px;
   border: 1px solid var(--line);
   border-radius: 999px;
 }
@@ -99,32 +130,44 @@ nav.switch a[aria-current="page"] {
 }
 nav.switch a:hover { border-color: var(--muted); }
 .run-pill, .chain-pill {
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 7px 15px;
-  background: var(--bg2);
+  padding: 7px 16px;
+  background: var(--bg);
   white-space: nowrap;
 }
-.chain-pill { color: var(--green); border-color: #1E4D3A; }
+.chain-pill { color: var(--green); border-color: var(--line-strong); }
 .chain-pill b, .run-pill b { color: var(--text); font-weight: 600; }
-main { padding: 16px 28px 24px; max-width: 1880px; margin: 0 auto; }
+.themebtn {
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--muted); background: none;
+  border: 1px solid transparent; border-radius: 999px; padding: 8px 14px; min-height: 40px; cursor: pointer;
+  display: none;
+}
+html.js .themebtn { display: inline-flex; align-items: center; }
+.themebtn:hover { border-color: var(--line-strong); color: var(--text); }
+main { padding: 28px 32px 36px; max-width: 1880px; margin: 0 auto; }
 footer.sources {
-  padding: 14px 28px 26px;
+  padding: 20px 32px 40px;
   color: var(--faint);
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.65;
   max-width: 1880px;
   margin: 0 auto;
+  border-top: 1px solid var(--line);
 }
-footer.sources a { color: var(--teal); }
+footer.sources a { color: var(--accent); }
 .mono { font-family: var(--mono); font-size: 0.92em; }
 @media (max-width: 760px) {
-  header.top { padding: 16px 100px 12px 16px; gap: 10px; }
+  body { font-size: 16.5px; }
+  header.top { padding: 18px 16px 14px; gap: 10px; }
+  .preview-tag { top: 10px; right: 12px; }
   .wordmark { font-size: 21px; }
-  .wordmark small { font-size: 13px; display: block; margin: 2px 0 0; }
-  main { padding: 14px 14px 22px; }
-  .run-pill, .chain-pill { font-size: 12px; }
+  .wordmark small { font-size: 14px; display: block; margin: 2px 0 0; }
+  main { padding: 20px 16px 28px; }
+  footer.sources { padding: 18px 16px 32px; }
+  .run-pill, .chain-pill { font-size: 13px; white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }

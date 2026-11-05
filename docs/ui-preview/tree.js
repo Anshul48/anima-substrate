@@ -26,16 +26,16 @@ el('path', { d: 'M106,332 L224,332', class: 'edge live', pathLength: '1' }, spin
 {
   const g = el('g', { class: 'node' }, spine);
   const gr = el('g', { class: 'grow' }, g);
-  el('path', { d: 'M74,300 L106,332 L74,364 L42,332 Z', fill: '#E8B84B' }, gr);
-  txt(gr, 74, 338, 'A', 'att-rung', 'middle').setAttribute('fill', '#0A0F16');
+  el('path', { d: 'M74,300 L106,332 L74,364 L42,332 Z', fill: 'var(--gold)' }, gr);
+  txt(gr, 74, 338, 'A', 'att-rung', 'middle').setAttribute('fill', 'var(--bg)');
   txt(spine, 74, 388, 'flagship-run3', 'root-label', 'middle');
   txt(spine, 74, 405, '9 jobs', 'root-label', 'middle');
 }
 {
   const g = el('g', { class: 'node' }, spine);
   const gr = el('g', { class: 'grow' }, g);
-  el('rect', { x: 224, y: 306, width: 52, height: 52, rx: 13, fill: '#45D8C3' }, gr);
-  txt(gr, 250, 339, 'C', 'att-rung', 'middle').setAttribute('fill', '#0A0F16');
+  el('rect', { x: 224, y: 306, width: 52, height: 52, rx: 13, fill: 'var(--teal)' }, gr);
+  txt(gr, 250, 339, 'C', 'att-rung', 'middle').setAttribute('fill', 'var(--bg)');
   txt(spine, 250, 388, 'coordinator', 'coord-label', 'middle');
 }
 
@@ -62,7 +62,7 @@ const built = TASKS.map((t, i) => {
   const body = el('g', { class: 'grow' }, g);
   const taskG = el('g', {}, body);
   el('rect', { x: TASK_X, y: y - 26, width: TASK_W, height: 52, rx: 13, class: 'task-rect' }, taskG);
-  const bar = el('rect', { x: TASK_X, y: y - 26, width: 6, height: 52, rx: 3, class: 'task-bar', fill: '#67798F' }, taskG);
+  const bar = el('rect', { x: TASK_X, y: y - 26, width: 6, height: 52, rx: 3, class: 'task-bar', fill: 'var(--faint)' }, taskG);
   txt(taskG, TASK_X + 18, y - 3, '#' + t.n, 'task-num');
   txt(taskG, TASK_X + 44, y - 3, t.short, 'task-name');
   const subT = txt(taskG, TASK_X + 18, y + 17, '', 'task-sub');
@@ -179,18 +179,18 @@ function render(rec) {
     }
     // task row text + bar
     const done = t.r1 ? t.r1.recVerdict : t.r0.recVerdict;
-    if (cur < t.recCreated) { b.subT.textContent = ''; b.bar.setAttribute('fill', '#67798F'); }
-    else if (cur < t.recStarted) { b.subT.textContent = 'queued'; b.bar.setAttribute('fill', '#67798F'); }
+    if (cur < t.recCreated) { b.subT.textContent = ''; b.bar.setAttribute('fill', 'var(--faint)'); }
+    else if (cur < t.recStarted) { b.subT.textContent = 'queued'; b.bar.setAttribute('fill', 'var(--faint)'); }
     else if (cur < done) {
       const r0failed = t.r1 && cur >= t.r0.recVerdict;
       const r1run = t.r1 && cur >= t.r1.recStarted;
       b.subT.textContent = r1run ? 'Claude Code · working'
         : r0failed ? 'checker said FAIL · escalating' : 'Muse Code · working';
-      b.bar.setAttribute('fill', '#F5A524');
+      b.bar.setAttribute('fill', 'var(--amber)');
     } else {
       const wall = t.r1 ? (t.r0.wall + t.r1.wall) : t.r0.wall;
       b.subT.textContent = `checker said PASS · ${wall} s${t.r1 ? ' · escalated' : ''}`;
-      b.bar.setAttribute('fill', '#4ADE80');
+      b.bar.setAttribute('fill', 'var(--green)');
     }
   }
   // header + panel

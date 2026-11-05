@@ -5,85 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="UI preview: a replay of the recorded nine-job run as a state space tree. Designed preview, not a live run.">
 <title>ANIMA state space tree — UI preview</title>
+<script src="theme.js"></script>
 <link rel="stylesheet" href="style.css">
 <style>
-  .tree-layout { display: grid; grid-template-columns: minmax(0, 1fr) 372px; gap: 22px; align-items: start; }
-  .canvas-card { background: var(--bg2); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px 6px; }
-  #tree { display: block; width: 100%; height: auto; }
+  .tree-layout { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 28px; align-items: start; }
+  .canvas-card { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 20px 22px 8px; min-width: 0; }
+  .canvas-scroll { overflow-x: auto; border-radius: 10px; }
+  .canvas-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  #tree { display: block; width: 100%; min-width: 900px; height: auto; }
   #tree text { font-family: 'Sora', 'Segoe UI', system-ui, sans-serif; user-select: none; }
+  .scroll-hint { display: none; margin: 8px 2px 0; font-size: 13.5px; color: var(--muted); }
   .node { cursor: pointer; }
   .node .grow { transform-box: fill-box; transform-origin: center; transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.15), opacity 0.3s ease; }
   .node.pre .grow { transform: scale(0.2); opacity: 0; }
   .subgrow { transform-box: fill-box; transform-origin: center; transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.15), opacity 0.3s ease; }
   .subgrow.pre { transform: scale(0.2); opacity: 0; }
-  .edge { fill: none; stroke: var(--line); stroke-width: 2; transition: stroke 0.3s; }
-  .edge.live { stroke: var(--teal); stroke-width: 2.4; }
+  .edge { fill: none; stroke: var(--line-strong); stroke-width: 2; transition: stroke 0.3s; }
+  .edge.live { stroke: var(--accent); stroke-width: 2.4; }
   .edge.draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
   .edge.draw.live { animation: drawedge 0.7s ease forwards; }
   @keyframes drawedge { to { stroke-dashoffset: 0; } }
   .edge.escalate.live { stroke: var(--amber); stroke-dasharray: 7 6; animation: flow 1.1s linear infinite; }
   @keyframes flow { to { stroke-dashoffset: -13; } }
-  .task-rect { fill: var(--bg3); stroke: var(--line); stroke-width: 1.5; transition: stroke 0.3s; }
+  .task-rect { fill: var(--bg3); stroke: var(--line-strong); stroke-width: 1.5; transition: stroke 0.3s; }
   .node.sel .task-rect, .node.sel .att-circle { stroke: var(--text); stroke-width: 2.5; }
   .task-bar { transition: fill 0.3s; }
-  .task-name { fill: var(--text); font-size: 17px; font-weight: 600; }
-  .task-sub { fill: var(--muted); font-size: 12.5px; }
-  .task-num { fill: var(--faint); font-size: 12.5px; font-weight: 600; }
-  .att-circle { fill: #1B2A3D; stroke: var(--blue); stroke-width: 2; transition: stroke 0.3s, fill 0.3s; }
+  .task-name { fill: var(--text); font-size: 18px; font-weight: 600; }
+  .task-sub { fill: var(--muted); font-size: 14px; }
+  .task-num { fill: var(--faint); font-size: 14px; font-weight: 600; }
+  .att-circle { fill: var(--att-fill); stroke: var(--accent); stroke-width: 2; transition: stroke 0.3s, fill 0.3s; }
   .att-ring { fill: none; stroke-width: 3; opacity: 0; transition: opacity 0.3s; }
   .att-pass .att-ring { stroke: var(--green); opacity: 1; }
   .att-fail .att-ring { stroke: var(--red); opacity: 1; }
-  .att-pass .att-circle { fill: #14301F; }
-  .att-fail .att-circle { fill: #3A1A1A; }
+  .att-pass .att-circle { fill: var(--pass-bg); }
+  .att-fail .att-circle { fill: var(--fail-bg); }
   .att-run .att-ring { stroke: var(--amber); opacity: 1; animation: pulse 1.6s ease-in-out infinite; }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-  .att-rung { fill: var(--text); font-size: 14px; font-weight: 700; }
-  .att-who { fill: var(--muted); font-size: 12px; }
+  .att-rung { fill: var(--text); font-size: 15px; font-weight: 700; }
+  .att-who { fill: var(--muted); font-size: 13.5px; }
   .stamp { transform-box: fill-box; transform-origin: center; transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3), opacity 0.25s; }
   .stamp.pre { transform: scale(0.3); opacity: 0; }
-  .stamp-pass rect { fill: #12341F; stroke: var(--green); }
-  .stamp-fail rect { fill: #3A1A1A; stroke: var(--red); }
+  .stamp-pass rect { fill: var(--pass-bg); stroke: var(--green); }
+  .stamp-fail rect { fill: var(--fail-bg); stroke: var(--red); }
   .stamp-pass text { fill: var(--green); }
   .stamp-fail text { fill: var(--red); }
   .stamp text { font-size: 14px; font-weight: 700; letter-spacing: 0.06em; }
-  .root-label, .coord-label { fill: var(--muted); font-size: 13px; }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 8px 8px 8px; color: var(--muted); font-size: 13.5px; }
-  .legend span { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
-  .glyph { display: inline-block; width: 15px; height: 15px; }
-  .scrub { display: flex; align-items: center; gap: 12px; padding: 8px 8px 10px; border-top: 1px solid var(--line); margin-top: 4px; flex-wrap: wrap; }
+  .root-label, .coord-label { fill: var(--muted); font-size: 14px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 26px; padding: 14px 4px 14px; color: var(--muted); font-size: 14.5px; }
+  .legend span { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+  .glyph { display: inline-block; width: 16px; height: 16px; }
+  .scrub { display: flex; align-items: center; gap: 14px; padding: 14px 4px 16px; border-top: 1px solid var(--line); margin-top: 4px; flex-wrap: wrap; }
   .scrub button {
-    font: inherit; font-weight: 600; font-size: 14.5px; color: var(--bg); background: var(--teal);
-    border: 0; border-radius: 999px; padding: 9px 26px; cursor: pointer; min-height: 44px;
+    font: inherit; font-weight: 600; font-size: 15.5px; color: var(--accent-ink); background: var(--accent);
+    border: 0; border-radius: 999px; padding: 10px 30px; cursor: pointer; min-height: 46px;
   }
-  .scrub button:hover { filter: brightness(1.08); }
-  .scrub input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--teal); height: 32px; }
-  .scrub select { font: inherit; font-size: 14px; color: var(--text); background: var(--bg3); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; }
-  .scrub .clock { font-size: 14px; color: var(--muted); white-space: nowrap; }
+  .scrub button:hover { filter: brightness(1.1); }
+  .scrub input[type="range"] { flex: 1; min-width: 160px; accent-color: var(--accent); height: 32px; }
+  .scrub select { font: inherit; font-size: 15px; color: var(--text); background: var(--bg); border: 1px solid var(--line-strong); border-radius: 10px; padding: 9px 12px; min-height: 44px; }
+  .scrub .clock { font-size: 15px; color: var(--muted); white-space: nowrap; }
   .scrub .clock b { color: var(--text); }
-  aside.panel { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 16px; }
-  .card { background: var(--bg2); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px; }
-  .card h2 { margin: 0 0 10px; font-size: 13px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--faint); }
-  .now-big { font-size: 24px; font-weight: 700; margin: 2px 0 6px; }
-  .now-sub { color: var(--muted); font-size: 14px; }
-  .now-counts { display: flex; gap: 16px; margin-top: 12px; }
-  .now-counts div b { display: block; font-size: 21px; }
-  .now-counts div span { font-size: 12.5px; color: var(--muted); }
+  aside.panel { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 16px; }
+  .card { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; }
+  .card h2 { margin: 0 0 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--faint); }
+  .now-big { font-size: 26px; font-weight: 700; line-height: 1.25; margin: 2px 0 6px; }
+  .now-sub { color: var(--muted); font-size: 15px; }
+  .now-counts { display: flex; gap: 22px; margin-top: 16px; }
+  .now-counts div b { display: block; font-size: 24px; }
+  .now-counts div span { font-size: 14px; color: var(--muted); }
   .c-green { color: var(--green); } .c-amber { color: var(--amber); } .c-blue { color: var(--blue); }
-  ul.feed { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-  ul.feed li { font-size: 14.5px; color: var(--text); border-left: 3px solid var(--teal); padding-left: 12px; line-height: 1.5; }
+  ul.feed { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  ul.feed li { font-size: 15.5px; color: var(--text); border-left: 3px solid var(--accent); padding-left: 14px; line-height: 1.55; }
   ul.feed li.old { color: var(--muted); border-color: var(--line); }
-  ul.feed li .rec { color: var(--faint); font-size: 12px; display: block; }
-  .detail-name { font-size: 18px; font-weight: 700; overflow-wrap: anywhere; }
-  .detail-rows { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; }
-  .detail-rows > div { display: flex; gap: 10px; }
-  .detail-rows .k { color: var(--faint); flex: 0 0 78px; }
-  .verdict-pill { display: inline-block; font-weight: 700; font-size: 13px; letter-spacing: 0.05em; border-radius: 999px; padding: 3px 12px; border: 1.5px solid; }
+  ul.feed li .rec { color: var(--faint); font-size: 13px; display: block; }
+  .detail-name { font-size: 19px; font-weight: 700; overflow-wrap: anywhere; }
+  .detail-rows { margin-top: 12px; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; }
+  .detail-rows > div { display: flex; gap: 12px; }
+  .detail-rows .k { color: var(--faint); flex: 0 0 82px; }
+  .verdict-pill { display: inline-block; font-weight: 700; font-size: 13.5px; letter-spacing: 0.05em; border-radius: 999px; padding: 3px 12px; border: 1.5px solid; }
   .verdict-pass { color: var(--green); border-color: var(--green); }
   .verdict-fail { color: var(--red); border-color: var(--red); }
   .verdict-run { color: var(--amber); border-color: var(--amber); }
   @media (max-width: 1100px) {
-    .tree-layout { grid-template-columns: 1fr; }
-    aside.panel { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+    .tree-layout { grid-template-columns: 1fr; gap: 20px; }
+    aside.panel { position: static; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .canvas-card { padding: 14px 14px 4px; }
+    .scroll-hint { display: block; }
+    #tree { min-width: 760px; }
+    .scrub input[type="range"] { flex-basis: 100%; order: 3; }
   }
 </style>
 </head>
@@ -97,16 +107,20 @@
   </nav>
   <span class="run-pill"><b>flagship-run3</b> · replay of a recorded run, not live</span>
   <span class="chain-pill" id="chainPill">chain OK · <b id="chainRec">1 of 69</b> records</span>
+  <button class="themebtn" type="button" aria-label="Switch between light and dark colours">Dark mode</button>
 </header>
 <main class="tree-layout">
   <section class="canvas-card" aria-label="State space tree canvas">
+    <div class="canvas-scroll" tabindex="0" role="region" aria-label="Tree canvas, scrollable">
     <svg id="tree" viewBox="0 0 1170 660" role="img" aria-label="Tree of 9 tasks and their attempts"></svg>
+    </div>
+    <p class="scroll-hint">Swipe the tree sideways to see every attempt.</p>
     <div class="legend" aria-label="Legend">
-      <span><svg class="glyph" viewBox="0 0 16 16"><path d="M8 1 15 8 8 15 1 8Z" fill="#E8B84B"/></svg>architect's plan</span>
-      <span><svg class="glyph" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" fill="#45D8C3"/></svg>coordinator's task card</span>
-      <span><svg class="glyph" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#6CB8F0" stroke-width="2.5"/></svg>worker's attempt</span>
-      <span><svg class="glyph" viewBox="0 0 20 16"><rect x="1" y="2" width="18" height="12" rx="6" fill="none" stroke="#4ADE80" stroke-width="2"/></svg>checker's stamp</span>
-      <span><svg class="glyph" viewBox="0 0 20 16"><line x1="1" y1="8" x2="19" y2="8" stroke="#F5A524" stroke-width="2.5" stroke-dasharray="4 3"/></svg>escalation</span>
+      <span><svg class="glyph" viewBox="0 0 16 16"><path d="M8 1 15 8 8 15 1 8Z" style="fill:var(--gold)"/></svg>architect's plan</span>
+      <span><svg class="glyph" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" style="fill:var(--teal)"/></svg>coordinator's task card</span>
+      <span><svg class="glyph" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.5" fill="none" style="stroke:var(--blue)" stroke-width="2.5"/></svg>worker's attempt</span>
+      <span><svg class="glyph" viewBox="0 0 20 16"><rect x="1" y="2" width="18" height="12" rx="6" fill="none" style="stroke:var(--green)" stroke-width="2"/></svg>checker's stamp</span>
+      <span><svg class="glyph" viewBox="0 0 20 16"><line x1="1" y1="8" x2="19" y2="8" style="stroke:var(--amber)" stroke-width="2.5" stroke-dasharray="4 3"/></svg>escalation</span>
     </div>
     <div class="scrub">
       <button id="playBtn" type="button">Play</button>
