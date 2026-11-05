@@ -749,7 +749,7 @@ def check() -> int:
 
 
 def social() -> int:
-    """Render docs/source/social-preview.html to docs/img/social-preview.png (1280 x 640). Needs Playwright with a Chromium."""
+    """Render docs/source/social-preview.html to docs/img/social-preview.png (1200 x 630). Needs Playwright with a Chromium."""
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
@@ -758,7 +758,7 @@ def social() -> int:
     out = DOCS / "img" / "social-preview.png"
     with sync_playwright() as p:
         b = p.chromium.launch()
-        pg = b.new_page(viewport={"width": 1280, "height": 640})
+        pg = b.new_page(viewport={"width": 1200, "height": 630})
         pg.goto((SITE / "social-preview.html").resolve().as_uri())
         pg.screenshot(path=str(out))
         b.close()

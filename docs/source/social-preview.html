@@ -1,42 +1,9 @@
-<!doctype html>
-<!-- Source of docs/img/social-preview.png (1280 x 640, the GitHub social preview).
-     Render: python3 tools/site.py social  (needs Playwright; any Chromium works). -->
-<html lang="en"><head><meta charset="utf-8"><title>ANIMA social preview</title>
-<style>
-:root { --bg:#0a1124; --bg2:#101b38; --ink:#eef3ff; --muted:#a9b6d8; --line:#243255; --teal:#2fd6c2; --amber:#f6b93b; --violet:#a597ff; --green:#4be0a0; }
-* { box-sizing: border-box; }
-html, body { margin: 0; width: 1280px; height: 640px; }
-body { background: radial-gradient(1000px 520px at 78% -8%, #17305e 0%, rgba(23,48,94,0) 62%), linear-gradient(160deg, var(--bg2), var(--bg)); color: var(--ink);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; position: relative; overflow: hidden; }
-.pad { position: absolute; inset: 0; padding: 64px 72px; display: flex; flex-direction: column; justify-content: space-between; }
-.brand { display: flex; align-items: center; gap: 18px; letter-spacing: .32em; font-weight: 800; font-size: 34px; color: var(--teal); }
-.mark { width: 54px; height: 54px; border-radius: 14px; background: #0f1b38; border: 2px solid var(--teal); display: grid; place-items: center; }
-h1 { margin: 0; font-size: 84px; line-height: 1.04; letter-spacing: -.02em; font-weight: 800; max-width: 800px; }
-.chips { display: flex; gap: 14px; align-items: center; margin-top: 30px; }
-.chip { border: 2px solid var(--line); border-radius: 999px; padding: 10px 22px; font-size: 26px; font-weight: 700; }
-.chip.first { border-color: var(--teal); color: var(--teal); }
-.chip span { color: var(--muted); font-weight: 600; margin-right: 8px; }
-.foot { display: flex; justify-content: space-between; align-items: flex-end; color: var(--muted); font-size: 22px; white-space: nowrap; }
-.foot b { color: var(--ink); }
-svg.tree { position: absolute; right: 56px; top: 96px; width: 270px; opacity: .95; }
-</style></head>
-<body>
-<svg class="tree" viewBox="0 0 270 330" role="img" aria-label="A small tree: a mission, three tasks, one wrong attempt that is fixed by the next rung" fill="none" stroke-width="3">
-  <g stroke="#3c4f80"><path d="M135 44V84M45 84H225M45 84V124M135 84V124M225 84V124M135 164V214"/></g>
-  <rect x="85" y="6" width="100" height="38" rx="19" stroke="#8da0d0"/><text x="135" y="31" fill="#eef3ff" stroke="none" font-size="18" font-weight="700" text-anchor="middle" font-family="sans-serif">mission</text>
-  <rect x="5" y="124" width="80" height="40" rx="20" stroke="#4be0a0"/><text x="45" y="150" fill="#4be0a0" stroke="none" font-size="17" font-weight="700" text-anchor="middle" font-family="sans-serif">right</text>
-  <rect x="95" y="124" width="80" height="40" rx="20" stroke="#f6b93b"/><text x="135" y="150" fill="#f6b93b" stroke="none" font-size="17" font-weight="700" text-anchor="middle" font-family="sans-serif">wrong</text>
-  <rect x="185" y="124" width="80" height="40" rx="20" stroke="#8da0d0" stroke-dasharray="6 5"/><text x="225" y="150" fill="#a9b6d8" stroke="none" font-size="17" font-weight="700" text-anchor="middle" font-family="sans-serif">waiting</text>
-  <rect x="95" y="214" width="80" height="40" rx="20" stroke="#4be0a0"/><text x="135" y="240" fill="#4be0a0" stroke="none" font-size="17" font-weight="700" text-anchor="middle" font-family="sans-serif">fixed</text>
-  <path d="M135 254V284" stroke="#a597ff" stroke-dasharray="5 5"/>
-  <rect x="55" y="284" width="160" height="40" rx="12" stroke="#a597ff"/><text x="135" y="310" fill="#a597ff" stroke="none" font-size="17" font-weight="700" text-anchor="middle" font-family="sans-serif">memory</text>
-</svg>
-<div class="pad">
-  <div class="brand"><div class="mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2fd6c2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M12 7v4M6 17v-6h12v6M12 11v6"/></svg></div>ANIMA</div>
-  <div>
-    <h1>Coding agents that remember what they fixed.</h1>
-    <div class="chips"><div class="chip first"><span>1</span>Muse Code</div><div class="chip"><span>2</span>Claude Code</div><div class="chip"><span>3</span>Codex</div></div>
-  </div>
-  <div class="foot"><div><b>Every part has a badge:</b> working today, prototype or next</div><div>github.com/Anshul48/anima-substrate</div></div>
-</div>
-</body></html>
+<!doctype html><meta charset=utf-8><style>html,body{margin:0}body{width:1200px;height:630px;overflow:hidden;background:#fff;color:#0b1220;
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;position:relative}
+.bar{position:absolute;left:0;top:0;width:1200px;height:10px;background:#1f4fd8}
+.brand{position:absolute;left:72px;top:64px;font-weight:800;letter-spacing:.16em;font-size:26px;color:#1f4fd8}
+h1{position:absolute;left:72px;top:130px;margin:0;font-size:60px;line-height:1.1;letter-spacing:-.02em;width:520px}
+p.sub{position:absolute;left:72px;margin:0;font-size:28px;line-height:1.4;color:#4a5568;width:440px;top:360px}
+.foot{position:absolute;left:72px;bottom:44px;font-size:22px;color:#4a5568}
+.pill{position:absolute;border:2px solid #1f4fd8;color:#1f4fd8;border-radius:999px;padding:4px 16px;font-size:22px;font-weight:700}
+svg{position:absolute}</style><body><div class=bar></div><div class=brand>ANIMA</div><div class=pill style="left:210px;top:60px">prototype</div><h1>ANIMA — memory for coding work</h1><p class=sub>A tree of what was tried while fixing a bug.</p><div class=foot>Research prototype · open source</div><svg width="1200" height="630" viewBox="0 0 1200 630"><line x1="760" y1="150" x2="640" y2="270" stroke="#aab3c5" stroke-width="2.5"/><line x1="760" y1="150" x2="880" y2="270" stroke="#1f4fd8" stroke-width="4"/><line x1="640" y1="270" x2="570" y2="390" stroke="#aab3c5" stroke-width="2.5"/><line x1="640" y1="270" x2="710" y2="390" stroke="#aab3c5" stroke-width="2.5"/><line x1="880" y1="270" x2="820" y2="390" stroke="#aab3c5" stroke-width="2.5"/><line x1="880" y1="270" x2="960" y2="390" stroke="#1f4fd8" stroke-width="4"/><line x1="960" y1="390" x2="960" y2="510" stroke="#1f4fd8" stroke-width="4"/><line x1="820" y1="390" x2="820" y2="510" stroke="#aab3c5" stroke-width="2.5"/><circle cx="760" cy="150" r="22" fill="#1f4fd8" stroke="#1f4fd8" stroke-width="3"/><circle cx="640" cy="270" r="17" fill="#fff" stroke="#aab3c5" stroke-width="3"/><circle cx="880" cy="270" r="17" fill="#1f4fd8" stroke="#1f4fd8" stroke-width="3"/><circle cx="570" cy="390" r="17" fill="#fff" stroke="#aab3c5" stroke-width="3"/><circle cx="710" cy="390" r="17" fill="#fff" stroke="#aab3c5" stroke-width="3"/><circle cx="820" cy="390" r="17" fill="#fff" stroke="#aab3c5" stroke-width="3"/><circle cx="960" cy="390" r="17" fill="#1f4fd8" stroke="#1f4fd8" stroke-width="3"/><circle cx="960" cy="510" r="17" fill="#1f4fd8" stroke="#1f4fd8" stroke-width="3"/><circle cx="820" cy="510" r="17" fill="#fff" stroke="#aab3c5" stroke-width="3"/></svg></body>
