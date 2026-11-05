@@ -1,0 +1,55 @@
+/* Light-by-default skin for the two site pages that show the replay (state-tree.html, demo/index.html).
+   Loaded after assets/tokens.css. White page, ink text, one blue accent. The dark theme is used only when the
+   visitor presses the theme button (data-theme="dark"); a dark system setting does not switch it on.
+   Styling only: no copy, no data, no logic. */
+:root:not([data-theme="dark"]) {
+  color-scheme: light;
+  --st-built: #15803d;  --st-built-bg: #e6f4ec;
+  --st-proto: #92400e;  --st-proto-bg: #fdf0cf;
+  --st-next:  #3b3fc4;  --st-next-bg:  #ebebfd;
+  --st-limit: #b91c1c;  --st-limit-bg: #fbeaea;
+  --bg: #ffffff;
+  --bg-2: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f3f5f8;
+  --ink: #0b1220;
+  --ink-2: #2a3445;
+  --muted: #444f63;
+  --line: #e1e6ee;
+  --line-strong: #c3cbd8;
+  --accent: #1d4ed8;
+  --accent-ink: #ffffff;
+  --accent-soft: #e8eefc;
+  --link: #1d4ed8;
+  --focus: #1d4ed8;
+  --shadow: none;
+}
+:root[data-theme="dark"] {
+  --accent: #7ba4ff;
+  --accent-ink: #0a1124;
+  --accent-soft: #16264d;
+  --link: #9dbcff;
+  --focus: #9dbcff;
+}
+
+/* Spacing and type scale */
+body.polish { font-size: 1.125rem; line-height: 1.7; }
+body.polish .wrap { max-width: 1040px; }
+body.polish .sec { padding: var(--space-8) 0; }
+body.polish .sec > .wrap > h2, body.polish .sec h2 { margin-top: var(--space-7); margin-bottom: var(--space-4); }
+body.polish .sec > .wrap > h2:first-child, body.polish .sec > .wrap > .crumbs + .eyebrow { margin-top: 0; }
+body.polish h1 { letter-spacing: -0.02em; line-height: 1.1; margin-bottom: var(--space-5); }
+body.polish .lead { font-size: var(--step-1); max-width: 56ch; color: var(--ink-2); }
+body.polish .legend { gap: var(--space-3) var(--space-6); margin: var(--space-5) 0 var(--space-3); }
+body.polish .legend li { font-size: 1rem; }
+body.polish .legend i { width: 16px; height: 16px; }
+body.polish .fig img { border: 1px solid var(--line); border-radius: var(--radius); }
+body.polish .fig figcaption { font-size: 1rem; }
+body.polish .btn { min-height: 48px; }
+body.polish .btn.primary:hover { filter: brightness(1.1); }
+body.polish .callout { border-radius: var(--radius); }
+body.polish .tile { border-radius: var(--radius); padding: var(--space-6) var(--space-5); box-shadow: none; }
+@media (max-width: 640px) {
+  body.polish { font-size: 1.0625rem; }
+  body.polish .sec { padding: var(--space-7) 0; }
+}
