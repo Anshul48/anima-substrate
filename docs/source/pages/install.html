@@ -1,21 +1,43 @@
-title: ANIMA one-line install
-description: One command sets ANIMA up in a private folder with no admin rights, then checks which of your coding tools it can find.
+title: ANIMA install
+description: What the ANIMA one-line install puts on your machine today, what it does not, and how to check it. ANIMA is a prototype.
 nav: features
+class: lab
 out: install.html
 ---
 {{fhead:install}}
 <section class="sec" style="padding-top:var(--space-4)">
 <div class="wrap">
-<h2>What it does</h2>
-<p>You should be able to try ANIMA without a setup day. One line downloads it into a private folder and builds a small Python environment there. It does not need administrator rights and it does not touch the rest of your machine. Then one command checks which of your coding tools it can find.</p>
-<h2>Try it</h2>
+<div class="actions" style="margin-top:0"><a class="btn primary" href="status.html">Read what is built today</a></div>
+
+<h2>The command</h2>
+<p>This is the only install route this page describes. We ran it end to end on 5 November 2026 on a Linux machine: it finished, and <code>anima doctor</code> then listed the coding tools it found. We have not run it on macOS or Windows from this page.</p>
 {{installbox}}
-{{cmds:install}}
+<p class="muted small">Needs git, Python 3.11 or newer, and network access to GitHub. It never uses sudo and never edits your shell startup files.</p>
+
+<h2>What installs today</h2>
+<ul>
+<li>A copy of this repository in a private folder (<code>~/.anima/repo</code> by default).</li>
+<li>A small Python environment in that folder. No packages are downloaded into it.</li>
+<li>A launcher, <code>anima</code>, and a starter <code>anima.yaml</code> that lists which of Muse Code, Claude Code and Codex it found on your machine.</li>
+<li>A link to <code>anima</code> in <code>~/.local/bin</code>, only if that folder already exists and is on your PATH.</li>
+</ul>
+
+<h2>What does not install</h2>
+<ul>
+<li><strong>The coding tools.</strong> Muse Code, Claude Code and Codex must already be installed and logged in. ANIMA looks for the program and never asks for your passwords or keys.</li>
+<li><strong>The TRACE memory.</strong> It is a second step, <code>anima memory setup</code>, and needs the network once.</li>
+<li><strong>Voice.</strong> It needs a Python with a local speech-to-text package that you provide (see the voice page).</li>
+<li><strong>Roles and rules enforcement.</strong> This is planned and not built. No program reads that file today.</li>
+<li><strong>A system-wide install.</strong> Nothing outside the private folder is changed, apart from the optional link above.</li>
+</ul>
+<p>What each adapter can do today is on the <a href="harnesses.html">harness page</a>. The Claude Code and Codex adapters are prototypes, and in the merged tree they are dry-run only.</p>
+
 <h2>What the installer does, step by step</h2>
 <ol class="steps">
-<li><h3>Downloads ANIMA into a private folder</h3><p>Nothing is installed system-wide.</p></li>
-<li><h3>Builds a small Python environment inside it</h3><p>Python 3 and git must already be on your machine.</p></li>
-<li><h3>Checks your tools</h3><p>Muse Code, Claude Code and Codex are looked for, and each one found is reported. They must already be installed and logged in; ANIMA never asks for your passwords or keys.</p></li>
+<li><h3>Checks git and Python</h3><p>Stops with a plain message if either is missing or Python is older than 3.11.</p></li>
+<li><h3>Gets the code</h3><p>Clones the repository into the private folder, or fast-forwards an earlier clone.</p></li>
+<li><h3>Builds the environment and launcher</h3><p>Nothing is installed system-wide.</p></li>
+<li><h3>Looks for your tools</h3><p>Runs <code>anima init</code>, which writes <code>anima.yaml</code>. Then <code>anima doctor</code> checks each tool it found.</p></li>
 </ol>
 {{facts:install}}
 {{howtocheck:install}}
