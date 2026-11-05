@@ -1,9 +1,9 @@
-# ANIMA - memory for coding work
+# ANIMA — memory for coding work
 
 **ANIMA is a prototype.** It is a layer you install in one line on top of the coding agent you already use (Muse Code first, then Claude Code, Codex), giving it memory (a prototype link), a checker it cannot see, and a screen to watch it work.
 
 - TRACE memory comes first: every answer carries a record of where it came from.
-- Muse Code first; headless adapters for Muse Code, Claude Code and Codex exist.
+- Muse Code works today; the Claude Code and Codex adapters are prototypes.
 - Nine recorded bug-fix jobs you can replay, and a state-tree screen to watch them.
 
 **[Replay the nine-job run](https://anshul48.github.io/anima-substrate/demo/)** — the recorded run, checked in your browser.
@@ -41,21 +41,21 @@ python3 docs/evidence/flagship-run3/check_chain.py --tamper
 
 ANIMA plugs into the coding tool you already use instead of replacing it. Its memory is [TRACE](https://github.com/Anshul48/trace), a memory that sorts a huge pile of text into groups by itself, joined by a prototype link with one small recorded test so far. [Try the memory and the harness.](https://anshul48.github.io/anima-substrate/try.html)
 
-What the recorded runs show, for one job type (fix a bug against hidden tests): nine real bug-fixing jobs from well-known open-source Python libraries, written down decision by decision. Seven were right the first time; two wrong "done" answers were caught by the hidden checker and fixed by the next helper. Across two recorded runs: 18 jobs, 16 verified first try, 2 caught. [Read the run.](https://anshul48.github.io/anima-substrate/evidence.html) Nine jobs in one run is a worked example, not a statistic.
+What the recorded runs show, for one job type (fix a bug against hidden tests): nine real bug-fixing jobs from well-known open-source Python libraries, written down decision by decision. Seven were right the first time; two wrong "done" answers were caught by the hidden checker and fixed by the next helper. [Read the run.](https://anshul48.github.io/anima-substrate/evidence.html) Nine jobs in one run is a worked example, not a statistic.
 
-Muse Code was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, 619 finished, about 170 hours of summed worker time, from 1 to 4 November 2026. These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex.
+Muse Code was also our main headless worker tool while we built this project: 670 recorded jobs on two machines, from 1 to 4 November 2026. These are counts from our own job records. We make no claim about cost or speed differences between Muse Code, Claude Code and Codex.
 
 ### The ecosystem
 
-One builder, three projects. TRACE is at the front: the memory the other two are built to use. The owner's profile is calibrated as a map of these projects: [github.com/Anshul48](https://github.com/Anshul48).
+One builder, three projects. TRACE is the memory at the front, and ANIMA is the prototype that brings it into coding work. Reflex is separate and does not use TRACE. The owner's profile is a map of these projects: [github.com/Anshul48](https://github.com/Anshul48).
 
 | Project | Repository | Demo |
 |---|---|---|
 | TRACE | [Repository](https://github.com/Anshul48/trace) | [Explorer](https://anshul48.github.io/trace/explorer/) |
-| ANIMA | [Repository](https://github.com/Anshul48/anima-substrate) | [Recorded demo](https://anshul48.github.io/anima-substrate/demo/) |
+| ANIMA | [Repository](https://github.com/Anshul48/anima-substrate) | [Recorded replay](https://anshul48.github.io/anima-substrate/demo/) |
 | Reflex | [Demo repository](https://github.com/Anshul48/demo-trace-anima-reflex) | [Replay](https://anshul48.github.io/demo-trace-anima-reflex/) |
 
-Reflex is a line of work where an AI looks at a screen and finds the right button to press. It is part of the ecosystem; it does not use TRACE.
+Reflex is a separate line of work where an AI looks at a screen and finds the right button to press. It does not use TRACE.
 
 ### Walkthroughs & Visual Proofs
 
@@ -134,18 +134,18 @@ Limit: A small local store, not the 100-million-token library. Recall is only as
 
 In a coding workflow the same bug gets fixed twice and the same decision gets explained again. ANIMA's memory is **TRACE**, our public search that shows its work: every answer comes with a record of where it came from. Everything in this section is **our own measurement**; no outside party has verified it. It is TRACE's record, not an ANIMA result.
 
-**The sealed library we tested on: 812,545 passages, 99,891,846 tokens.** The planned 100-million-token gate was waived: the library falls short by 108,154 tokens (0.11%).
+**The sealed library TRACE was tested on: 812,545 passages, 99,891,846 tokens.** The planned 100M target was waived: the library is short of the 100M target by 0.11%.
 
-- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On 50 test searches (40 written questions and 10 taken from passage openings) TRACE scored **0.79% of the rows**, measured on one of the library's four equal parts. That is about **127 times less scoring work** than looking at everything, and it kept **0.9985 of exact meaning-based search's results**.
-- **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. What we measured: at every library size we tested (10,000 to 200,000 passages, one recipe), a passage's ten closest matches fell in about 5 groups on average, where random groups would give 10; for the 50 test searches on our 100-million-token library it was about 7 groups out of 10. This measures how ordered the finished grouping is. It does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
+- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On TRACE's test searches, a question scored **0.79% of the library** and kept **99.85% of exact meaning-based search's top ten**. Scope: 50 test searches; one of four equal library parts; passage-scoring work only.
+- **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. We measured how ordered the finished grouping is, which does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
 - **A checkable record on every answer.** Each result carries a record of where it came from, with a fingerprint you can recompute yourself.
 
 **Earlier, larger tests (ours, kept apart from the numbers above):**
 
-- **504,480,146 tokens.** Around 28 October 2026 we sealed a TRACE memory of 504,480,146 tokens in 13 parts on a cloud machine. That machine has since been shut down, so this test cannot be re-run. It is an earlier test by us, recorded in our own receipts, and nobody outside has checked it.
-- **1.53 billion tokens, routing only.** A separate test on rented GPUs (16 October 2026) turned 1,531,809,092 tokens of a different, larger collection into 7,134,906 searchable vectors in 109 pieces. A search that looked only at the most likely groups kept 0.9947 of the exact top ten while looking at 6.6% of the vectors. It tested routing only: no merged index, not served through TRACE, no checkable records at that scale, and not a one-billion-vector run.
+- **A larger sealed memory.** Around 28 October 2026 we sealed a larger TRACE memory on a cloud machine. That machine has since been shut down, so this test cannot be re-run. It is an earlier test by us, recorded in our own receipts, and nobody outside has checked it.
+- **A routing-only test.** A separate test on rented GPUs (16 October 2026) used a different, larger collection and looked at how well a search that opens only the most likely groups keeps the exact top ten. It tested routing only: no merged index, not served through TRACE, no checkable records at that scale. Its numbers are in the [TRACE receipts](https://github.com/Anshul48/trace/tree/main/receipts), not repeated here.
 
-**Where TRACE does not win:** on the same 50 test searches, ordinary keyword search put the right source passage in its top ten for 82% of searches; TRACE did for 52%, and so did exact meaning-based search. Keyword search also had the shorter response time (6 milliseconds against 1.2 seconds for TRACE). Stored size on disk: TRACE 2.28 GB, exact vectors 1.25 GB, keyword index 0.51 GB. TRACE has not been run on public benchmarks, and there is no public query service. Details: [the memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
+**Where TRACE does not win:** on the same 50 test searches, ordinary keyword search found the right source passage more often than TRACE did, and it answered more quickly. The keyword index is also smaller on disk. TRACE has not been run on public benchmarks, and there is no public query service. Details: [the memory page](https://anshul48.github.io/anima-substrate/memory.html) and the [TRACE repository](https://github.com/Anshul48/trace).
 
 </details>
 
