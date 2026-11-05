@@ -136,7 +136,7 @@ In a coding workflow the same bug gets fixed twice and the same decision gets ex
 
 **The sealed library TRACE was tested on: 812,545 passages, 99,891,846 tokens.** The planned 100M target was waived: the library is short of the 100M target by 0.11%.
 
-- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On TRACE's test searches, a question scored **0.79% of the library** and kept **99.85% of exact meaning-based search's top ten**. Scope: 50 test searches; one of four equal library parts; passage-scoring work only.
+- **Sparse activation.** A question wakes only the few groups likely to hold the answer. On TRACE's test searches, a question scored **0.79% of rows on one of four equal library parts** and kept **99.85% of exact meaning-based search's top ten**. Scope: 50 test searches; one of four equal library parts; passage-scoring work only.
 - **Self-organizing, as an idea.** TRACE is a self-organizing memory prototype: it sorts passages into groups on its own, with no labels added by people. The sorting is one ordinary automatic step (k-means). The idea is inspired by how brains organize memory; we do not claim TRACE works like a brain. We measured how ordered the finished grouping is, which does not show order arising over time, and we do not claim it improves as the library grows. [TRACE's own site](https://anshul48.github.io/trace/) tells this story.
 - **A checkable record on every answer.** Each result carries a record of where it came from, with a fingerprint you can recompute yourself.
 

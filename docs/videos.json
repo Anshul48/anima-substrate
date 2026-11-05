@@ -10,6 +10,16 @@
       "length": "2:08",
       "caption": "A recorded run of the checker and the nine bug-fix jobs, the tamper check, and what is built and what is next.",
       "note": "Recorded before the plug-in, install, state-tree and voice work. The status page shows what is built today. One spoken line at 0:49 is out of date: the first rung in the recorded runs was a Muse Code worker (the captions say so)."
+    },
+    {
+      "id": "replay-60s",
+      "title": "Silent 60-second recorded tour",
+      "file": "media/replay-60s.mp4",
+      "captions": "media/replay-60s.vtt",
+      "poster": "media/replay-60s.png",
+      "length": "1:00",
+      "caption": "A recorded replay of nine bug-fixing jobs: the hidden checker, the state tree, and the record check.",
+      "note": "Recorded from the demo page and the UI preview."
     }
   ]
 }

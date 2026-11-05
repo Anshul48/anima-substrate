@@ -166,7 +166,7 @@ def r_videos(c: Ctx) -> str:
         track = f'<track kind="captions" srclang="en" label="English" src="{c.root}{v["captions"]}">' if v.get("captions") else ""
         poster = f' poster="{c.root}{v["poster"]}"' if v.get("poster") else ""
         out.append(
-            f'<article class="vcard"><video controls preload="none"{poster}><source src="{c.root}{v["file"]}" type="video/mp4">{track}'
+            f'<article class="vcard"><video controls preload="none"{poster} aria-label="{esc(v["title"])}"><source src="{c.root}{v["file"]}" type="video/mp4">{track}'
             f'Your browser cannot play this video. <a href="{c.root}{v["file"]}">Download it ({size}).</a></video>'
             f'<div class="meta"><h3>{esc(v["title"])}</h3><p>{esc(v["caption"])}</p>'
             f'<p class="muted small">{esc(v["length"])} &middot; {size} &middot; captions on &middot; {esc(v.get("note", ""))}</p></div></article>')
