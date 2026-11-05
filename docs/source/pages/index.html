@@ -1,107 +1,52 @@
 title: ANIMA — memory for coding work
-description: ANIMA is a prototype layer you install in one line on top of the coding agent you already use, Muse Code first, then Claude Code and Codex, giving it memory, a checker it cannot see, and a screen to watch it work.
+description: ANIMA is a prototype that gives the coding agent you already use a memory of past fixes, a hidden checker for its answers, and one screen to watch it work. Validated on one job type: fix a bug, judged by hidden tests.
 nav:
+class: lab
 out: index.html
 ---
-<section class="hero">
+<section class="hero" aria-labelledby="home-h">
 <div class="wrap">
 <div>
-<p class="eyebrow">A prototype for the coding tools you already use</p>
-<h1>Memory for coding work.</h1>
-<p class="lead">ANIMA is a layer you install in one line on top of the coding agent you already use, giving it memory, a checker it cannot see, and a screen to watch it work.</p>
+<p class="layer">A prototype for one job type</p>
+<h1 id="home-h">ANIMA — memory for coding work</h1>
+<p class="lead">ANIMA sits next to the coding agent you already use. It remembers earlier fixes, hands every answer to a checker the agent cannot see, and shows the work on one screen. It is a prototype, validated on one job type: fix a bug, judged by hidden tests.</p>
 <div class="actions"><a class="btn primary" href="demo/">Replay the nine-job run</a></div>
-<p><a href="https://anshul48.github.io/trace/demos/">Watch the working films.</a></p>
-<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
-{{installbox}}
-<p class="eyebrow" style="margin-top:var(--space-5)">Works inside your harness (the coding tool an agent runs in)</p>
-{{harnessstrip}}
+<p class="quiet"><a href="https://anshul48.github.io/trace/demos/">Watch the working films</a></p>
 </div>
 <figure class="stage">
+<span class="tag">UI preview</span>
 {{include:hero-illustration}}
-<figcaption>UI preview (illustration of the design, not a screenshot): your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs a rung, memory feeds the fix.</figcaption>
+<figcaption>UI preview: an illustration of the design, not a screenshot. Your tool plugs into ANIMA, tasks form a tree, a wrong answer climbs one rung, and a memory hit feeds the fix.</figcaption>
 </figure>
 </div>
 </section>
 
-<section class="sec" aria-label="Muse Code first" style="padding-bottom:0">
+<section class="sec alt" id="proof" aria-labelledby="proof-h">
 <div class="wrap">
-{{include:muse-first}}
-</div>
-</section>
-
-<section class="sec alt" aria-labelledby="pain-h">
-<div class="wrap">
-<h2 id="pain-h">The trouble with coding agents today</h2>
-<ul class="pain">
-<li>They forget between sessions.<span>You fix the same bug twice and explain the same decision again.</span></li>
-<li>You cannot see what several are doing.<span>Work happens in separate windows, and you piece it together.</span></li>
-<li>&ldquo;Done&rdquo; is not proof.<span>An agent can say it is finished and be wrong.</span></li>
-</ul>
-</div>
-</section>
-
-<section class="sec" aria-labelledby="real-h">
-<div class="wrap">
-<h2 id="real-h">What is real today, for one kind of job</h2>
-<p class="intro lead">We gave ANIMA's hidden checker and ladder nine real bug-fixing jobs from well-known open-source Python libraries, and wrote every decision down. Across two recorded runs: 18 jobs, 16 verified first try, 2 caught.</p>
-<div class="tiles">
-<div class="tile"><span class="num">9</span><p>real bug-fix jobs, each with a plain-English description. The agent has to fix it.</p></div>
-<div class="tile"><span class="num">7</span><p>right the first time. A Muse Code worker did the work and the hidden tests agreed.</p></div>
-<div class="tile bad"><span class="num">2</span><p>wrong &ldquo;done&rdquo; answers. The hidden checker caught both and the next helper fixed them.</p></div>
-</div>
-{{#built:sst}}<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone.</figcaption></figure>{{/built}}
-<p><a href="demo/">Replay the nine-job run</a> &middot; <a href="evidence.html">Read the run</a></p>
+<p class="layer">The three-minute proof</p>
+<h2 id="proof-h">Three things you can check</h2>
+<h3>1. Nine recorded jobs, judged by a hidden checker</h3>
+<p>We gave ANIMA nine real bug-fixing jobs from well-known open-source Python libraries. A Muse Code worker did the work, the hidden checker judged each answer, and every decision went into a sealed record. Where the checker caught a wrong &ldquo;done&rdquo;, the next helper up the ladder fixed it. <a href="demo/">Replay the nine-job run</a> or <a href="evidence.html">read the run and its limits</a>.</p>
+<h3>2. A state tree you can read</h3>
+{{#built:sst}}<figure class="fig"><img src="img/sst-screen.png" alt="The ANIMA state tree screen showing one recorded run: owner, run, one task with a verified attempt, and the decision records on the right."><figcaption>Real screenshot: the state tree screen showing a recorded run, served from a fresh clone. For a designed replay of all nine jobs see the <a href="ui-preview/index.html">UI preview: state tree</a>.</figcaption></figure>{{/built}}
+<h3>3. A memory that shows its work</h3>
+{{include:trace-short}}
 {{include:limits}}
 </div>
 </section>
 
-<section class="sec alt" aria-labelledby="walk-h">
+<section class="sec" id="deep" aria-labelledby="deep-h">
 <div class="wrap">
-<h2 id="walk-h">Walkthroughs &amp; Visual Proofs</h2>
-<div class="tablewrap"><table>
-<thead><tr><th scope="col">Walkthrough</th><th scope="col">What it is</th><th scope="col">Open it</th></tr></thead>
-<tbody>
-<tr><td>Flagship film (3 min)</td><td>One story for TRACE, ANIMA and Reflex</td><td><a href="https://anshul48.github.io/trace/demos/">Watch the working films</a></td></tr>
-<tr><td>State-tree replay</td><td>The recorded runs as a tree, in your browser (UI preview)</td><td><a href="ui-preview/index.html">UI preview: state tree</a></td></tr>
-<tr><td>Dashboard preview</td><td>Install, status and memory at a glance (UI preview)</td><td><a href="ui-preview/dashboard.html">UI preview: dashboard</a></td></tr>
-<tr><td>Nine-job record check</td><td>What the hidden checker decided, plus the sealed record</td><td><a href="demo/">Replay the nine-job run</a></td></tr>
-</tbody>
-</table></div>
-<!-- VIDEO_SLOT: Flagship film - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA state-tree replay - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA dashboard preview - Replace href when rendered -->
-<!-- VIDEO_SLOT: ANIMA nine-job record check - Replace href when rendered -->
+<p class="layer">The deep end</p>
+<h2 id="deep-h">Receipts, reproduce, architecture, research, status, contribute</h2>
+<div class="grid c3">
+<a class="card" href="evidence.html"><h3>Receipts</h3><p>The recorded run: log, decision chain, checker output, and what the record cannot show.</p></a>
+<a class="card" href="verify.html"><h3>Reproduce</h3><p>Every claim next to the command that checks it, and what each command needs.</p></a>
+<a class="card" href="how-it-works.html"><h3>Architecture</h3><p>The ladder, the hidden checker, the record and the memory, in plain words.</p></a>
+<a class="card" href="https://github.com/Anshul48/anima-substrate/blob/main/docs/RESEARCH-ARCHIVE.md"><h3>Research notes</h3><p>Design-phase proposals and open questions. Direction, not results.</p></a>
+<a class="card" href="status.html"><h3>Status</h3><p>What is built, what is a prototype and what is only planned, from one status file.</p></a>
+<a class="card" href="https://github.com/Anshul48/anima-substrate/blob/main/.github/CONTRIBUTING.md"><h3>Contribute</h3><p>How to run the checks, change the site and report a problem.</p></a>
 </div>
-</section>
-
-<section class="sec" aria-labelledby="eco-h">
-<div class="wrap">
-<h2 id="eco-h">The ecosystem</h2>
-<p class="intro lead">One builder, three projects. TRACE is at the front: the memory the other two are built to use.</p>
-<div class="tablewrap"><table>
-<thead><tr><th scope="col">Project</th><th scope="col">Repository</th><th scope="col">Demo</th></tr></thead>
-<tbody>
-<tr><td>TRACE</td><td><a href="https://github.com/Anshul48/trace">Repository</a></td><td><a href="https://anshul48.github.io/trace/explorer/">Explorer</a></td></tr>
-<tr><td>ANIMA</td><td><a href="https://github.com/Anshul48/anima-substrate">Repository</a></td><td><a href="demo/">Recorded demo</a></td></tr>
-<tr><td>Reflex</td><td><a href="https://github.com/Anshul48/demo-trace-anima-reflex">Demo repository</a></td><td><a href="https://anshul48.github.io/demo-trace-anima-reflex/">Replay</a></td></tr>
-</tbody>
-</table></div>
-<p class="muted small">Reflex is a line of work where an AI looks at a screen and finds the right button to press. It is part of the ecosystem; it does not use TRACE.</p>
-</div>
-</section>
-
-<section class="sec alt" aria-labelledby="parts-h">
-<div class="wrap">
-<h2 id="parts-h">Six parts, one badge each</h2>
-<p class="intro lead">Each badge says what exists today. It comes from one status file, so a page cannot claim more than the project can show.</p>
-{{featuregrid}}
-<p style="margin-top:var(--space-5)"><a href="status.html">See the full status table</a></p>
-</div>
-</section>
-
-<section class="sec" aria-labelledby="trace-h">
-<div class="wrap">
-<h2 id="trace-h" class="sr">The memory</h2>
-{{include:trace-short}}
+<p class="quiet"><a href="install.html">Install</a> &middot; <a href="docs.html">Docs index</a> &middot; <a href="demos.html">Demos</a></p>
 </div>
 </section>
